@@ -1,0 +1,5 @@
+import common
+
+entity_service task {
+    get_task_list req() rsp(list<task_info> tasks) err();
+}

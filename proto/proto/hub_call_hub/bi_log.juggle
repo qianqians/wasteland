@@ -1,0 +1,5 @@
+import common
+
+entity_service bi_log {
+    bi ntf(string log);
+}

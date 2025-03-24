@@ -1,0 +1,43 @@
+enum error_code {
+    success = 0;
+    cannot_claimed = 1;
+    cannot_completed = 2;
+    not_enough_money = 3;
+}
+
+enum em_direction {
+    stationary = 0;
+    up = 1;
+    down = 2;
+    left = 3;
+    right = 4;
+}
+
+struct position {
+    int32 x;
+    int32 y;
+}
+
+enum em_task_state {
+    can_claimed = 1;
+    in_progress = 2;
+    can_completed = 3;
+}
+
+struct task_info {
+    int32 task_id;
+    em_task_state status;
+}
+
+struct item {
+    int32 item_id;
+    int32 item_type;
+    int32 item_count;
+}
+
+enum em_harm_type {
+    melee_attack = 1;
+    bullet_damage = 2;
+    bow_arrow = 3;
+    magic_attack = 4;
+}
