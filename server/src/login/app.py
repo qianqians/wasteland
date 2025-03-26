@@ -34,10 +34,10 @@ class LoginEventHandle(login_event_handle):
         if info_str is not None and info_str != "":
             info = json.loads(info_str)
             self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, True, "其他位置登录!")
-            app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id}))
         else:
             gate_host = app().ctx.gate_host(new_gate_name)
             forward_client_query_service("wasteland_player_hub_{}".format(argvs["zone"]), new_gate_name, gate_host, new_conn_id, accound_id)
+        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id}))
     
 def main(cfg_file:str):
     _app = app()
