@@ -1,5 +1,6 @@
 import sys
 from ..engine.engine import *
+import wx_sdk
 
 class LoginEventHandle(login_event_handle):
     def __init__(self, db:str, collection:str):
@@ -17,7 +18,8 @@ class LoginEventHandle(login_event_handle):
         
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")
-        accound_id = await self.__get_client_account_id__(sdk_uuid)
+        device = wx_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
+        accound_id = await self.__get_client_account_id__(device["openid"])
         info_str = app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
         if info_str is not None and info_str != "":
             info = json.loads(info_str)
@@ -25,11 +27,12 @@ class LoginEventHandle(login_event_handle):
         else:
             gate_host = app().ctx.gate_host(new_gate_name)
             forward_client_query_service("wasteland_player_hub_{}".format(argvs["zone"]), new_gate_name, gate_host, new_conn_id, accound_id)
-        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id}))
+        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
     
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
-        accound_id = await self.__get_client_account_id__(sdk_uuid)
+        device = wx_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
+        accound_id = await self.__get_client_account_id__(device["openid"])
         info_str = app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
         if info_str is not None and info_str != "":
             info = json.loads(info_str)
@@ -37,7 +40,7 @@ class LoginEventHandle(login_event_handle):
         else:
             gate_host = app().ctx.gate_host(new_gate_name)
             forward_client_query_service("wasteland_player_hub_{}".format(argvs["zone"]), new_gate_name, gate_host, new_conn_id, accound_id)
-        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id}))
+        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
     
 def main(cfg_file:str):
     _app = app()
