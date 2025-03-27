@@ -10,11 +10,11 @@ class LoginEventHandle(login_event_handle):
 
     async def __get_client_account_id__(self, sdk_uuid:str):
         app().trace("LoginEventHandle __get_client_account_id__!")
-        uuidObj = await self.__get_dbproxy__().get_object_one(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid})
-        if not uuidObj:
+        uuid_obj = await self.__get_dbproxy__().get_object_one(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid})
+        if not uuid_obj:
             return await self.__get_guid_handle__.gen()
         else:
-            return uuidObj["GUID"]
+            return uuid_obj["GUID"]
         
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")
