@@ -18,6 +18,21 @@ struct position {
     int32 y;
 }
 
+enum em_equip_type {
+    helmet = 1;     // 头盔
+    jacket = 2;     // 上装
+    trousers = 3;   // 裤子
+    gloves = 4;     // 手套
+    boots = 5;      // 靴子
+    weapon = 6;     // 武器
+    shooting = 7;   // 远程攻击武器
+}
+
+enum em_shooting_bullet {
+    arrow = 1;
+    bullet = 2;
+}
+
 enum em_task_state {
     can_claimed = 1;
     in_progress = 2;
@@ -39,5 +54,4 @@ enum em_harm_type {
     melee_attack = 1;
     bullet_damage = 2;
     bow_arrow = 3;
-    magic_attack = 4;
 }

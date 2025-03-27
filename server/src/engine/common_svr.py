@@ -21,6 +21,21 @@ class em_direction(Enum):
     right = 4
 
 
+class em_equip_type(Enum):
+    helmet = 1
+    jacket = 2
+    trousers = 3
+    gloves = 4
+    boots = 5
+    weapon = 6
+    shooting = 7
+
+
+class em_shooting_bullet(Enum):
+    arrow = 1
+    bullet = 2
+
+
 class em_task_state(Enum):
     can_claimed = 1
     in_progress = 2
@@ -31,7 +46,6 @@ class em_harm_type(Enum):
     melee_attack = 1
     bullet_damage = 2
     bow_arrow = 3
-    magic_attack = 4
 
 
 #this struct code is codegen by geese codegen for python

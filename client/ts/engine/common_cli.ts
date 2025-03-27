@@ -17,6 +17,21 @@ export enum em_direction {
     right = 4,
 }
 
+export enum em_equip_type {
+    helmet = 1,
+    jacket = 2,
+    trousers = 3,
+    gloves = 4,
+    boots = 5,
+    weapon = 6,
+    shooting = 7,
+}
+
+export enum em_shooting_bullet {
+    arrow = 1,
+    bullet = 2,
+}
+
 export enum em_task_state {
     can_claimed = 1,
     in_progress = 2,
@@ -27,7 +42,6 @@ export enum em_harm_type {
     melee_attack = 1,
     bullet_damage = 2,
     bow_arrow = 3,
-    magic_attack = 4,
 }
 
 // this struct code is codegen by geese codegen for ts

@@ -1,8 +1,5 @@
 import sys
-from engine.engine import *
-from engine.login_svr import *
-from engine.update_rank_svr import *
-from engine.get_rank_svr import *
+from ..engine.engine import *
 
 class RankImpl(entity):
     def __init__(self):
