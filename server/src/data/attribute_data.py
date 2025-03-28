@@ -1,5 +1,5 @@
 
-class AttributeData:
+class attribute_data:
     def __init__(self, data:dict):
         self.hp = data["hp"]
         self.mp = data["mp"]
@@ -17,7 +17,7 @@ class AttributeData:
         }
     
     def create():
-        return AttributeData({
+        return attribute_data({
             "hp": 100,
             "mp": 100,
             "max_hp": 100,
