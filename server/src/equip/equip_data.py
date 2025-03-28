@@ -2,100 +2,73 @@ from ..engine.common_svr import *
 
 class equip:
     def __init__(self, data:dict):
-        self.id = data["id"]
-        self.name = data["name"]
-        self.icon = data["icon"]
-        self.desc = data["desc"]
-        self.type = data["type"]
-        self.add_hp = data["add_hp"]
-        self.add_mp = data["add_mp"]
-        self.add_defense = data["add_defense"]
+        self.equip = equip_info()
+        self.equip.id = data["id"]
+        self.equip.name = data["name"]
+        self.equip.icon = data["icon"]
+        self.equip.desc = data["desc"]
+        self.equip.equip_type = data["type"]
+        self.equip.add_hp = data["add_hp"]
+        self.equip.add_mp = data["add_mp"]
+        self.equip.add_defense = data["add_defense"]
 
-    def info(self) -> dict:
-        return {
-            "id": self.id,
-            "name": self.name,
-            "icon": self.icon,
-            "desc": self.desc,
-            "type": self.type,
-            "add_hp": self.add_hp,
-            "add_mp": self.add_mp,
-            "add_defense": self.add_defense,
-        }
+    def info(self) -> equip_info:
+        return self.equip
     
     def create(data:dict):
         return equip(data)
     
 class weapon:
     def __init__(self, data:dict):
-        self.id = data["id"]
-        self.name = data["name"]
-        self.icon = data["icon"]
-        self.desc = data["desc"]
-        self.type = data["type"]
-        self.attack = data["attack"]
+        self.weapon = weapon_info()
+        self.weapon.id = data["id"]
+        self.weapon.name = data["name"]
+        self.weapon.icon = data["icon"]
+        self.weapon.desc = data["desc"]
+        self.weapon.equip_type = data["type"]
+        self.weapon.attack = data["attack"]
 
-    def info(self) -> dict:
-        return {
-            "id": self.id,
-            "name": self.name,
-            "icon": self.icon,
-            "desc": self.desc,
-            "type": self.type,
-            "attack": self.attack,
-        }
+    def info(self) -> weapon_info:
+        return self.weapon
     
     def create(data:dict):
         return weapon(data)
 
 class bullet:
     def __init__(self, data:dict):
-        self.id = data["id"]
-        self.name = data["name"]
-        self.icon = data["icon"]
-        self.desc = data["desc"]
-        self.type = data["type"]
-        self.attack = data["attack"]
-        self.speed = data["speed"]
+        self.bullet = bullet_info()
+        self.bullet.id = data["id"]
+        self.bullet.name = data["name"]
+        self.bullet.icon = data["icon"]
+        self.bullet.desc = data["desc"]
+        self.bullet.type = data["type"]
+        self.bullet.attack = data["attack"]
+        self.bullet.speed = data["speed"]
 
-    def info(self) -> dict:
-        return {
-            "id": self.id,
-            "name": self.name,
-            "icon": self.icon,
-            "desc": self.desc,
-            "type": self.type,
-            "attack": self.attack,
-            "speed": self.speed,
-        }
+    def info(self) -> bullet_info:
+        return self.bullet
     
     def create(data:dict):
         return bullet(data)
 
 class shooting:
     def __init__(self, data:dict):
-        self.id = data["id"]
-        self.name = data["name"]
-        self.icon = data["icon"]
-        self.desc = data["desc"]
-        self.type = data["type"]
-        self.bullet = bullet.create(data["bullet"])
+        self.shooting = shooting_info()
+        self.shooting.id = data["id"]
+        self.shooting.name = data["name"]
+        self.shooting.icon = data["icon"]
+        self.shooting.desc = data["desc"]
+        self.shooting.equip_type = data["type"]
+        self.shooting._bullet_info = bullet.create(data["bullet"])
 
-    def info(self) -> dict:
-        return {
-            "id": self.id,
-            "name": self.name,
-            "icon": self.icon,
-            "desc": self.desc,
-            "type": self.type,
-            "bullet": self.bullet,
-    }
+    def info(self) -> shooting_info:
+        return self.shooting
 
     def create(data:dict):
         return shooting(data)
 
 class equip_data:
-    def __init__(self, data:dict[str, dict]):
+    def __init__(self, data:dict[str, any]):
         self.equips = {}
         for type, info in data.items():
             if type == em_equip_type.weapon:
