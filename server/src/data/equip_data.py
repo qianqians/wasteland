@@ -98,6 +98,9 @@ class equip_data:
             else:
                 self.equips[type] = equip.create(info)
 
+    def create():
+        return equip_data({})
+
     def add_attribute(self):
         add_hp = 0
         add_mp = 0

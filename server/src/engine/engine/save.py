@@ -84,11 +84,6 @@ class save(ABC, base_dbproxy_handle):
     def create() -> dict:
         pass
 
-    @staticmethod
-    @abstractmethod
-    def load(self, data:dict) -> save:
-        pass
-
     @abstractmethod
     def store(self) -> dict:
         pass

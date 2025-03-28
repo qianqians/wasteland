@@ -39,7 +39,7 @@ class service_manager(object):
     def get_service(self, service_name:str) -> service:
         return self.services[service_name]
     
-async def query_service(service_name:str):
+async def query_service(service_name:str) -> str:
     from app import app
     hub_name = await app().ctx.entry_hub_service(service_name)
     if app().ctx.hub_name() == hub_name:
@@ -47,8 +47,9 @@ async def query_service(service_name:str):
         _service.hub_query_service_entity(hub_name)
     else:
         app().ctx.query_service(hub_name, service_name)
+    return hub_name
         
-async def forward_client_query_service(service_name:str, gate_name:str, gate_host:str, conn_id:str, player_id:str):
+async def forward_client_query_service(service_name:str, gate_name:str, gate_host:str, conn_id:str, player_id:str) -> str:
     from app import app
     hub_name = await app().ctx.entry_hub_service(service_name)
     if app().ctx.hub_name() == hub_name:
@@ -57,3 +58,4 @@ async def forward_client_query_service(service_name:str, gate_name:str, gate_hos
         _service.client_query_service_entity(gate_name, conn_id, player_id)
     else:
         app().ctx.forward_client_request_service(hub_name, service_name, gate_name, gate_host, conn_id, player_id)
+    return hub_name

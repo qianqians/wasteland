@@ -20,7 +20,7 @@ class LoginEventHandle(login_event_handle):
         app().trace("LoginEventHandle on_login!")
         device = await wx_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
         accound_id = await self.__get_client_account_id__(device["openid"])
-        info_str = app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
+        info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
         if info_str is not None and info_str != "":
             info = json.loads(info_str)
             self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, False, "其他位置登录!")
@@ -33,7 +33,7 @@ class LoginEventHandle(login_event_handle):
         app().trace("LoginEventHandle on_reconnect!")
         device = await wx_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
         accound_id = await self.__get_client_account_id__(device["openid"])
-        info_str = app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
+        info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
         if info_str is not None and info_str != "":
             info = json.loads(info_str)
             self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, True, "其他位置登录!")
