@@ -3,6 +3,8 @@ enum error_code {
     cannot_claimed = 1;
     cannot_completed = 2;
     not_enough_money = 3;
+    no_this_equip = 4;
+    no_this_item = 5;
 }
 
 enum em_direction {
@@ -33,6 +35,45 @@ enum em_shooting_bullet {
     bullet = 2;
 }
 
+struct equip_info {
+    string id;
+    string name;
+    string icon;
+    string desc;
+    em_equip_type equip_type;
+    int32 add_hp;
+    int32 add_mp;
+    int32 add_defense;
+}
+
+struct weapon_info {
+    string id;
+    string name;
+    string icon;
+    string desc;
+    em_equip_type equip_type;
+    int32 attack;
+}
+
+struct bullet_info {
+    string id;
+    string name;
+    string icon;
+    string desc;
+    em_shooting_bullet type;
+    int32 attack;
+    int32 speed;
+}
+
+struct shooting_info {
+    string id;
+    string name;
+    string icon;
+    string desc;
+    em_equip_type equip_type;
+    bullet_info _bullet_info;
+}
+
 enum em_task_state {
     can_claimed = 1;
     in_progress = 2;
@@ -41,11 +82,12 @@ enum em_task_state {
 
 struct task_info {
     int32 task_id;
+    int32 progress;
     em_task_state status;
 }
 
 struct item {
-    int32 item_id;
+    string item_id;
     int32 item_type;
     int32 item_count;
 }

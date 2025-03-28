@@ -1,6 +1,9 @@
 import common
 
-entity_service npc {
+entity_service scene_player {
+    wear_equip req(string equip_id) rsp(list<equip_info> equips, weapon_info weapon, shooting_info shooting) err(error_code err);
+    use_item req(string item_id) rsp(list<item> items) err(error_code err);
+
     accept_task req(int32 task_id) rsp(list<task_info> tasks) err(error_code err);
     complete_task req(int32 task_id) rsp(list<task_info> tasks) err(error_code err);
 

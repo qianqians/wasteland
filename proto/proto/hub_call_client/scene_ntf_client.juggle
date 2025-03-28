@@ -1,5 +1,5 @@
 import common
 
-entity_service map {
+mutil_service scene_ntf_client {
     move ntf(em_direction dir, position pos);
 }

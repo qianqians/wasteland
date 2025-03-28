@@ -9,7 +9,7 @@ from .common_svr import *
 
 #this struct code is codegen by geese codegen for python
 #this module code is codegen by geese codegen for python
-class map_module(object):
+class scene_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 

@@ -1,5 +1,5 @@
 import common
 
-entity_service task {
+entity_service player {
     get_task_list req() rsp(list<task_info> tasks) err();
 }

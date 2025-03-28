@@ -9,7 +9,7 @@ from .common_svr import *
 
 #this struct code is codegen by geese codegen for python
 #this caller code is codegen by geese codegen for python
-class map_ntf_client_caller(object):
+class scene_ntf_client_caller(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 

@@ -2,4 +2,5 @@ import common
 
 entity_service battle {
     use_skill req(int32 skill_id) rsp() err(error_code err); 
+    use_item req(string item_id) rsp(list<item> items) err(error_code err);
 }

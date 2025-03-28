@@ -5,7 +5,7 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript
-export class task_get_task_list_cb {
+export class player_get_task_list_cb {
     public entity:engine.subentity|engine.player;
     public cb:((tasks:Array<common.task_info>) => void)|null = null;
     public err:(() => void)|null = null;
@@ -42,7 +42,7 @@ export class task_get_task_list_cb {
 
 }
 
-export class task_caller {
+export class player_caller {
     public entity:engine.subentity|engine.player;
     public constructor(entity:engine.subentity|engine.player) {
         this.entity = entity;
@@ -51,7 +51,7 @@ export class task_caller {
     public  get_task_list() {
         let _argv_c39e0b8b_cdb0_31c9_a8cb_c48f200c387a:any[] = []
         let _cb_uuid = this.entity.call_hub_request("get_task_list", encode(_argv_c39e0b8b_cdb0_31c9_a8cb_c48f200c387a));
-        return new task_get_task_list_cb(_cb_uuid, this.entity);
+        return new player_get_task_list_cb(_cb_uuid, this.entity);
     }
 
 }

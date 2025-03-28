@@ -104,7 +104,7 @@ class npc_module(object):
         self.entity.reg_client_request_callback("accept_task", self.accept_task)
         self.on_complete_task:list[Callable[[npc_complete_task_rsp, int], None]] = []
         self.entity.reg_client_request_callback("complete_task", self.complete_task)
-        self.on_purchase:list[Callable[[npc_purchase_rsp, int], None]] = []
+        self.on_purchase:list[Callable[[npc_purchase_rsp, str], None]] = []
         self.entity.reg_client_request_callback("purchase", self.purchase)
 
     def accept_task(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):

@@ -9,7 +9,7 @@ from .common_svr import *
 
 #this struct code is codegen by geese codegen for python
 #this module code is codegen by geese codegen for python
-class task_get_task_list_rsp(session):
+class player_get_task_list_rsp(session):
     def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
         session.__init__(self, gate_name)
         self.entity = entity
@@ -37,16 +37,16 @@ class task_get_task_list_rsp(session):
         _argv_c39e0b8b_cdb0_31c9_a8cb_c48f200c387a = [self.uuid_ae7ec252_967c_3105_929b_046e24ba4748]
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_c39e0b8b_cdb0_31c9_a8cb_c48f200c387a))
 
-class task_module(object):
+class player_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_get_task_list:list[Callable[[task_get_task_list_rsp, ], None]] = []
+        self.on_get_task_list:list[Callable[[player_get_task_list_rsp, ], None]] = []
         self.entity.reg_client_request_callback("get_task_list", self.get_task_list)
 
     def get_task_list(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)
-        rsp = task_get_task_list_rsp(gate_name, conn_id, msg_cb_id, self.entity)
+        rsp = player_get_task_list_rsp(gate_name, conn_id, msg_cb_id, self.entity)
         for fn in self.on_get_task_list:
             fn(rsp, )
 

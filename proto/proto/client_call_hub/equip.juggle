@@ -1,0 +1,5 @@
+import common
+
+entity_service equip {
+    wear_equip req(string equip_id) rsp(list<equip_info> equips, weapon_info weapon, shooting_info shooting) err(error_code err);
+}

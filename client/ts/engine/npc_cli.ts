@@ -139,7 +139,7 @@ export class npc_caller {
         return new npc_complete_task_cb(_cb_uuid, this.entity);
     }
 
-    public  purchase(item_id:number) {
+    public  purchase(item_id:string) {
         let _argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b:any[] = []
         _argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b.push(item_id);
         let _cb_uuid = this.entity.call_hub_request("purchase", encode(_argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b));

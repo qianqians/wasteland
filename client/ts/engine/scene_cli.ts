@@ -5,7 +5,7 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript
-export class map_caller {
+export class scene_caller {
     public entity:engine.subentity|engine.player;
     public constructor(entity:engine.subentity|engine.player) {
         this.entity = entity;
