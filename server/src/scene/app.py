@@ -2,6 +2,7 @@ import sys
 from __future__ import annotations
 from ..engine.engine import *
 from .player_data import *
+from .scene import *
 
 async def load_or_create_player(_service:SceneService, gate_name:str, conn_id:str, player_id:str):
     device_str = await app().redis_proxy.get(f"wasteland:player_gate_info:{player_id}")
@@ -15,18 +16,18 @@ async def load_or_create_player(_service:SceneService, gate_name:str, conn_id:st
         await create_player(gate_name, conn_id, player_id, device, data)
 
 async def create_player(_service:SceneService, gate_name:str, conn_id:str, player_id:str, device:dict, info:dict):
-    player = player_data(gate_name, conn_id, player_id, device, info)
+    player = player_data(gate_name, conn_id, player_id, device, info, _service.scene)
     await app().redis_proxy.set("wasteland:player_info:{}".format(player_id), json.dumps(player.full_info()))
     app().player_mgr.add_player(player)
     player.create_main_remote_entity()
-    await player.entry_scene()
-    _service.group.create_remote_player(player)
+    _service.scene.entry_scene(player)
 
 class SceneService(service):
     def __init__(self, service_name:str, _app:app):
         super().__init__(service_name)
         self._app = _app
-        self.group = group()
+
+        self.scene = scene("wasteland_novice_village", 1)
 
     def on_migrate(self, _entity:entity|player):
         pass

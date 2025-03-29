@@ -1,11 +1,12 @@
 from ..engine.engine import *
 from ..data.attribute_data import *
-from..data.equip_data import *
-from..data.scene_data import *
+from ..data.equip_data import *
+from ..data.scene_data import *
+from .scene import *
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
-    def __init__(self, player_gate_name:str, player_conn_id:str, player_id:str, device:dict, info:dict):
+    def __init__(self, player_gate_name:str, player_conn_id:str, player_id:str, device:dict, info:dict, _scene:scene):
         save.__init__(self)
         player.__init__(self, "player_service", "player_data", player_id, player_gate_name, player_conn_id, False)
 
@@ -18,6 +19,8 @@ class player_data(save, player):
         self.equip_data = equip_data(info["equip_data"])
         self.scene_data = scene_data(info["scene_data"])
 
+        self._scene = _scene
+
     def full_info(self) -> dict:
         return self.store()
     
@@ -26,13 +29,6 @@ class player_data(save, player):
 
     def client_info(self) -> dict:
         return self.store()
-
-    async def entry_scene(self):
-        gate_host = app().ctx.gate_host(self.player_gate_name)
-        hub_name = await forward_client_query_service(
-            "{}_{}".format(self.scene_data.scene_name, self.scene_data.scene_line), 
-            self.player_gate_name, gate_host, self.player_conn_id, self.player_id)
-        self.create_remote_hub_entity(hub_name)
         
     def store(self) -> dict:
         return { "attribute_data": self.attribute_data.info(), "equip_data": self.equip_data.info(), "scene_data": self.scene_data.info() }
