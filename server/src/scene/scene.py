@@ -8,4 +8,5 @@ class scene:
         self.group = group()
 
     def entry_scene(self, player:player):
-        self.group.add_entity(player)
+        self.group.join((player.client_gate_name, player.client_conn_id))
+        self.group.create_remote_player(player)
