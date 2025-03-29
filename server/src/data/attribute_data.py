@@ -1,3 +1,4 @@
+from __future__ import annotations
 
 class attribute_data:
     def __init__(self, data:dict):
@@ -16,7 +17,7 @@ class attribute_data:
             "defense": self.defense,
         }
     
-    def create():
+    def create() -> attribute_data:
         return attribute_data({
             "hp": 100,
             "mp": 100,

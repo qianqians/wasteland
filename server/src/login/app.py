@@ -26,8 +26,8 @@ class LoginEventHandle(login_event_handle):
             self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, False, "其他位置登录!")
         else:
             gate_host = app().ctx.gate_host(new_gate_name)
-            forward_client_query_service("wasteland_player_hub_{}".format(argvs["zone"]), new_gate_name, gate_host, new_conn_id, accound_id)
-        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
+            forward_client_query_service(f"{argvs["zone"]}_{argvs["line"]}", new_gate_name, gate_host, new_conn_id, accound_id)
+        app().redis_proxy.set(f"wasteland:player_gate_info:{accound_id}", json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
     
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
@@ -39,8 +39,8 @@ class LoginEventHandle(login_event_handle):
             self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, True, "其他位置登录!")
         else:
             gate_host = app().ctx.gate_host(new_gate_name)
-            forward_client_query_service("wasteland_player_hub_{}".format(argvs["zone"]), new_gate_name, gate_host, new_conn_id, accound_id)
-        app().redis_proxy.set("wasteland:player_hub_info:{}".format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
+            forward_client_query_service(f"{argvs["zone"]}_{argvs["line"]}", new_gate_name, gate_host, new_conn_id, accound_id)
+        app().redis_proxy.set(f"wasteland:player_gate_info:{accound_id}", json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
     
 def main(cfg_file:str):
     _app = app()

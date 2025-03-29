@@ -30,7 +30,7 @@ class player_data(save, player):
     async def entry_scene(self):
         gate_host = app().ctx.gate_host(self.player_gate_name)
         hub_name = await forward_client_query_service(
-            "wasteland_scene_hub_{}_{}".format(self.scene_data.scene_name, self.scene_data.scene_line), 
+            "{}_{}".format(self.scene_data.scene_name, self.scene_data.scene_line), 
             self.player_gate_name, gate_host, self.player_conn_id, self.player_id)
         self.create_remote_hub_entity(hub_name)
         

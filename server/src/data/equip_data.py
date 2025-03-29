@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ..engine.common_svr import *
 
 class equip:
@@ -13,7 +14,7 @@ class equip:
     def type(self) -> em_equip_type:
         return self.equip.equip_type
     
-    def create(data:dict):
+    def create(data:dict) -> equip:
         e = equip()
         e.equip.id = data["id"]
         e.equip.name = data["name"]
@@ -43,7 +44,7 @@ class weapon:
     def type(self) -> em_equip_type:
         return self.weapon.equip_type
     
-    def create(data:dict):
+    def create(data:dict) -> weapon:
         w = weapon()
         w.weapon.id = data["id"]
         w.weapon.name = data["name"]
@@ -71,7 +72,7 @@ class shooting:
     def type(self) -> em_equip_type:
         return self.shooting.equip_type
 
-    def create(data:dict):
+    def create(data:dict) -> shooting:
         s = shooting()
         s.shooting.id = data["id"]
         s.shooting.name = data["name"]
@@ -98,7 +99,7 @@ class equip_data:
             else:
                 self.equips[type] = equip.create(info)
 
-    def create():
+    def create() -> equip_data:
         return equip_data({})
 
     def add_attribute(self):

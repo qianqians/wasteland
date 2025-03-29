@@ -4,12 +4,6 @@ from abc import ABC, abstractmethod
 from .player import *
 from .entity import *
 
-def ServiceDescribe(service_name:str):
-    def wrapper(cls):
-        cls.service_name = service_name
-        return cls
-    return wrapper
-
 class service(ABC):
     def __init__(self, service_name:str) -> None:
         self.service_name = service_name
