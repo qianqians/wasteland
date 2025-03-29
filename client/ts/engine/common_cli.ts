@@ -38,6 +38,7 @@ export enum em_task_state {
     can_claimed = 1,
     in_progress = 2,
     can_completed = 3,
+    completed = 4,
 }
 
 export enum em_harm_type {

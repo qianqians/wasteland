@@ -42,6 +42,7 @@ class em_task_state(Enum):
     can_claimed = 1
     in_progress = 2
     can_completed = 3
+    completed = 4
 
 
 class em_harm_type(Enum):
