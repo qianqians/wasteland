@@ -23,11 +23,11 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
     _service.scene.entry_scene(player)
 
 class SceneService(service):
-    def __init__(self, service_name:str, _app:app):
-        super().__init__(service_name)
+    def __init__(self, scene_name:str, scene_line:int, _app:app):
+        super().__init__(f"{scene_name}_{scene_line}")
         self._app = _app
 
-        self.scene = scene("wasteland_novice_village", 1)
+        self.scene = scene(scene_name, scene_line)
 
     def on_migrate(self, _entity:entity|player):
         pass
@@ -46,7 +46,7 @@ def main(cfg_file:str):
     _app = app()
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())
-    _app.service_mgr.reg_service(SceneService("wasteland_novice_village_1", _app))
+    _app.service_mgr.reg_service(SceneService("wasteland_novice_village", 1, _app))
     _app.run()
     
 if __name__ == '__main__':
