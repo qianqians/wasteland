@@ -10,7 +10,7 @@ async def load_or_create_player(_service:SceneService, gate_name:str, conn_id:st
     device = device["device"]
     data_str = await app().redis_proxy.get(f"wasteland:player_info:{player_id}")
     if data_str == None or data_str == "": 
-        save.load_or_create_entity({"player_id":player_id}, lambda data: app().run_coroutine_async())
+        save.load_or_create_entity({"player_id":player_id}, lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, device, data)))
     else:
         data = json.loads(data_str)
         await create_player(gate_name, conn_id, player_id, device, data)
@@ -26,7 +26,6 @@ class SceneService(service):
     def __init__(self, scene_name:str, scene_line:int, _app:app):
         super().__init__(f"{scene_name}_{scene_line}")
         self._app = _app
-
         self.scene = scene(scene_name, scene_line)
 
     def on_migrate(self, _entity:entity|player):
@@ -35,9 +34,13 @@ class SceneService(service):
     def hub_query_service_entity(self, queryer_hub_name:str):
         pass
     
-    def client_query_service_entity(self, queryer_gate_name:str, queryer_client_conn_id:str, queryer_client_player_id:str):
-        app().run_coroutine_async(load_or_create_player(self, queryer_gate_name, queryer_client_conn_id, queryer_client_player_id))
-    
+    def client_query_service_entity(self, queryer_gate_name:str, queryer_client_conn_id:str, queryer_client_info:dict):
+        app().run_coroutine_async(load_or_create_player(self, queryer_gate_name, queryer_client_conn_id, queryer_client_info["player_id"]))
+
+    @abstractmethod
+    def client_query_service_entity_ext(self, info:list[(str, str, dict)]):
+        pass
+
 class PlayerEventHandle(player_event_handle):
     def player_offline(self, _player:player) -> dict:
         return _player.full_info()
