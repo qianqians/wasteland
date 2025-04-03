@@ -65,10 +65,6 @@ class WSContext extends engine.context {
         this.ch.on_recv(this.recv.bind(this));
         return this.ch;
     }
-    
-    public ConnectTcp(host:string, port:number) : engine.channel {
-        return new WSChannel();
-    }
 }
 
 function main() {

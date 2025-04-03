@@ -24,7 +24,6 @@ export abstract class context {
     private evs : proto.client_service[] = [];
 
     abstract ConnectWebSocket(wsHost:string) : channel;
-    abstract ConnectTcp(host:string, port:number) : channel;
 
     public constructor() {
     }
