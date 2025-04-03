@@ -1,5 +1,4 @@
 import * as engine from './engine/engine/index' 
-import * as uuid from 'uuid'
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
@@ -72,7 +71,7 @@ function main() {
     _app.build(new ClientEventHandle());
     _app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
     _app.on_conn = () => {
-        engine.app.instance.login(uuid.v4(), {})
+        //engine.app.instance.login(uuid.v4(), {})
     };
     console.log("run begin!");
     _app.run()

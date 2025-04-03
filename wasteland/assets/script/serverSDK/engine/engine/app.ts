@@ -3,7 +3,7 @@
  * qianqians
  * 2023/10/5
  */
-import { encode } from '@msgpack/msgpack'
+import { encode } from './@msgpack/msgpack'
 import * as context from './context'
 import * as ConnMsgHandle from './conn_msg_handle'
 import * as player from './player'
