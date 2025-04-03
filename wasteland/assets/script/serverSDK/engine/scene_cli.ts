@@ -12,7 +12,7 @@ export class scene_caller {
     }
 
     public  move(dir:common.em_direction, pos:common.position) {
-        _argv_33efb72e_9227_32af_a058_169be114a277 = []
+        let _argv_33efb72e_9227_32af_a058_169be114a277 = []
         _argv_33efb72e_9227_32af_a058_169be114a277.push(dir);
         _argv_33efb72e_9227_32af_a058_169be114a277.push(common.position_to_protcol(pos));
         this.entity.call_hub_notify("move", encode(_argv_33efb72e_9227_32af_a058_169be114a277))

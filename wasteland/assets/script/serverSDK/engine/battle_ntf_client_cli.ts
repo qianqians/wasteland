@@ -5,7 +5,11 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this module code is codegen by geese codegen for typescript
-    public constructor(entity:player|engine.subentity|engine.receiver) {
+export class battle_ntf_client_module {
+    public entity:engine.player|engine.subentity|engine.receiver;
+    public on_use_skill:((s:engine.session, skill_id:number, dir:common.em_direction, pos:common.position) => void)[] = [];
+    public on_harm:((s:engine.session, skill_id:number, dir:common.em_direction, pos:common.position, harm_type:common.em_harm_type, harm_value:number) => void)[] = [];
+    public constructor(entity:engine.player|engine.subentity|engine.receiver) {
         this.entity = entity;
         this.entity.reg_hub_notify_callback("use_skill", this.use_skill);
         this.entity.reg_hub_notify_callback("harm", this.harm);

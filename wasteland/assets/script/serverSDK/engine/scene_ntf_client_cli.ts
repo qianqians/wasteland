@@ -5,7 +5,10 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this module code is codegen by geese codegen for typescript
-    public constructor(entity:player|engine.subentity|engine.receiver) {
+export class scene_ntf_client_module {
+    public entity:engine.player|engine.subentity|engine.receiver;
+    public on_move:((s:engine.session, dir:common.em_direction, pos:common.position) => void)[] = [];
+    public constructor(entity:engine.player|engine.subentity|engine.receiver) {
         this.entity = entity;
         this.entity.reg_hub_notify_callback("move", this.move);
     }
