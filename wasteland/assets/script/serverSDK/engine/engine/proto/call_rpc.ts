@@ -6,7 +6,7 @@
 */
 import Int64 from "node-int64";
 import * as thrift from "thrift";
-import * as __ROOT_NAMESPACE__ from "./";
+import * as __ROOT_NAMESPACE__ from "./index";
 export interface Icall_rpcArgs {
     hub_name?: string;
     entity_id?: string;

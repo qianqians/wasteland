@@ -1,4 +1,4 @@
-import * as engine from './engine/engine' 
+import * as engine from './engine/engine/index' 
 import * as uuid from 'uuid'
 
 class ClientEventHandle extends engine.client_event_handle {

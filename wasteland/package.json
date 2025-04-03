@@ -1,4 +1,9 @@
 {
+  "name": "wasteland",
+  "uuid": "02dc08d1-5a1f-4b43-9eff-d642cd3258c6",
+  "creator": {
+    "version": "3.8.6"
+  },
   "dependencies": {
     "@creditkarma/thrift-typescript": "^3.7.6",
     "@msgpack/msgpack": "^3.0.0-beta2",
@@ -8,9 +13,5 @@
     "thrift": "^0.19.0",
     "tsx": "^4.7.0",
     "uuid": "^9.0.1"
-  },
-  "creator": {
-    "version": "3.8.6"
-  },
-  "uuid": "40c12b5c-fae7-4112-90e4-c6cd6661ddd5"
+  }
 }

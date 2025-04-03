@@ -5,7 +5,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 */
 import * as thrift from "thrift";
-import * as __ROOT_NAMESPACE__ from "./";
+import * as __ROOT_NAMESPACE__ from "./index";
 export interface Ihub_call_client_rspArgs {
     conn_id?: string;
     rsp?: __ROOT_NAMESPACE__.rpc_rsp;

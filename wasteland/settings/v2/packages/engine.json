@@ -1,12 +1,9 @@
 {
   "__version__": "1.0.12",
   "modules": {
-    "graphics": {
-      "pipeline": "legacy-pipeline"
-    },
     "configs": {
-      "migrationsConfig": {
-        "name": "Migrated Configuration",
+      "defaultConfig": {
+        "name": "Default Config",
         "cache": {
           "base": {
             "_value": true
@@ -181,7 +178,7 @@
           },
           "render-pipeline": {
             "_value": true,
-            "_option": "legacy-pipeline"
+            "_option": "custom-pipeline"
           },
           "custom-pipeline": {
             "_value": true
@@ -190,19 +187,18 @@
             "_value": false
           }
         },
-        "flags": {},
         "includeModules": [
           "2d",
           "affine-transform",
           "animation",
           "audio",
           "base",
+          "custom-pipeline",
           "dragon-bones",
           "gfx-webgl",
           "gfx-webgl2",
           "graphics",
           "intersection-2d",
-          "legacy-pipeline",
           "mask",
           "particle-2d",
           "physics-2d-box2d",
@@ -218,9 +214,10 @@
         "noDeprecatedFeatures": {
           "value": false,
           "version": ""
-        }
+        },
+        "flags": {}
       }
     },
-    "globalConfigKey": "migrationsConfig"
+    "globalConfigKey": "defaultConfig"
   }
 }

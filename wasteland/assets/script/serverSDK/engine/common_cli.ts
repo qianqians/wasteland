@@ -1,4 +1,4 @@
-import * as engine from "./engine";
+import * as engine from "./engine/index";
 import { encode, decode } from "@msgpack/msgpack";
 // this enum code is codegen by geese codegen for ts
 

@@ -6,7 +6,7 @@
 */
 import Int64 from "node-int64";
 import * as thrift from "thrift";
-import * as __ROOT_NAMESPACE__ from "./";
+import * as __ROOT_NAMESPACE__ from "./index";
 export interface Iclient_call_hub_rpcArgs {
     entity_id?: string;
     msg_cb_id?: number | Int64;
