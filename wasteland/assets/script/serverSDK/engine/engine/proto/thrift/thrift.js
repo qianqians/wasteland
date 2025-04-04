@@ -18,7 +18,7 @@
  */
 var util = require('util');
 
-var Type = exports.Type = {
+var Type = module.exports.Type = {
   STOP: 0,
   VOID: 1,
   BOOL: 2,
@@ -38,14 +38,14 @@ var Type = exports.Type = {
   UTF16: 17
 };
 
-exports.MessageType = {
+module.exports.MessageType = {
   CALL: 1,
   REPLY: 2,
   EXCEPTION: 3,
   ONEWAY: 4
 };
 
-exports.TException = TException;
+module.exports.TException = TException;
 
 function TException(message) {
   Error.call(this);
@@ -72,7 +72,7 @@ var TApplicationExceptionType = exports.TApplicationExceptionType = {
   UNSUPPORTED_CLIENT_TYPE: 10
 };
 
-exports.TApplicationException = TApplicationException;
+module.exports.TApplicationException = TApplicationException;
 
 function TApplicationException(type, message) {
   TException.call(this);
@@ -151,7 +151,7 @@ var TProtocolExceptionType = exports.TProtocolExceptionType = {
 };
 
 
-exports.TProtocolException = TProtocolException;
+module.exports.TProtocolException = TProtocolException;
 
 function TProtocolException(type, message) {
   Error.call(this);
@@ -165,11 +165,11 @@ function TProtocolException(type, message) {
 };
 util.inherits(TProtocolException, Error);
 
-exports.objectLength = function(obj) {
+module.exports.objectLength = function(obj) {
   return Object.keys(obj).length;
 };
 
-exports.inherits = function(constructor, superConstructor) {
+module.exports.inherits = function(constructor, superConstructor) {
   util.inherits(constructor, superConstructor);
 };
 

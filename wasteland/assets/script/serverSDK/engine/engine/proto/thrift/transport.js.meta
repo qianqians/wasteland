@@ -3,7 +3,16 @@
   "importer": "javascript",
   "imported": true,
   "uuid": "d24ea213-1ea6-4771-a996-9be1002d0e0c",
-  "files": [],
+  "files": [
+    ".js"
+  ],
   "subMetas": {},
-  "userData": {}
+  "userData": {
+    "loadPluginInEditor": true,
+    "loadPluginInWeb": true,
+    "loadPluginInNative": true,
+    "loadPluginInMiniGame": true,
+    "isPlugin": true,
+    "executionScope": "enclosed"
+  }
 }

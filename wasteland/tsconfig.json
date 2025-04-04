@@ -6,7 +6,7 @@
     "assets/script/**/*.js",
     "assets/script/**/*.ts",
     "assets/script/**/*.d.ts"
-  ],
+, "assets/script/serverSDK/engine/engine/proto/thrift/thrift.js"  ],
   
   /* Add your custom configuration here. */
   "compilerOptions": {
@@ -16,5 +16,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "types": ["node"],
+    "allowJs": false,
   }
 }
