@@ -4,12 +4,7 @@
   "creator": {
     "version": "3.8.6"
   },
-  "dependencies": {
-    "@creditkarma/thrift-typescript": "^3.7.6",
-    "@types/thrift": "^0.10.17",
-    "@types/uuid": "^9.0.8",
-    "thrift": "^0.21.0",
-    "tsx": "^4.7.0",
-    "uuid": "^9.0.1"
+  "devDependencies": {
+    "@types/node": "^22.14.0"
   }
 }

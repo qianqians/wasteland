@@ -1,4 +1,4 @@
-import * as engine from './engine/engine/index' 
+import * as engine from './engine/engine/index.ts' 
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {

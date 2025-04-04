@@ -3,6 +3,7 @@
   "extends": "./temp/tsconfig.cocos.json",
 
   "include": [
+    "assets/script/**/*.js",
     "assets/script/**/*.ts",
     "assets/script/**/*.d.ts"
   ],
@@ -12,6 +13,7 @@
     "strict": false,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "types": ["node"],
   }

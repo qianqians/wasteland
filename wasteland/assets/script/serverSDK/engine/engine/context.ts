@@ -9,11 +9,12 @@ export abstract class channel {
     abstract on_recv(recv:(data:Uint8Array) => void) : void;
 }
 
-import { TBufferedTransport, TCompactProtocol } from 'thrift'
+import TBufferedTransport from './proto/thrift/buffered_transport.js';
+import TCompactProtocol from './proto/thrift/compact_protocol.js';
 
 import * as proto from './proto/index.ts'
-import * as ConnMsgHandle from './conn_msg_handle'
-import * as app from './app'
+import * as ConnMsgHandle from './conn_msg_handle.ts'
+import * as app from './app.ts'
 
 export abstract class context {
     protected ch:channel|null = null;
