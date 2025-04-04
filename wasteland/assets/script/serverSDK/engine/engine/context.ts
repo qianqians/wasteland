@@ -11,7 +11,7 @@ export abstract class channel {
 
 import { TBufferedTransport, TCompactProtocol } from 'thrift'
 
-import * as proto from './proto'
+import * as proto from './proto/index.ts'
 import * as ConnMsgHandle from './conn_msg_handle'
 import * as app from './app'
 
@@ -104,10 +104,10 @@ export abstract class context {
         return true;
     }
 
-    public reconnect(account_id:string, token:string) : boolean {
+    public reconnect(account_id:string, argvs:Uint8Array) : boolean {
         let recData = new proto.client_request_hub_reconnect();
         recData.account_id = account_id;
-        recData.token = token;
+        recData.argvs = Buffer.from(argvs);
         let reqData = proto.gate_client_service.fromReconnect(recData);
 
         this.send(reqData);

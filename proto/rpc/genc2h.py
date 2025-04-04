@@ -31,10 +31,10 @@ def gen_python_import_h(_import):
     return code
 
 def gen_ts_import(_import):
-    code = "import * as engine from \"./engine/index\";\n"
-    code += "import { encode, decode } from \"./engine/@msgpack/msgpack\";\n"
+    code = "import * as engine from \"./engine/index.ts\";\n"
+    code += "import { encode, decode } from \"./engine/@msgpack/msgpack/index.ts\";\n"
     for _i in _import:
-        code += "import * as " + _i + " from \"./" + _i + "_cli\";\n"
+        code += "import * as " + _i + " from \"./" + _i + "_cli.ts\";\n"
     return code
 
 def gen(lang, inputdir, commondir, clioutputdir, svroutputdir):

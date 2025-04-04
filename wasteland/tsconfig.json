@@ -2,9 +2,17 @@
   /* Base configuration. Do not edit this field. */
   "extends": "./temp/tsconfig.cocos.json",
 
+  "include": [
+    "assets/script/**/*.ts",
+    "assets/script/**/*.d.ts"
+  ],
+  
   /* Add your custom configuration here. */
   "compilerOptions": {
     "strict": false,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "node",
+    "types": ["node"],
   }
 }

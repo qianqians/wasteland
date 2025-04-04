@@ -5,7 +5,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 */
 import * as thrift from "thrift";
-import * as __ROOT_NAMESPACE__ from "./index";
+import * as __ROOT_NAMESPACE__ from "./";
 export interface Icall_ntfArgs {
     hub_name?: string;
     entity_id?: string;

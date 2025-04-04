@@ -3,12 +3,12 @@
  * qianqians
  * 2023/10/5
  */
-import { encode } from './@msgpack/msgpack'
-import * as context from './context'
-import * as ConnMsgHandle from './conn_msg_handle'
-import * as player from './player'
-import * as subentity from './subentity'
-import * as receiver from './receiver'
+import { encode } from './@msgpack/msgpack/index.ts'
+import * as context from './context.ts'
+import * as ConnMsgHandle from './conn_msg_handle.ts'
+import * as player from './player.ts'
+import * as subentity from './subentity.ts'
+import * as receiver from './receiver.ts'
 
 export abstract class client_event_handle {
     abstract on_kick_off(prompt_info:string):void;
@@ -97,9 +97,9 @@ export class app {
         return false;
     }
 
-    public reconnect(account_id:string, token:string) : boolean {
+    public reconnect(account_id:string, argvs:object) : boolean {
         if (this.ctx) {
-            return this.ctx.reconnect(account_id, token);
+            return this.ctx.reconnect(account_id, encode(argvs));
         }
         return false;
     }

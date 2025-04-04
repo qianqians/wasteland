@@ -3,7 +3,7 @@
  * qianqians
  * 2023/10/5
  */
-import * as Base from './base_entity'
+import * as Base from './base_entity.ts'
 
 export abstract class receiver extends Base.base_entity {
     private hub_notify_callback:Map<string, (source:string, data:Uint8Array) => void>;

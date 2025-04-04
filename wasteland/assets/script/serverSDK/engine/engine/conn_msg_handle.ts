@@ -3,8 +3,8 @@
  * qianqians
  * 2023/10/5
  */
-import { decode } from './@msgpack/msgpack'
-import * as app2 from './app'
+import { decode } from './@msgpack/msgpack/index.ts'
+import * as app2 from './app.ts'
 
 export class conn_msg_handle {
     public on_create_remote_entity(entity_type:string, entity_id:string, argvs:Uint8Array) {

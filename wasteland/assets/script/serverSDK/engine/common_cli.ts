@@ -1,5 +1,5 @@
-import * as engine from "./engine/index";
-import { encode, decode } from "./engine/@msgpack/msgpack";
+import * as engine from "./engine/index.ts";
+import { encode, decode } from "./engine/@msgpack/msgpack/index.ts";
 // this enum code is codegen by geese codegen for ts
 
 export enum error_code {
