@@ -66,14 +66,14 @@ class WSContext extends engine.context {
     }
 }
 
-function main() {
-    let _app = new engine.app()
-    _app.build(new ClientEventHandle());
-    _app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
-    _app.on_conn = () => {
-        //engine.app.instance.login(uuid.v4(), {})
-    };
-    console.log("run begin!");
-    _app.run()
-}
-main();
+///*function main() {
+//    let _app = new engine.app()
+//    _app.build(new ClientEventHandle());
+//    _app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
+//    _app.on_conn = () => {
+//        //engine.app.instance.login(uuid.v4(), {})
+//    };
+//   console.log("run begin!");
+//    _app.run()
+//}
+//main();*/
