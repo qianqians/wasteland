@@ -5,6 +5,10 @@
     "version": "3.8.6"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0"
+    "@types/node": "^22.14.0",
+    "@types/thrift": "^0.10.17"
+  },
+  "dependencies": {
+    "thrift": "^0.21.0"
   }
 }

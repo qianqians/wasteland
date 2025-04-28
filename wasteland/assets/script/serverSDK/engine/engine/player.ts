@@ -3,9 +3,9 @@
  * qianqians
  * 2023/10/5
  */
-import * as Base from './base_entity.ts'
-import * as CallBack from './callback.ts'
-import * as app from './app.ts'
+import * as Base from './base_entity'
+import * as CallBack from './callback'
+import * as app from './app'
 
 export abstract class player extends Base.base_entity {
     public request_msg_cb_id:number;

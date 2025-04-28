@@ -3,12 +3,12 @@
  * qianqians
  * 2023/10/5
  */
-import { encode } from './@msgpack/msgpack/index.ts'
-import * as context from './context.ts'
-import * as ConnMsgHandle from './conn_msg_handle.ts'
-import * as player from './player.ts'
-import * as subentity from './subentity.ts'
-import * as receiver from './receiver.ts'
+import { encode } from './@msgpack/msgpack'
+import * as context from './context'
+import * as ConnMsgHandle from './conn_msg_handle'
+import * as player from './player'
+import * as subentity from './subentity'
+import * as receiver from './receiver'
 
 export abstract class client_event_handle {
     abstract on_kick_off(prompt_info:string):void;
@@ -67,6 +67,11 @@ export class app {
         this.ctx.ConnectWebSocket(wsHost);
     }
 
+    public connect_tcp(_ctx:context.context, host:string, port:number) {
+        this.ctx = _ctx;
+        this.ctx.ConnectTcp(host, port);
+    }
+
     public on_kick_off(prompt_info:string) {
         if (this.client_event_handle) {
             this.client_event_handle.on_kick_off(prompt_info);
@@ -104,9 +109,9 @@ export class app {
         return false;
     }
 
-    public request_hub_service(service_name:string) : boolean {
+    public request_hub_service(service_name:string, argvs:object) : boolean {
         if (this.ctx) {
-            return this.ctx.request_hub_service(service_name);
+            return this.ctx.request_hub_service(service_name, encode(argvs));
         }
         return false;
     }

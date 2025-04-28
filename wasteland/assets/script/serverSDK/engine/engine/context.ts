@@ -9,8 +9,7 @@ export abstract class channel {
     abstract on_recv(recv:(data:Uint8Array) => void) : void;
 }
 
-import TBufferedTransport from './proto/thrift/buffered_transport.js'
-import TCompactProtocol from './proto/thrift/compact_protocol.js'
+import { TBufferedTransport, TCompactProtocol } from 'thrift'
 
 import * as proto from './proto'
 import * as ConnMsgHandle from './conn_msg_handle'
@@ -25,6 +24,7 @@ export abstract class context {
     private evs : proto.client_service[] = [];
 
     abstract ConnectWebSocket(wsHost:string) : channel;
+    abstract ConnectTcp(host:string, port:number) : channel;
 
     public constructor() {
     }
@@ -116,9 +116,10 @@ export abstract class context {
         return true;
     }
 
-    public request_hub_service(service_name:string) : boolean {
+    public request_hub_service(service_name:string, argvs:Uint8Array) : boolean {
         let svcData = new proto.client_request_hub_service();
         svcData.service_name = service_name;
+        svcData.argvs = Buffer.from(argvs);
         let reqData = proto.gate_client_service.fromRequest_hub_service(svcData);
 
         this.send(reqData);
