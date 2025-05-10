@@ -1,6 +1,6 @@
-import * as engine from "./engine/index.ts";
-import { encode, decode } from "./engine/@msgpack/msgpack/index.ts";
-import * as common from "./common_cli.ts";
+import * as engine from "./engine";
+import { encode, decode } from "./engine/@msgpack/msgpack";
+import * as common from "./common_cli";
 // this enum code is codegen by geese codegen for ts
 
 // this struct code is codegen by geese codegen for ts
