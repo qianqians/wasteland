@@ -67,10 +67,10 @@ export class app {
         this.ctx.ConnectWebSocket(wsHost);
     }
 
-    public connect_tcp(_ctx:context.context, host:string, port:number) {
+    /*public connect_tcp(_ctx:context.context, host:string, port:number) {
         this.ctx = _ctx;
         this.ctx.ConnectTcp(host, port);
-    }
+    }*/
 
     public on_kick_off(prompt_info:string) {
         if (this.client_event_handle) {

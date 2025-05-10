@@ -5,7 +5,7 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 */
 import * as thrift from "thrift";
-import * as __ROOT_NAMESPACE__ from "./";
+import * as __ROOT_NAMESPACE__ from "./index";
 import * as hub_call_client_create_remote_entity from "./hub_call_client_create_remote_entity";
 import * as hub_call_client_delete_remote_entity from "./hub_call_client_delete_remote_entity";
 import * as hub_call_client_refresh_entity from "./hub_call_client_refresh_entity";

@@ -1,4 +1,6 @@
-import * as engine from './engine/engine/index.ts' 
+import { _decorator, Component, Node } from 'cc';
+const { ccclass, property } = _decorator;
+import * as engine from './engine/engine' 
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
@@ -66,14 +68,20 @@ class WSContext extends engine.context {
     }
 }
 
-///*function main() {
-//    let _app = new engine.app()
-//    _app.build(new ClientEventHandle());
-//    _app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
-//    _app.on_conn = () => {
-//        //engine.app.instance.login(uuid.v4(), {})
-//    };
-//   console.log("run begin!");
-//    _app.run()
-//}
-//main();*/
+@ccclass('new_driver')
+export class new_driver extends Component {
+    private _app: engine.app;
+
+    start() {
+        this._app = new engine.app();
+        this._app.build(new ClientEventHandle());
+        this._app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
+        this._app.on_conn = () => {
+            engine.app.instance.login("1234567890qwerdsa", {})
+        };
+    }
+
+    update(deltaTime: number) {
+        this._app.poll();
+    }
+}

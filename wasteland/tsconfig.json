@@ -2,18 +2,18 @@
   /* Base configuration. Do not edit this field. */
   "extends": "./temp/tsconfig.cocos.json",
 
-  "include": [
-    "assets/script/**/*.ts",
-  ],
-  
   /* Add your custom configuration here. */
   "compilerOptions": {
     "strict": false,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "types": ["node"],
-    "allowJs": false,
+    "lib": [
+      "es6",
+      "dom",
+      "es5", 
+      "es2015.promise" ,
+      "es2015", 
+      "es2017"
+    ],
   }
 }
