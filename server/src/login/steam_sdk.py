@@ -5,7 +5,7 @@ import json
 
 SteamApiUrl = "https://partner.steamgames.com/ISteamUserAuth/AuthenticateUserTicket/v1/"
 
-async def code2Session(appid:str, secret:str, ticket:str):
+async def code2Session(appid:str, secret:str, ticket:str) -> dict:
     data = {
         'key': secret,
         'appid': appid,
