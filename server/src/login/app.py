@@ -1,6 +1,6 @@
 import sys
 from ..engine.engine import *
-import wx_sdk
+import server.src.login.steam_sdk as steam_sdk
 
 class LoginEventHandle(login_event_handle):
     def __init__(self, db:str, collection:str):
@@ -18,7 +18,7 @@ class LoginEventHandle(login_event_handle):
         
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")
-        device = await wx_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
+        device = await steam_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
         accound_id = await self.__get_client_account_id__(device["openid"])
         info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
         if info_str is not None and info_str != "":
@@ -31,7 +31,7 @@ class LoginEventHandle(login_event_handle):
     
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
-        device = await wx_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
+        device = await steam_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
         accound_id = await self.__get_client_account_id__(device["openid"])
         info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
         if info_str is not None and info_str != "":
