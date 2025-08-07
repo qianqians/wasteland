@@ -1,4 +1,5 @@
 import sys
+from ..data import const
 from ..engine.engine import *
 import server.src.login.steam_sdk as steam_sdk
 
@@ -36,7 +37,7 @@ class LoginEventHandle(login_event_handle):
         else:
             return uuid_obj["GUID"]
         
-    async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict, is_replace: bool):
+    async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
         response = await steam_sdk.code2Session(self.AppID, self.Secret, sdk_uuid)
         error = None
@@ -85,40 +86,27 @@ class LoginEventHandle(login_event_handle):
         else:
             if steamid != None:
                 accound_id = await self.__get_client_account_id__(steamid)
-                info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
-                if info_str is not None and info_str != "":
-                    info = json.loads(info_str)
-                    self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, False, "其他位置登录!")
+                gate_info_str = await app().redis_proxy.get(const.PlayerGateInfoKey.format(accound_id))
+                if gate_info_str is not None and gate_info_str != "":
+                    gate_info = json.loads(gate_info_str)
+                    self.__replace_client__(gate_info["gate"], gate_info["conn_id"], new_gate_name, new_conn_id, False, "其他位置登录!")
                 else:
                     gate_host = app().ctx.gate_host(new_gate_name)
-                    forward_client_query_service(f"{argvs["zone"]}_{argvs["line"]}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
-                app().redis_proxy.set(f"wasteland:player_gate_info:{accound_id}", json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
+                    zone_info_str = await app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(accound_id))
+                    if zone_info_str is not None and zone_info_str != "":
+                        zone_info = json.loads(zone_info_str)
+                        forward_client_query_service(f"{zone_info["zone"]}_{zone_info["line"]}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
+                    else:
+                        forward_client_query_service(f"{const.BeginnerVillage}_{const.WorldLineCount}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
+                app().redis_proxy.set(const.PlayerGateInfoKey.format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "accound_id":accound_id}))
 
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")
-        device = await steam_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
-        accound_id = await self.__get_client_account_id__(device["openid"])
-        info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
-        if info_str is not None and info_str != "":
-            info = json.loads(info_str)
-            self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, False, "其他位置登录!")
-        else:
-            gate_host = app().ctx.gate_host(new_gate_name)
-            forward_client_query_service(f"{argvs["zone"]}_{argvs["line"]}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
-        app().redis_proxy.set(f"wasteland:player_gate_info:{accound_id}", json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
+        self.__login__(new_gate_name, new_conn_id, sdk_uuid, False)
     
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
-        device = await steam_sdk.code2Session("wx51eede0c2706005d", "354d0270312354fe3b00d7d6513acdb8", sdk_uuid)
-        accound_id = await self.__get_client_account_id__(device["openid"])
-        info_str = await app().redis_proxy.get("wasteland:player_hub_info:{}".format(accound_id))
-        if info_str is not None and info_str != "":
-            info = json.loads(info_str)
-            self.__replace_client__(info["gate"], info["conn_id"], new_gate_name, new_conn_id, True, "其他位置登录!")
-        else:
-            gate_host = app().ctx.gate_host(new_gate_name)
-            forward_client_query_service(f"{argvs["zone"]}_{argvs["line"]}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
-        app().redis_proxy.set(f"wasteland:player_gate_info:{accound_id}", json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "device":device}))
+        self.__login__(new_gate_name, new_conn_id, sdk_uuid, True)
     
 def main(cfg_file:str):
     _app = app()
