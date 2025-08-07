@@ -97,7 +97,7 @@ class LoginEventHandle(login_event_handle):
                         zone_info = json.loads(zone_info_str)
                         forward_client_query_service(f"{zone_info["zone"]}_{zone_info["line"]}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
                     else:
-                        forward_client_query_service(f"{const.BeginnerVillage}_{const.WorldLineCount}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
+                        forward_client_query_service(f"{const.BeginnerVillage}_{random.randint(1, const.WorldLineCount)}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
                 app().redis_proxy.set(const.PlayerGateInfoKey.format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "accound_id":accound_id}))
 
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
