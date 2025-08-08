@@ -3,7 +3,7 @@ from ..data import const
 from ..engine.engine import *
 import server.src.login.steam_sdk as steam_sdk
 
-class LoginCallbackPlayer(player):
+class LoginErrorCallbac(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
         player.__init__(self, "login", "callback", entity_id, gate_name, conn_id, False)
         self.Prompt = prompt
@@ -81,7 +81,7 @@ class LoginEventHandle(login_event_handle):
             break
 
         if error != None:
-            _p = LoginCallbackPlayer(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
+            _p = LoginErrorCallbac(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
             _p.create_main_remote_entity()
         else:
             if steamid != None:
