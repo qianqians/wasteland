@@ -1,11 +1,12 @@
 import sys
 from ..data import const
 from ..engine.engine import *
-import server.src.login.steam_sdk as steam_sdk
+import steam_sdk
+import character
 
-class LoginErrorCallbac(player):
+class LoginErrorCallback(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
-        player.__init__(self, "login", "callback", entity_id, gate_name, conn_id, False)
+        player.__init__(self, "login", "LoginErrorCallback", entity_id, gate_name, conn_id, False)
         self.Prompt = prompt
         
     def full_info(self) -> dict:
@@ -19,7 +20,7 @@ class LoginErrorCallbac(player):
     
     def on_migrate_to_other_hub(self, migrate_hub:str):
         pass
-
+    
 class LoginEventHandle(login_event_handle):
     def __init__(self, appid:str, secret:str, db:str, collection:str):
         super().__init__(db, collection)
@@ -29,7 +30,7 @@ class LoginEventHandle(login_event_handle):
 
         self.__get_guid_handle__ = get_guid("wasteland", "account_uuid")
 
-    async def __get_client_account_id__(self, sdk_uuid:str):
+    async def __get_client_account_id__(self, sdk_uuid:str) -> str:
         app().trace("LoginEventHandle __get_client_account_id__!")
         uuid_obj = await self.__get_dbproxy__().get_object_one(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid})
         if not uuid_obj:
@@ -81,25 +82,16 @@ class LoginEventHandle(login_event_handle):
             break
 
         if error != None:
-            _p = LoginErrorCallbac(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
+            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
             _p.create_main_remote_entity()
         else:
             if steamid != None:
                 accound_id = await self.__get_client_account_id__(steamid)
-                gate_info_str = await app().redis_proxy.get(const.PlayerGateInfoKey.format(accound_id))
-                if gate_info_str is not None and gate_info_str != "":
-                    gate_info = json.loads(gate_info_str)
-                    self.__replace_client__(gate_info["gate"], gate_info["conn_id"], new_gate_name, new_conn_id, False, "其他位置登录!")
-                else:
-                    gate_host = app().ctx.gate_host(new_gate_name)
-                    zone_info_str = await app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(accound_id))
-                    if zone_info_str is not None and zone_info_str != "":
-                        zone_info = json.loads(zone_info_str)
-                        forward_client_query_service(f"{zone_info["zone"]}_{zone_info["line"]}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
-                    else:
-                        forward_client_query_service(f"{const.BeginnerVillage}_{random.randint(1, const.WorldLineCount)}", new_gate_name, gate_host, new_conn_id, {"player_id":accound_id})
-                app().redis_proxy.set(const.PlayerGateInfoKey.format(accound_id), json.dumps({"gate":new_gate_name, "conn_id":new_conn_id, "accound_id":accound_id}))
-
+                _character = character.LoginCharacterCallback(accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id)
+                await _character.init()
+                app().player_mgr.add_player(_character)
+                _character.create_main_remote_entity()
+                
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")
         self.__login__(new_gate_name, new_conn_id, sdk_uuid, False)

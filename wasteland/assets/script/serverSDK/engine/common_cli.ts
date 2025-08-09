@@ -9,6 +9,7 @@ export enum error_code {
     not_enough_money = 3,
     no_this_equip = 4,
     no_this_item = 5,
+    undefined_player_id = 6,
 }
 
 export enum em_direction {
@@ -32,6 +33,14 @@ export enum em_equip_type {
 export enum em_shooting_bullet {
     arrow = 1,
     bullet = 2,
+}
+
+export enum direction {
+    none = 0,
+    up = 1,
+    down = 2,
+    left = 3,
+    right = 4,
 }
 
 export enum em_task_state {
@@ -83,6 +92,7 @@ export class equip_info {
      public equip_type:em_equip_type = em_equip_type.helmet
      public add_hp:number = 0
      public add_mp:number = 0
+     public attack:number = 0
      public add_defense:number = 0
 }
 
@@ -95,6 +105,7 @@ export function equip_info_to_protcol(_struct:equip_info) {
     _protocol["equip_type"] = _struct.equip_type
     _protocol["add_hp"] = _struct.add_hp
     _protocol["add_mp"] = _struct.add_mp
+    _protocol["attack"] = _struct.attack
     _protocol["add_defense"] = _struct.add_defense
     return _protocol;
 }
@@ -124,55 +135,11 @@ export function protcol_to_equip_info(_protocol:any) {
         else if (key == "add_mp") {
             _struct.add_mp = val;
         }
-        else if (key == "add_defense") {
-            _struct.add_defense = val;
-        }
-    }
-    return _struct;
-
-}
-
-export class weapon_info {
-     public id:string = ""
-     public name:string = ""
-     public icon:string = ""
-     public desc:string = ""
-     public equip_type:em_equip_type = em_equip_type.helmet
-     public attack:number = 0
-}
-
-export function weapon_info_to_protcol(_struct:weapon_info) {
-    let _protocol:any = {}
-    _protocol["id"] = _struct.id
-    _protocol["name"] = _struct.name
-    _protocol["icon"] = _struct.icon
-    _protocol["desc"] = _struct.desc
-    _protocol["equip_type"] = _struct.equip_type
-    _protocol["attack"] = _struct.attack
-    return _protocol;
-}
-
-export function protcol_to_weapon_info(_protocol:any) {
-    let _struct = new weapon_info()
-    for (let key in _protocol) {
-        let val = _protocol[key];
-        if (key == "id") {
-            _struct.id = val;
-        }
-        else if (key == "name") {
-            _struct.name = val;
-        }
-        else if (key == "icon") {
-            _struct.icon = val;
-        }
-        else if (key == "desc") {
-            _struct.desc = val;
-        }
-        else if (key == "equip_type") {
-            _struct.equip_type = val;
-        }
         else if (key == "attack") {
             _struct.attack = val;
+        }
+        else if (key == "add_defense") {
+            _struct.add_defense = val;
         }
     }
     return _struct;
@@ -231,47 +198,67 @@ export function protcol_to_bullet_info(_protocol:any) {
 
 }
 
-export class shooting_info {
-     public id:string = ""
-     public name:string = ""
-     public icon:string = ""
-     public desc:string = ""
-     public equip_type:em_equip_type = em_equip_type.helmet
-     public _bullet_info:bullet_info = null
+export class player_info {
+     public account_id:string = ""
+     public player_id:string = ""
+     public player_nick_name:string = ""
+     public player_appearance:number = 0
+     public gender:number = 0
+     public level:number = 0
+     public scene:string = ""
+     public line:number = 0
+     public pos:position = null
+     public dir:direction = direction.none
 }
 
-export function shooting_info_to_protcol(_struct:shooting_info) {
+export function player_info_to_protcol(_struct:player_info) {
     let _protocol:any = {}
-    _protocol["id"] = _struct.id
-    _protocol["name"] = _struct.name
-    _protocol["icon"] = _struct.icon
-    _protocol["desc"] = _struct.desc
-    _protocol["equip_type"] = _struct.equip_type
-    _protocol["_bullet_info"] = bullet_info_to_protcol(_struct._bullet_info)
+    _protocol["account_id"] = _struct.account_id
+    _protocol["player_id"] = _struct.player_id
+    _protocol["player_nick_name"] = _struct.player_nick_name
+    _protocol["player_appearance"] = _struct.player_appearance
+    _protocol["gender"] = _struct.gender
+    _protocol["level"] = _struct.level
+    _protocol["scene"] = _struct.scene
+    _protocol["line"] = _struct.line
+    _protocol["pos"] = position_to_protcol(_struct.pos)
+    _protocol["dir"] = _struct.dir
     return _protocol;
 }
 
-export function protcol_to_shooting_info(_protocol:any) {
-    let _struct = new shooting_info()
+export function protcol_to_player_info(_protocol:any) {
+    let _struct = new player_info()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "id") {
-            _struct.id = val;
+        if (key == "account_id") {
+            _struct.account_id = val;
         }
-        else if (key == "name") {
-            _struct.name = val;
+        else if (key == "player_id") {
+            _struct.player_id = val;
         }
-        else if (key == "icon") {
-            _struct.icon = val;
+        else if (key == "player_nick_name") {
+            _struct.player_nick_name = val;
         }
-        else if (key == "desc") {
-            _struct.desc = val;
+        else if (key == "player_appearance") {
+            _struct.player_appearance = val;
         }
-        else if (key == "equip_type") {
-            _struct.equip_type = val;
+        else if (key == "gender") {
+            _struct.gender = val;
         }
-        else if (key == "_bullet_info") {
-            _struct._bullet_info = protcol_to_bullet_info(val);
+        else if (key == "level") {
+            _struct.level = val;
+        }
+        else if (key == "scene") {
+            _struct.scene = val;
+        }
+        else if (key == "line") {
+            _struct.line = val;
+        }
+        else if (key == "pos") {
+            _struct.pos = protcol_to_position(val);
+        }
+        else if (key == "dir") {
+            _struct.dir = val;
         }
     }
     return _struct;

@@ -13,6 +13,7 @@ class error_code(Enum):
     not_enough_money = 3
     no_this_equip = 4
     no_this_item = 5
+    undefined_player_id = 6
 
 
 class em_direction(Enum):
@@ -36,6 +37,14 @@ class em_equip_type(Enum):
 class em_shooting_bullet(Enum):
     arrow = 1
     bullet = 2
+
+
+class direction(Enum):
+    none = 0
+    up = 1
+    down = 2
+    left = 3
+    right = 4
 
 
 class em_task_state(Enum):
@@ -84,6 +93,7 @@ class equip_info(object):
         self.equip_type:em_equip_type = 0
         self.add_hp:int = 0
         self.add_mp:int = 0
+        self.attack:int = 0
         self.add_defense:int = 0
 
 
@@ -98,6 +108,7 @@ def equip_info_to_protcol(_struct:equip_info):
     _protocol["equip_type"] = _struct.equip_type
     _protocol["add_hp"] = _struct.add_hp
     _protocol["add_mp"] = _struct.add_mp
+    _protocol["attack"] = _struct.attack
     _protocol["add_defense"] = _struct.add_defense
     return _protocol
 
@@ -118,47 +129,10 @@ def protcol_to_equip_info(_protocol:dict):
             _struct.add_hp = val
         elif key == "add_mp":
             _struct.add_mp = val
-        elif key == "add_defense":
-            _struct.add_defense = val
-    return _struct
-
-class weapon_info(object):
-    def __init__(self):
-        self.id:str = ""
-        self.name:str = ""
-        self.icon:str = ""
-        self.desc:str = ""
-        self.equip_type:em_equip_type = 0
-        self.attack:int = 0
-
-
-def weapon_info_to_protcol(_struct:weapon_info):
-    if _struct is None:
-        return None
-    _protocol = {}
-    _protocol["id"] = _struct.id
-    _protocol["name"] = _struct.name
-    _protocol["icon"] = _struct.icon
-    _protocol["desc"] = _struct.desc
-    _protocol["equip_type"] = _struct.equip_type
-    _protocol["attack"] = _struct.attack
-    return _protocol
-
-def protcol_to_weapon_info(_protocol:dict):
-    _struct = weapon_info()
-    for (key, val) in _protocol.items():
-        if key == "id":
-            _struct.id = val
-        elif key == "name":
-            _struct.name = val
-        elif key == "icon":
-            _struct.icon = val
-        elif key == "desc":
-            _struct.desc = val
-        elif key == "equip_type":
-            _struct.equip_type = val
         elif key == "attack":
             _struct.attack = val
+        elif key == "add_defense":
+            _struct.add_defense = val
     return _struct
 
 class bullet_info(object):
@@ -204,43 +178,59 @@ def protcol_to_bullet_info(_protocol:dict):
             _struct.speed = val
     return _struct
 
-class shooting_info(object):
+class player_info(object):
     def __init__(self):
-        self.id:str = ""
-        self.name:str = ""
-        self.icon:str = ""
-        self.desc:str = ""
-        self.equip_type:em_equip_type = 0
-        self._bullet_info:bullet_info = None
+        self.account_id:str = ""
+        self.player_id:str = ""
+        self.player_nick_name:str = ""
+        self.player_appearance:int = 0
+        self.gender:int = 0
+        self.level:int = 0
+        self.scene:str = ""
+        self.line:int = 0
+        self.pos:position = None
+        self.dir:direction = 0
 
 
-def shooting_info_to_protcol(_struct:shooting_info):
+def player_info_to_protcol(_struct:player_info):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["id"] = _struct.id
-    _protocol["name"] = _struct.name
-    _protocol["icon"] = _struct.icon
-    _protocol["desc"] = _struct.desc
-    _protocol["equip_type"] = _struct.equip_type
-    _protocol["_bullet_info"] = bullet_info_to_protcol(_struct._bullet_info)
+    _protocol["account_id"] = _struct.account_id
+    _protocol["player_id"] = _struct.player_id
+    _protocol["player_nick_name"] = _struct.player_nick_name
+    _protocol["player_appearance"] = _struct.player_appearance
+    _protocol["gender"] = _struct.gender
+    _protocol["level"] = _struct.level
+    _protocol["scene"] = _struct.scene
+    _protocol["line"] = _struct.line
+    _protocol["pos"] = position_to_protcol(_struct.pos)
+    _protocol["dir"] = _struct.dir
     return _protocol
 
-def protcol_to_shooting_info(_protocol:dict):
-    _struct = shooting_info()
+def protcol_to_player_info(_protocol:dict):
+    _struct = player_info()
     for (key, val) in _protocol.items():
-        if key == "id":
-            _struct.id = val
-        elif key == "name":
-            _struct.name = val
-        elif key == "icon":
-            _struct.icon = val
-        elif key == "desc":
-            _struct.desc = val
-        elif key == "equip_type":
-            _struct.equip_type = val
-        elif key == "_bullet_info":
-            _struct._bullet_info = protcol_to_bullet_info(val)
+        if key == "account_id":
+            _struct.account_id = val
+        elif key == "player_id":
+            _struct.player_id = val
+        elif key == "player_nick_name":
+            _struct.player_nick_name = val
+        elif key == "player_appearance":
+            _struct.player_appearance = val
+        elif key == "gender":
+            _struct.gender = val
+        elif key == "level":
+            _struct.level = val
+        elif key == "scene":
+            _struct.scene = val
+        elif key == "line":
+            _struct.line = val
+        elif key == "pos":
+            _struct.pos = protcol_to_position(val)
+        elif key == "dir":
+            _struct.dir = val
     return _struct
 
 class task_info(object):
