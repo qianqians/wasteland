@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import sys
 from ..engine.engine import *
 from ..engine.login_svr import *
@@ -8,8 +9,11 @@ async def __get_object_one_callback_set_future__(future:asyncio.Future, data:dic
     future.set_result(data)
 
 class LoginCharacterCallback(player):
-    def __init__(self, accound_id:str, entity_id:str, gate_name:str, conn_id:str):
+    def __init__(self, handle:login_event_handle, accound_id:str, entity_id:str, gate_name:str, conn_id:str, is_replace: bool):
         player.__init__("login", "LoginCharacterCallback", entity_id, gate_name, conn_id, False)
+        
+        self.handle = handle
+        self.is_replace = is_replace
         
         self.AccountID = accound_id
         self.DBproxy = app().dbproxy_mgr.get_dbproxy()
@@ -31,7 +35,7 @@ class LoginCharacterCallback(player):
     async def init(self) -> list[dict]:
         from app import app
         future = asyncio.Future()
-        self.get_object_info("wasteland", "players", {"accound_id": self.AccountID}, 0, 100, "", False, 
+        self.DBproxy.get_object_info("wasteland", "players", {"accound_id": self.AccountID}, 0, 100, "", False, 
             lambda _list: dbproxy.__get_object_one_callback_data__(_list),
             lambda : app().run_coroutine_async(__get_object_one_callback_set_future__(future, self.Character)))
         return await future
@@ -64,7 +68,13 @@ class LoginCharacterCallback(player):
         gate_info_str = await app().redis_proxy.get(const.PlayerGateInfoKey.format(player_id))
         if gate_info_str is not None and gate_info_str != "":
             gate_info = json.loads(gate_info_str)
-            self.__replace_client__(gate_info["gate"], gate_info["conn_id"], self.GateName, self.ConnID, False, "其他位置登录!")
+            self.handle.__replace_client__(
+                gate_info["gate"], 
+                gate_info["conn_id"], 
+                self.GateName, 
+                self.ConnID, 
+                self.is_replace, 
+                "其他位置登录!")
         else:
             gate_host = app().ctx.gate_host(self.GateName)
             zone_info_str = await app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(player_id))

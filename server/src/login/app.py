@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import sys
 from ..data import const
 from ..engine.engine import *
@@ -79,18 +80,22 @@ class LoginEventHandle(login_event_handle):
                 break
             
             steamid = params.get("steamid")
+            if steamid == None:
+                error = "steamid is none"
+            
             break
 
         if error != None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
             _p.create_main_remote_entity()
-        else:
-            if steamid != None:
-                accound_id = await self.__get_client_account_id__(steamid)
-                _character = character.LoginCharacterCallback(accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id)
-                await _character.init()
-                app().player_mgr.add_player(_character)
-                _character.create_main_remote_entity()
+            return
+        
+        accound_id = await self.__get_client_account_id__(steamid)
+        _character = character.LoginCharacterCallback(self, 
+            accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
+        await _character.init()
+        app().player_mgr.add_player(_character)
+        _character.create_main_remote_entity()
                 
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")

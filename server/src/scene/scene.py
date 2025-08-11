@@ -1,4 +1,8 @@
+# -*- coding: UTF-8 -*-
+from __future__ import annotations
 from ..engine.engine import *
+from ..data import const
+from .player_data import player_data
 
 class scene:
     def __init__(self, scene_name:str, scene_line:int):
@@ -10,3 +14,44 @@ class scene:
     def entry_scene(self, player:player):
         self.group.join((player.client_gate_name, player.client_conn_id))
         self.group.create_remote_player(player)
+        
+
+async def load_or_create_player(_service:SceneService, gate_name:str, conn_id:str, client_info:dict):
+    player_id = client_info.get("player_id", str(uuid.uuid4()))
+    await player_data.load_or_create_entity({"player_id":player_id}, 
+        lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, client_info, data)))
+    await app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), 
+        json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
+
+async def create_player(_service:SceneService, gate_name:str, conn_id:str, player_id:str, client_info:dict, info:dict):
+    if "account_id" in client_info:
+        info["account_id"] = client_info["account_id"]
+        info["player_nick_name"] = client_info["player_nick_name"]
+        info["player_appearance"] = client_info["player_appearance"]
+        info["gender"] = client_info["gender"]
+           
+    player = player_data(gate_name, conn_id, player_id, info)
+    app().player_mgr.add_player(player)
+    player.create_main_remote_entity()
+    _service.scene.entry_scene(player)
+    await app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), 
+        json.dumps({"zone":_service.scene.scene_name, "line":_service.scene.scene_line}))
+
+class SceneService(service):
+    def __init__(self, area:str, scene_line:int, _app:app):
+        super().__init__(f"{area}_{scene_line}")
+        self._app = _app
+        self.scene = scene(area, scene_line)
+
+    def on_migrate(self, _entity:entity|player):
+        pass
+
+    def hub_query_service_entity(self, queryer_hub_name:str):
+        pass
+    
+    def client_query_service_entity(self, queryer_gate_name:str, queryer_client_conn_id:str, queryer_client_info:dict):
+        app().run_coroutine_async(load_or_create_player(self, queryer_gate_name, queryer_client_conn_id, queryer_client_info))
+
+    @abstractmethod
+    def client_query_service_entity_ext(self, info:list[(str, str, dict)]):
+        pass
