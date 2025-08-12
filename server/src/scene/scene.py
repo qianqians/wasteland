@@ -58,8 +58,10 @@ class SceneService(service):
         self.line = scene_line
         self.scenes:dict[str, scene] = {}
 
+        self.novice_village:scene_postion = {}
+
     def novice_village(self) -> dict:
-        pass
+        return self.novice_village
 
     def on_migrate(self, _entity:entity|player):
         pass
