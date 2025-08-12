@@ -32,75 +32,14 @@ class equip:
         e.equip = info
         return e
 
-class weapon:
-    def __init__(self):
-        self.weapon = weapon_info()
-
-    def data(self) -> weapon_info:
-        return self.weapon
-    
-    def info(self) -> dict:
-        return weapon_info_to_protcol(self.weapon)
-    
-    def type(self) -> em_equip_type:
-        return self.weapon.equip_type
-    
-    def create(data:dict) -> weapon:
-        w = weapon()
-        w.weapon.id = data["id"]
-        w.weapon.name = data["name"]
-        w.weapon.icon = data["icon"]
-        w.weapon.desc = data["desc"]
-        w.weapon.equip_type = em_equip_type(data["type"])
-        w.weapon.attack = data["attack"]
-        return w
-
-    def load(info:weapon_info):
-        w = weapon()
-        w.weapon = info
-        return w
-
-class shooting:
-    def __init__(self):
-        self.shooting = shooting_info()
-
-    def data(self) -> shooting_info:
-        return self.shooting
-    
-    def info(self) -> dict:
-        return shooting_info_to_protcol(self.shooting)
-
-    def type(self) -> em_equip_type:
-        return self.shooting.equip_type
-
-    def create(data:dict) -> shooting:
-        s = shooting()
-        s.shooting.id = data["id"]
-        s.shooting.name = data["name"]
-        s.shooting.icon = data["icon"]
-        s.shooting.desc = data["desc"]
-        s.shooting.equip_type = em_equip_type(data["type"])
-        s.shooting._bullet_info = protcol_to_bullet_info(data["bullet"])
-        return s
-    
-    def load(info:shooting_info):
-        s = shooting()
-        s.shooting = info
-        return s
-
 class equip_data:
     def __init__(self, data:dict):
-        self.equips:dict[em_equip_type, equip|weapon|shooting] = {}
+        self.equips:dict[em_equip_type, equip] = {}
         for type, info in data.items():
             type = em_equip_type(int(type))
-            if type == em_equip_type.weapon:
-                self.equips[type] = weapon.create(info)
-            elif type == em_equip_type.shooting:
-                self.equips[type] = shooting.create(info)
-            else:
-                self.equips[type] = equip.create(info)
+            self.equips[type] = equip.create(info)
 
-    def create() -> equip_data:
+    def create(gender:int) -> equip_data:
         return equip_data({})
 
     def add_attribute(self):
@@ -116,10 +55,10 @@ class equip_data:
 
         return (add_hp, add_mp, add_defense)
     
-    def wear(self, equip:equip|weapon|shooting):
+    def wear(self, equip:equip) -> equip:
         old = None
-        if equip.type() not in self.equips:
-            old = self.equips[equip.type]
+        if equip.type() in self.equips:
+            old = self.equips[equip.type()]
         self.equips[equip.type()] = equip
         return old
     

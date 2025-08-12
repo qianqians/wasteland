@@ -3,6 +3,8 @@ from ..engine.engine import *
 from ..data.attribute_data import *
 from ..data.equip_data import *
 from ..data.scene_data import *
+from ..data.bag_data import *
+from ..data.task_data import *
 from .scene import *
 
 @SaveDBDescribe("wasteland", "player_data")
@@ -21,6 +23,8 @@ class player_data(save, player):
         self.attribute_data = attribute_data(info["attribute_data"])
         self.equip_data = equip_data(info["equip_data"])
         self.scene_data = scene_data(info["scene_data"])
+        self.task_data = equip_data(info["task_data"])
+        self.bag_data = scene_data(info["bag_data"])
 
     def full_info(self) -> dict:
         return self.store()
@@ -41,13 +45,21 @@ class player_data(save, player):
             "gender": self.gender,
             "attribute_data": self.attribute_data.info(),
             "equip_data": self.equip_data.info(), 
-            "scene_data": self.scene_data.info() }
+            "scene_data": self.scene_data.info(),
+            "task_data": self.task_data.info(), 
+            "bag_data": self.bag_data.info(),
+        }
     
     @staticmethod
     @abstractmethod
     def create() -> dict:
+        _attribute_data = attribute_data.create()
+        _bag_data = bag_data.create()
+        _task_data = task_data.create()
+
         return { 
             "player_id":str(uuid.uuid4()),
-            "attribute_data": attribute_data.create().info(), 
-            "equip_data": equip_data.create().info(), 
-            "scene_data": scene_data.create().info() }
+            "attribute_data": _attribute_data.info(), 
+            "bag_data": _bag_data.info(),
+            "task_data": _task_data.info(),
+        }

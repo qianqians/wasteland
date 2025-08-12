@@ -2,6 +2,11 @@
 from __future__ import annotations
 from ..engine.engine import *
 from ..data import const
+from ..data.attribute_data import *
+from ..data.equip_data import *
+from ..data.scene_data import *
+from ..data.bag_data import *
+from ..data.task_data import *
 from .player_data import player_data
 
 class scene:
@@ -30,7 +35,11 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
         info["player_appearance"] = client_info["player_appearance"]
         info["gender"] = client_info["gender"]
            
-    info["scene_data"]["scene_line"] = _service.line
+    if "scene_data" not in info:
+        info["scene_data"] = _service.novice_village()
+    if "equip_data" not in info:
+        info["equip_data"] = equip_data.create(client_info["gender"])
+
     player = player_data(gate_name, conn_id, player_id, info)
     player.create_main_remote_entity()
 
@@ -48,6 +57,9 @@ class SceneService(service):
         self.area = area
         self.line = scene_line
         self.scenes:dict[str, scene] = {}
+
+    def novice_village(self) -> dict:
+        pass
 
     def on_migrate(self, _entity:entity|player):
         pass

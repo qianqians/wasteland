@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from __future__ import annotations
 
 class attribute_data:

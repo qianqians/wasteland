@@ -7,12 +7,9 @@ class scene_data:
         self.write_back(info)
 
     def write_back(self, info:dict):
-        self.scene_name = info["scene_name"]
-        self.scene_line = info["scene_line"]
+        self.scene_name:str = info["scene_name"]
+        self.scene_line:int = info["scene_line"]
         self.postion = protcol_to_position(info["postion"])
 
     def info(self) -> dict:
         return { "scene_name": self.scene_name, "scene_line": self.scene_line, "postion": position_to_protcol(self.postion) }
-    
-    def create() -> scene_data:
-        return scene_data({ "scene_name": "novice_village", "scene_line": 1, "postion": {"x":1, "y":1} })
