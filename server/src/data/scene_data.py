@@ -15,4 +15,4 @@ class scene_data:
         return { "scene_name": self.scene_name, "scene_line": self.scene_line, "postion": position_to_protcol(self.postion) }
     
     def create() -> scene_data:
-        return scene_data({ "scene_name": "wasteland_novice_village", "scene_line": 1, "postion": {"x":1, "y":1} })
+        return scene_data({ "scene_name": "novice_village", "scene_line": 1, "postion": {"x":1, "y":1} })
