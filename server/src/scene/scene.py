@@ -2,6 +2,11 @@
 from __future__ import annotations
 from ..engine.engine import *
 from ..data import const
+from ..data.attribute_data import *
+from ..data.equip_data import *
+from ..data.scene_data import *
+from ..data.bag_data import *
+from ..data.task_data import *
 from .player_data import player_data
 
 class scene:
@@ -30,18 +35,33 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
         info["player_appearance"] = client_info["player_appearance"]
         info["gender"] = client_info["gender"]
            
+    if "scene_data" not in info:
+        info["scene_data"] = _service.novice_village()
+    if "equip_data" not in info:
+        info["equip_data"] = equip_data.create(client_info["gender"])
+
     player = player_data(gate_name, conn_id, player_id, info)
-    app().player_mgr.add_player(player)
     player.create_main_remote_entity()
-    _service.scene.entry_scene(player)
+
+    app().player_mgr.add_player(player)
+    
+    _scene = _service.scenes.get(f"{player.scene_data.scene_name}_{_service.line}", None)
+    if _scene != None:
+        _scene.entry_scene(player)
     await app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), 
-        json.dumps({"zone":_service.scene.scene_name, "line":_service.scene.scene_line}))
+        json.dumps({"zone":player.scene_data.scene_name, "line":_service.line}))
 
 class SceneService(service):
-    def __init__(self, area:str, scene_line:int, _app:app):
+    def __init__(self, area:str, scene_line:int):
         super().__init__(f"{area}_{scene_line}")
-        self._app = _app
-        self.scene = scene(area, scene_line)
+        self.area = area
+        self.line = scene_line
+        self.scenes:dict[str, scene] = {}
+
+        self.novice_village:scene_postion = {}
+
+    def novice_village(self) -> dict:
+        return self.novice_village
 
     def on_migrate(self, _entity:entity|player):
         pass
