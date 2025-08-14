@@ -36,6 +36,9 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
         info["gender"] = client_info["gender"]
            
     if "scene_data" not in info:
+        if _service.novice_village() == None:
+            app().error(f"Novice village not found for player={player_id} client_info={client_info}")
+            return
         info["scene_data"] = _service.novice_village()
     if "equip_data" not in info:
         info["equip_data"] = equip_data.create(client_info["gender"])
@@ -56,9 +59,30 @@ class SceneService(service):
         super().__init__(f"{area}_{scene_line}")
         self.area = area
         self.line = scene_line
-        self.scenes:dict[str, scene] = {}
 
-        self.novice_village:scene_postion = {}
+        self.scenes:dict[str, scene] = {}
+        with open('../../Area.json') as f:
+            data = json.load(f)
+            for s in data.value():
+                if s["area"] != area:
+                    continue
+                self.scenes[s["scene"]] = scene(s["scene"], scene_line)
+        
+        self.novice_village:scene_postion = None
+        with open('../../NoviceVillage.json') as f:
+            data = json.load(f)
+            if area in data:
+                novice_village = data[area]
+                pos = json.loads(novice_village["postion"])
+                pos:postion_data = {
+                    "x": pos[0],
+                    "y": pos[1]
+                }
+                self.novice_village = {
+                    "scene_name": novice_village["novice_village"],
+                    "scene_line": scene_line,
+                    "pos": pos
+                }
 
     def novice_village(self) -> dict:
         return self.novice_village

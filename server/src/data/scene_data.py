@@ -3,14 +3,14 @@ from __future__ import annotations
 from typing import TypedDict
 from ..engine.common_svr import *
 
-class postion(TypedDict):
+class postion_data(TypedDict):
     x:int = 0
     y:int = 0
     
 class scene_postion(TypedDict):
     scene_name:str
     scene_line:int
-    pos:postion
+    pos:postion_data
 
 class scene_data:
     def __init__(self, info:dict):
