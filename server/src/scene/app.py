@@ -14,6 +14,7 @@ def main(cfg_file:str):
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())
     _app.service_mgr.reg_service(SceneService("wasteland", 1))
+    _app.service_mgr.reg_service(SceneService("wasteland", 2))
     _app.run()
     
 if __name__ == '__main__':
