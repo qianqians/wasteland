@@ -48,11 +48,15 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
 
     app().player_mgr.add_player(player)
     
-    _scene = _service.scenes.get(f"{player.scene_data.scene_name}_{_service.line}", None)
+    scene_name = player.scene_data.scene_name
+    scene_line = _service.line
+    _scene = _service.scenes.get(f"{scene_name}_{scene_line}", None)
     if _scene != None:
         _scene.entry_scene(player)
-    await app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), 
-        json.dumps({"zone":player.scene_data.scene_name, "line":_service.line}))
+        await app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), 
+            json.dumps({"zone":scene_name, "line":scene_line}))
+    else:
+        app().error(f"scene:{scene_name}_{scene_line} not found!")
 
 class SceneService(service):
     def __init__(self, area:str, scene_line:int):
