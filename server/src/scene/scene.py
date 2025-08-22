@@ -8,15 +8,21 @@ from ..data.scene_data import *
 from ..data.bag_data import *
 from ..data.task_data import *
 from .player_data import player_data
+from .npc import npc
+from ..data.scene_map_data import scene_map, get_scene_map
 
 class scene:
     def __init__(self, scene_name:str, scene_line:int):
         self.scene_name = scene_name
         self.scene_line = scene_line
         
+        self.scene_map_data = get_scene_map(scene_name)
+        
         self.group = group()
+        self.players:dict[str, player_data] = {}
+        self.npcs:dict[str, npc] = {}
 
-    def entry_scene(self, player:player):
+    def entry_scene(self, player:player_data):
         self.group.join((player.client_gate_name, player.client_conn_id))
         self.group.create_remote_player(player)
         

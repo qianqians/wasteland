@@ -10,7 +10,6 @@ class em_map_element_property(Enum):
 class element(TypedDict):
     _property:em_map_element_property = em_map_element_property.em_map_empty
 
-
 class ladder(TypedDict):
     x_min:int = 0
     x_max:int = 0
@@ -27,4 +26,5 @@ class scene_map(TypedDict):
     map_data:list[element] = []
     ladder_date:list[ladder] = []
     
-    
+def get_scene_map(scene_name:str) -> scene_map:
+    return None
