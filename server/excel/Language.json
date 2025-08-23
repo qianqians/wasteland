@@ -1,0 +1,54 @@
+{
+    "coin": {
+        "index": "coin",
+        "chinese": "金币"
+    },
+    "": {
+        "index": "",
+        "chinese": ""
+    },
+    "wood ": {
+        "index": "wood",
+        "chinese": "木材"
+    },
+    "screw ": {
+        "index": "screw",
+        "chinese": "螺丝"
+    },
+    "nail": {
+        "index": "nail",
+        "chinese": "铁钉"
+    },
+    "level_check_desc": {
+        "index": "level_check_desc",
+        "chinese": "达到{0}级以上"
+    },
+    "collect_task_desc": {
+        "index": "collect_task_desc",
+        "chinese": "收集{0}({1}/{2})"
+    },
+    "novice_helmet": {
+        "index": "novice_helmet",
+        "chinese": "新手帽子"
+    },
+    "novice_jacket": {
+        "index": "novice_jacket",
+        "chinese": "新手上装"
+    },
+    "novice_trousers": {
+        "index": "novice_trousers",
+        "chinese": "新手裤子"
+    },
+    "novice_gloves": {
+        "index": "novice_gloves",
+        "chinese": "新手手套"
+    },
+    "novice_boots": {
+        "index": "novice_boots",
+        "chinese": "新手鞋子"
+    },
+    "novice_weapon": {
+        "index": "novice_weapon",
+        "chinese": "新手武器"
+    }
+}

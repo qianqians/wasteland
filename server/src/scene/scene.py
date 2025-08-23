@@ -21,6 +21,7 @@ class scene:
         self.group = group()
         self.players:dict[str, player_data] = {}
         self.npcs:dict[str, npc] = {}
+        
 
     def entry_scene(self, player:player_data):
         self.group.join((player.client_gate_name, player.client_conn_id))

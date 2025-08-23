@@ -1,0 +1,10 @@
+{
+    "1001": {
+        "id": 1001,
+        "npc": 10001,
+        "task_type": "collect",
+        "accept_condition": 100101,
+        "complete_condition": 100102,
+        "task_reward": 10011
+    }
+}

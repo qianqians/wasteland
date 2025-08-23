@@ -1,0 +1,40 @@
+{
+    "100101": {
+        "id": 100101,
+        "condition1": 1,
+        "condition1_type": 0,
+        "condition1_desc": "level_check_desc",
+        "condition1_value": 1,
+        "condition2": 0,
+        "condition2_type": 0,
+        "condition2_desc": "",
+        "condition2_value": 0,
+        "condition3": 0,
+        "condition3_type": 0,
+        "condition3_desc": "",
+        "condition3_value": 0,
+        "condition4": 0,
+        "condition4_type": 0,
+        "condition4_desc": "",
+        "condition4_value": 0
+    },
+    "100102": {
+        "id": 100102,
+        "condition1": 2,
+        "condition1_type": 101,
+        "condition1_desc": "collect_task_desc",
+        "condition1_value": 10,
+        "condition2": 2,
+        "condition2_type": 102,
+        "condition2_desc": "collect_task_desc",
+        "condition2_value": 10,
+        "condition3": 2,
+        "condition3_type": 103,
+        "condition3_desc": "collect_task_desc",
+        "condition3_value": 10,
+        "condition4": 0,
+        "condition4_type": 0,
+        "condition4_desc": "collect_task_desc",
+        "condition4_value": 0
+    }
+}
