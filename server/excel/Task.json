@@ -3,7 +3,10 @@
         "id": 1001,
         "npc": 10001,
         "task_type": "collect",
+        "accept_type": 2,
         "accept_condition": 100101,
+        "before_accept_task_desc": "novice_task1_before_accept",
+        "after_accept_task_desc": "novice_task1_after_accept",
         "complete_condition": 100102,
         "task_reward": 10011
     }

@@ -50,5 +50,13 @@
     "novice_weapon": {
         "index": "novice_weapon",
         "chinese": "新手武器"
+    },
+    "novice_task1_before_accept": {
+        "index": "novice_task1_before_accept",
+        "chinese": "去和新手教官聊聊吧！说不定有新的收获"
+    },
+    "novice_task1_after_accept": {
+        "index": "novice_task1_after_accept",
+        "chinese": "小子，去给我收集这些物品过来"
     }
 }
