@@ -375,6 +375,38 @@ export function protcol_to_item(_protocol:any) {
 
 }
 
+export class skill_info {
+     public skill_id:number = 0
+     public skill_level:number = 0
+     public cd_time:number = 0
+}
+
+export function skill_info_to_protcol(_struct:skill_info) {
+    let _protocol:any = {}
+    _protocol["skill_id"] = _struct.skill_id
+    _protocol["skill_level"] = _struct.skill_level
+    _protocol["cd_time"] = _struct.cd_time
+    return _protocol;
+}
+
+export function protcol_to_skill_info(_protocol:any) {
+    let _struct = new skill_info()
+    for (let key in _protocol) {
+        let val = _protocol[key];
+        if (key == "skill_id") {
+            _struct.skill_id = val;
+        }
+        else if (key == "skill_level") {
+            _struct.skill_level = val;
+        }
+        else if (key == "cd_time") {
+            _struct.cd_time = val;
+        }
+    }
+    return _struct;
+
+}
+
 // this module code is codegen by geese codegen for typescript
 
 

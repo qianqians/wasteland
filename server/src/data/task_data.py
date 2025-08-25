@@ -23,7 +23,7 @@ class task_data:
         tasks = self.taskes
         self.taskes = {}
         for id, task in tasks.items():
-            if task.refresh_time == 0 or not is_cross_day_simple(task.refresh_time):
+            if task.refresh_time == 0 or task.refresh_time < time.time():
                 self.taskes[id] = task
 
     def enter_task(self, task: task_info):

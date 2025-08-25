@@ -110,3 +110,9 @@ enum em_harm_type {
     bullet_damage = 2;
     bow_arrow = 3;
 }
+
+struct skill_info {
+    int32 skill_id;
+    int32 skill_level;
+    int32 cd_time;
+}
