@@ -89,13 +89,18 @@ enum em_task_state {
 struct task_progress_info {
     int32 id;
     int32 progress;
+    int32[] watch_task;
+}
+
+struct task_progress_total {
+    int32 id;
     int32 total;
 }
 
 struct task_info {
     int32 task_id;
-    task_progress_info[] progress;
     em_task_state status;
+    task_progress_total[] progress;
     int64 refresh_time;
 }
 

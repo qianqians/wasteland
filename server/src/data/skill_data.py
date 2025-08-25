@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from ..engine.engine import *
+from ..engine.common_svr import *
 
 class skill_data:
     def __init__(self, info:dict):
@@ -13,6 +13,9 @@ class skill_data:
     def learn_skill(self, skill: skill_info):
         if skill.skill_id not in self.skills:
             self.skills[skill.skill_id] = skill
+            
+    def is_learn_skill(self) -> bool:
+        return len(self.skills) > 0
 
 def skill_create() -> skill_data:
     return skill_data({})

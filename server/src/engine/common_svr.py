@@ -237,7 +237,7 @@ class task_progress_info(object):
     def __init__(self):
         self.id:int = 0
         self.progress:int = 0
-        self.total:int = 0
+        self.watch_task:list[int] = []
 
 
 def task_progress_info_to_protcol(_struct:task_progress_info):
@@ -246,7 +246,11 @@ def task_progress_info_to_protcol(_struct:task_progress_info):
     _protocol = {}
     _protocol["id"] = _struct.id
     _protocol["progress"] = _struct.progress
-    _protocol["total"] = _struct.total
+    if _struct.watch_task:
+        _array_watch_task = []
+        for v_ in _struct.watch_task:
+            _array_watch_task.append(v_)
+        _protocol["watch_task"] = _array_watch_task
     return _protocol
 
 def protcol_to_task_progress_info(_protocol:dict):
@@ -256,6 +260,31 @@ def protcol_to_task_progress_info(_protocol:dict):
             _struct.id = val
         elif key == "progress":
             _struct.progress = val
+        elif key == "watch_task":
+            _struct.watch_task = []
+            for v_ in val:
+                _struct.watch_task.append(v_)
+    return _struct
+
+class task_progress_total(object):
+    def __init__(self):
+        self.id:int = 0
+        self.total:int = 0
+
+
+def task_progress_total_to_protcol(_struct:task_progress_total):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["id"] = _struct.id
+    _protocol["total"] = _struct.total
+    return _protocol
+
+def protcol_to_task_progress_total(_protocol:dict):
+    _struct = task_progress_total()
+    for (key, val) in _protocol.items():
+        if key == "id":
+            _struct.id = val
         elif key == "total":
             _struct.total = val
     return _struct
@@ -263,8 +292,8 @@ def protcol_to_task_progress_info(_protocol:dict):
 class task_info(object):
     def __init__(self):
         self.task_id:int = 0
-        self.progress:list[task_progress_info] = []
         self.status:em_task_state = 0
+        self.progress:list[task_progress_total] = []
         self.refresh_time:int = 0
 
 
@@ -273,12 +302,12 @@ def task_info_to_protcol(_struct:task_info):
         return None
     _protocol = {}
     _protocol["task_id"] = _struct.task_id
+    _protocol["status"] = _struct.status
     if _struct.progress:
         _array_progress = []
         for v_ in _struct.progress:
-            _array_progress.append(task_progress_info_to_protcol(v_))
+            _array_progress.append(task_progress_total_to_protcol(v_))
         _protocol["progress"] = _array_progress
-    _protocol["status"] = _struct.status
     _protocol["refresh_time"] = _struct.refresh_time
     return _protocol
 
@@ -287,12 +316,12 @@ def protcol_to_task_info(_protocol:dict):
     for (key, val) in _protocol.items():
         if key == "task_id":
             _struct.task_id = val
+        elif key == "status":
+            _struct.status = val
         elif key == "progress":
             _struct.progress = []
             for v_ in val:
-                _struct.progress.append(task_progress_info_to_protcol(v_))
-        elif key == "status":
-            _struct.status = val
+                _struct.progress.append(task_progress_total_to_protcol(v_))
         elif key == "refresh_time":
             _struct.refresh_time = val
     return _struct
