@@ -19,9 +19,9 @@
         "index": "nail",
         "chinese": "铁钉"
     },
-    "level_check_desc": {
-        "index": "level_check_desc",
-        "chinese": "达到{0}级以上"
+    "learn_skill_check_desc": {
+        "index": "learn_skill_check_desc",
+        "chinese": "先去学习下技能吧!"
     },
     "collect_task_desc": {
         "index": "collect_task_desc",

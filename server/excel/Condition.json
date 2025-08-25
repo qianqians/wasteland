@@ -3,7 +3,7 @@
         "id": 100101,
         "condition1": 1,
         "condition1_type": 0,
-        "condition1_desc": "level_check_desc",
+        "condition1_desc": "learn_skill_check_desc",
         "condition1_value": 1,
         "condition2": 0,
         "condition2_type": 0,

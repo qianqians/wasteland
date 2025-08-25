@@ -8,5 +8,8 @@ class bag_data:
         for grid, item in info.items():
             self.bag[grid] = protcol_to_item(item)
 
-    def create() -> bag_data:
-        return bag_data({})
+    def info(self) -> dict:
+        return { grid: item_to_protcol(item) for grid, item in self.bag.items() }
+
+def bag_create() -> bag_data:
+    return bag_data({})

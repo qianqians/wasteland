@@ -3,6 +3,7 @@
         "id": 1001,
         "task_type": "collect",
         "unlock_level": 1,
+        "refresh_type": 1,
         "accept_type": 2,
         "accept_npc": 10001,
         "accept_condition": 100101,

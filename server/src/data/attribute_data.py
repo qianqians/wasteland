@@ -18,11 +18,11 @@ class attribute_data:
             "defense": self.defense,
         }
     
-    def create() -> attribute_data:
-        return attribute_data({
-            "hp": 100,
-            "mp": 100,
-            "max_hp": 100,
-            "max_mp": 100,
-            "defense": 10,
-        })
+def attribute_create() -> attribute_data:
+    return attribute_data({
+        "hp": 100,
+        "mp": 100,
+        "max_hp": 100,
+        "max_mp": 100,
+        "defense": 10,
+    })

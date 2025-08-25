@@ -79,10 +79,9 @@ export class login_caller {
         this.entity = entity;
     }
 
-    public  create_character(player_nick_name:string, player_appearance:number, gender:number, scene:string) {
+    public  create_character(player_nick_name:string, gender:number, scene:string) {
         let _argv_b09e2393_3876_3f7c_be40_cdd789a21e87:any[] = []
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(player_nick_name);
-        _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(player_appearance);
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(gender);
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(scene);
         let _cb_uuid = this.entity.call_hub_request("create_character", encode(_argv_b09e2393_3876_3f7c_be40_cdd789a21e87));

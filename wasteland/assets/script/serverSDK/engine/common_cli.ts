@@ -265,17 +265,57 @@ export function protcol_to_player_info(_protocol:any) {
 
 }
 
+export class task_progress_info {
+     public id:number = 0
+     public progress:number = 0
+     public total:number = 0
+}
+
+export function task_progress_info_to_protcol(_struct:task_progress_info) {
+    let _protocol:any = {}
+    _protocol["id"] = _struct.id
+    _protocol["progress"] = _struct.progress
+    _protocol["total"] = _struct.total
+    return _protocol;
+}
+
+export function protcol_to_task_progress_info(_protocol:any) {
+    let _struct = new task_progress_info()
+    for (let key in _protocol) {
+        let val = _protocol[key];
+        if (key == "id") {
+            _struct.id = val;
+        }
+        else if (key == "progress") {
+            _struct.progress = val;
+        }
+        else if (key == "total") {
+            _struct.total = val;
+        }
+    }
+    return _struct;
+
+}
+
 export class task_info {
      public task_id:number = 0
-     public progress:number = 0
+     public progress:Array<task_progress_info> = null
      public status:em_task_state = em_task_state.can_claimed
+     public refresh_time:number = 0
 }
 
 export function task_info_to_protcol(_struct:task_info) {
     let _protocol:any = {}
     _protocol["task_id"] = _struct.task_id
-    _protocol["progress"] = _struct.progress
+    if (_struct.progress) {
+        _array_progress = []
+        for (let v_ of _struct.progress) {
+            _array_progress.push(task_progress_info_to_protcol(v_))
+        }
+        _protocol["progress"] = _array_progress
+    }
     _protocol["status"] = _struct.status
+    _protocol["refresh_time"] = _struct.refresh_time
     return _protocol;
 }
 
@@ -287,10 +327,16 @@ export function protcol_to_task_info(_protocol:any) {
             _struct.task_id = val;
         }
         else if (key == "progress") {
-            _struct.progress = val;
+            _struct.progress = []
+            for (let v_ of val) {
+                _struct.progress.push(protcol_to_task_progress_info(v_));
+            }
         }
         else if (key == "status") {
             _struct.status = val;
+        }
+        else if (key == "refresh_time") {
+            _struct.refresh_time = val;
         }
     }
     return _struct;

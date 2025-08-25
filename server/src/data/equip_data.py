@@ -39,9 +39,6 @@ class equip_data:
             type = em_equip_type(int(type))
             self.equips[type] = equip.create(info)
 
-    def create(gender:int) -> equip_data:
-        return equip_data({})
-
     def add_attribute(self):
         add_hp = 0
         add_mp = 0
@@ -67,3 +64,6 @@ class equip_data:
         for type, equip in self.equips.items():
             info[type] = equip.info()
         return info
+    
+def equip_create(gender:int) -> equip_data:
+    return equip_data({})

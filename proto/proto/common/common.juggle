@@ -86,10 +86,17 @@ enum em_task_state {
     completed = 4;
 }
 
+struct task_progress_info {
+    int32 id;
+    int32 progress;
+    int32 total;
+}
+
 struct task_info {
     int32 task_id;
-    int32 progress;
+    task_progress_info[] progress;
     em_task_state status;
+    int64 refresh_time;
 }
 
 struct item {

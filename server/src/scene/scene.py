@@ -39,7 +39,6 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
     if "account_id" in client_info:
         info["account_id"] = client_info["account_id"]
         info["player_nick_name"] = client_info["player_nick_name"]
-        info["player_appearance"] = client_info["player_appearance"]
         info["gender"] = client_info["gender"]
            
     if "scene_data" not in info:
@@ -48,7 +47,7 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
             return
         info["scene_data"] = _service.novice_village()
     if "equip_data" not in info:
-        info["equip_data"] = equip_data.create(client_info["gender"])
+        info["equip_data"] = equip_create(client_info["gender"])
 
     player = player_data(gate_name, conn_id, player_id, info)
     player.create_main_remote_entity()
@@ -72,7 +71,7 @@ class SceneService(service):
         self.line = scene_line
 
         self.scenes:dict[str, scene] = {}
-        with open('../../Area.json') as f:
+        with open('../../excel/Area.json') as f:
             data = json.load(f)
             for s in data.value():
                 if s["area"] != area:
@@ -80,7 +79,7 @@ class SceneService(service):
                 self.scenes[s["scene"]] = scene(s["scene"], scene_line)
         
         self.novice_village:scene_postion = None
-        with open('../../NoviceVillage.json') as f:
+        with open('../../excel/NoviceVillage.json') as f:
             data = json.load(f)
             if area in data:
                 novice_village = data[area]
