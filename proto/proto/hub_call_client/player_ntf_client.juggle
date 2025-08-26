@@ -1,0 +1,5 @@
+import common
+
+entity_service player_ntf_client {
+    drop ntf(int32 task_id, item[] pkg_item, item[] total_item);
+}

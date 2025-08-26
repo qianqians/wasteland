@@ -24,7 +24,7 @@ class player_data(save, player):
 
         self.attribute_data = attribute_data(info["attribute_data"])
         self.task_data = task_data(info["task_data"])
-        self.bag_data = bag_data(info["bag_data"])
+        self.bag_data = bag_data(info["bag_data"], player_ntf_client_caller(self))
         self.skill_data = skill_data(info["skill_data"])
         
         self.equip_data = equip_data(info["equip_data"])
@@ -94,12 +94,10 @@ class player_data(save, player):
             cond.condition4, cond.condition4_type, cond.condition4_value))
         return task_progress_total_list
 
-    def check_task(self):
-        self.task_data.refresh_task()
-
+    def check_accept_task(self):
         task_list = load_task_config()
         for task in task_list:
-            if self.check_cond(task.accept_condition):
+            if self.check_cond(load_cond_config(task.accept_condition)):
                 info = task_info()
                 info.task_id = task["id"]
                 
@@ -118,8 +116,30 @@ class player_data(save, player):
                     end_of_week = datetime(now.year, now.month, now.day) + timedelta(days=days_to_sunday, hours=23, minutes=59, seconds=59)
                     info.refresh_time = end_of_week.timestamp()
                     
-                info.progress = self.get_cond_progress_total(task.complete_condition)
-                self.task_data.enter_task(info, self.get_cond_progress(task.accept_condition))
+                info.progress = self.get_cond_progress_total(load_cond_config(task.complete_condition))
+                self.task_data.enter_task(info, self.get_cond_progress(load_cond_config(task.accept_condition)))
+
+    def check_complete_task(self):
+        tasks = self.task_data.taskes
+        self.task_data.taskes = {}
+        for id, task in tasks.items():
+            tconf = get_task_config(task.task_id)
+            if tconf == None:
+                self.error(f"task config not found, id={task.task_id}")
+                continue
+            if self.check_cond(load_cond_config(tconf.complete_condition)):
+                if tconf.complete_type == 2:
+                    task.status = em_task_state.can_completed
+                elif tconf.complete_type == 1:
+                    task.status = em_task_state.completed
+                    self.task_data.taskes[id] = task
+                    self.bag_data.drop(tconf.task_reward)
+            self.task_data.taskes[id] = task
+
+    def check_task(self):
+        self.check_complete_task()
+        self.task_data.refresh_task()
+        self.check_accept_task()
     
     @abstractmethod
     def store(self) -> dict:
