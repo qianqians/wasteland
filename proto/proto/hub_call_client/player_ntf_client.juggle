@@ -2,4 +2,5 @@ import common
 
 entity_service player_ntf_client {
     drop ntf(int32 task_id, item[] pkg_item, item[] total_item);
+    task ntf(task_info[] task_list, task_progress_info[] progress_list);
 }

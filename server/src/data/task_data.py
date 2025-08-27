@@ -46,7 +46,17 @@ class task_data:
                 self.progress[p.id] = p
             if task.task_id not in self.progress[p.id].watch_task:
                 self.progress[p.id].watch_task.append(task.task_id)
-            
+
+    def complete_task(self, task: task_info):
+        remove_progress = []
+        for p in self.progress.values():
+            if task.task_id in p.watch_task:
+                p.watch_task.remove(task.task_id)
+                if len(p.watch_task) == 0:
+                    remove_progress.append(p.id)
+
+        for id in remove_progress:
+            self.progress.pop(id)
 
 def task_create() -> task_data:
     return task_data({})

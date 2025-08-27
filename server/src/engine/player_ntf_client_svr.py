@@ -26,5 +26,17 @@ class player_ntf_client_caller(object):
         _argv_eb03ad59_660a_30d5_8232_5fb4f9c07d3f.append(_list_08bdea7a_087c_3a03_a2ce_2b98ccf14532)
         self.entity.call_client_main_notify("drop", dumps(_argv_eb03ad59_660a_30d5_8232_5fb4f9c07d3f))
 
+    def task(self, task_list:list[task_info], progress_list:list[task_progress_info]):
+        _argv_4dd64667_0e3f_3140_8e0f_c10e48418c0a = []
+        _list_5d481c82_620e_3d22_a61d_abbbefd01ca3 = []
+        for v_944f018b_64ee_5e22_a445_39fa78b68397 in task_list:
+            _list_5d481c82_620e_3d22_a61d_abbbefd01ca3.append(task_info_to_protcol(v_944f018b_64ee_5e22_a445_39fa78b68397))
+        _argv_4dd64667_0e3f_3140_8e0f_c10e48418c0a.append(_list_5d481c82_620e_3d22_a61d_abbbefd01ca3)
+        _list_d4c05ccf_6ec1_3b5f_bf69_588ab838173f = []
+        for v_553ebab7_911a_59be_9a8f_20354c69a863 in progress_list:
+            _list_d4c05ccf_6ec1_3b5f_bf69_588ab838173f.append(task_progress_info_to_protcol(v_553ebab7_911a_59be_9a8f_20354c69a863))
+        _argv_4dd64667_0e3f_3140_8e0f_c10e48418c0a.append(_list_d4c05ccf_6ec1_3b5f_bf69_588ab838173f)
+        self.entity.call_client_main_notify("task", dumps(_argv_4dd64667_0e3f_3140_8e0f_c10e48418c0a))
+
 
 

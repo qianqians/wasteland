@@ -1,5 +1,8 @@
 # -*- coding: UTF-8 -*-
 from ..engine.engine import *
+from ..engine.player_ntf_client_svr import *
+from ..engine.player_svr import *
+from ..engine.common_svr import *
 from ..data.attribute_data import *
 from ..data.equip_data import *
 from ..data.scene_data import *
@@ -17,14 +20,18 @@ class player_data(save, player):
         player.__init__(self, "scene_service", "player_data", player_id, player_gate_name, player_conn_id, False)
 
         self.player_id = player_id
-            
+
+        self.caller = player_ntf_client_caller(self)
+        self.player_module = player_module(self)
+        self.player_module.on_completed_task.append(lambda s, task_id: self.on_complete_task(s, task_id))
+
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
         self.gender = info["gender"]
 
         self.attribute_data = attribute_data(info["attribute_data"])
         self.task_data = task_data(info["task_data"])
-        self.bag_data = bag_data(info["bag_data"], player_ntf_client_caller(self))
+        self.bag_data = bag_data(info["bag_data"], self.caller)
         self.skill_data = skill_data(info["skill_data"])
         
         self.equip_data = equip_data(info["equip_data"])
@@ -41,7 +48,7 @@ class player_data(save, player):
     
     def __check_cond_value__(self, cond: int, cond_type: int, value: int) -> bool:
         if cond == 1:
-            return self.skill_data.is_learn_skill()
+            return self.skill_data.has_learned_skill()
         if cond == 2:
             progress = self.task_data.get_progress(cond_type)
             return progress >= value
@@ -132,14 +139,36 @@ class player_data(save, player):
                     task.status = em_task_state.can_completed
                 elif tconf.complete_type == 1:
                     task.status = em_task_state.completed
-                    self.task_data.taskes[id] = task
-                    self.bag_data.drop(tconf.task_reward)
+                    self.bag_data.drop(task.task_id, tconf.task_reward)
+                    self.task_data.complete_task(task)
             self.task_data.taskes[id] = task
+
+    def on_complete_task(self, s: session, task_id: int):
+        app().trace(f"on_complete_task:{task_id}")
+        self.check_task()
+
+        task_info = self.task_data.taskes[task_id]
+        if task_info == None:
+            app().error(f"task_info not found, task={task_id}")
+            return
+        if task_info.status != em_task_state.can_completed:
+            app().error(f"task_info status error, task={task_id}, status={task_info.status}")
+            return
+        
+        task_info.status = em_task_state.completed
+        tconf = get_task_config(task_id)
+        if tconf == None:
+            app().error(f"task config not found, id={task_id}")
+            return
+        
+        self.bag_data.drop(task_info.task_id, tconf.task_reward)
+        self.task_data.complete_task(task_info)
 
     def check_task(self):
         self.check_complete_task()
         self.task_data.refresh_task()
         self.check_accept_task()
+        self.caller.task([t for t in self.task_data.taskes.values()], [p for p in self.task_data.progress.values()])
     
     @abstractmethod
     def store(self) -> dict:
