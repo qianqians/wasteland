@@ -1,5 +1,6 @@
 import common
 
 entity_service player {
+    get_task_info ntf();
     completed_task ntf(int32 task_id);
 }

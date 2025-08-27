@@ -23,6 +23,7 @@ class player_data(save, player):
 
         self.caller = player_ntf_client_caller(self)
         self.player_module = player_module(self)
+        self.player_module.on_get_task_info.append(lambda s: self.on_get_task_info(s))
         self.player_module.on_completed_task.append(lambda s, task_id: self.on_complete_task(s, task_id))
 
         self.account_id = info["account_id"]
@@ -143,8 +144,12 @@ class player_data(save, player):
                     self.task_data.complete_task(task)
             self.task_data.taskes[id] = task
 
+    def on_get_task_info(self, s: session):
+        app().trace(f"on_get_task_info session:{s.source}")
+        self.check_task()
+        
     def on_complete_task(self, s: session, task_id: int):
-        app().trace(f"on_complete_task:{task_id}")
+        app().trace(f"on_complete_task:{task_id} session:{s.source}")
         self.check_task()
 
         task_info = self.task_data.taskes[task_id]
@@ -168,7 +173,9 @@ class player_data(save, player):
         self.check_complete_task()
         self.task_data.refresh_task()
         self.check_accept_task()
-        self.caller.task([t for t in self.task_data.taskes.values()], [p for p in self.task_data.progress.values()])
+        self.caller.task(
+            [t for t in self.task_data.taskes.values() if t.status != em_task_state.completed],
+            [p for p in self.task_data.progress.values()])
     
     @abstractmethod
     def store(self) -> dict:

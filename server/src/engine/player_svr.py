@@ -13,8 +13,16 @@ class player_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
+        self.on_get_task_info:list[Callable[[session, ], None]] = []
+        self.entity.reg_client_notify_callback("get_task_info", self.get_task_info)
         self.on_completed_task:list[Callable[[session, int], None]] = []
         self.entity.reg_client_notify_callback("completed_task", self.completed_task)
+
+    def get_task_info(self, gate_name:str, bin:bytes):
+        inArray = loads(bin)
+        s = session(gate_name)
+        for fn in self.on_get_task_info:
+            fn(s, )
 
     def completed_task(self, gate_name:str, bin:bytes):
         inArray = loads(bin)
