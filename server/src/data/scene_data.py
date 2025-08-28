@@ -13,7 +13,9 @@ class scene_postion(TypedDict):
     pos:postion_data
 
 class scene_data:
-    def __init__(self, info:dict):
+    def __init__(self, user_id:str, info:dict):
+        self.user_id = user_id
+        
         self.write_back(info)
 
     def write_back(self, info:dict):

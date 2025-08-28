@@ -33,7 +33,9 @@ class equip:
         return e
 
 class equip_data:
-    def __init__(self, data:dict):
+    def __init__(self, user_id:str, data:dict):
+        self.user_id = user_id
+        
         self.equips:dict[em_equip_type, equip] = {}
         for type, info in data.items():
             type = em_equip_type(int(type))

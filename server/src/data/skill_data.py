@@ -2,7 +2,9 @@
 from ..engine.common_svr import *
 
 class skill_data:
-    def __init__(self, info:dict):
+    def __init__(self, user_id:str, info:dict):
+        self.user_id = user_id
+        
         self.skills:dict[int, skill_info] = {}
         for id, skill in info.items():
             self.skills[id] = protcol_to_skill_info(skill)

@@ -9,6 +9,7 @@ from ..data.bag_data import *
 from ..data.task_data import *
 from .player_data import player_data
 from .npc import npc
+from .monster import monster
 from ..data.scene_map_data import scene_map, get_scene_map
 
 class scene:
@@ -21,7 +22,7 @@ class scene:
         self.group = group()
         self.players:dict[str, player_data] = {}
         self.npcs:dict[str, npc] = {}
-        
+        self.mobs:dict[str, monster] = {}
 
     def entry_scene(self, player:player_data):
         self.group.join((player.client_gate_name, player.client_conn_id))

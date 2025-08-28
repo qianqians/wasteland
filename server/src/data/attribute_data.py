@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 class attribute_data:
-    def __init__(self, data:dict):
+    def __init__(self, user_id:str, data:dict):
+        self.user_id = user_id
+        
         self.hp = data["hp"]
         self.mp = data["mp"]
         self.max_hp = data["max_hp"]

@@ -5,7 +5,9 @@ from ..engine.common_svr import *
 from ..data.config import *
 
 class bag_data:
-    def __init__(self, info:dict, caller:player_ntf_client_caller):
+    def __init__(self, user_id:str, info:dict, caller:player_ntf_client_caller):
+        self.user_id = user_id
+        
         self.bag:dict[int, item] = {}
         for grid, item in info.items():
             self.bag[grid] = protcol_to_item(item)
