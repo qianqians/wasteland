@@ -24,6 +24,12 @@ class scene_map(TypedDict):
 
     map_data:list[element] = []
     ladder_date:list[ladder] = []
-    
-def get_scene_map(scene_name:str) -> scene_map:
-    return None
+
+class scene_map_collection:
+    scene_maps: dict[str, scene_map] = {}
+
+def load_scene_map(scene_name:str):
+    pass
+
+def get_scene_map(scene_name:str) -> scene_map | None:
+    return scene_map_collection.scene_maps.get(scene_name)
