@@ -5,7 +5,7 @@ import time
 from ..engine.common_svr import *
 from ..engine.player_svr import *
 from ..engine.player_ntf_client_svr import *
-from .config import *
+from ..config.config import *
 from .skill_data import *
 from .bag_data import *
 

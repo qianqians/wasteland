@@ -1,6 +1,5 @@
 # -*- coding: UTF-8 -*-
 import sys
-from ..data import const
 from ..engine.engine import *
 import steam_sdk
 import character

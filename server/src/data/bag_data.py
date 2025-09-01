@@ -3,7 +3,7 @@ from __future__ import annotations
 from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
 from ..engine.common_svr import *
-from ..data.config import *
+from ..config.config import *
 
 class bag_data:
     def __init__(self, user_id:str, info:dict, caller:player_ntf_client_caller):

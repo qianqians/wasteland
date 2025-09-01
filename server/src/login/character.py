@@ -3,7 +3,7 @@ import sys
 from ..engine.engine import *
 from ..engine.login_svr import *
 from ..engine.common_svr import *
-from ..data import const
+from ..helper import const
 
 async def __get_object_one_callback_set_future__(future:asyncio.Future, data:dict):
     future.set_result(data)

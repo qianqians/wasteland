@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
 from ..engine.engine import *
-from ..data import const
+from ..helper import const
 from ..data.attribute_data import *
 from ..data.equip_data import *
 from ..data.scene_data import *

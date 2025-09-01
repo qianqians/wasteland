@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
 from ..engine.engine import *
-from ..data.scene_map_data import scene_map, get_scene_map
+from ..scene_map.scene_map_data import scene_map, get_scene_map
 from .player_data import player_data
 from .npc import npc
 from .monster import monster
