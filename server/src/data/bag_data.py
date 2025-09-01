@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
+from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
 from ..engine.common_svr import *
 from ..data.config import *
@@ -37,9 +38,9 @@ class bag_data:
         return item1
     
     def drop(self, task_id:int, pkg_id:int):
-        pkg = load_pkg_config(pkg_id)
+        pkg = get_pkg_config(pkg_id)
         if pkg == None:
-            self.error(f"bag drop pkg config not found, id={pkg_id}")
+            app().error(f"bag drop pkg config not found, id={pkg_id}")
             return
         
         items:list[item] = []

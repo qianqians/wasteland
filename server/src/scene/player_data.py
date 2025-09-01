@@ -9,7 +9,6 @@ from ..data.scene_data import *
 from ..data.bag_data import *
 from ..data.task_data import *
 from ..data.skill_data import *
-from ..data.config import *
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):

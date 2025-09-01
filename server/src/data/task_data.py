@@ -157,9 +157,9 @@ class task_data:
         return task_progress_total_list
 
     def check_accept_task(self):
-        task_list = load_task_config()
+        task_list = get_all_task_config()
         for task in task_list:
-            if self.check_cond(load_cond_config(task.accept_condition)):
+            if self.check_cond(get_cond_config(task.accept_condition)):
                 info = task_info()
                 info.task_id = task["id"]
                 
@@ -178,8 +178,8 @@ class task_data:
                     end_of_week = datetime(now.year, now.month, now.day) + timedelta(days=days_to_sunday, hours=23, minutes=59, seconds=59)
                     info.refresh_time = end_of_week.timestamp()
                     
-                info.progress = self.get_cond_progress_total(load_cond_config(task.complete_condition))
-                self.__enter_task__(info, self.get_cond_progress(load_cond_config(task.accept_condition)))
+                info.progress = self.get_cond_progress_total(get_cond_config(task.complete_condition))
+                self.__enter_task__(info, self.get_cond_progress(get_cond_config(task.accept_condition)))
 
     def check_complete_task(self):
         tasks = self.taskes
@@ -189,7 +189,7 @@ class task_data:
             if tconf == None:
                 app().error(f"player:{self.user_id} task config not found, id={task.task_id}")
                 continue
-            if self.check_cond(load_cond_config(tconf.complete_condition)):
+            if self.check_cond(get_cond_config(tconf.complete_condition)):
                 if tconf.complete_type == 2:
                     task.status = em_task_state.can_completed
                 elif tconf.complete_type == 1:

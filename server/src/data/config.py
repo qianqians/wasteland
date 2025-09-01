@@ -17,16 +17,20 @@ class task_config(TypedDict):
     complete_condition: int
     task_reward: int
 
-def load_task_config() -> list[task_config]:
+task_list:list[task_config] = []
+def load_task_config():
     with open('../../excel/Task.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
-        return [t for t in data.values()]
+        global task_list
+        task_list = [t for t in data.values()]
+
+def get_all_task_config() -> list[task_config]:
+    return task_list
     
 def get_task_config(id:int) -> task_config | None:
-    with open('../../excel/Task.json', 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        task_map = {int(task["id"]): task for task in data.values()}
-        return task_map.get(id, None)
+    for task in task_list:
+        if task["id"] == id:
+            return task
     return None
     
 class cond_config(TypedDict):
@@ -48,11 +52,17 @@ class cond_config(TypedDict):
     condition4_desc: str
     condition4_value: int
 
-def load_cond_config(id:int) ->cond_config | None:
+cond_list:list[cond_config] = []
+def load_cond_config():
     with open('../../excel/Cond.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
-        cond_map = {int(cond["id"]): cond for cond in data.values()}
-        return cond_map.get(id, None)
+        global cond_list
+        cond_list = [c for c in data.values()]
+
+def get_cond_config(id:int) -> cond_config | None:
+    for cond in cond_list:
+        if cond["id"] == id:
+            return cond
     return None
 
 class pkg_config(TypedDict):
@@ -65,21 +75,33 @@ class pkg_config(TypedDict):
     item3_num: int
     item4_id: int
     item4_num: int
-    
-def load_pkg_config(id: int) -> pkg_config | None:
+
+pkg_list:list[pkg_config] = []
+def load_pkg_config():
     with open('../../excel/Package.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
-        pkg_map = {int(pkg["id"]): pkg for pkg in data.values()}
-        return pkg_map.get(id, None)
+        global pkg_list
+        pkg_list = [p for p in data.values()]
+
+def get_pkg_config(id:int) -> pkg_config | None:
+    for pkg in pkg_list:
+        if pkg["id"] == id:
+            return pkg
     return None
 
 class item_config(TypedDict):
     id: int
     desc: str
-    
-def load_item_config(id: int) -> item_config | None:
+
+item_list:list[item_config] = []
+def load_item_config():
     with open('../../excel/Item.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
-        item_map = {int(item["id"]): item for item in data.values()}
-        return item_map.get(id, None)
+        global item_list
+        item_list = [item for item in data.values()]
+
+def get_item_config(id:int) -> item_config | None:
+    for item in item_list:
+        if item["id"] == id:
+            return item
     return None
