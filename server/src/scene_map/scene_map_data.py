@@ -16,7 +16,6 @@ class ladder(TypedDict):
     y_min:int = 0
     y_max:int = 0
 
-
 class scene_map(TypedDict):
     map_width:int = 0
     map_height:int = 0
