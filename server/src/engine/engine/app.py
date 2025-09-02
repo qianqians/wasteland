@@ -223,10 +223,11 @@ class app(object):
                         self.ctx.set_health_state(False)
                     health_state = False
                     self.is_idle = False
-            update()
+            if update is not None:
+                update()
         self.save_mgr.for_each_entity(lambda entt: entt.save_entity())
             
-    def run(self, update:Callable[[], None]):
+    def run(self, update:Callable[[], None] = None):
         _thread.start_new_thread(__handle_poll_db_msg_thread__, (self,))
         _thread.start_new_thread(__handle_poll_coroutine_thread__, (self,))
         self.poll(update)
