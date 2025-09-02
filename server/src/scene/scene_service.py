@@ -75,6 +75,10 @@ class SceneService(service):
                     "pos": pos
                 }
 
+    def update(self):
+        for _scene in self.scenes.values():
+            _scene.update()
+
     def novice_village(self) -> dict:
         return self.novice_village
 

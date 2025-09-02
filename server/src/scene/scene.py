@@ -18,6 +18,10 @@ class scene:
         self.npcs:dict[str, npc] = {}
         self.mobs:dict[str, monster] = {}
 
+    def update(self):
+        for mob in self.mobs.values():
+            mob.update(self)
+
     def entry_scene(self, player:player_data):
         self.group.join((player.client_gate_name, player.client_conn_id))
         self.group.create_remote_player(player)
