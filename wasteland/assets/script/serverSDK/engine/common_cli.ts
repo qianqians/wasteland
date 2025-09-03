@@ -10,6 +10,9 @@ export enum error_code {
     no_this_equip = 4,
     no_this_item = 5,
     undefined_player_id = 6,
+    unlock_talk_task = 7,
+    unlock_level_not_completed = 8,
+    unconfig_talk_task = 9,
 }
 
 export enum em_direction {

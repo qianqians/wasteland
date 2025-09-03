@@ -6,6 +6,7 @@ from ..engine.common_svr import *
 from ..engine.player_svr import *
 from ..engine.player_ntf_client_svr import *
 from ..config.config import *
+from ..scene.player_data import *
 from .skill_data import *
 from .bag_data import *
 
@@ -18,8 +19,10 @@ def is_cross_day_simple(timestamp):
 class task_data:
     def __init__(self, user_id:str, info:dict, 
                  module:player_module, caller:player_ntf_client_caller, 
-                 skill_data:skill_data, bag_data:bag_data):
+                 skill_data:skill_data, bag_data:bag_data, player_data:player_data):
         self.user_id = user_id
+        
+        self.talk:list[int] = []
         
         self.taskes:dict[int, task_info] = {}
         for id, task in info["task"].items():
@@ -33,7 +36,9 @@ class task_data:
         self.module = module
         self.skill_data = skill_data
         self.bag_data = bag_data
+        self.player_data = player_data
         
+        self.module.on_talk_npc.append(lambda rsp, talk_id: self.on_talk_npc(rsp, talk_id))
         self.module.on_get_task_info.append(lambda s: self.on_get_task_info(s))
         self.module.on_completed_task.append(lambda s, task_id: self.on_complete_task(s, task_id))
 
@@ -42,13 +47,35 @@ class task_data:
         progress = { id: progress for id, progress in self.progress.items() }
         return {"task": tasks, "progress": progress }
     
+    def on_talk_npc(self, rsp: player_talk_npc_rsp, talk_id: int):
+        app().trace(f"player_id:{self.user_id} on_talk_npc:{talk_id} session:{rsp.source}")
+        tconf = get_talk_config(talk_id)
+        if tconf == None:
+            app().error(f"player_id:{self.user_id} talk config not found, id={talk_id}")
+            rsp.err(error_code.unconfig_talk_task)
+            return
+        
+        if self.player_data.level < tconf.unlock_level:
+            app().error(f"player_id:{self.user_id} {self.player_data.level} unlock_level{tconf.unlock_level} id={talk_id}")
+            rsp.err(error_code.unlock_level_not_completed)
+            return
+        
+        if tconf.need_talk not in self.talk:
+            app().error(f"player_id:{self.user_id} need_talk={tconf.need_talk}, talk_list={self.talk}, id={talk_id}")
+            rsp.err(error_code.unlock_talk_task)
+            return
+        
+        rsp.rsp()
+        if talk_id not in self.talk:
+            self.talk.append(talk_id)
+        self.check_task()
     
     def on_get_task_info(self, s: session):
-        app().trace(f"on_get_task_info session:{s.source}")
+        app().trace(f"player_id:{self.user_id} on_get_task_info session:{s.source}")
         self.check_task()
         
     def on_complete_task(self, s: session, task_id: int):
-        app().trace(f"on_complete_task:{task_id} session:{s.source}")
+        app().trace(f"player_id:{self.user_id} on_complete_task:{task_id} session:{s.source}")
         self.check_task()
 
         task_info = self.taskes[task_id]
@@ -59,12 +86,15 @@ class task_data:
             app().error(f"player_id:{self.user_id} task_info status error, task={task_id}, status={task_info.status}")
             return
         
-        task_info.status = em_task_state.completed
         tconf = get_task_config(task_id)
         if tconf == None:
             app().error(f"player_id:{self.user_id} task config not found, id={task_id}")
             return
+        if tconf.complete_type == 2 and tconf.complete_talk not in self.talk:
+            app().error(f"player_id:{self.user_id} task not completed talk:{tconf.complete_talk}, id={task_id}")
+            return
         
+        task_info.status = em_task_state.completed
         self.bag_data.drop(task_info.task_id, tconf.task_reward)
         self.__complete_task__(task_info)
 
@@ -167,6 +197,8 @@ class task_data:
                     info.status = em_task_state.in_progress
                 elif task.accept_type == 2:
                     info.status = em_task_state.can_claimed
+                    if task.accept_talk in self.talk:
+                        info.status = em_task_state.in_progress
                     
                 if task.refresh_type == 1:
                     now = datetime.now()
@@ -192,12 +224,15 @@ class task_data:
             if self.check_cond(get_cond_config(tconf.complete_condition)):
                 if tconf.complete_type == 2:
                     task.status = em_task_state.can_completed
+                    if tconf.complete_talk in self.talk:
+                        task.status = em_task_state.completed
+                        self.bag_data.drop(task.task_id, tconf.task_reward)
+                        self.__complete_task__(task)
                 elif tconf.complete_type == 1:
                     task.status = em_task_state.completed
                     self.bag_data.drop(task.task_id, tconf.task_reward)
                     self.__complete_task__(task)
             self.taskes[id] = task
-
     
     def check_task(self):
         self.check_complete_task()

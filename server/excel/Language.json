@@ -58,5 +58,33 @@
     "novice_task1_after_accept": {
         "index": "novice_task1_after_accept",
         "chinese": "小子，去给我收集这些物品过来"
+    },
+    "novice_player_talk1_1": {
+        "index": "novice_player_talk1_1",
+        "chinese": "玩家对话1_1"
+    },
+    "novice_player_talk1_2": {
+        "index": "novice_player_talk1_2",
+        "chinese": "玩家对话1_2"
+    },
+    "novice_npc_talk1_1": {
+        "index": "novice_npc_talk1_1",
+        "chinese": "NPC对话1_1"
+    },
+    "novice_player_talk2_1": {
+        "index": "novice_player_talk2_1",
+        "chinese": "玩家对话2_1"
+    },
+    "novice_player_talk2_2": {
+        "index": "novice_player_talk2_2",
+        "chinese": "玩家对话2_2"
+    },
+    "novice_npc_talk2_1": {
+        "index": "novice_npc_talk2_1",
+        "chinese": "NPC对话2_1"
+    },
+    "novice_npc_talk2_2": {
+        "index": "novice_npc_talk2_2",
+        "chinese": "NPC对话2_2"
     }
 }

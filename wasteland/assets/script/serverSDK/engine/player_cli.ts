@@ -5,10 +5,51 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript
+export class player_talk_npc_cb {
+    public entity:engine.subentity|engine.player;
+    public cb:(() => void)|null = null;
+    public err:((err_code:number) => void)|null = null;
+    public rsp:engine.callback;
+    public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
+        this.entity = _entity
+        this.rsp = new engine.callback(() => { return this.entity.del_callback(_cb_uuid); });
+        this.entity.reg_hub_callback(_cb_uuid, this.rsp)
+
+    }
+
+    private on_rsp(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        if (this.cb) this.cb.call(null, );
+
+    }
+
+    private on_err(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let _err_code = inArray[0];
+        if (this.err) this.err.call(null, _err_code)
+
+    }
+
+    public callBack(_cb:() => void, _err:(err_code:number) => void) {
+        this.cb = _cb;
+        this.err = _err;
+        this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
+        return this.rsp;
+    }
+
+}
+
 export class player_caller {
     public entity:engine.subentity|engine.player;
     public constructor(entity:engine.subentity|engine.player) {
         this.entity = entity;
+    }
+
+    public  talk_npc(talk_id:number) {
+        let _argv_88591603_b9dc_329d_b620_1069b44d5646:any[] = []
+        _argv_88591603_b9dc_329d_b620_1069b44d5646.push(talk_id);
+        let _cb_uuid = this.entity.call_hub_request("talk_npc", encode(_argv_88591603_b9dc_329d_b620_1069b44d5646));
+        return new player_talk_npc_cb(_cb_uuid, this.entity);
     }
 
     public  get_task_info() {

@@ -16,6 +16,7 @@ def main(cfg_file:str):
     load_cond_config()
     load_pkg_config()
     load_item_config()
+    load_talk_config
 
     _scene_service1 = SceneService("wasteland", 1)
     _scene_service2 = SceneService("wasteland", 2)

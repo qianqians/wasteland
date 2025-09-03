@@ -23,6 +23,7 @@ class player_data(save, player):
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
+        self.level = info["level"]
         self.gender = info["gender"]
 
         self.attribute_data = attribute_data(self.player_id, info["attribute_data"])
@@ -51,6 +52,7 @@ class player_data(save, player):
             "account_id": self.account_id,
             "player_nick_name": self.player_nick_name,
             "gender": self.gender,
+            "level": self.level,
             "attribute_data": self.attribute_data.info(),
             "equip_data": self.equip_data.info(), 
             "scene_data": self.scene_data.info(),
@@ -68,6 +70,7 @@ class player_data(save, player):
 
         return { 
             "player_id":str(uuid.uuid4()),
+            "level": 1,
             "attribute_data": _attribute_data.info(), 
             "bag_data": _bag_data.info(),
             "task_data": _task_data.info(),

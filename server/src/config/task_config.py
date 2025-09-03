@@ -6,11 +6,11 @@ class task_config(TypedDict):
     task_type: str
     unlock_level: int
     accept_type: int
-    accept_npc: int
+    accept_talk: int
     accept_condition: int
     before_accept_task_desc: str
     after_accept_task_desc: str
     complete_type: int
-    complete_npc: int
+    complete_talk: int
     complete_condition: int
     task_reward: int

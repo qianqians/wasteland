@@ -5,12 +5,12 @@
         "unlock_level": 1,
         "refresh_type": 1,
         "accept_type": 2,
-        "accept_npc": 10001,
+        "accept_talk": 10001,
         "accept_condition": 100101,
         "before_accept_task_desc": "novice_task1_before_accept",
         "after_accept_task_desc": "novice_task1_after_accept",
         "complete_type": 2,
-        "complete_npc": 10001,
+        "complete_talk": 10002,
         "complete_condition": 100102,
         "task_reward": 10011
     }
