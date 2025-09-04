@@ -6,9 +6,9 @@ from ..engine.common_svr import *
 from ..engine.player_svr import *
 from ..engine.player_ntf_client_svr import *
 from ..config.config import *
-from ..scene.player_data import *
 from .skill_data import *
 from .bag_data import *
+from ..scene.player_data import *
 
 def is_cross_day_simple(timestamp):
     date1 = datetime.fromtimestamp(timestamp).date()
@@ -63,6 +63,11 @@ class task_data:
         if tconf.need_talk not in self.talk:
             app().error(f"player_id:{self.user_id} need_talk={tconf.need_talk}, talk_list={self.talk}, id={talk_id}")
             rsp.err(error_code.unlock_talk_task)
+            return
+        
+        if not self.player_data.scene.have_npc(tconf.talk_npc):
+            app().error(f"player_id:{self.user_id} talk_npc={tconf.talk_npc} not in scene, id={talk_id}")
+            rsp.err(error_code.talk_npc_not_scene)
             return
         
         rsp.rsp()

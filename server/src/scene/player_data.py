@@ -7,8 +7,8 @@ from ..data.attribute_data import *
 from ..data.equip_data import *
 from ..data.scene_data import *
 from ..data.bag_data import *
-from ..data.task_data import *
 from ..data.skill_data import *
+from .scene import scene
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
@@ -29,9 +29,11 @@ class player_data(save, player):
         self.attribute_data = attribute_data(self.player_id, info["attribute_data"])
         self.bag_data = bag_data(self.player_id, info["bag_data"], self.player_caller)
         self.skill_data = skill_data(self.player_id, info["skill_data"])
+
+        from ..data.task_data import task_data
         self.task_data = task_data(self.player_id, info["task_data"], 
                                    self.player_module, self.player_caller, 
-                                   self.skill_data, self.bag_data)
+                                   self.skill_data, self.bag_data, self)
         
         self.equip_data = equip_data(self.player_id, info["equip_data"])
         self.scene_data = scene_data(self.player_id, info["scene_data"])
@@ -45,6 +47,9 @@ class player_data(save, player):
     def client_info(self) -> dict:
         return self.store()
     
+    def entry_scene(self, _scene:scene):
+        self.scene = _scene
+
     @abstractmethod
     def store(self) -> dict:
         return { 
@@ -65,8 +70,10 @@ class player_data(save, player):
     def create() -> dict:
         _attribute_data = attribute_create()
         _bag_data = bag_create()
-        _task_data = task_create()
         _skill_date = skill_create()
+        
+        from ..data.task_data import task_create
+        _task_data = task_create()
 
         return { 
             "player_id":str(uuid.uuid4()),

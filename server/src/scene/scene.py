@@ -14,8 +14,8 @@ class scene:
         self.scene_map_data = get_scene_map(scene_name)
         
         self.group = group()
+        self.npcs:dict[int, npc] = {}
         self.players:dict[str, player_data] = {}
-        self.npcs:dict[str, npc] = {}
         self.mobs:dict[str, monster] = {}
 
     def update(self):
@@ -25,4 +25,14 @@ class scene:
     def entry_scene(self, player:player_data):
         self.group.join((player.client_gate_name, player.client_conn_id))
         self.group.create_remote_player(player)
+
+        self.players[player.player_id] = player
         
+    def leave_scene(self, player:player_data):
+        self.players.pop(player.player_id)
+
+        self.group.remove_player(player)
+        self.group.leave((player.client_gate_name, player.client_conn_id))
+
+    def have_npc(self, npc_id:int):
+        return npc_id in self.npcs
