@@ -23,10 +23,10 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
         info["gender"] = client_info["gender"]
            
     if "scene_data" not in info:
-        if _service.novice_village() == None:
+        if _service.get_novice_village() == None:
             app().error(f"Novice village not found for player={player_id} client_info={client_info}")
             return
-        info["scene_data"] = _service.novice_village()
+        info["scene_data"] = _service.get_novice_village()
     if "equip_data" not in info:
         info["equip_data"] = equip_create(client_info["gender"])
 
@@ -37,11 +37,11 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
     
     scene_name = player.scene_data.scene_name
     scene_line = _service.line
-    _scene = _service.scenes.get(f"{scene_name}_{scene_line}", None)
+    _scene = _service.scenes.get(f"{scene_name}", None)
     if _scene != None:
         _scene.entry_scene(player)
         await app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), 
-            json.dumps({"zone":scene_name, "line":scene_line}))
+            json.dumps({"zone":_service.area, "line":scene_line}))
     else:
         app().error(f"scene:{scene_name}_{scene_line} not found!")
 
@@ -79,7 +79,7 @@ class SceneService(service):
         for _scene in self.scenes.values():
             _scene.update()
 
-    def novice_village(self) -> dict:
+    def get_novice_village(self) -> dict:
         return self.novice_village
 
     @abstractmethod

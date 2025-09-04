@@ -52,7 +52,7 @@ class LoginCharacterCallback(player):
     def on_migrate_to_other_hub(self, migrate_hub:str):
         pass
     
-    def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:int, scene:str):
+    def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:int, area:str):
         line = random.randint(1, const.WorldLineCount)
         gate_host = app().ctx.gate_host(self.GateName)
         argv = {
@@ -60,7 +60,7 @@ class LoginCharacterCallback(player):
             "player_nick_name": player_nick_name,
             "gender":gender
         }
-        forward_client_query_service(f"{scene}_{line}", self.GateName, gate_host, self.ConnID, argv)
+        forward_client_query_service(f"{area}_{line}", self.GateName, gate_host, self.ConnID, argv)
         rsp.rsp()
         
     async def __select_character_callback__(self, rsp:login_select_character_rsp, player_id:str):
