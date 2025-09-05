@@ -11,7 +11,7 @@ class scene:
         self.scene_name = scene_name
         self.scene_line = scene_line
         
-        self.scene_map_data = get_scene_map(scene_name)
+        self.scene_map_data:scene_map = get_scene_map(scene_name)
         
         self.group = group()
         self.npcs:dict[int, npc] = {}
