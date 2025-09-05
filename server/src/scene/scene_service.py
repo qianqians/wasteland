@@ -9,14 +9,14 @@ from ..data.bag_data import *
 from ..data.task_data import *
 from .scene import *
 
-async def load_or_create_player(_service:SceneService, gate_name:str, conn_id:str, client_info:dict):
+async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
     player_id = client_info.get("player_id", str(uuid.uuid4()))
     await player_data.load_or_create_entity({"player_id":player_id}, 
         lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, client_info, data)))
     await app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), 
         json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
 
-async def create_player(_service:SceneService, gate_name:str, conn_id:str, player_id:str, client_info:dict, info:dict):
+async def create_player(_service:scene_service, gate_name:str, conn_id:str, player_id:str, client_info:dict, info:dict):
     if "account_id" in client_info:
         info["account_id"] = client_info["account_id"]
         info["player_nick_name"] = client_info["player_nick_name"]
@@ -45,7 +45,7 @@ async def create_player(_service:SceneService, gate_name:str, conn_id:str, playe
     else:
         app().error(f"scene:{scene_name}_{scene_line} not found!")
 
-class SceneService(service):
+class scene_service(service):
     def __init__(self, area:str, scene_line:int):
         super().__init__(f"{area}_{scene_line}")
         self.area = area

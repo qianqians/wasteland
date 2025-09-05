@@ -6,6 +6,14 @@ from .player_data import player_data
 from .npc import npc
 from .monster import monster
 
+class walking_plane:
+    def __init__(self, area:str, scene_name:str, scene_line:int, _scene:scene):
+        self.area = area
+        self.scene_name = scene_name
+        self.scene_line = scene_line
+
+        self.scene = _scene
+
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
         self.scene_name = scene_name
@@ -23,7 +31,7 @@ class scene:
             for s in data.value():
                 if s["scene"] != self.scene_name:
                     continue
-                self.npcs[s["id"]] = npc(area, s["id"], str(uuid.uuid4()))
+                self.npcs[s["id"]] = npc(f"{area}_{scene_line}", s["id"], str(uuid.uuid4()))
 
     def update(self):
         for mob in self.mobs.values():

@@ -18,8 +18,8 @@ def main(cfg_file:str):
     load_item_config()
     load_talk_config
 
-    _scene_service1 = SceneService("wasteland", 1)
-    _scene_service2 = SceneService("wasteland", 2)
+    _scene_service1 = scene_service("wasteland", 1)
+    _scene_service2 = scene_service("wasteland", 2)
     _app = app()
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())
