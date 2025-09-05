@@ -16,12 +16,16 @@ class walking_plane:
         if can_battle:
             self.mobs:dict[str, monster] = {}
             self.scene.add_update(lambda : [mob.update(self.scene) for mob in self.mobs.values()])
+            self.scene.add_update(self.__update_battle__)
 
     def __spawn__(self, mob:monster):
         self.scene.group.create_remote_entity(mob)
 
     def __dead__(self, mob:monster):
         self.scene.group.remove_entity(mob)
+
+    def __update_battle__(self):
+        pass
 
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
