@@ -7,12 +7,21 @@ from .npc import npc
 from .monster import monster
 
 class walking_plane:
-    def __init__(self, area:str, scene_name:str, scene_line:int, _scene:scene):
+    def __init__(self, area:str, scene_name:str, scene_line:int, can_battle:bool, _scene:scene):
         self.area = area
         self.scene_name = scene_name
         self.scene_line = scene_line
-
         self.scene = _scene
+
+        if can_battle:
+            self.mobs:dict[str, monster] = {}
+            self.scene.add_update(lambda : [mob.update(self.scene) for mob in self.mobs.values()])
+
+    def __spawn__(self, mob:monster):
+        self.scene.group.create_remote_entity(mob)
+
+    def __dead__(self, mob:monster):
+        self.scene.group.remove_entity(mob)
 
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
@@ -24,7 +33,6 @@ class scene:
         self.group = group()
         self.npcs:dict[int, npc] = {}
         self.players:dict[str, player_data] = {}
-        self.mobs:dict[str, monster] = {}
 
         with open('../../excel/NPC.json') as f:
             data = json.load(f)
@@ -33,9 +41,14 @@ class scene:
                     continue
                 self.npcs[s["id"]] = npc(f"{area}_{scene_line}", s["id"], str(uuid.uuid4()))
 
+        self.updates:list[Callable[[], None]] = []
+
+    def add_update(self, update:Callable[[], None]):
+        self.updates.append(update)
+
     def update(self):
-        for mob in self.mobs.values():
-            mob.update(self)
+        for call in self.updates:
+            call()
 
     def entry_scene(self, player:player_data):
         self.group.join((player.client_gate_name, player.client_conn_id))
