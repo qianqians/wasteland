@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from __future__ import annotations
 from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
 from ..engine.player_svr import *

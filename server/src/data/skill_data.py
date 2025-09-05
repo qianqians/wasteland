@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from __future__ import annotations
 from ..engine.common_svr import *
 
 class skill_data:

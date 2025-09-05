@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from __future__ import annotations
 from ..engine.engine import *
 from .player_data import player_data
 

@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
-import sys
 from __future__ import annotations
+import sys
 from ..engine.engine import *
 from .player_data import *
 from .scene import *
