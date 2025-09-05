@@ -7,7 +7,7 @@ from .npc import npc
 from .monster import monster
 
 class scene:
-    def __init__(self, scene_name:str, scene_line:int):
+    def __init__(self, area:str, scene_name:str, scene_line:int):
         self.scene_name = scene_name
         self.scene_line = scene_line
         
@@ -17,6 +17,13 @@ class scene:
         self.npcs:dict[int, npc] = {}
         self.players:dict[str, player_data] = {}
         self.mobs:dict[str, monster] = {}
+
+        with open('../../excel/NPC.json') as f:
+            data = json.load(f)
+            for s in data.value():
+                if s["scene"] != self.scene_name:
+                    continue
+                self.npcs[s["id"]] = npc(area, s["id"], str(uuid.uuid4()))
 
     def update(self):
         for mob in self.mobs.values():
