@@ -13,9 +13,9 @@ from .scene import scene
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
-    def __init__(self, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
+    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
         save.__init__(self)
-        player.__init__(self, "scene_service", "player_data", player_id, player_gate_name, player_conn_id, False)
+        player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
 
         self.player_id = player_id
 

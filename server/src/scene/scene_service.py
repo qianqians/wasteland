@@ -30,7 +30,7 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
     if "equip_data" not in info:
         info["equip_data"] = equip_create(client_info["gender"])
 
-    player = player_data(gate_name, conn_id, player_id, info)
+    player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
     player.create_main_remote_entity()
 
     app().player_mgr.add_player(player)

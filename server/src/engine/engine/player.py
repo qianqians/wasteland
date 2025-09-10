@@ -227,7 +227,8 @@ class player_manager(object):
         
         if not _player.client_conn_id in self.conn_id_players:
             self.conn_id_players[_player.client_conn_id] = []
-        self.conn_id_players[_player.client_conn_id].append(_player)
+        if not _player in self.conn_id_players[_player.client_conn_id]:
+            self.conn_id_players[_player.client_conn_id].append(_player)
 
     def get_player(self, entity_id:str) -> player:
         if entity_id in self.players:

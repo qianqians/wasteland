@@ -1,22 +1,25 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
 from ..engine.engine import *
+from ..engine.common_svr import *
 from ..scene_map.scene_map_data import scene_map, get_scene_map
 from .player_data import player_data
 from .npc import npc
 from .monster import monster
 
-class walking_plane:
-    def __init__(self, area:str, scene_name:str, scene_line:int, can_battle:bool, _scene:scene):
+class mob_group:
+    def __init__(self, area:str, scene_name:str, scene_line:int, _scene:scene, pos:position, max_mobs_num:int):
         self.area = area
         self.scene_name = scene_name
         self.scene_line = scene_line
         self.scene = _scene
 
-        if can_battle:
-            self.mobs:dict[str, monster] = {}
-            self.scene.add_update(lambda : [mob.update(self.scene) for mob in self.mobs.values()])
-            self.scene.add_update(self.__update_battle__)
+        self.mobs:dict[str, monster] = {}
+        self.scene.add_update(lambda : [mob.update(self.scene) for mob in self.mobs.values()])
+        self.scene.add_update(self.__update_battle__)
+
+        self.spawn_point = pos
+        self.max_mobs_num = max_mobs_num
 
     def __spawn__(self, mob:monster):
         self.scene.group.create_remote_entity(mob)
@@ -25,7 +28,8 @@ class walking_plane:
         self.scene.group.remove_entity(mob)
 
     def __update_battle__(self):
-        pass
+        while len(self.mobs) < self.max_mobs_num:
+            mob = monster()
 
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
@@ -51,6 +55,9 @@ class scene:
         self.updates.append(update)
 
     def update(self):
+        if len(self.players) <= 0:
+            return
+
         for call in self.updates:
             call()
 
