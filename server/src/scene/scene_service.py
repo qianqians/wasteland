@@ -31,8 +31,6 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
         info["equip_data"] = equip_create(client_info["gender"])
 
     player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
-    player.create_main_remote_entity()
-
     app().player_mgr.add_player(player)
     
     scene_name = player.scene_data.scene_name
@@ -84,7 +82,10 @@ class scene_service(service):
 
     @abstractmethod
     def on_migrate(self, _entity:entity|player):
-        pass
+        if _entity.entity_type == "player_data":
+            _player_data:player_data = _entity
+            _scene = self.scenes[_player_data.scene_data.scene_name]
+            _scene.entry_scene(_player_data)
 
     @abstractmethod
     def hub_query_service_entity(self, queryer_hub_name:str):

@@ -10,6 +10,7 @@ from ..data.scene_data import *
 from ..data.bag_data import *
 from ..data.skill_data import *
 from .scene import scene
+from .scene_service import *
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
@@ -21,6 +22,8 @@ class player_data(save, player):
 
         self.player_caller = player_ntf_client_caller(self)
         self.player_module = player_module(self)
+        self.player_module.on_into_scene.append(
+            lambda rsp, area, scene_name, scene_line : self.into_scene(rsp, area, scene_name, scene_line))
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
@@ -50,6 +53,19 @@ class player_data(save, player):
     
     def entry_scene(self, _scene:scene):
         self.scene = _scene
+        
+    async def into_scene(self, rsp:player_into_scene_rsp, area:str, scene_name:str, scene_line:int):
+        for _s in app().service_mgr.services.values():
+            _scene_service:scene_service = _s
+            for _scene in _scene_service.scenes.values():
+                if _scene.area == area and _scene.scene_name == scene_name and _scene.scene_line == scene_line:
+                    _scene.entry_scene(self)
+                    rsp.rsp()
+                    return 
+        
+        migrate_hub = await app().ctx.entry_hub_service(f"{area}_{scene_line}")
+        await self.start_migrate_entity_initiative(migrate_hub)
+        rsp.rsp()
 
     @abstractmethod
     def store(self) -> dict:

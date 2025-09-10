@@ -33,6 +33,7 @@ class mob_group:
 
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
+        self.area = area
         self.scene_name = scene_name
         self.scene_line = scene_line
         
