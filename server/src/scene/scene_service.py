@@ -17,23 +17,25 @@ async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:s
         json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
 
 async def create_player(_service:scene_service, gate_name:str, conn_id:str, player_id:str, client_info:dict, info:dict):
-    if "account_id" in client_info:
-        info["account_id"] = client_info["account_id"]
-        info["player_nick_name"] = client_info["player_nick_name"]
-        info["gender"] = client_info["gender"]
-           
-    if "scene_data" not in info:
-        if _service.get_novice_village() == None:
-            app().error(f"Novice village not found for player={player_id} client_info={client_info}")
-            return
-        info["scene_data"] = _service.get_novice_village()
-    if "equip_data" not in info:
-        info["equip_data"] = equip_create(client_info["gender"])
-
-    player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
-    player.create_main_remote_entity()
-
-    app().player_mgr.add_player(player)
+    player = app().player_mgr.get_player(player_id)
+    if player is None:
+        if "account_id" in client_info:
+            info["account_id"] = client_info["account_id"]
+            info["player_nick_name"] = client_info["player_nick_name"]
+            info["gender"] = client_info["gender"]
+            
+        if "scene_data" not in info:
+            if _service.get_novice_village() == None:
+                app().error(f"Novice village not found for player={player_id} client_info={client_info}")
+                return
+            info["scene_data"] = _service.get_novice_village()
+        if "equip_data" not in info:
+            info["equip_data"] = equip_create(client_info["gender"])
+    
+        player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
+        app().player_mgr.add_player(player)
+    else:
+        player.service_name = _service.service_name
     
     scene_name = player.scene_data.scene_name
     scene_line = _service.line
