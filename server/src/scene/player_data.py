@@ -59,6 +59,8 @@ class player_data(save, player):
         self.scene_data.scene_name = scene_name
         self.scene_data.scene_line = scene_line
 
+        self.scene.leave_scene(self)
+
         for _s in app().service_mgr.services.values():
             _scene_service:scene_service = _s
             for _scene in _scene_service.scenes.values():
