@@ -107,7 +107,8 @@ class player_data(save, player):
         }
     
 
-def migrate_player(service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
+def migrate_player(player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
+    service_name = f"{info["scene_data"]["scene_name"]}_{info["scene_data"]["scene_line"]}"
     p = player_data(service_name, player_gate_name, player_conn_id, player_id, info)
     p.conn_client_gate = gates
     p.conn_hub_server = hubs

@@ -27,12 +27,8 @@ def main(cfg_file:str):
     _app.service_mgr.reg_service(_scene_service1)
     _app.service_mgr.reg_service(_scene_service2)
 
-    _app.register_migrate("wasteland_1",
-        lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
-        migrate_player("wasteland_1", main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
-    _app.register_migrate("wasteland_2",
-        lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
-        migrate_player("wasteland_2", main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
+    _app.register_migrate("player_data", lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
+        migrate_player(main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
     
     _app.run(lambda: [s.update() for s in (_scene_service1, _scene_service2)])
     
