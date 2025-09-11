@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
+import uuid
 from ..engine.engine import *
 from ..engine.common_svr import *
 from ..scene_map.scene_map_data import scene_map, get_scene_map
@@ -29,7 +30,8 @@ class mob_group:
 
     def __update_battle__(self):
         while len(self.mobs) < self.max_mobs_num:
-            mob = monster()
+            mob = monster(f"{self.area}_{self.scene_line}", str(uuid.uuid4()))
+            self.__spawn__(mob)
 
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
