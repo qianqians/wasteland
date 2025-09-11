@@ -18,13 +18,22 @@ def main(cfg_file:str):
     load_item_config()
     load_talk_config
 
-    _scene_service1 = scene_service("wasteland", 1)
-    _scene_service2 = scene_service("wasteland", 2)
     _app = app()
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())
+
+    _scene_service1 = scene_service("wasteland", 1)
+    _scene_service2 = scene_service("wasteland", 2)
     _app.service_mgr.reg_service(_scene_service1)
     _app.service_mgr.reg_service(_scene_service2)
+
+    _app.register_migrate("wasteland_1",
+        lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
+        migrate_player("wasteland_1", main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
+    _app.register_migrate("wasteland_2",
+        lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
+        migrate_player("wasteland_2", main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
+    
     _app.run(lambda: [s.update() for s in (_scene_service1, _scene_service2)])
     
 if __name__ == '__main__':

@@ -108,7 +108,7 @@ class app(object):
     def register_service(self, service:str):
         self.ctx.register_service(service)
         
-    def register_migrate(self, entity_type:str, migrate_creator:Callable[[str, dict]]):
+    def register_migrate(self, entity_type:str, migrate_creator:Callable[[str, str, str,list[str], list[str], dict], entity|player]):
         self.__entity_migrate_method__[entity_type] = migrate_creator
         return self
     

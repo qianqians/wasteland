@@ -12,6 +12,7 @@ from ..data.skill_data import *
 from .scene import scene
 from .scene_service import scene_service
 
+
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
     def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
@@ -104,3 +105,10 @@ class player_data(save, player):
             "task_data": _task_data.info(),
             "skill_date": _skill_date.info(),
         }
+    
+
+def migrate_player(service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
+    p = player_data(service_name, player_gate_name, player_conn_id, player_id, info)
+    p.conn_client_gate = gates
+    p.conn_hub_server = hubs
+    return p
