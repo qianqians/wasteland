@@ -86,6 +86,7 @@ class scene_service(service):
             _player_data:player_data = _entity
             _scene = self.scenes[_player_data.scene_data.scene_name]
             _scene.entry_scene(_player_data)
+            _player_data.entry_scene(_scene)
 
     @abstractmethod
     def hub_query_service_entity(self, queryer_hub_name:str):

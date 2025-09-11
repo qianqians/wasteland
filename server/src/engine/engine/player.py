@@ -72,11 +72,11 @@ class player(ABC, base_entity):
     async def start_migrate_entity(self):
         from app import app
         migrate_hub = await app().ctx.entry_hub_service(self.service_name)
-        self.start_migrate_entity_initiative(migrate_hub)
+        await self.start_migrate_entity_initiative(migrate_hub)
             
     async def start_migrate_entity_initiative(self, migrate_hub:str):
-        from app import app
         if migrate_hub != "":
+            from app import app
             app().ctx.hub_call_hub_migrate_entity(migrate_hub, self.service_name, self.entity_type, self.entity_id, "", "", self.conn_client_gate, self.conn_hub_server, msgpack.dumps(self.full_info()))
 
             for hub in self.conn_hub_server:

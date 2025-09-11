@@ -10,7 +10,7 @@ from ..data.scene_data import *
 from ..data.bag_data import *
 from ..data.skill_data import *
 from .scene import scene
-from .scene_service import *
+from .scene_service import scene_service
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
@@ -55,11 +55,15 @@ class player_data(save, player):
         self.scene = _scene
         
     async def into_scene(self, rsp:player_into_scene_rsp, area:str, scene_name:str, scene_line:int):
+        self.scene_data.scene_name = scene_name
+        self.scene_data.scene_line = scene_line
+
         for _s in app().service_mgr.services.values():
             _scene_service:scene_service = _s
             for _scene in _scene_service.scenes.values():
                 if _scene.area == area and _scene.scene_name == scene_name and _scene.scene_line == scene_line:
                     _scene.entry_scene(self)
+                    self.entry_scene(_scene)
                     rsp.rsp()
                     return 
         
