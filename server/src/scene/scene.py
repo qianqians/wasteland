@@ -30,7 +30,7 @@ class mob_group:
 
     def __update_battle__(self):
         while len(self.mobs) < self.max_mobs_num:
-            mob = monster(f"{self.area}_{self.scene_line}", str(uuid.uuid4()))
+            mob = monster(f"{self.area}_{self.scene_line}", str(uuid.uuid4()), self.spawn_point)
             self.__spawn__(mob)
 
 class scene:

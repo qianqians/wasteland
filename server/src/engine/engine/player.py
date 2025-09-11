@@ -64,7 +64,7 @@ class player(ABC, base_entity):
         if not app().is_idle:
             import random
             if random.random() < 0.2:
-                self.start_migrate_entity()
+                app().run_coroutine_async(self.start_migrate_entity())
             else:
                 self.__migrate_timer__ = Timer(app().ctx.migrate_time_interval(), self.try_migrate_entity)
                 self.__migrate_timer__.start()

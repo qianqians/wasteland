@@ -24,7 +24,8 @@ class player_data(save, player):
         self.player_caller = player_ntf_client_caller(self)
         self.player_module = player_module(self)
         self.player_module.on_into_scene.append(
-            lambda rsp, area, scene_name, scene_line : self.into_scene(rsp, area, scene_name, scene_line))
+            lambda rsp, area, scene_name, scene_line : 
+                app().run_coroutine_async(self.into_scene(rsp, area, scene_name, scene_line)))
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
