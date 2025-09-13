@@ -9,11 +9,11 @@ from .npc import npc
 from .monster import monster
 
 class mob_group:
-    def __init__(self, area:str, scene_name:str, scene_line:int, _scene:scene, pos:position, max_mobs_num:int):
-        self.area = area
-        self.scene_name = scene_name
-        self.scene_line = scene_line
+    def __init__(self, _scene:scene, pos:position, max_mobs_num:int):
         self.scene = _scene
+        self.area = self.scene.area
+        self.scene_name = self.scene.scene_name
+        self.scene_line = self.scene.scene_line
 
         self.mobs:dict[str, monster] = {}
         self.scene.add_update(lambda : [mob.update(self.scene) for mob in self.mobs.values()])
@@ -24,9 +24,11 @@ class mob_group:
 
     def __spawn__(self, mob:monster):
         self.scene.group.create_remote_entity(mob)
+        self.mobs[mob.entity_id] = mob
 
     def __dead__(self, mob:monster):
         self.scene.group.remove_entity(mob)
+        self.mobs.pop(mob.entity_id)
 
     def __update_battle__(self):
         while len(self.mobs) < self.max_mobs_num:
@@ -42,9 +44,9 @@ class scene:
         self.scene_map_data:scene_map = get_scene_map(scene_name)
         
         self.group = group()
-        self.npcs:dict[int, npc] = {}
         self.players:dict[str, player_data] = {}
 
+        self.npcs:dict[int, npc] = {}
         with open('../../excel/NPC.json') as f:
             data = json.load(f)
             for s in data.value():
