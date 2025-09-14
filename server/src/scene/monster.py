@@ -24,4 +24,4 @@ class monster(entity):
         spec.loader.exec_module(self.module)
         
     def update(self, _scene:scene):
-        self.module.update(self, _scene)
+        self.module.Update(self, _scene)
