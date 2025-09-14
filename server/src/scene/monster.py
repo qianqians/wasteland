@@ -16,12 +16,33 @@ class monster(entity):
         with open('../../excel/Monster.json') as f:
             data = json.load(f)
             self.config = data[str(self.mob_table_id)]
-        self.skill:list[int] = json.loads(self.config["skill"])
+        
+        self.hp = self.config["hp"]
+        self.mp = self.config["mp"]
+        self.speed = self.config["speed"]
+        self.attack = self.config["attack"]
+            
+        self.skill:list[skill_info] = []
+        skills = json.loads(self.config["skill"])
+        for skill_id in skills:
+            with open('../../excel/Skill.json') as f:
+                skill_data = json.load(f)
+                skill = skill_data[str(skill_id)]
+                info = skill_info()
+                info.skill_id = skill_id
+                info.attack = skill["attack"]
+                info.attack_range = skill["attack_range"]
+                info.cd_time = skill["cd"]
+                self.skill.append(info)
         
         spec = importlib.util.spec_from_file_location(
             "battle_control", f"{const.ai_script_dir}/{self.config["battle_script"]}")
         self.module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.module)
+        
+        self.hurt_list:list[tuple[str, int]] = []
+        
+        self.update_timestamp = time.time() * 1000
         
     def update(self, _scene:scene):
         self.module.Update(self, _scene)

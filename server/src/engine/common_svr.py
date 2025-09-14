@@ -360,7 +360,8 @@ def protcol_to_item(_protocol:dict):
 class skill_info(object):
     def __init__(self):
         self.skill_id:int = 0
-        self.skill_level:int = 0
+        self.attack:int = 0
+        self.attack_range:int = 0
         self.cd_time:int = 0
 
 
@@ -369,7 +370,8 @@ def skill_info_to_protcol(_struct:skill_info):
         return None
     _protocol = {}
     _protocol["skill_id"] = _struct.skill_id
-    _protocol["skill_level"] = _struct.skill_level
+    _protocol["attack"] = _struct.attack
+    _protocol["attack_range"] = _struct.attack_range
     _protocol["cd_time"] = _struct.cd_time
     return _protocol
 
@@ -378,8 +380,10 @@ def protcol_to_skill_info(_protocol:dict):
     for (key, val) in _protocol.items():
         if key == "skill_id":
             _struct.skill_id = val
-        elif key == "skill_level":
-            _struct.skill_level = val
+        elif key == "attack":
+            _struct.attack = val
+        elif key == "attack_range":
+            _struct.attack_range = val
         elif key == "cd_time":
             _struct.cd_time = val
     return _struct

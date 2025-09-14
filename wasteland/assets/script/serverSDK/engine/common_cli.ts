@@ -417,14 +417,16 @@ export function protcol_to_item(_protocol:any) {
 
 export class skill_info {
      public skill_id:number = 0
-     public skill_level:number = 0
+     public attack:number = 0
+     public attack_range:number = 0
      public cd_time:number = 0
 }
 
 export function skill_info_to_protcol(_struct:skill_info) {
     let _protocol:any = {}
     _protocol["skill_id"] = _struct.skill_id
-    _protocol["skill_level"] = _struct.skill_level
+    _protocol["attack"] = _struct.attack
+    _protocol["attack_range"] = _struct.attack_range
     _protocol["cd_time"] = _struct.cd_time
     return _protocol;
 }
@@ -436,8 +438,11 @@ export function protcol_to_skill_info(_protocol:any) {
         if (key == "skill_id") {
             _struct.skill_id = val;
         }
-        else if (key == "skill_level") {
-            _struct.skill_level = val;
+        else if (key == "attack") {
+            _struct.attack = val;
+        }
+        else if (key == "attack_range") {
+            _struct.attack_range = val;
         }
         else if (key == "cd_time") {
             _struct.cd_time = val;

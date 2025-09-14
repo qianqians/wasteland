@@ -122,6 +122,7 @@ enum em_harm_type {
 
 struct skill_info {
     int32 skill_id;
-    int32 skill_level;
+    int32 attack;
+    int32 attack_range;
     int32 cd_time;
 }
