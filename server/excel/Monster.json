@@ -5,6 +5,7 @@
         "mp": 50,
         "speed": 5,
         "attack": 20,
-        "skill": "[20001,20002]"
+        "skill": "[20001,20002]",
+        "battle_script": "common"
     }
 }
