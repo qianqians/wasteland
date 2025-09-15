@@ -64,12 +64,14 @@ export enum em_harm_type {
 export class position {
      public x:number = 0
      public y:number = 0
+     public dir:em_direction = em_direction.stationary
 }
 
 export function position_to_protcol(_struct:position) {
     let _protocol:any = {}
     _protocol["x"] = _struct.x
     _protocol["y"] = _struct.y
+    _protocol["dir"] = _struct.dir
     return _protocol;
 }
 
@@ -82,6 +84,9 @@ export function protcol_to_position(_protocol:any) {
         }
         else if (key == "y") {
             _struct.y = val;
+        }
+        else if (key == "dir") {
+            _struct.dir = val;
         }
     }
     return _struct;
@@ -420,6 +425,7 @@ export class skill_info {
      public attack:number = 0
      public attack_range:number = 0
      public cd_time:number = 0
+     public cd_ready:number = 0
 }
 
 export function skill_info_to_protcol(_struct:skill_info) {
@@ -428,6 +434,7 @@ export function skill_info_to_protcol(_struct:skill_info) {
     _protocol["attack"] = _struct.attack
     _protocol["attack_range"] = _struct.attack_range
     _protocol["cd_time"] = _struct.cd_time
+    _protocol["cd_ready"] = _struct.cd_ready
     return _protocol;
 }
 
@@ -446,6 +453,9 @@ export function protcol_to_skill_info(_protocol:any) {
         }
         else if (key == "cd_time") {
             _struct.cd_time = val;
+        }
+        else if (key == "cd_ready") {
+            _struct.cd_ready = val;
         }
     }
     return _struct;

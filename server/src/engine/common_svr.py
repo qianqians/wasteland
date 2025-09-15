@@ -69,6 +69,7 @@ class position(object):
     def __init__(self):
         self.x:int = 0
         self.y:int = 0
+        self.dir:em_direction = 0
 
 
 def position_to_protcol(_struct:position):
@@ -77,6 +78,7 @@ def position_to_protcol(_struct:position):
     _protocol = {}
     _protocol["x"] = _struct.x
     _protocol["y"] = _struct.y
+    _protocol["dir"] = _struct.dir
     return _protocol
 
 def protcol_to_position(_protocol:dict):
@@ -86,6 +88,8 @@ def protcol_to_position(_protocol:dict):
             _struct.x = val
         elif key == "y":
             _struct.y = val
+        elif key == "dir":
+            _struct.dir = val
     return _struct
 
 class equip_info(object):
@@ -363,6 +367,7 @@ class skill_info(object):
         self.attack:int = 0
         self.attack_range:int = 0
         self.cd_time:int = 0
+        self.cd_ready:int = 0
 
 
 def skill_info_to_protcol(_struct:skill_info):
@@ -373,6 +378,7 @@ def skill_info_to_protcol(_struct:skill_info):
     _protocol["attack"] = _struct.attack
     _protocol["attack_range"] = _struct.attack_range
     _protocol["cd_time"] = _struct.cd_time
+    _protocol["cd_ready"] = _struct.cd_ready
     return _protocol
 
 def protcol_to_skill_info(_protocol:dict):
@@ -386,6 +392,8 @@ def protcol_to_skill_info(_protocol:dict):
             _struct.attack_range = val
         elif key == "cd_time":
             _struct.cd_time = val
+        elif key == "cd_ready":
+            _struct.cd_ready = val
     return _struct
 
 #this caller code is codegen by geese codegen for python

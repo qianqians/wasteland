@@ -23,6 +23,7 @@ enum em_direction {
 struct position {
     int32 x;
     int32 y;
+    em_direction dir;
 }
 
 enum em_equip_type {
@@ -125,4 +126,5 @@ struct skill_info {
     int32 attack;
     int32 attack_range;
     int32 cd_time;
+    int32 cd_ready;
 }

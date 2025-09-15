@@ -13,6 +13,7 @@ class monster(entity):
         super().__init__(service_name, "monster", entity_id, False)
         self.mob_table_id = mob_table_id
         self.pos = pos
+        self.pos.dir = em_direction.stationary
         
         with open('../../excel/Monster.json') as f:
             data = json.load(f)
@@ -34,6 +35,7 @@ class monster(entity):
                 info.attack = skill["attack"]
                 info.attack_range = skill["attack_range"]
                 info.cd_time = skill["cd"]
+                info.cd_ready = time.time() + info.cd_time
                 self.skill.append(info)
         
         spec = importlib.util.spec_from_file_location(
@@ -41,12 +43,34 @@ class monster(entity):
         self.module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.module)
         
-        self.hurt_list:list[tuple[str, int]] = []
+        self.is_use_skill = False
         
-        self.update_timestamp = time.time() * 1000
+        self.hurt_list:list[tuple[str, int]] = []
+        self.update_timestamp = time.time()
         
     def update(self, _scene:scene):
         self.module.Update(self, _scene)
 
-    def attack(self, p:player_data):
-        p.attribute_data.hp -= self.attack
+    def attack(self, p:player_data, attack:int = 0):
+        attack += self.attack 
+        p.attribute_data.hp -= attack
+        
+    def is_use_skill(self) -> bool:
+        return self.is_use_skill
+        
+    def use_skill(self, p:player_data, skill_info:skill_info):
+        self.attack(p, skill_info.attack)
+        skill_info.cd_ready =  time.time() + skill_info.cd_time
+        self.is_use_skill = True
+        
+    @abstractmethod
+    def full_info(self) -> dict:
+        pass
+        
+    @abstractmethod
+    def hub_info(self) -> dict:
+        pass
+
+    @abstractmethod
+    def client_info(self) -> dict:
+        pass
