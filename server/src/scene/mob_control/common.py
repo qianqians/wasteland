@@ -57,8 +57,7 @@ def Update(mob:monster, _scene:scene):
             if len(attack_player) > 0:
                 break
         
-        for p in attack_player:
-            mob.use_skill(p, skill_info)
+        mob.use_skill(attack_player, skill_info)
                       
     mob.update_timestamp = timestamp
     

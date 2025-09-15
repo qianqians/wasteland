@@ -58,8 +58,9 @@ class monster(entity):
     def is_use_skill(self) -> bool:
         return self.is_use_skill
         
-    def use_skill(self, p:player_data, skill_info:skill_info):
-        self.attack(p, skill_info.attack)
+    def use_skill(self, attack_player:list[player_data], skill_info:skill_info):
+        for p in attack_player:
+            self.attack(p, skill_info.attack)
         skill_info.cd_ready =  time.time() + skill_info.cd_time
         self.is_use_skill = True
         
