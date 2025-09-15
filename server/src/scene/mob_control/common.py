@@ -30,9 +30,10 @@ def Update(mob:monster, _scene:scene):
     if dir == direction.right:
         dir_c = 1
 
-    timestamp = (time.time() * 1000) - mob.update_timestamp
     begin_x = mob.pos.x
-    x = mob.pos.x + mob.speed * timestamp * dir_c
+    timestamp = time.time()
+    timeDetail = timestamp - mob.update_timestamp
+    x = mob.pos.x + mob.speed * timeDetail * dir_c
     
     element = _scene.scene_map_data.map_data[mob.pos.y*_scene.scene_map_data.map_width_box + x/16]
     if element._property == em_map_element_property.em_map_map:
@@ -42,4 +43,6 @@ def Update(mob:monster, _scene:scene):
         player_x = p.scene_data.postion.x
         if player_x >= begin_x and player_x <= mob.pos.x:
             mob.attack(p)
+
+    mob.update_timestamp = timestamp
     
