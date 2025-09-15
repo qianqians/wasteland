@@ -6,6 +6,7 @@ from ..engine.engine import *
 from ..engine.common_svr import *
 from ..helper import const
 from .scene import scene
+from .player_data import *
 
 class monster(entity):
     def __init__(self, service_name:str, entity_id:str, mob_table_id:int, pos:position):
@@ -46,3 +47,6 @@ class monster(entity):
         
     def update(self, _scene:scene):
         self.module.Update(self, _scene)
+
+    def attack(self, p:player_data):
+        p.attribute_data.hp -= self.attack
