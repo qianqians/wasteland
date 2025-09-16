@@ -25,6 +25,8 @@ def Update(mob:monster, _scene:scene):
             dir = direction.right
     else:
         dir = random.randint(direction.left, direction.right)
+    mob.pos.dir = dir
+    mob.move()
 
     dir_c = -1
     if dir == direction.right:
@@ -59,6 +61,8 @@ def Update(mob:monster, _scene:scene):
         
         if skill_info != None:
             mob.use_skill(attack_player, skill_info)
+            mob.use_skill_timer = Timer(1, mob.use_skill_reset)
+            mob.use_skill_timer.start()
                       
     mob.update_timestamp = timestamp
-    
+    mob.refresh()

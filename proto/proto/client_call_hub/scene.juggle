@@ -1,5 +1,5 @@
 import common
 
 entity_service scene {
-    move ntf(em_direction dir, position pos);
+    move ntf(direction dir, position pos);
 }

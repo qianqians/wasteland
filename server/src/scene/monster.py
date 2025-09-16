@@ -2,6 +2,7 @@
 from __future__ import annotations
 import importlib.util
 import inspect
+import msgpack
 from ..engine.engine import *
 from ..engine.common_svr import *
 from ..helper import const
@@ -13,7 +14,9 @@ class monster(entity):
         super().__init__(service_name, "monster", entity_id, False)
         self.mob_table_id = mob_table_id
         self.pos = pos
-        self.pos.dir = em_direction.stationary
+        self.pos.dir = direction.none
+        
+        self.scene_caller = scene_ntf_client_caller(self)
         
         with open('../../excel/Monster.json') as f:
             data = json.load(f)
@@ -22,7 +25,7 @@ class monster(entity):
         self.hp = self.config["hp"]
         self.mp = self.config["mp"]
         self.speed = self.config["speed"]
-        self.attack = self.config["attack"]
+        self.base_attack = self.config["attack"]
             
         self.skill:list[skill_info] = []
         skills = json.loads(self.config["skill"])
@@ -67,8 +70,12 @@ class monster(entity):
             self.attack(p, skill_info.attack)
         skill_info.cd_ready =  time.time() + skill_info.cd_time
         self.is_use_skill = True
-        self.use_skill_timer = Timer(1, self.use_skill_reset)
-        self.use_skill_timer.start()
+        
+    def move(self):
+        self.scene_caller.move(self.pos.dir, self.pos) 
+        
+    def refresh(self):
+        self.scene_caller.mob_refresh(msgpack.dumps(self.client_info()))
         
     @abstractmethod
     def full_info(self) -> dict:
@@ -80,4 +87,11 @@ class monster(entity):
 
     @abstractmethod
     def client_info(self) -> dict:
-        pass
+        return {
+            "hp": self.hp,
+            "mp": self.mp,
+            "speed": self.speed,
+            "attack":self.base_attack,
+            "is_use_skill":self.is_use_skill(),
+            "postion": position_to_protcol(self.pos) 
+        }

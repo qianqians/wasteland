@@ -12,18 +12,10 @@ enum error_code {
     talk_npc_not_scene = 10;
 }
 
-enum em_direction {
-    stationary = 0;
-    up = 1;
-    down = 2;
-    left = 3;
-    right = 4;
-}
-
 struct position {
     int32 x;
     int32 y;
-    em_direction dir;
+    direction dir;
 }
 
 enum em_equip_type {

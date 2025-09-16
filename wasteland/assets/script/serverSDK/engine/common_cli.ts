@@ -16,14 +16,6 @@ export enum error_code {
     talk_npc_not_scene = 10,
 }
 
-export enum em_direction {
-    stationary = 0,
-    up = 1,
-    down = 2,
-    left = 3,
-    right = 4,
-}
-
 export enum em_equip_type {
     helmet = 1,
     jacket = 2,
@@ -64,7 +56,7 @@ export enum em_harm_type {
 export class position {
      public x:number = 0
      public y:number = 0
-     public dir:em_direction = em_direction.stationary
+     public dir:direction = direction.none
 }
 
 export function position_to_protcol(_struct:position) {

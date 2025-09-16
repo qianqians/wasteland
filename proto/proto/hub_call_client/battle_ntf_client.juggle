@@ -1,6 +1,6 @@
 import common
 
 mutil_service battle_ntf_client {
-    use_skill ntf(int32 skill_id, em_direction dir, position pos);
-    harm ntf(int32 skill_id, em_direction dir, position pos, em_harm_type harm_type, int32 harm_value);
+    use_skill ntf(int32 skill_id, direction dir, position pos);
+    harm ntf(int32 skill_id, direction dir, position pos, em_harm_type harm_type, int32 harm_value);
 }

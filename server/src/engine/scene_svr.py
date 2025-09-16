@@ -13,7 +13,7 @@ class scene_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_move:list[Callable[[session, em_direction, position], None]] = []
+        self.on_move:list[Callable[[session, direction, position], None]] = []
         self.entity.reg_client_notify_callback("move", self.move)
 
     def move(self, gate_name:str, bin:bytes):

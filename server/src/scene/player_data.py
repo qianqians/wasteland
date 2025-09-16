@@ -2,6 +2,7 @@
 from __future__ import annotations
 from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
+from ..engine.scene_ntf_client_svr import *
 from ..engine.player_svr import *
 from ..engine.common_svr import *
 from ..data.attribute_data import *
@@ -22,6 +23,7 @@ class player_data(save, player):
         self.player_id = player_id
 
         self.player_caller = player_ntf_client_caller(self)
+        self.scene_caller = scene_ntf_client_caller(self)
         self.player_module = player_module(self)
         self.player_module.on_into_scene.append(
             lambda rsp, area, scene_name, scene_line : 

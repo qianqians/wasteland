@@ -1,5 +1,6 @@
 import common
 
 mutil_service scene_ntf_client {
-    move ntf(em_direction dir, position pos);
+    move ntf(direction dir, position pos);
+    mob_refresh ntf(bin info);
 }

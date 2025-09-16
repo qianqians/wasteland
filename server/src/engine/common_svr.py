@@ -20,14 +20,6 @@ class error_code(Enum):
     talk_npc_not_scene = 10
 
 
-class em_direction(Enum):
-    stationary = 0
-    up = 1
-    down = 2
-    left = 3
-    right = 4
-
-
 class em_equip_type(Enum):
     helmet = 1
     jacket = 2
@@ -69,7 +61,7 @@ class position(object):
     def __init__(self):
         self.x:int = 0
         self.y:int = 0
-        self.dir:em_direction = 0
+        self.dir:direction = 0
 
 
 def position_to_protcol(_struct:position):

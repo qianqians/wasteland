@@ -6,7 +6,7 @@ from ..engine.common_svr import *
 class postion_data(TypedDict):
     x:int = 0
     y:int = 0
-    dir:em_direction = em_direction.stationary
+    dir:direction = direction.none
     
 class scene_postion(TypedDict):
     scene_name:str
