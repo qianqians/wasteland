@@ -44,6 +44,7 @@ class monster(entity):
         spec.loader.exec_module(self.module)
         
         self.is_use_skill = False
+        self.use_skill_timer:Timer = None
         
         self.hurt_list:list[tuple[str, int]] = []
         self.update_timestamp = time.time()
@@ -57,12 +58,17 @@ class monster(entity):
         
     def is_use_skill(self) -> bool:
         return self.is_use_skill
+    
+    def use_skill_reset(self):
+        self.is_use_skill = False
         
     def use_skill(self, attack_player:list[player_data], skill_info:skill_info):
         for p in attack_player:
             self.attack(p, skill_info.attack)
         skill_info.cd_ready =  time.time() + skill_info.cd_time
         self.is_use_skill = True
+        self.use_skill_timer = Timer(1, self.use_skill_reset)
+        self.use_skill_timer.start()
         
     @abstractmethod
     def full_info(self) -> dict:
