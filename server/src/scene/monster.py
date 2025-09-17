@@ -91,7 +91,8 @@ class monster(entity):
             "hp": self.hp,
             "mp": self.mp,
             "speed": self.speed,
-            "attack":self.base_attack,
-            "is_use_skill":self.is_use_skill(),
+            "attack": self.base_attack,
+            "mob_table_id": self.mob_table_id,
+            "is_use_skill": self.is_use_skill(),
             "postion": position_to_protcol(self.pos) 
         }
