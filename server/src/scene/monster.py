@@ -2,7 +2,7 @@
 from __future__ import annotations
 import importlib.util
 import inspect
-import msgpack
+from ..engine.engine.msgpack import *
 from ..engine.engine import *
 from ..engine.common_svr import *
 from ..helper import const
@@ -75,7 +75,7 @@ class monster(entity):
         self.scene_caller.move(self.pos.dir, self.pos) 
         
     def refresh(self):
-        self.scene_caller.mob_refresh(msgpack.dumps(self.client_info()))
+        self.scene_caller.mob_refresh(dumps(self.client_info()))
         
     @abstractmethod
     def full_info(self) -> dict:
