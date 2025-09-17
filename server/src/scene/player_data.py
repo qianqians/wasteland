@@ -3,6 +3,7 @@ from __future__ import annotations
 from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
 from ..engine.scene_ntf_client_svr import *
+from ..engine.battle_ntf_client_svr import *
 from ..engine.player_svr import *
 from ..engine.common_svr import *
 from ..data.attribute_data import *
@@ -24,6 +25,8 @@ class player_data(save, player):
 
         self.player_caller = player_ntf_client_caller(self)
         self.scene_caller = scene_ntf_client_caller(self)
+        self.battle_caller = battle_ntf_client_caller(self)
+        
         self.player_module = player_module(self)
         self.player_module.on_into_scene.append(
             lambda rsp, area, scene_name, scene_line : 
@@ -76,6 +79,11 @@ class player_data(save, player):
         migrate_hub = await app().ctx.entry_hub_service(f"{area}_{scene_line}")
         await self.start_migrate_entity_initiative(migrate_hub)
         rsp.rsp()
+        
+    def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
+        self.attribute_data.hp -= harm_value
+        self.battle_caller.harm(
+            attack_entity_id, skill_id, self.scene_data.postion, harm_type, harm_value)
 
     @abstractmethod
     def store(self) -> dict:

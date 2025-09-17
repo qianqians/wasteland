@@ -17,6 +17,7 @@ class monster(entity):
         self.pos.dir = direction.none
         
         self.scene_caller = scene_ntf_client_caller(self)
+        self.battle_caller = battle_ntf_client_caller(self)
         
         with open('../../excel/Monster.json') as f:
             data = json.load(f)
@@ -55,9 +56,8 @@ class monster(entity):
     def update(self, _scene:scene):
         self.module.Update(self, _scene)
 
-    def attack(self, p:player_data, attack:int = 0):
-        attack += self.attack 
-        p.attribute_data.hp -= attack
+    def attack(self, p:player_data, skill_info:skill_info):
+        p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack)
         
     def is_use_skill(self) -> bool:
         return self.is_use_skill
@@ -67,7 +67,8 @@ class monster(entity):
         
     def use_skill(self, attack_player:list[player_data], skill_info:skill_info):
         for p in attack_player:
-            self.attack(p, skill_info.attack)
+            self.attack(p, skill_info)
+        self.battle_caller.use_skill(skill_info.skill_id, self.pos)
         skill_info.cd_ready =  time.time() + skill_info.cd_time
         self.is_use_skill = True
         
@@ -75,7 +76,7 @@ class monster(entity):
         self.scene_caller.move(self.pos.dir, self.pos) 
         
     def refresh(self):
-        self.scene_caller.mob_refresh(dumps(self.client_info()))
+        self.scene_caller.entity_refresh(dumps(self.client_info()))
         
     @abstractmethod
     def full_info(self) -> dict:
