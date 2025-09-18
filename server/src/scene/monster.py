@@ -57,7 +57,12 @@ class monster(entity):
         self.module.Update(self, _scene)
 
     def attack(self, p:player_data, skill_info:skill_info):
-        p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack)
+        p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack+self.base_attack)
+
+    def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
+        self.hp -= harm_value
+        self.battle_caller.harm(
+            attack_entity_id, skill_id, self.pos, harm_type, harm_value)
         
     def is_use_skill(self) -> bool:
         return self.use_skill_cast_spells > time.time()

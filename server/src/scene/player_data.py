@@ -4,6 +4,7 @@ from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
 from ..engine.scene_ntf_client_svr import *
 from ..engine.battle_ntf_client_svr import *
+from ..engine.battle_svr import *
 from ..engine.player_svr import *
 from ..engine.common_svr import *
 from ..data.attribute_data import *
@@ -21,6 +22,7 @@ class player_data(save, player):
         save.__init__(self)
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
 
+        self.scene 
         self.player_id = player_id
 
         self.player_caller = player_ntf_client_caller(self)
@@ -31,6 +33,8 @@ class player_data(save, player):
         self.player_module.on_into_scene.append(
             lambda rsp, area, scene_name, scene_line : 
                 app().run_coroutine_async(self.into_scene(rsp, area, scene_name, scene_line)))
+        
+        self.battle_module = battle_module(self)
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
@@ -39,7 +43,7 @@ class player_data(save, player):
 
         self.attribute_data = attribute_data(self.player_id, info["attribute_data"])
         self.bag_data = bag_data(self.player_id, info["bag_data"], self.player_caller)
-        self.skill_data = skill_data(self.player_id, info["skill_data"])
+        self.skill_data = skill_data(self.player_id, self.battle_module, info["skill_data"])
 
         from ..data.task_data import task_data
         self.task_data = task_data(self.player_id, info["task_data"], 
@@ -79,6 +83,9 @@ class player_data(save, player):
         migrate_hub = await app().ctx.entry_hub_service(f"{area}_{scene_line}")
         await self.start_migrate_entity_initiative(migrate_hub)
         rsp.rsp()
+
+    def use_skill(self, skill_id:int):
+        self.skill_data.use_skill(skill_id, self, self.scene)
         
     def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
         self.attribute_data.hp -= harm_value
