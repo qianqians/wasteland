@@ -418,6 +418,7 @@ export class skill_info {
      public attack_range:number = 0
      public cd_time:number = 0
      public cd_ready:number = 0
+     public cast_spells:number = 0.0
 }
 
 export function skill_info_to_protcol(_struct:skill_info) {
@@ -427,6 +428,7 @@ export function skill_info_to_protcol(_struct:skill_info) {
     _protocol["attack_range"] = _struct.attack_range
     _protocol["cd_time"] = _struct.cd_time
     _protocol["cd_ready"] = _struct.cd_ready
+    _protocol["cast_spells"] = _struct.cast_spells
     return _protocol;
 }
 
@@ -448,6 +450,9 @@ export function protcol_to_skill_info(_protocol:any) {
         }
         else if (key == "cd_ready") {
             _struct.cd_ready = val;
+        }
+        else if (key == "cast_spells") {
+            _struct.cast_spells = val;
         }
     }
     return _struct;
