@@ -84,6 +84,13 @@ class player_data(save, player):
         self.attribute_data.hp -= harm_value
         self.battle_caller.harm(
             attack_entity_id, skill_id, self.scene_data.postion, harm_type, harm_value)
+        
+        if self.is_dead():
+            self.battle_caller.dead()
+            self.scene.leave_scene(self)
+            
+    def is_dead(self):
+        return self.attribute_data.hp <= 0
 
     @abstractmethod
     def store(self) -> dict:

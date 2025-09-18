@@ -9,10 +9,12 @@ export class battle_ntf_client_module {
     public entity:engine.player|engine.subentity|engine.receiver;
     public on_use_skill:((s:engine.session, skill_id:number, pos:common.position) => void)[] = [];
     public on_harm:((s:engine.session, attack_entity_id:string, skill_id:number, pos:common.position, harm_type:common.em_harm_type, harm_value:number) => void)[] = [];
+    public on_dead:((s:engine.session, ) => void)[] = [];
     public constructor(entity:engine.player|engine.subentity|engine.receiver) {
         this.entity = entity;
         this.entity.reg_hub_notify_callback("use_skill", this.use_skill);
         this.entity.reg_hub_notify_callback("harm", this.harm);
+        this.entity.reg_hub_notify_callback("dead", this.dead);
     }
 
     public use_skill(hub_name:string, bin:Uint8Array) {
@@ -35,6 +37,14 @@ export class battle_ntf_client_module {
         let s = new engine.session(hub_name)
         for (let fn of this.on_harm) {
             fn(s, _attack_entity_id, _skill_id, _pos, _harm_type, _harm_value);
+        }
+    }
+
+    public dead(hub_name:string, bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let s = new engine.session(hub_name)
+        for (let fn of this.on_dead) {
+            fn(s, );
         }
     }
 

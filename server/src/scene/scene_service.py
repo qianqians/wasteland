@@ -38,6 +38,7 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
     _scene = _service.scenes.get(f"{scene_name}", None)
     if _scene != None:
         _scene.entry_scene(player)
+        player.entry_scene(_scene)
         await app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), 
             json.dumps({"zone":_service.area, "line":scene_line}))
     else:

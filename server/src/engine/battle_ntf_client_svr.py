@@ -28,5 +28,9 @@ class battle_ntf_client_caller(object):
         _argv_7e9b4bc8_3331_36e9_9f2e_511457f22912.append(harm_value)
         self.entity.call_client_mutilcast("harm", dumps(_argv_7e9b4bc8_3331_36e9_9f2e_511457f22912))
 
+    def dead(self):
+        _argv_ae3baee5_fff4_35d0_8878_58a95b76200d = []
+        self.entity.call_client_mutilcast("dead", dumps(_argv_ae3baee5_fff4_35d0_8878_58a95b76200d))
+
 
 
