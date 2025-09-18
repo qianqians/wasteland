@@ -360,6 +360,7 @@ class skill_info(object):
         self.attack_range:int = 0
         self.cd_time:int = 0
         self.cd_ready:int = 0
+        self.cast_spells:float = 0.0
 
 
 def skill_info_to_protcol(_struct:skill_info):
@@ -371,6 +372,7 @@ def skill_info_to_protcol(_struct:skill_info):
     _protocol["attack_range"] = _struct.attack_range
     _protocol["cd_time"] = _struct.cd_time
     _protocol["cd_ready"] = _struct.cd_ready
+    _protocol["cast_spells"] = _struct.cast_spells
     return _protocol
 
 def protcol_to_skill_info(_protocol:dict):
@@ -386,6 +388,8 @@ def protcol_to_skill_info(_protocol:dict):
             _struct.cd_time = val
         elif key == "cd_ready":
             _struct.cd_ready = val
+        elif key == "cast_spells":
+            _struct.cast_spells = val
     return _struct
 
 #this caller code is codegen by geese codegen for python

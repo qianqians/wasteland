@@ -47,7 +47,7 @@ class monster(entity):
         self.module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.module)
         
-        self.is_use_skill = False
+        self.use_skill_cast_spells = float(0)
         self.use_skill_timer:Timer = None
         
         self.hurt_list:list[tuple[str, int]] = []
@@ -57,20 +57,25 @@ class monster(entity):
         self.module.Update(self, _scene)
 
     def attack(self, p:player_data, skill_info:skill_info):
-        p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack)
+        p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack+self.base_attack)
+
+    def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
+        self.hp -= harm_value
+        self.battle_caller.harm(
+            attack_entity_id, skill_id, self.pos, harm_type, harm_value)
         
     def is_use_skill(self) -> bool:
-        return self.is_use_skill
+        return self.use_skill_cast_spells > time.time()
     
     def use_skill_reset(self):
-        self.is_use_skill = False
+        self.use_skill_cast_spells = float(0)
         
     def use_skill(self, attack_player:list[player_data], skill_info:skill_info):
         for p in attack_player:
             self.attack(p, skill_info)
         self.battle_caller.use_skill(skill_info.skill_id, self.pos)
         skill_info.cd_ready =  time.time() + skill_info.cd_time
-        self.is_use_skill = True
+        self.use_skill_cast_spells = time.time() + skill_info.cast_spells
         
     def move(self):
         self.scene_caller.move(self.pos.dir, self.pos) 
@@ -94,6 +99,6 @@ class monster(entity):
             "speed": self.speed,
             "attack": self.base_attack,
             "mob_table_id": self.mob_table_id,
-            "is_use_skill": self.is_use_skill(),
+            "use_skill_cast_spells": self.use_skill_cast_spells,
             "postion": position_to_protcol(self.pos) 
         }
