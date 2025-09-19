@@ -132,6 +132,8 @@ class player_data(save, player):
     def create() -> dict:
         _attribute_data = attribute_create()
         _bag_data = bag_create()
+        
+        from ..data.skill_data import skill_create
         _skill_date = skill_create()
         
         from ..data.task_data import task_create
