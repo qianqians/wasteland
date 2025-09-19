@@ -34,7 +34,7 @@ class player_data(save, player):
                 app().run_coroutine_async(self.into_scene(rsp, area, scene_name, scene_line)))
                 
         self.scene_module = scene_module(self)
-        self.scene_module.on_move.append(lambda s, dir, pos: self.scene_data.begin_move(dir, pos))
+        self.scene_module.on_move.append(lambda s, vertical_dir, pos: self.scene_data.begin_move(vertical_dir, pos))
 
         self.battle_module = battle_module(self)
         self.battle_module.on_use_skill.append(lambda rsp, skill_id : self.use_skill(rsp, skill_id))
