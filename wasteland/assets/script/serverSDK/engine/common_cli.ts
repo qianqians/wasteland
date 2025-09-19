@@ -14,6 +14,7 @@ export enum error_code {
     unlock_level_not_completed = 8,
     unconfig_talk_task = 9,
     talk_npc_not_scene = 10,
+    cannot_use_skill = 11,
 }
 
 export enum em_equip_type {

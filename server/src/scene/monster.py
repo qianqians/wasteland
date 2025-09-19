@@ -6,15 +6,17 @@ from ..engine.engine.msgpack import *
 from ..engine.engine import *
 from ..engine.common_svr import *
 from ..helper import const
-from .scene import scene
+from .scene import scene, mob_group
 from .player_data import *
 
 class monster(entity):
-    def __init__(self, service_name:str, entity_id:str, mob_table_id:int, pos:position):
+    def __init__(self, service_name:str, entity_id:str, mob_table_id:int, pos:position, mob_group:mob_group):
         super().__init__(service_name, "monster", entity_id, False)
         self.mob_table_id = mob_table_id
         self.pos = pos
         self.pos.dir = direction.none
+
+        self.mob_group = mob_group
         
         self.scene_caller = scene_ntf_client_caller(self)
         self.battle_caller = battle_ntf_client_caller(self)
@@ -59,10 +61,17 @@ class monster(entity):
     def attack(self, p:player_data, skill_info:skill_info):
         p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack+self.base_attack)
 
+    def is_dead(self):
+        return self.hp <= 0
+    
     def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
         self.hp -= harm_value
         self.battle_caller.harm(
             attack_entity_id, skill_id, self.pos, harm_type, harm_value)
+        
+        if self.is_dead():
+            self.battle_caller.dead()
+            self.mob_group.dead()
         
     def is_use_skill(self) -> bool:
         return self.use_skill_cast_spells > time.time()

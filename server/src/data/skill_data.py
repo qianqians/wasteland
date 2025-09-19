@@ -53,7 +53,7 @@ class skill_data:
                         mob_list.append(mob)
 
         for mob in mob_list:
-            mob.be_harm(p.player_id, skill_id, em_harm_type.melee_attack, skill_info.attack, p.attribute_data.base_attack)
+            mob.be_harm(p.player_id, skill_id, em_harm_type.melee_attack, skill_info.attack+p.attribute_data.base_attack)
 
 def skill_create() -> skill_data:
     return skill_data({})

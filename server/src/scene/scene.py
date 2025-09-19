@@ -27,7 +27,7 @@ class mob_group:
         self.scene.group.create_remote_entity(mob)
         self.mobs[mob.entity_id] = mob
 
-    def __dead__(self, mob:monster):
+    def dead(self, mob:monster):
         self.scene.group.remove_entity(mob)
         self.mobs.pop(mob.entity_id)
 
