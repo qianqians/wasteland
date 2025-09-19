@@ -6,6 +6,7 @@ from ..engine.scene_ntf_client_svr import *
 from ..engine.scene_svr import *
 from ..scene_map.scene_map_data import *
 from ..scene.scene import *
+from ..helper import const
 
 class postion_data(TypedDict):
     x:int = 0
@@ -22,6 +23,8 @@ class scene_data:
         self.user_id = user_id
         self.speed = 10
         self.vertical_speed = 20
+        self.vertical_dir = direction.none
+        self.up_time = 0
         self.write_back(info)
 
         self.scene_caller = scene_caller
@@ -43,15 +46,23 @@ class scene_data:
             dir_c = -1
         if dir_c != 0:
             self.postion.x += self.speed * timeDetail * dir_c
+            y_box = self.postion.y/16
+            element = _scene.scene_map_data.map_data[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
+            if element._property == em_map_element_property.em_map_empty:
+                self.vertical_dir = direction.down
 
-        if self.postion.dir == direction.up:
+        if self.vertical_dir == direction.up:
             self.postion.y += self.vertical_speed * timeDetail
-        elif self.postion.dir == direction.down:
+            self.up_time += timeDetail
+            if self.up_time >= const.up_time:
+                self.up_time = 0
+                self.vertical_dir = direction.down
+        elif self.vertical_dir == direction.down:
             y_box = self.postion.y/16
             element = _scene.scene_map_data.map_data[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
             if element._property == em_map_element_property.em_map_map:
                 self.postion.y = y_box*16
-                self.postion.dir = direction.none
+                self.vertical_dir = direction.none
             else:
                 self.postion.y -= self.vertical_speed * timeDetail
                 
