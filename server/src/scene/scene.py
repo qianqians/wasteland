@@ -64,6 +64,7 @@ class scene:
                 self.mob_spawn.append(mob_group(self, s["mob_id"], protcol_to_position(s["postion"]), s["mobs_num"]))
 
         self.updates:list[Callable[[], None]] = []
+        self.add_update(lambda : [p.scene_data.update(self) for p in self.players.values()])
 
     def add_update(self, update:Callable[[], None]):
         self.updates.append(update)
