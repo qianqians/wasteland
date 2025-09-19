@@ -32,7 +32,10 @@ class player_data(save, player):
         self.player_module.on_into_scene.append(
             lambda rsp, area, scene_name, scene_line : 
                 app().run_coroutine_async(self.into_scene(rsp, area, scene_name, scene_line)))
-        
+                
+        self.scene_module = scene_module(self)
+        self.scene_module.on_move.append(lambda s, dir, pos: self.scene_data.begin_move(dir, pos))
+
         self.battle_module = battle_module(self)
         self.battle_module.on_use_skill.append(lambda rsp, skill_id : self.use_skill(rsp, skill_id))
 
@@ -100,9 +103,14 @@ class player_data(save, player):
         if self.is_dead():
             self.battle_caller.dead()
             self.scene.leave_scene(self)
+        else:
+            self.refresh()
             
     def is_dead(self):
         return self.attribute_data.hp <= 0
+    
+    def refresh(self):
+        self.scene_caller.entity_refresh(dumps(self.client_info()))
 
     @abstractmethod
     def store(self) -> dict:

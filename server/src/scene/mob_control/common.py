@@ -25,8 +25,6 @@ def Update(mob:monster, _scene:scene):
             dir = direction.right
     else:
         dir = random.randint(direction.left, direction.right)
-    mob.pos.dir = dir
-    mob.move()
 
     dir_c = -1
     if dir == direction.right:
@@ -37,9 +35,12 @@ def Update(mob:monster, _scene:scene):
     timeDetail = timestamp - mob.update_timestamp
     x = mob.pos.x + mob.speed * timeDetail * dir_c
     
-    element = _scene.scene_map_data.map_data[mob.pos.y*_scene.scene_map_data.map_width_box + x/16]
+    y_box = mob.pos.y / 16
+    element = _scene.scene_map_data.map_data[y_box*_scene.scene_map_data.map_width_box + x/16]
     if element._property == em_map_element_property.em_map_map:
         mob.pos.x = x
+        mob.pos.dir = dir
+        mob.move()
 
     if not mob.is_use_skill():
         player_list:list[player_data] = []
