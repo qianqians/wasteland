@@ -70,7 +70,7 @@ class scene_data:
         self.update_timestamp = timestamp
 
     def __ntf_move__(self):
-        self.scene_caller.move(self.postion.dir, self.postion)
+        self.scene_caller.move(self.vertical_dir, self.postion)
 
     def begin_move(self, vertical_dir:direction, pos:position):
         self.postion.dir = pos.dir
