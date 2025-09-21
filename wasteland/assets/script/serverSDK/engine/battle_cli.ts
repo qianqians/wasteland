@@ -7,7 +7,7 @@ import * as common from "./common_cli";
 // this caller code is codegen by geese codegen for typescript
 export class battle_use_skill_cb {
     public entity:engine.subentity|engine.player;
-    public cb:(() => void)|null = null;
+    public cb:((item:common.item) => void)|null = null;
     public err:((err:common.error_code) => void)|null = null;
     public rsp:engine.callback;
     public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
@@ -19,7 +19,8 @@ export class battle_use_skill_cb {
 
     private on_rsp(bin:Uint8Array) {
         let inArray = decode(bin) as any;
-        if (this.cb) this.cb.call(null, );
+        let _item = common.protcol_to_item(inArray[0]);
+        if (this.cb) this.cb.call(null, _item);
 
     }
 
@@ -30,7 +31,7 @@ export class battle_use_skill_cb {
 
     }
 
-    public callBack(_cb:() => void, _err:(err:common.error_code) => void) {
+    public callBack(_cb:(item:common.item) => void, _err:(err:common.error_code) => void) {
         this.cb = _cb;
         this.err = _err;
         this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));

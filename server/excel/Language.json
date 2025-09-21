@@ -86,5 +86,13 @@
     "novice_npc_talk2_2": {
         "index": "novice_npc_talk2_2",
         "chinese": "NPC对话2_2"
+    },
+    "healing_potion1": {
+        "index": "healing_potion1",
+        "chinese": "红药1"
+    },
+    "energy potion1": {
+        "index": "energy potion1",
+        "chinese": "蓝药1"
     }
 }

@@ -38,6 +38,7 @@ class player_data(save, player):
 
         self.battle_module = battle_module(self)
         self.battle_module.on_use_skill.append(lambda rsp, skill_id : self.use_skill(rsp, skill_id))
+        self.battle_module.on_use_item.append(lambda rsp, item_id : self.use_item(rsp, item_id))
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
@@ -94,6 +95,10 @@ class player_data(save, player):
             rsp.rsp()
         else:
             rsp.err(error_code.cannot_use_skill)
+            
+    def use_item(self, rsp:battle_use_item_rsp, item_id:str):
+        self.bag_data.use_item(item_id)
+        self.refresh()
         
     def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
         self.attribute_data.hp -= harm_value
