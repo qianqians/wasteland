@@ -11,6 +11,7 @@ from ..data.attribute_data import *
 from ..data.equip_data import *
 from ..data.scene_data import *
 from ..data.bag_data import *
+from ..scene_map import *
 from .scene import scene
 from .scene_service import scene_service
 
@@ -34,7 +35,7 @@ class player_data(save, player):
                 app().run_coroutine_async(self.into_scene(rsp, area, scene_name, scene_line)))
                 
         self.scene_module = scene_module(self)
-        self.scene_module.on_move.append(lambda s, vertical_dir, pos: self.scene_data.begin_move(vertical_dir, pos))
+        self.scene_module.on_move.append(lambda s, vertical_dir, pos: self.begin_move(vertical_dir, pos))
 
         self.battle_module = battle_module(self)
         self.battle_module.on_use_skill.append(lambda rsp, skill_id : self.use_skill(rsp, skill_id))
@@ -71,23 +72,33 @@ class player_data(save, player):
     def entry_scene(self, _scene:scene):
         self.scene = _scene
         
-    async def into_scene(self, rsp:player_into_scene_rsp, area:str, scene_name:str, scene_line:int):
-        self.scene_data.scene_name = scene_name
-        self.scene_data.scene_line = scene_line
-
+    def begin_move(self, vertical_dir:direction, pos:position):
+        (is_move, area) = self.scene_data.begin_move(vertical_dir, pos)
+        if is_move:
+            return
+        app().run_coroutine_async(self.__into_scene__(area, self.scene_data.scene_name, self.scene_data.scene_line))
+        
+    async def __into_scene__(self, area:str, scene_name:str, scene_line:int):
         self.scene.leave_scene(self)
-
         for _s in app().service_mgr.services.values():
             _scene_service:scene_service = _s
             for _scene in _scene_service.scenes.values():
                 if _scene.area == area and _scene.scene_name == scene_name and _scene.scene_line == scene_line:
                     _scene.entry_scene(self)
                     self.entry_scene(_scene)
-                    rsp.rsp()
                     return 
         
         migrate_hub = await app().ctx.entry_hub_service(f"{area}_{scene_line}")
         await self.start_migrate_entity_initiative(migrate_hub)
+        
+    async def into_scene(self, rsp:player_into_scene_rsp, area:str, scene_name:str, scene_line:int):
+        scene_map = get_scene_map(scene_name)
+        
+        self.scene_data.scene_name = scene_name
+        self.scene_data.scene_line = scene_line
+        self.scene_data.postion = scene_map.spawn_point
+        
+        await self.__into_scene__(rsp, area, scene_name, scene_line)
         rsp.rsp()
 
     def use_skill(self, rsp:battle_use_skill_rsp, skill_id:int):

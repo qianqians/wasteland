@@ -72,9 +72,19 @@ class scene_data:
     def __ntf_move__(self):
         self.scene_caller.move(self.vertical_dir, self.postion)
 
-    def begin_move(self, vertical_dir:direction, pos:position):
+    def begin_move(self, vertical_dir:direction, pos:position) -> (bool, str):
         self.postion.dir = pos.dir
         self.vertical_dir = vertical_dir
+        
+        if vertical_dir == direction.up:
+            scene_map = get_scene_map(self.scene_name)
+            for p in scene_map.portals:
+                if abs(p.curr_pos.x - self.postion.x) <= 0.5 and abs(p.curr_pos.y - self.postion.y) <= 0.5:
+                    self.scene_name = p.scene_name
+                    self.postion = p.new_pos
+                    return (False, p.area)
+        return (True, None)
+
 
     def info(self) -> dict:
         return { "scene_name": self.scene_name, "scene_line": self.scene_line, "postion": position_to_protcol(self.postion) }

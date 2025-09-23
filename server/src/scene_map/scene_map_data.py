@@ -2,6 +2,7 @@
 from __future__ import annotations
 from typing import TypedDict
 from enum import Enum
+from ..engine.common_svr import *
 
 class em_map_element_property(Enum):
     em_map_empty = 0
@@ -15,6 +16,12 @@ class ladder(TypedDict):
     x_max:int = 0
     y_min:int = 0
     y_max:int = 0
+    
+class Portal(TypedDict):
+    curr_pos:position
+    new_pos:position
+    area:str
+    scene_name:str
 
 class scene_map(TypedDict):
     map_width:int = 0
@@ -24,6 +31,9 @@ class scene_map(TypedDict):
 
     map_data:list[element] = []
     ladder_date:list[ladder] = []
+    
+    portals:list[Portal] = []
+    spawn_point:position = None
 
 class scene_map_collection:
     scene_maps: dict[str, scene_map] = {}
