@@ -1,0 +1,14 @@
+{
+    "101": {
+        "id": 101,
+        "scene1": "wasteland_novice_village",
+        "pos1": "[1.0, 1.0]",
+        "scene2": "wasteland_expedition_1"
+    },
+    "102": {
+        "id": 102,
+        "scene1": "wasteland_novice_village",
+        "pos1": "[10.0, 1.0]",
+        "scene2": "wasteland_expedition_2"
+    }
+}
