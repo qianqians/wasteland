@@ -19,9 +19,9 @@ class ladder(TypedDict):
     
 class Portal(TypedDict):
     curr_pos:position
-    new_pos:position
     area:str
     scene_name:str
+    new_pos:position
 
 class scene_map(TypedDict):
     map_width:int = 0
@@ -39,7 +39,26 @@ class scene_map_collection:
     scene_maps: dict[str, scene_map] = {}
 
 def load_scene_map(scene_name:str):
-    pass
+    _map = scene_map()
+    with open('../../excel/Portal.json') as f:
+        data = json.load(f)
+        for _v in data.value():
+            if _v["scene1"] == scene_name:
+                p = Portal()
+                p.curr_pos = json.loads(_v["pos1"])
+                p.area = _v["area2"]
+                p.scene_name = _v["scene2"]
+                p.new_pos = json.loads(_v["pos2"])
+                _map.portals.append(p)
+            elif _v["scene2"] == scene_name:
+                p = Portal()
+                p.curr_pos = json.loads(_v["pos2"])
+                p.area = _v["area1"]
+                p.scene_name = _v["scene1"]
+                p.new_pos = json.loads(_v["pos1"])
+                _map.portals.append(p)
+    return _map
+            
 
 def get_scene_map(scene_name:str) -> scene_map | None:
     return scene_map_collection.scene_maps.get(scene_name)
