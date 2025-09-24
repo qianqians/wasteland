@@ -72,7 +72,7 @@ class scene_data:
     def __ntf_move__(self):
         self.scene_caller.move(self.vertical_dir, self.postion)
 
-    def begin_move(self, vertical_dir:direction, pos:position) -> (bool, str):
+    def begin_move(self, vertical_dir:direction, pos:position) -> tuple[bool, str]:
         self.postion.dir = pos.dir
         self.vertical_dir = vertical_dir
         
@@ -87,4 +87,5 @@ class scene_data:
 
 
     def info(self) -> dict:
-        return { "scene_name": self.scene_name, "scene_line": self.scene_line, "postion": position_to_protcol(self.postion) }
+        return { "scene_name": self.scene_name, "scene_line": self.scene_line, 
+            "postion": position_to_protcol(self.postion) }
