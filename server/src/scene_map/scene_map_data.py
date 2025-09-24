@@ -57,7 +57,7 @@ def load_scene_map(scene_name:str):
                 p.scene_name = _v["scene1"]
                 p.new_pos = json.loads(_v["pos1"])
                 _map.portals.append(p)
-    return _map
+    scene_map_collection.scene_maps[scene_name] = _map
             
 
 def get_scene_map(scene_name:str) -> scene_map | None:
