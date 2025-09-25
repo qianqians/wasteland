@@ -7,6 +7,7 @@ from ..data.equip_data import *
 from ..data.scene_data import *
 from ..data.bag_data import *
 from ..data.task_data import *
+from ..scene_map.scene_map_data import *
 from .scene import *
 
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
@@ -55,7 +56,8 @@ class scene_service(service):
             data = json.load(f)
             for s in data.value():
                 if s["area"] != area:
-                    continue
+                    continue    
+                load_scene_map(s["scene"])
                 self.scenes[s["scene"]] = scene(area, s["scene"], scene_line)
         
         self.novice_village:scene_postion = None

@@ -6,6 +6,7 @@ from .player_data import *
 from .scene import *
 from .scene_service import *
 from ..config.config import *
+from ..scene_map import *
 
 class PlayerEventHandle(player_event_handle):
     def player_offline(self, _player:player) -> dict:
@@ -16,7 +17,9 @@ def main(cfg_file:str):
     load_cond_config()
     load_pkg_config()
     load_item_config()
-    load_talk_config
+    load_talk_config()
+    
+    load_scene_spawn_point()
 
     _app = app()
     _app.build(cfg_file)
