@@ -92,11 +92,11 @@ class player_data(save, player):
         await self.start_migrate_entity_initiative(migrate_hub)
         
     async def into_scene(self, rsp:player_into_scene_rsp, area:str, scene_name:str, scene_line:int):
-        scene_map = get_scene_map(scene_name)
+        scene_spawn_point = get_scene_spawn_point(scene_name)
         
         self.scene_data.scene_name = scene_name
         self.scene_data.scene_line = scene_line
-        self.scene_data.postion = scene_map.spawn_point
+        self.scene_data.postion = scene_spawn_point.spawn_point
         
         await self.__into_scene__(rsp, area, scene_name, scene_line)
         rsp.rsp()

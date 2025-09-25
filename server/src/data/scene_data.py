@@ -25,15 +25,13 @@ class scene_data:
         self.vertical_speed = 20
         self.vertical_dir = direction.none
         self.up_time = 0
-        self.write_back(info)
-
-        self.scene_caller = scene_caller
-        self.update_timestamp = time.time()
-
-    def write_back(self, info:dict):
+        
         self.scene_name:str = info["scene_name"]
         self.scene_line:int = info["scene_line"]
-        self.postion = protcol_to_position(info["postion"])
+        self.postion:position = protcol_to_position(info["postion"])
+
+        self.scene_caller:scene_ntf_client_caller = scene_caller
+        self.update_timestamp:float = time.time()
 
     def update(self, _scene:scene):
         timestamp = time.time()

@@ -56,7 +56,7 @@ class scene_service(service):
             for s in data.value():
                 if s["area"] != area:
                     continue
-                self.scenes[s["scene"]] = scene(s["scene"], scene_line)
+                self.scenes[s["scene"]] = scene(area, s["scene"], scene_line)
         
         self.novice_village:scene_postion = None
         with open('../../excel/NoviceVillage.json') as f:
