@@ -135,11 +135,11 @@ def __map_primitive_data__(scene_name:str, _map:scene_map) -> scene_map:
                         begin = 0
                     else:   
                         begin += 1
-                    end = property_file_name.rfind('.');
+                    end = property_file_name.rfind('.')
                     real_property_file_name = property_file_name[begin:(end - begin)]
                     if real_property_file_name == "empty":
                         continue
-                    json_property_file_name = real_property_file_name + ".json";
+                    json_property_file_name = real_property_file_name + ".json"
                     firstgid:int = tile_info["firstgid"]
 
                     with open(f"../../map/{scene_name}/{json_property_file_name}") as f_prop:
@@ -153,7 +153,7 @@ def __map_primitive_data__(scene_name:str, _map:scene_map) -> scene_map:
                             id = tile_property_info["id"]
                             if "terrain" in tile_property_info:
                                 terrain_list = tile_property_info["terrain"]
-                                terrain = -1;
+                                terrain = -1
                                 for i in range(4):
                                     terrain = terrain_list[i]
                                     if (terrain >= 0):
@@ -181,7 +181,7 @@ def __map_primitive_data__(scene_name:str, _map:scene_map) -> scene_map:
                                     _id = (int)(id + firstgid)
                                     _property.add(_id)
     
-            layers = map_info_table.get_value_list("layers");
+            layers = map_info_table.get_value_list("layers")
             for layer in range(len(layers)):
                 layer_info = layers[layer]
                 layer_name = layer_info["name"]
