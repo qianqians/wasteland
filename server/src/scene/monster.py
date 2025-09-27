@@ -21,10 +21,7 @@ class monster(entity):
         self.scene_caller = scene_ntf_client_caller(self)
         self.battle_caller = battle_ntf_client_caller(self)
         
-        with open('../../excel/Monster.json') as f:
-            data = json.load(f)
-            self.config = data[str(self.mob_table_id)]
-        
+        self.config = get_monster_config(self.mob_table_id)
         self.hp = self.config["hp"]
         self.mp = self.config["mp"]
         self.speed = self.config["speed"]
@@ -33,16 +30,15 @@ class monster(entity):
         self.skill:list[skill_info] = []
         skills = json.loads(self.config["skill"])
         for skill_id in skills:
-            with open('../../excel/Skill.json') as f:
-                skill_data = json.load(f)
-                skill = skill_data[str(skill_id)]
-                info = skill_info()
-                info.skill_id = skill_id
-                info.attack = skill["attack"]
-                info.attack_range = skill["attack_range"]
-                info.cd_time = skill["cd"]
-                info.cd_ready = time.time() + info.cd_time
-                self.skill.append(info)
+            skill_data = get_skill_config(skill_id)
+            skill = skill_data[str(skill_id)]
+            info = skill_info()
+            info.skill_id = skill_id
+            info.attack = skill["attack"]
+            info.attack_range = skill["attack_range"]
+            info.cd_time = skill["cd"]
+            info.cd_ready = time.time() + info.cd_time
+            self.skill.append(info)
         
         battle_control = self.config["battle_script"]
         spec = importlib.util.spec_from_file_location(
