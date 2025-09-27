@@ -68,7 +68,7 @@ class monster(entity):
         
         if self.is_dead():
             self.battle_caller.dead()
-            self.mob_group.dead()
+            self.mob_group.dead(self)
         
     def is_use_skill(self) -> bool:
         return self.use_skill_cast_spells > time.time()
