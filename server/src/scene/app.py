@@ -18,6 +18,8 @@ def main(cfg_file:str):
     load_pkg_config()
     load_item_config()
     load_talk_config()
+    load_monster_config()
+    load_skill_config()
     
     load_scene_spawn_point()
 
