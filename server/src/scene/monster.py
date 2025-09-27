@@ -44,10 +44,11 @@ class monster(entity):
                 info.cd_ready = time.time() + info.cd_time
                 self.skill.append(info)
         
+        battle_control = self.config["battle_script"]
         spec = importlib.util.spec_from_file_location(
-            "battle_control", f"{const.ai_script_dir}/{self.config["battle_script"]}")
-        self.module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(self.module)
+            f"{battle_control}", f"{const.ai_script_dir}/{battle_control}.py")
+        self.battle_control_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.battle_control_module)
         
         self.use_skill_cast_spells = float(0)
         self.use_skill_timer:Timer = None
@@ -56,7 +57,7 @@ class monster(entity):
         self.update_timestamp = time.time()
         
     def update(self, _scene:scene):
-        self.module.Update(self, _scene)
+        self.battle_control_module.Update(self, _scene)
 
     def attack(self, p:player_data, skill_info:skill_info):
         p.be_harm(self.entity_id, skill_info.skill_id, em_harm_type.melee_attack, skill_info.attack+self.base_attack)
