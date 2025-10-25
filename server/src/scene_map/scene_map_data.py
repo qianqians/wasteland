@@ -80,7 +80,7 @@ def __load_portals__(scene_name:str, _map:scene_map) -> scene_map:
 def __map_primitive_data__(scene_name:str, _map:scene_map) -> scene_map:
     map_data_list:list[int] = []
     _property:set[int] = set()
-    with open(f"../../map/{scene_name}/Chicken.world") as f:
+    with open(f"../../map/{scene_name}/{scene_name}.world") as f:
         data = json.load(f)
         chicken_world = data["maps"]
         minx = 0xffffffff, miny = 0xffffffff, maxx = 0, maxy = 0
