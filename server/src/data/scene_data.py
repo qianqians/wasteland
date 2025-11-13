@@ -48,6 +48,17 @@ class scene_data:
             element = _scene.scene_map_data.map_data[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
             if element._property == em_map_element_property.em_map_empty:
                 self.vertical_dir = direction.down
+            else:
+                if dir_c == 1:
+                    element_forward = _scene.scene_map_data.map_data[(y_box + 1)*_scene.scene_map_data.map_width_box + self.postion.x/16 + 1]
+                    element_forward1 = _scene.scene_map_data.map_data[(y_box + 2)*_scene.scene_map_data.map_width_box + self.postion.x/16 + 1]
+                elif dir_c == -1:
+                    element_forward = _scene.scene_map_data.map_data[(y_box + 1)*_scene.scene_map_data.map_width_box + self.postion.x/16 - 1]
+                    element_forward1 = _scene.scene_map_data.map_data[(y_box + 1)*_scene.scene_map_data.map_width_box + self.postion.x/16 - 1]
+                if element_forward._property == em_map_element_property.em_map_map and element_forward1._property == em_map_element_property.em_map_map:
+                    self.postion.dir == direction.none
+                elif element_forward._property == em_map_element_property.em_map_map and element_forward1._property == em_map_element_property.em_map_empty:
+                    self.postion.y += (y_box + 1)*16
 
         if self.vertical_dir == direction.up:
             self.postion.y += self.vertical_speed * timeDetail
