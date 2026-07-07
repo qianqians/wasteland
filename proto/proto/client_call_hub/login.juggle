@@ -1,6 +1,0 @@
-import common
-
-entity_service login {
-    create_character req(string player_nick_name, int32 gender, string scene) rsp() err(int32 errCode);
-    select_character req(string player_id) rsp() err(int32 errCode);
-}

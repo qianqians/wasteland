@@ -1,6 +1,0 @@
-import common
-
-mutil_service scene_ntf_client {
-    move ntf(direction dir, position pos);
-    entity_refresh ntf(bin info);
-}

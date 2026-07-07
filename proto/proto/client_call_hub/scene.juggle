@@ -1,5 +1,0 @@
-import common
-
-entity_service scene {
-    move ntf(direction dir, position pos);
-}
