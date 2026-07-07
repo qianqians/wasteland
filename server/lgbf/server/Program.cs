@@ -1,0 +1,6 @@
+﻿using hub;
+
+namespace wasteland
+{
+
+}

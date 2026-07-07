@@ -1,0 +1,12 @@
+syntax = "proto3"; 
+
+message Request {
+  string protoName = 1;
+  bytes content = 2;
+  string token = 3;
+}
+
+message Response {
+  string errMsg = 1;
+  bytes content = 2;
+}
