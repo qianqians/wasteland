@@ -1,0 +1,272 @@
+
+Role_100003.png
+size: 936,936
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+df_0
+  rotate: false
+  xy: 2, 526
+  size: 373, 408
+  orig: 373, 460
+  offset: 0, 0
+  index: -1
+df_1
+  rotate: true
+  xy: 191, 142
+  size: 382, 237
+  orig: 384, 237
+  offset: 2, 0
+  index: -1
+df_10
+  rotate: false
+  xy: 430, 142
+  size: 101, 78
+  orig: 101, 81
+  offset: 0, 3
+  index: -1
+df_11
+  rotate: true
+  xy: 130, 9
+  size: 108, 52
+  orig: 108, 52
+  offset: 0, 0
+  index: -1
+df_12
+  rotate: false
+  xy: 636, 358
+  size: 208, 195
+  orig: 208, 195
+  offset: 0, 0
+  index: -1
+df_13
+  rotate: false
+  xy: 533, 28
+  size: 101, 192
+  orig: 101, 192
+  offset: 0, 0
+  index: -1
+df_14
+  rotate: true
+  xy: 637, 739
+  size: 195, 232
+  orig: 195, 232
+  offset: 0, 0
+  index: -1
+df_15
+  rotate: false
+  xy: 184, 12
+  size: 68, 105
+  orig: 68, 105
+  offset: 0, 0
+  index: -1
+df_16
+  rotate: true
+  xy: 636, 213
+  size: 143, 201
+  orig: 143, 201
+  offset: 0, 0
+  index: -1
+df_17
+  rotate: true
+  xy: 377, 595
+  size: 339, 258
+  orig: 339, 258
+  offset: 0, 0
+  index: -1
+df_18
+  rotate: true
+  xy: 839, 144
+  size: 71, 80
+  orig: 71, 80
+  offset: 0, 0
+  index: -1
+df_19
+  rotate: true
+  xy: 865, 560
+  size: 56, 57
+  orig: 56, 57
+  offset: 0, 0
+  index: -1
+df_2
+  rotate: true
+  xy: 430, 222
+  size: 191, 204
+  orig: 191, 204
+  offset: 0, 0
+  index: -1
+df_20
+  rotate: false
+  xy: 348, 4
+  size: 102, 136
+  orig: 102, 136
+  offset: 0, 0
+  index: -1
+df_21
+  rotate: true
+  xy: 871, 903
+  size: 31, 63
+  orig: 43, 63
+  offset: 12, 0
+  index: -1
+df_22
+  rotate: true
+  xy: 377, 530
+  size: 63, 36
+  orig: 63, 36
+  offset: 0, 0
+  index: -1
+df_23
+  rotate: false
+  xy: 430, 471
+  size: 18, 57
+  orig: 18, 57
+  offset: 0, 0
+  index: -1
+df_24
+  rotate: false
+  xy: 839, 217
+  size: 86, 97
+  orig: 86, 97
+  offset: 0, 0
+  index: -1
+df_25
+  rotate: true
+  xy: 209, 127
+  size: 13, 25
+  orig: 13, 25
+  offset: 0, 0
+  index: -1
+df_26
+  rotate: true
+  xy: 865, 618
+  size: 40, 68
+  orig: 40, 68
+  offset: 0, 0
+  index: -1
+df_27
+  rotate: false
+  xy: 452, 415
+  size: 182, 178
+  orig: 182, 178
+  offset: 0, 0
+  index: -1
+df_28
+  rotate: false
+  xy: 871, 776
+  size: 60, 125
+  orig: 60, 127
+  offset: 0, 2
+  index: -1
+df_29
+  rotate: true
+  xy: 452, 42
+  size: 98, 76
+  orig: 98, 76
+  offset: 0, 0
+  index: -1
+df_3
+  rotate: true
+  xy: 2, 5
+  size: 112, 126
+  orig: 112, 126
+  offset: 0, 0
+  index: -1
+df_30
+  rotate: false
+  xy: 865, 518
+  size: 51, 40
+  orig: 51, 40
+  offset: 0, 0
+  index: -1
+df_31
+  rotate: true
+  xy: 254, 3
+  size: 137, 92
+  orig: 137, 92
+  offset: 0, 0
+  index: -1
+df_32
+  rotate: false
+  xy: 636, 44
+  size: 188, 167
+  orig: 193, 167
+  offset: 5, 0
+  index: -1
+df_33
+  rotate: false
+  xy: 637, 555
+  size: 226, 182
+  orig: 226, 182
+  offset: 0, 0
+  index: -1
+df_34
+  rotate: false
+  xy: 826, 23
+  size: 96, 119
+  orig: 96, 119
+  offset: 0, 0
+  index: -1
+df_35
+  rotate: true
+  xy: 191, 119
+  size: 21, 16
+  orig: 21, 16
+  offset: 0, 0
+  index: -1
+df_36
+  rotate: true
+  xy: 846, 316
+  size: 200, 86
+  orig: 200, 86
+  offset: 0, 0
+  index: -1
+df_37
+  rotate: false
+  xy: 2, 119
+  size: 187, 405
+  orig: 187, 405
+  offset: 0, 0
+  index: -1
+df_4
+  rotate: false
+  xy: 865, 660
+  size: 69, 35
+  orig: 69, 35
+  offset: 0, 0
+  index: -1
+df_5
+  rotate: true
+  xy: 871, 697
+  size: 77, 60
+  orig: 77, 60
+  offset: 0, 0
+  index: -1
+df_6
+  rotate: true
+  xy: 415, 530
+  size: 63, 32
+  orig: 63, 32
+  offset: 0, 0
+  index: -1
+df_7
+  rotate: false
+  xy: 452, 5
+  size: 74, 35
+  orig: 74, 35
+  offset: 0, 0
+  index: -1
+df_8
+  rotate: false
+  xy: 663, 13
+  size: 43, 29
+  orig: 43, 29
+  offset: 0, 0
+  index: -1
+df_9
+  rotate: true
+  xy: 636, 8
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
