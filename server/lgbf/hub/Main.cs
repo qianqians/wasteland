@@ -8,6 +8,9 @@ public class Config
     public required string RedisUrl = string.Empty;
     public required string RedisPwd = string.Empty;
     public required string MongoUrl = string.Empty;
+    public required string LogLevel = string.Empty;
+    public required string LogFile = string.Empty;
+    public required string LogDir = string.Empty;
 }
 
 public class Main
@@ -27,14 +30,50 @@ public class Main
 
     private static HttpService? _service;
     private static int _saveRunning;
-    
+
+    private static void InitLog(Config cfg)
+    {
+        if (cfg.LogLevel == "trace")
+        {
+            Log.logMode = Log.EnLogMode.Trace;
+        }
+        else if (cfg.LogLevel == "debug")
+        {
+            Log.logMode = Log.EnLogMode.Debug;
+        }
+        else if (cfg.LogLevel == "info")
+        {
+            Log.logMode = Log.EnLogMode.Info;
+        }
+        else if (cfg.LogLevel == "warn")
+        {
+            Log.logMode = Log.EnLogMode.Warn;
+        }
+        else if (cfg.LogLevel == "err")
+        {
+            Log.logMode = Log.EnLogMode.Err;
+        }
+        var log_file = cfg.LogFile;
+        Log.logFile = log_file;
+        var log_dir = cfg.LogDir;
+        Log.logPath = log_dir;
+        {
+            if (!System.IO.Directory.Exists(log_dir))
+            {
+                System.IO.Directory.CreateDirectory(log_dir);
+            }
+        }
+    }
+
     public static void Start(Config cfg)
     {
         Redis = new RedisHandle(cfg.RedisUrl, cfg.RedisPwd);
         Mongo = new MongodbProxy(cfg.MongoUrl);
         
         TimerService.Ins!.AddTickTime(SaveIntervalMs, Save);
-        
+
+        InitLog(cfg);
+
         _service = new HttpService(cfg.Host, cfg.Port);
         _service.Run();
     }
