@@ -1,0 +1,80 @@
+syntax = "proto3"; 
+
+message LoginRequest {
+  string code = 1;
+}
+
+enum EAttribute {
+  EAttributeNone = 0;
+
+  EStrength = 1;          // 力量
+  EAgility = 2;           // 敏捷
+  EIntelligence = 3;      // 法术/智力
+
+  HP = 4;
+  MP = 5;
+
+  EPhysicalAttack = 6;    // 物理攻击
+  EPhysicalDefense = 7;   // 物理防御
+  EMagicAttack = 8;       // 法术攻击
+  EMagicDefense = 9;      // 法术防御
+
+  ESpeed = 10;            // 速度
+}
+
+message CultivationInfo {
+  string CultivationID = 1;
+  uint64 XP = 2;
+  repeated uint32 ActiveSkills = 3;
+  repeated uint32 PassiveSkills = 4;
+}
+
+message ItemInfo {
+  uint32 ID = 1;
+  uint32 count = 2;
+}
+
+message Bag {
+  repeated ItemInfo items = 1;
+}
+
+enum EEquip {
+  EEquipNone = 0;
+
+  EHelmet = 1; //头
+  EChest = 2;  //上衣
+  ELegs = 3;   //裤子
+  EFeet = 4;   //鞋子
+  EWeapon = 5; //武器
+}
+
+message PlayerDataInfo {
+  CultivationInfo CurrCultivation = 1;
+  repeated CultivationInfo CurrCultivationList = 2;
+  Bag BagInfo = 3;
+  map<string, uint32> EquipInfo = 4;
+  map<string, uint32> Attributes = 5;
+}
+
+message LearnOrGearCultivationRequest {
+  string CultivationID = 1;
+}
+
+message LearnOrGearCultivationResponse {
+  CultivationInfo info = 1;
+}
+
+message CreateCultivationRequest {
+  string CultivationID0 = 1;
+  string CultivationID1 = 2;
+}
+
+message CreateCultivationResponse {
+  string CultivationID = 1;
+  bool IsNeedSelect = 2;
+  repeated CultivationInfo CurrCultivationList = 3;
+}
+
+message SelectCultivationRequest { 
+
+}
