@@ -168,8 +168,9 @@ public class HttpService
         _h.Run();
     }
 
-    public void Run() {
-        _ = Task.Factory.StartNew(RunServerAsync, TaskCreationOptions.LongRunning);
+    public async Task Run() {
+        var t = Task.Factory.StartNew(RunServerAsync, TaskCreationOptions.LongRunning);
+        await t;
     }
 
     public async Task Close() {
