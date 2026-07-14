@@ -27,60 +27,61 @@ public static partial class MessageReflection {
           "c2USHQoEaW5mbxgBIAEoCzIPLlBsYXllckRhdGFJbmZvIj8KEEN1bHRpdmF0",
           "aW9uU2tpbGwSFAoMQWN0aXZlU2tpbGxzGAEgAygNEhUKDVBhc3NpdmVTa2ls",
           "bHMYAiADKA0iiwIKD0N1bHRpdmF0aW9uSW5mbxIVCg1DdWx0aXZhdGlvbklE",
-          "GAEgASgJEhoKEkN1bHRpdmF0aW9uVGFibGVJRBgCIAEoDRIKCgJYUBgDIAEo",
-          "BBIhCgZTa2lsbHMYBCABKAsyES5DdWx0aXZhdGlvblNraWxsEjQKCkF0dHJp",
-          "YnV0ZXMYBSADKAsyIC5DdWx0aXZhdGlvbkluZm8uQXR0cmlidXRlc0VudHJ5",
-          "EhMKC0Rlc2NyaXB0aW9uGAYgASgJEhgKBlJhcml0eRgHIAEoDjIILkVSYXJp",
-          "dHkaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgC",
-          "IAEoDToCOAEiJQoISXRlbUluZm8SCgoCSUQYASABKA0SDQoFY291bnQYAiAB",
-          "KA0iwwEKBkJCSW5mbxIMCgRCQklEGAEgASgJEhEKCUJCVGFibGVJRBgCIAEo",
-          "DRIYCgZSYXJpdHkYAyABKA4yCC5FUmFyaXR5Eg4KBkdyb3d0aBgEIAEoAhIO",
-          "CgZTa2lsbHMYBSADKA0SKwoKQXR0cmlidXRlcxgGIAMoCzIXLkJCSW5mby5B",
-          "dHRyaWJ1dGVzRW50cnkaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEo",
-          "CRINCgV2YWx1ZRgCIAEoDToCOAEiNQoDQmFnEhgKBWl0ZW1zGAEgAygLMgku",
-          "SXRlbUluZm8SFAoDQkJzGAIgAygLMgcuQkJJbmZvIuoCCg5QbGF5ZXJEYXRh",
-          "SW5mbxIpCg9DdXJyQ3VsdGl2YXRpb24YASABKAsyEC5DdWx0aXZhdGlvbklu",
-          "Zm8SLQoTQ3VyckN1bHRpdmF0aW9uTGlzdBgCIAMoCzIQLkN1bHRpdmF0aW9u",
-          "SW5mbxIVCgdCYWdJbmZvGAMgASgLMgQuQmFnEjEKCUVxdWlwSW5mbxgEIAMo",
-          "CzIeLlBsYXllckRhdGFJbmZvLkVxdWlwSW5mb0VudHJ5EjMKCkF0dHJpYnV0",
-          "ZXMYBSADKAsyHy5QbGF5ZXJEYXRhSW5mby5BdHRyaWJ1dGVzRW50cnkSGgoJ",
-          "QmF0dGxlQkJzGAYgAygLMgcuQkJJbmZvGjAKDkVxdWlwSW5mb0VudHJ5EgsK",
-          "A2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDToCOAEaMQoPQXR0cmlidXRlc0Vu",
-          "dHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDToCOAEiOwodTGVhcm5P",
-          "ckdlYXJDdWx0aXZhdGlvblJlcXVlc3QSGgoSQ3VsdGl2YXRpb25UYWJsZUlE",
-          "GAEgASgNIkAKHkxlYXJuT3JHZWFyQ3VsdGl2YXRpb25SZXNwb25zZRIeCgRp",
-          "bmZvGAEgASgLMhAuQ3VsdGl2YXRpb25JbmZvIl8KGENyZWF0ZUN1bHRpdmF0",
-          "aW9uUmVxdWVzdBIWCg5DdWx0aXZhdGlvbklEMBgBIAEoCRIWCg5DdWx0aXZh",
-          "dGlvbklEMRgCIAEoCRITCgtEZXNjcmlwdGlvbhgDIAEoCSL6AQoZQ3JlYXRl",
-          "Q3VsdGl2YXRpb25SZXNwb25zZRIVCg1DdWx0aXZhdGlvbklEGAEgASgJEhoK",
-          "EkN1bHRpdmF0aW9uVGFibGVJRBgCIAEoDRI+CgpBdHRyaWJ1dGVzGAMgAygL",
-          "MiouQ3JlYXRlQ3VsdGl2YXRpb25SZXNwb25zZS5BdHRyaWJ1dGVzRW50cnkS",
-          "FAoMSXNOZWVkU2VsZWN0GAQgASgIEiEKBlNraWxscxgFIAMoCzIRLkN1bHRp",
-          "dmF0aW9uU2tpbGwaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEoCRIN",
-          "CgV2YWx1ZRgCIAEoDToCOAEiVAoYU2VsZWN0Q3VsdGl2YXRpb25SZXF1ZXN0",
-          "EhUKDUN1bHRpdmF0aW9uSUQYASABKAkSIQoGU2tpbGxzGAIgASgLMhEuQ3Vs",
-          "dGl2YXRpb25Ta2lsbCI7ChlTZWxlY3RDdWx0aXZhdGlvblJlc3BvbnNlEh4K",
-          "BGluZm8YASABKAsyEC5DdWx0aXZhdGlvbkluZm8iKwoPRnVzaW9uQkJSZXF1",
-          "ZXN0EgsKA0JCMBgBIAEoCRILCgNCQjEYAiABKAkiKQoPRnVzaW9uQkJSZXNw",
-          "b25lEhYKBU5ld0JCGAEgASgLMgcuQkJJbmZvKlIKCUVQbGF0Zm9ybRIRCg1F",
-          "UGxhdGZvcm1Ob25lEAASDwoLRVBsYXRmb3JtV1gQARIQCgxFUGxhdGZvcm1U",
-          "YXAQAhIPCgtFUGxhdGZvcm1EeRADKrwBCgpFQXR0cmlidXRlEhIKDkVBdHRy",
-          "aWJ1dGVOb25lEAASDQoJRVN0cmVuZ3RoEAESDAoIRUFnaWxpdHkQAhIRCg1F",
-          "SW50ZWxsaWdlbmNlEAMSBgoCSFAQBBIGCgJNUBAFEhMKD0VQaHlzaWNhbEF0",
-          "dGFjaxAGEhQKEEVQaHlzaWNhbERlZmVuc2UQBxIQCgxFTWFnaWNBdHRhY2sQ",
-          "CBIRCg1FTWFnaWNEZWZlbnNlEAkSCgoGRVNwZWVkEAoqTQoHRVJhcml0eRIP",
-          "CgtFUmFyaXR5Tm9uZRAAEgsKB0VDb21tb24QARIJCgVFUmFyZRACEgkKBUVF",
-          "cGljEAMSDgoKRUxlZ2VuZGFyeRAEKlQKBkVFcXVpcBIOCgpFRXF1aXBOb25l",
-          "EAASCwoHRUhlbG1ldBABEgoKBkVDaGVzdBACEgkKBUVMZWdzEAMSCQoFRUZl",
-          "ZXQQBBILCgdFV2VhcG9uEAViBnByb3RvMw=="));
+          "GAEgASgJEhoKEkN1bHRpdmF0aW9uVGFibGVJRBgCIAEoDRIYCgZSYXJpdHkY",
+          "AyABKA4yCC5FUmFyaXR5EgoKAlhQGAQgASgEEhMKC0Rlc2NyaXB0aW9uGAUg",
+          "ASgJEiEKBlNraWxscxgGIAEoCzIRLkN1bHRpdmF0aW9uU2tpbGwSNAoKQXR0",
+          "cmlidXRlcxgHIAMoCzIgLkN1bHRpdmF0aW9uSW5mby5BdHRyaWJ1dGVzRW50",
+          "cnkaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgC",
+          "IAEoDToCOAEiOgoISXRlbUluZm8SDgoGSXRlbUlEGAEgASgJEg8KB1RhYmxl",
+          "SUQYAiABKA0SDQoFY291bnQYAyABKA0iwwEKBkJCSW5mbxIMCgRCQklEGAEg",
+          "ASgJEhEKCUJCVGFibGVJRBgCIAEoDRIYCgZSYXJpdHkYAyABKA4yCC5FUmFy",
+          "aXR5Eg4KBkdyb3d0aBgEIAEoAhIOCgZTa2lsbHMYBSADKA0SKwoKQXR0cmli",
+          "dXRlcxgGIAMoCzIXLkJCSW5mby5BdHRyaWJ1dGVzRW50cnkaMQoPQXR0cmli",
+          "dXRlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDToCOAEiNQoD",
+          "QmFnEhgKBWl0ZW1zGAEgAygLMgkuSXRlbUluZm8SFAoDQkJzGAIgAygLMgcu",
+          "QkJJbmZvIuoCCg5QbGF5ZXJEYXRhSW5mbxIpCg9DdXJyQ3VsdGl2YXRpb24Y",
+          "ASABKAsyEC5DdWx0aXZhdGlvbkluZm8SLQoTQ3VyckN1bHRpdmF0aW9uTGlz",
+          "dBgCIAMoCzIQLkN1bHRpdmF0aW9uSW5mbxIVCgdCYWdJbmZvGAMgASgLMgQu",
+          "QmFnEjEKCUVxdWlwSW5mbxgEIAMoCzIeLlBsYXllckRhdGFJbmZvLkVxdWlw",
+          "SW5mb0VudHJ5EjMKCkF0dHJpYnV0ZXMYBSADKAsyHy5QbGF5ZXJEYXRhSW5m",
+          "by5BdHRyaWJ1dGVzRW50cnkSGgoJQmF0dGxlQkJzGAYgAygLMgcuQkJJbmZv",
+          "GjAKDkVxdWlwSW5mb0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEo",
+          "DToCOAEaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1",
+          "ZRgCIAEoDToCOAEiOwodTGVhcm5PckdlYXJDdWx0aXZhdGlvblJlcXVlc3QS",
+          "GgoSQ3VsdGl2YXRpb25UYWJsZUlEGAEgASgNIkAKHkxlYXJuT3JHZWFyQ3Vs",
+          "dGl2YXRpb25SZXNwb25zZRIeCgRpbmZvGAEgASgLMhAuQ3VsdGl2YXRpb25J",
+          "bmZvIl8KGENyZWF0ZUN1bHRpdmF0aW9uUmVxdWVzdBIWCg5DdWx0aXZhdGlv",
+          "bklEMBgBIAEoCRIWCg5DdWx0aXZhdGlvbklEMRgCIAEoCRITCgtEZXNjcmlw",
+          "dGlvbhgDIAEoCSL6AQoZQ3JlYXRlQ3VsdGl2YXRpb25SZXNwb25zZRIVCg1D",
+          "dWx0aXZhdGlvbklEGAEgASgJEhoKEkN1bHRpdmF0aW9uVGFibGVJRBgCIAEo",
+          "DRI+CgpBdHRyaWJ1dGVzGAMgAygLMiouQ3JlYXRlQ3VsdGl2YXRpb25SZXNw",
+          "b25zZS5BdHRyaWJ1dGVzRW50cnkSFAoMSXNOZWVkU2VsZWN0GAQgASgIEiEK",
+          "BlNraWxscxgFIAMoCzIRLkN1bHRpdmF0aW9uU2tpbGwaMQoPQXR0cmlidXRl",
+          "c0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDToCOAEiVAoYU2Vs",
+          "ZWN0Q3VsdGl2YXRpb25SZXF1ZXN0EhUKDUN1bHRpdmF0aW9uSUQYASABKAkS",
+          "IQoGU2tpbGxzGAIgASgLMhEuQ3VsdGl2YXRpb25Ta2lsbCI7ChlTZWxlY3RD",
+          "dWx0aXZhdGlvblJlc3BvbnNlEh4KBGluZm8YASABKAsyEC5DdWx0aXZhdGlv",
+          "bkluZm8iKwoPRnVzaW9uQkJSZXF1ZXN0EgsKA0JCMBgBIAEoCRILCgNCQjEY",
+          "AiABKAkiKQoPRnVzaW9uQkJSZXNwb25lEhYKBU5ld0JCGAEgASgLMgcuQkJJ",
+          "bmZvKlIKCUVQbGF0Zm9ybRIRCg1FUGxhdGZvcm1Ob25lEAASDwoLRVBsYXRm",
+          "b3JtV1gQARIQCgxFUGxhdGZvcm1UYXAQAhIPCgtFUGxhdGZvcm1EeRADKrwB",
+          "CgpFQXR0cmlidXRlEhIKDkVBdHRyaWJ1dGVOb25lEAASDQoJRVN0cmVuZ3Ro",
+          "EAESDAoIRUFnaWxpdHkQAhIRCg1FSW50ZWxsaWdlbmNlEAMSBgoCSFAQBBIG",
+          "CgJNUBAFEhMKD0VQaHlzaWNhbEF0dGFjaxAGEhQKEEVQaHlzaWNhbERlZmVu",
+          "c2UQBxIQCgxFTWFnaWNBdHRhY2sQCBIRCg1FTWFnaWNEZWZlbnNlEAkSCgoG",
+          "RVNwZWVkEAoqTQoHRVJhcml0eRIPCgtFUmFyaXR5Tm9uZRAAEgsKB0VDb21t",
+          "b24QARIJCgVFUmFyZRACEgkKBUVFcGljEAMSDgoKRUxlZ2VuZGFyeRAEKlQK",
+          "BkVFcXVpcBIOCgpFRXF1aXBOb25lEAASCwoHRUhlbG1ldBABEgoKBkVDaGVz",
+          "dBACEgkKBUVMZWdzEAMSCQoFRUZlZXQQBBILCgdFV2VhcG9uEAViBnByb3Rv",
+          "Mw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EPlatform), typeof(global::EAttribute), typeof(global::ERarity), typeof(global::EEquip), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::LoginRequest), global::LoginRequest.Parser, new[]{ "Code", "Platform" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LoginResponse), global::LoginResponse.Parser, new[]{ "Info" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CultivationSkill), global::CultivationSkill.Parser, new[]{ "ActiveSkills", "PassiveSkills" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CultivationInfo), global::CultivationInfo.Parser, new[]{ "CultivationID", "CultivationTableID", "XP", "Skills", "Attributes", "Description", "Rarity" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
-          new pbr::GeneratedClrTypeInfo(typeof(global::ItemInfo), global::ItemInfo.Parser, new[]{ "ID", "Count" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CultivationInfo), global::CultivationInfo.Parser, new[]{ "CultivationID", "CultivationTableID", "Rarity", "XP", "Description", "Skills", "Attributes" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::ItemInfo), global::ItemInfo.Parser, new[]{ "ItemID", "TableID", "Count" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::BBInfo), global::BBInfo.Parser, new[]{ "BBID", "BBTableID", "Rarity", "Growth", "Skills", "Attributes" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::Bag), global::Bag.Parser, new[]{ "Items", "BBs" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::PlayerDataInfo), global::PlayerDataInfo.Parser, new[]{ "CurrCultivation", "CurrCultivationList", "BagInfo", "EquipInfo", "Attributes", "BattleBBs" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
@@ -886,11 +887,11 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
   public CultivationInfo(CultivationInfo other) : this() {
     cultivationID_ = other.cultivationID_;
     cultivationTableID_ = other.cultivationTableID_;
+    rarity_ = other.rarity_;
     xP_ = other.xP_;
+    description_ = other.description_;
     skills_ = other.skills_ != null ? other.skills_.Clone() : null;
     attributes_ = other.attributes_.Clone();
-    description_ = other.description_;
-    rarity_ = other.rarity_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -924,8 +925,20 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     }
   }
 
+  /// <summary>Field number for the "Rarity" field.</summary>
+  public const int RarityFieldNumber = 3;
+  private global::ERarity rarity_ = global::ERarity.None;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ERarity Rarity {
+    get { return rarity_; }
+    set {
+      rarity_ = value;
+    }
+  }
+
   /// <summary>Field number for the "XP" field.</summary>
-  public const int XPFieldNumber = 3;
+  public const int XPFieldNumber = 4;
   private ulong xP_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -936,8 +949,20 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     }
   }
 
+  /// <summary>Field number for the "Description" field.</summary>
+  public const int DescriptionFieldNumber = 5;
+  private string description_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Description {
+    get { return description_; }
+    set {
+      description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   /// <summary>Field number for the "Skills" field.</summary>
-  public const int SkillsFieldNumber = 4;
+  public const int SkillsFieldNumber = 6;
   private global::CultivationSkill skills_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -949,38 +974,14 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
   }
 
   /// <summary>Field number for the "Attributes" field.</summary>
-  public const int AttributesFieldNumber = 5;
+  public const int AttributesFieldNumber = 7;
   private static readonly pbc::MapField<string, uint>.Codec _map_attributes_codec
-      = new pbc::MapField<string, uint>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt32(16, 0), 42);
+      = new pbc::MapField<string, uint>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt32(16, 0), 58);
   private readonly pbc::MapField<string, uint> attributes_ = new pbc::MapField<string, uint>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public pbc::MapField<string, uint> Attributes {
     get { return attributes_; }
-  }
-
-  /// <summary>Field number for the "Description" field.</summary>
-  public const int DescriptionFieldNumber = 6;
-  private string description_ = "";
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string Description {
-    get { return description_; }
-    set {
-      description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-    }
-  }
-
-  /// <summary>Field number for the "Rarity" field.</summary>
-  public const int RarityFieldNumber = 7;
-  private global::ERarity rarity_ = global::ERarity.None;
-  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::ERarity Rarity {
-    get { return rarity_; }
-    set {
-      rarity_ = value;
-    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1000,11 +1001,11 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     }
     if (CultivationID != other.CultivationID) return false;
     if (CultivationTableID != other.CultivationTableID) return false;
+    if (Rarity != other.Rarity) return false;
     if (XP != other.XP) return false;
+    if (Description != other.Description) return false;
     if (!object.Equals(Skills, other.Skills)) return false;
     if (!Attributes.Equals(other.Attributes)) return false;
-    if (Description != other.Description) return false;
-    if (Rarity != other.Rarity) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1014,11 +1015,11 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     int hash = 1;
     if (CultivationID.Length != 0) hash ^= CultivationID.GetHashCode();
     if (CultivationTableID != 0) hash ^= CultivationTableID.GetHashCode();
+    if (Rarity != global::ERarity.None) hash ^= Rarity.GetHashCode();
     if (XP != 0UL) hash ^= XP.GetHashCode();
+    if (Description.Length != 0) hash ^= Description.GetHashCode();
     if (skills_ != null) hash ^= Skills.GetHashCode();
     hash ^= Attributes.GetHashCode();
-    if (Description.Length != 0) hash ^= Description.GetHashCode();
-    if (Rarity != global::ERarity.None) hash ^= Rarity.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1045,23 +1046,23 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
       output.WriteRawTag(16);
       output.WriteUInt32(CultivationTableID);
     }
-    if (XP != 0UL) {
+    if (Rarity != global::ERarity.None) {
       output.WriteRawTag(24);
+      output.WriteEnum((int) Rarity);
+    }
+    if (XP != 0UL) {
+      output.WriteRawTag(32);
       output.WriteUInt64(XP);
     }
+    if (Description.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(Description);
+    }
     if (skills_ != null) {
-      output.WriteRawTag(34);
+      output.WriteRawTag(50);
       output.WriteMessage(Skills);
     }
     attributes_.WriteTo(output, _map_attributes_codec);
-    if (Description.Length != 0) {
-      output.WriteRawTag(50);
-      output.WriteString(Description);
-    }
-    if (Rarity != global::ERarity.None) {
-      output.WriteRawTag(56);
-      output.WriteEnum((int) Rarity);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1080,23 +1081,23 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
       output.WriteRawTag(16);
       output.WriteUInt32(CultivationTableID);
     }
-    if (XP != 0UL) {
+    if (Rarity != global::ERarity.None) {
       output.WriteRawTag(24);
+      output.WriteEnum((int) Rarity);
+    }
+    if (XP != 0UL) {
+      output.WriteRawTag(32);
       output.WriteUInt64(XP);
     }
+    if (Description.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(Description);
+    }
     if (skills_ != null) {
-      output.WriteRawTag(34);
+      output.WriteRawTag(50);
       output.WriteMessage(Skills);
     }
     attributes_.WriteTo(ref output, _map_attributes_codec);
-    if (Description.Length != 0) {
-      output.WriteRawTag(50);
-      output.WriteString(Description);
-    }
-    if (Rarity != global::ERarity.None) {
-      output.WriteRawTag(56);
-      output.WriteEnum((int) Rarity);
-    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1113,19 +1114,19 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     if (CultivationTableID != 0) {
       size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CultivationTableID);
     }
+    if (Rarity != global::ERarity.None) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
+    }
     if (XP != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(XP);
+    }
+    if (Description.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
     }
     if (skills_ != null) {
       size += 1 + pb::CodedOutputStream.ComputeMessageSize(Skills);
     }
     size += attributes_.CalculateSize(_map_attributes_codec);
-    if (Description.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
-    }
-    if (Rarity != global::ERarity.None) {
-      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
-    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1144,8 +1145,14 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     if (other.CultivationTableID != 0) {
       CultivationTableID = other.CultivationTableID;
     }
+    if (other.Rarity != global::ERarity.None) {
+      Rarity = other.Rarity;
+    }
     if (other.XP != 0UL) {
       XP = other.XP;
+    }
+    if (other.Description.Length != 0) {
+      Description = other.Description;
     }
     if (other.skills_ != null) {
       if (skills_ == null) {
@@ -1154,12 +1161,6 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
       Skills.MergeFrom(other.Skills);
     }
     attributes_.MergeFrom(other.attributes_);
-    if (other.Description.Length != 0) {
-      Description = other.Description;
-    }
-    if (other.Rarity != global::ERarity.None) {
-      Rarity = other.Rarity;
-    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1188,26 +1189,26 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
           break;
         }
         case 24: {
+          Rarity = (global::ERarity) input.ReadEnum();
+          break;
+        }
+        case 32: {
           XP = input.ReadUInt64();
           break;
         }
-        case 34: {
+        case 42: {
+          Description = input.ReadString();
+          break;
+        }
+        case 50: {
           if (skills_ == null) {
             Skills = new global::CultivationSkill();
           }
           input.ReadMessage(Skills);
           break;
         }
-        case 42: {
+        case 58: {
           attributes_.AddEntriesFrom(input, _map_attributes_codec);
-          break;
-        }
-        case 50: {
-          Description = input.ReadString();
-          break;
-        }
-        case 56: {
-          Rarity = (global::ERarity) input.ReadEnum();
           break;
         }
       }
@@ -1238,26 +1239,26 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
           break;
         }
         case 24: {
+          Rarity = (global::ERarity) input.ReadEnum();
+          break;
+        }
+        case 32: {
           XP = input.ReadUInt64();
           break;
         }
-        case 34: {
+        case 42: {
+          Description = input.ReadString();
+          break;
+        }
+        case 50: {
           if (skills_ == null) {
             Skills = new global::CultivationSkill();
           }
           input.ReadMessage(Skills);
           break;
         }
-        case 42: {
+        case 58: {
           attributes_.AddEntriesFrom(ref input, _map_attributes_codec);
-          break;
-        }
-        case 50: {
-          Description = input.ReadString();
-          break;
-        }
-        case 56: {
-          Rarity = (global::ERarity) input.ReadEnum();
           break;
         }
       }
@@ -1302,7 +1303,8 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public ItemInfo(ItemInfo other) : this() {
-    iD_ = other.iD_;
+    itemID_ = other.itemID_;
+    tableID_ = other.tableID_;
     count_ = other.count_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -1313,20 +1315,32 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
     return new ItemInfo(this);
   }
 
-  /// <summary>Field number for the "ID" field.</summary>
-  public const int IDFieldNumber = 1;
-  private uint iD_;
+  /// <summary>Field number for the "ItemID" field.</summary>
+  public const int ItemIDFieldNumber = 1;
+  private string itemID_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public uint ID {
-    get { return iD_; }
+  public string ItemID {
+    get { return itemID_; }
     set {
-      iD_ = value;
+      itemID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "TableID" field.</summary>
+  public const int TableIDFieldNumber = 2;
+  private uint tableID_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint TableID {
+    get { return tableID_; }
+    set {
+      tableID_ = value;
     }
   }
 
   /// <summary>Field number for the "count" field.</summary>
-  public const int CountFieldNumber = 2;
+  public const int CountFieldNumber = 3;
   private uint count_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1352,7 +1366,8 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (ID != other.ID) return false;
+    if (ItemID != other.ItemID) return false;
+    if (TableID != other.TableID) return false;
     if (Count != other.Count) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -1361,7 +1376,8 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (ID != 0) hash ^= ID.GetHashCode();
+    if (ItemID.Length != 0) hash ^= ItemID.GetHashCode();
+    if (TableID != 0) hash ^= TableID.GetHashCode();
     if (Count != 0) hash ^= Count.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -1381,12 +1397,16 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (ID != 0) {
-      output.WriteRawTag(8);
-      output.WriteUInt32(ID);
+    if (ItemID.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(ItemID);
+    }
+    if (TableID != 0) {
+      output.WriteRawTag(16);
+      output.WriteUInt32(TableID);
     }
     if (Count != 0) {
-      output.WriteRawTag(16);
+      output.WriteRawTag(24);
       output.WriteUInt32(Count);
     }
     if (_unknownFields != null) {
@@ -1399,12 +1419,16 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (ID != 0) {
-      output.WriteRawTag(8);
-      output.WriteUInt32(ID);
+    if (ItemID.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(ItemID);
+    }
+    if (TableID != 0) {
+      output.WriteRawTag(16);
+      output.WriteUInt32(TableID);
     }
     if (Count != 0) {
-      output.WriteRawTag(16);
+      output.WriteRawTag(24);
       output.WriteUInt32(Count);
     }
     if (_unknownFields != null) {
@@ -1417,8 +1441,11 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (ID != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(ID);
+    if (ItemID.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemID);
+    }
+    if (TableID != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(TableID);
     }
     if (Count != 0) {
       size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
@@ -1435,8 +1462,11 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
     if (other == null) {
       return;
     }
-    if (other.ID != 0) {
-      ID = other.ID;
+    if (other.ItemID.Length != 0) {
+      ItemID = other.ItemID;
+    }
+    if (other.TableID != 0) {
+      TableID = other.TableID;
     }
     if (other.Count != 0) {
       Count = other.Count;
@@ -1460,11 +1490,15 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 8: {
-          ID = input.ReadUInt32();
+        case 10: {
+          ItemID = input.ReadString();
           break;
         }
         case 16: {
+          TableID = input.ReadUInt32();
+          break;
+        }
+        case 24: {
           Count = input.ReadUInt32();
           break;
         }
@@ -1487,11 +1521,15 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 8: {
-          ID = input.ReadUInt32();
+        case 10: {
+          ItemID = input.ReadString();
           break;
         }
         case 16: {
+          TableID = input.ReadUInt32();
+          break;
+        }
+        case 24: {
           Count = input.ReadUInt32();
           break;
         }
