@@ -9,6 +9,51 @@ import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
 export const protobufPackage = "";
 
+export enum EPlatform {
+  EPlatformNone = 0,
+  EPlatformWX = 1,
+  EPlatformTap = 2,
+  EPlatformDy = 3,
+  UNRECOGNIZED = -1,
+}
+
+export function ePlatformFromJSON(object: any): EPlatform {
+  switch (object) {
+    case 0:
+    case "EPlatformNone":
+      return EPlatform.EPlatformNone;
+    case 1:
+    case "EPlatformWX":
+      return EPlatform.EPlatformWX;
+    case 2:
+    case "EPlatformTap":
+      return EPlatform.EPlatformTap;
+    case 3:
+    case "EPlatformDy":
+      return EPlatform.EPlatformDy;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return EPlatform.UNRECOGNIZED;
+  }
+}
+
+export function ePlatformToJSON(object: EPlatform): string {
+  switch (object) {
+    case EPlatform.EPlatformNone:
+      return "EPlatformNone";
+    case EPlatform.EPlatformWX:
+      return "EPlatformWX";
+    case EPlatform.EPlatformTap:
+      return "EPlatformTap";
+    case EPlatform.EPlatformDy:
+      return "EPlatformDy";
+    case EPlatform.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
 export enum EAttribute {
   EAttributeNone = 0,
   /** EStrength - 力量 */
@@ -223,6 +268,11 @@ export function eEquipToJSON(object: EEquip): string {
 
 export interface LoginRequest {
   code: string;
+  Platform: EPlatform;
+}
+
+export interface LoginResponse {
+  info: PlayerDataInfo | undefined;
 }
 
 export interface CultivationSkill {
@@ -334,13 +384,16 @@ export interface FusionBBRespone {
 }
 
 function createBaseLoginRequest(): LoginRequest {
-  return { code: "" };
+  return { code: "", Platform: 0 };
 }
 
 export const LoginRequest: MessageFns<LoginRequest> = {
   encode(message: LoginRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.code !== "") {
       writer.uint32(10).string(message.code);
+    }
+    if (message.Platform !== 0) {
+      writer.uint32(16).int32(message.Platform);
     }
     return writer;
   },
@@ -360,6 +413,14 @@ export const LoginRequest: MessageFns<LoginRequest> = {
           message.code = reader.string();
           continue;
         }
+        case 2: {
+          if (tag !== 16) {
+            break;
+          }
+
+          message.Platform = reader.int32() as any;
+          continue;
+        }
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -370,13 +431,19 @@ export const LoginRequest: MessageFns<LoginRequest> = {
   },
 
   fromJSON(object: any): LoginRequest {
-    return { code: isSet(object.code) ? globalThis.String(object.code) : "" };
+    return {
+      code: isSet(object.code) ? globalThis.String(object.code) : "",
+      Platform: isSet(object.Platform) ? ePlatformFromJSON(object.Platform) : 0,
+    };
   },
 
   toJSON(message: LoginRequest): unknown {
     const obj: any = {};
     if (message.code !== "") {
       obj.code = message.code;
+    }
+    if (message.Platform !== 0) {
+      obj.Platform = ePlatformToJSON(message.Platform);
     }
     return obj;
   },
@@ -387,6 +454,67 @@ export const LoginRequest: MessageFns<LoginRequest> = {
   fromPartial<I extends Exact<DeepPartial<LoginRequest>, I>>(object: I): LoginRequest {
     const message = createBaseLoginRequest();
     message.code = object.code ?? "";
+    message.Platform = object.Platform ?? 0;
+    return message;
+  },
+};
+
+function createBaseLoginResponse(): LoginResponse {
+  return { info: undefined };
+}
+
+export const LoginResponse: MessageFns<LoginResponse> = {
+  encode(message: LoginResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.info !== undefined) {
+      PlayerDataInfo.encode(message.info, writer.uint32(10).fork()).join();
+    }
+    return writer;
+  },
+
+  decode(input: BinaryReader | Uint8Array, length?: number): LoginResponse {
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLoginResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1: {
+          if (tag !== 10) {
+            break;
+          }
+
+          message.info = PlayerDataInfo.decode(reader, reader.uint32());
+          continue;
+        }
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skip(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LoginResponse {
+    return { info: isSet(object.info) ? PlayerDataInfo.fromJSON(object.info) : undefined };
+  },
+
+  toJSON(message: LoginResponse): unknown {
+    const obj: any = {};
+    if (message.info !== undefined) {
+      obj.info = PlayerDataInfo.toJSON(message.info);
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<LoginResponse>, I>>(base?: I): LoginResponse {
+    return LoginResponse.fromPartial(base ?? ({} as any));
+  },
+  fromPartial<I extends Exact<DeepPartial<LoginResponse>, I>>(object: I): LoginResponse {
+    const message = createBaseLoginResponse();
+    message.info = (object.info !== undefined && object.info !== null)
+      ? PlayerDataInfo.fromPartial(object.info)
+      : undefined;
     return message;
   },
 };

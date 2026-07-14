@@ -1,7 +1,20 @@
 syntax = "proto3"; 
 
+enum EPlatform {
+  EPlatformNone = 0;
+
+  EPlatformWX = 1;
+  EPlatformTap = 2;
+  EPlatformDy = 3;
+}
+
 message LoginRequest {
   string code = 1;
+  EPlatform Platform = 2;
+}
+
+message LoginResponse {
+  PlayerDataInfo info = 1;
 }
 
 enum EAttribute {
