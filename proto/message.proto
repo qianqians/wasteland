@@ -22,11 +22,28 @@ enum EAttribute {
   ESpeed = 10;            // 速度
 }
 
+enum ERarity {
+  ERarityNone = 0;
+
+  ECommon = 1;     // 普通
+  ERare = 2;       // 稀有
+  EEpic = 3;       // 史诗
+  ELegendary = 4;  // 传说
+}
+
+message CultivationSkill {
+  repeated uint32 ActiveSkills = 1;
+  repeated uint32 PassiveSkills = 2;
+}
+
 message CultivationInfo {
   string CultivationID = 1;
-  uint64 XP = 2;
-  repeated uint32 ActiveSkills = 3;
-  repeated uint32 PassiveSkills = 4;
+  uint32 CultivationTableID = 2;
+  uint64 XP = 3;
+  CultivationSkill Skills = 4;
+  map<string, uint32> Attributes = 5;
+  string Description = 6;
+  ERarity Rarity = 7;
 }
 
 message ItemInfo {
@@ -34,8 +51,18 @@ message ItemInfo {
   uint32 count = 2;
 }
 
+message BBInfo {
+  string BBID = 1;
+  uint32 BBTableID = 2;
+  ERarity Rarity = 3;
+  float Growth = 4;
+  CultivationSkill Skills = 5;
+  map<string, uint32> Attributes = 6;
+}
+
 message Bag {
   repeated ItemInfo items = 1;
+  repeated BBInfo BBs = 2;
 }
 
 enum EEquip {
@@ -54,10 +81,11 @@ message PlayerDataInfo {
   Bag BagInfo = 3;
   map<string, uint32> EquipInfo = 4;
   map<string, uint32> Attributes = 5;
+  repeated BBInfo BattleBBs = 6;
 }
 
 message LearnOrGearCultivationRequest {
-  string CultivationID = 1;
+  uint32 CultivationTableID = 1;
 }
 
 message LearnOrGearCultivationResponse {
@@ -67,14 +95,31 @@ message LearnOrGearCultivationResponse {
 message CreateCultivationRequest {
   string CultivationID0 = 1;
   string CultivationID1 = 2;
+  string Description = 3;
 }
 
 message CreateCultivationResponse {
   string CultivationID = 1;
-  bool IsNeedSelect = 2;
-  repeated CultivationInfo CurrCultivationList = 3;
+  uint32 CultivationTableID = 2;
+  map<string, uint32> Attributes = 3;
+  bool IsNeedSelect = 4;
+  repeated CultivationSkill Skills = 5;
 }
 
 message SelectCultivationRequest { 
+  string CultivationID = 1;
+  CultivationSkill Skills = 2;
+}
 
+message SelectCultivationResponse {
+  CultivationInfo info = 1;
+}
+
+message FusionBBRequest {
+  string BB0 = 1;
+  string BB1 = 2;
+}
+
+message FusionBBRespone {
+  BBInfo NewBB = 1;
 }

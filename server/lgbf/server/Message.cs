@@ -23,45 +23,71 @@ public static partial class MessageReflection {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
           "Cg1tZXNzYWdlLnByb3RvIhwKDExvZ2luUmVxdWVzdBIMCgRjb2RlGAEgASgJ",
-          "ImEKD0N1bHRpdmF0aW9uSW5mbxIVCg1DdWx0aXZhdGlvbklEGAEgASgJEgoK",
-          "AlhQGAIgASgEEhQKDEFjdGl2ZVNraWxscxgDIAMoDRIVCg1QYXNzaXZlU2tp",
-          "bGxzGAQgAygNIiUKCEl0ZW1JbmZvEgoKAklEGAEgASgNEg0KBWNvdW50GAIg",
-          "ASgNIh8KA0JhZxIYCgVpdGVtcxgBIAMoCzIJLkl0ZW1JbmZvIs4CCg5QbGF5",
-          "ZXJEYXRhSW5mbxIpCg9DdXJyQ3VsdGl2YXRpb24YASABKAsyEC5DdWx0aXZh",
-          "dGlvbkluZm8SLQoTQ3VyckN1bHRpdmF0aW9uTGlzdBgCIAMoCzIQLkN1bHRp",
-          "dmF0aW9uSW5mbxIVCgdCYWdJbmZvGAMgASgLMgQuQmFnEjEKCUVxdWlwSW5m",
-          "bxgEIAMoCzIeLlBsYXllckRhdGFJbmZvLkVxdWlwSW5mb0VudHJ5EjMKCkF0",
-          "dHJpYnV0ZXMYBSADKAsyHy5QbGF5ZXJEYXRhSW5mby5BdHRyaWJ1dGVzRW50",
-          "cnkaMAoORXF1aXBJbmZvRW50cnkSCwoDa2V5GAEgASgJEg0KBXZhbHVlGAIg",
-          "ASgNOgI4ARoxCg9BdHRyaWJ1dGVzRW50cnkSCwoDa2V5GAEgASgJEg0KBXZh",
-          "bHVlGAIgASgNOgI4ASI2Ch1MZWFybk9yR2VhckN1bHRpdmF0aW9uUmVxdWVz",
-          "dBIVCg1DdWx0aXZhdGlvbklEGAEgASgJIkAKHkxlYXJuT3JHZWFyQ3VsdGl2",
-          "YXRpb25SZXNwb25zZRIeCgRpbmZvGAEgASgLMhAuQ3VsdGl2YXRpb25JbmZv",
-          "IkoKGENyZWF0ZUN1bHRpdmF0aW9uUmVxdWVzdBIWCg5DdWx0aXZhdGlvbklE",
-          "MBgBIAEoCRIWCg5DdWx0aXZhdGlvbklEMRgCIAEoCSJ3ChlDcmVhdGVDdWx0",
-          "aXZhdGlvblJlc3BvbnNlEhUKDUN1bHRpdmF0aW9uSUQYASABKAkSFAoMSXNO",
-          "ZWVkU2VsZWN0GAIgASgIEi0KE0N1cnJDdWx0aXZhdGlvbkxpc3QYAyADKAsy",
-          "EC5DdWx0aXZhdGlvbkluZm8iGgoYU2VsZWN0Q3VsdGl2YXRpb25SZXF1ZXN0",
-          "KrwBCgpFQXR0cmlidXRlEhIKDkVBdHRyaWJ1dGVOb25lEAASDQoJRVN0cmVu",
-          "Z3RoEAESDAoIRUFnaWxpdHkQAhIRCg1FSW50ZWxsaWdlbmNlEAMSBgoCSFAQ",
-          "BBIGCgJNUBAFEhMKD0VQaHlzaWNhbEF0dGFjaxAGEhQKEEVQaHlzaWNhbERl",
-          "ZmVuc2UQBxIQCgxFTWFnaWNBdHRhY2sQCBIRCg1FTWFnaWNEZWZlbnNlEAkS",
-          "CgoGRVNwZWVkEAoqVAoGRUVxdWlwEg4KCkVFcXVpcE5vbmUQABILCgdFSGVs",
-          "bWV0EAESCgoGRUNoZXN0EAISCQoFRUxlZ3MQAxIJCgVFRmVldBAEEgsKB0VX",
-          "ZWFwb24QBWIGcHJvdG8z"));
+          "Ij8KEEN1bHRpdmF0aW9uU2tpbGwSFAoMQWN0aXZlU2tpbGxzGAEgAygNEhUK",
+          "DVBhc3NpdmVTa2lsbHMYAiADKA0iiwIKD0N1bHRpdmF0aW9uSW5mbxIVCg1D",
+          "dWx0aXZhdGlvbklEGAEgASgJEhoKEkN1bHRpdmF0aW9uVGFibGVJRBgCIAEo",
+          "DRIKCgJYUBgDIAEoBBIhCgZTa2lsbHMYBCABKAsyES5DdWx0aXZhdGlvblNr",
+          "aWxsEjQKCkF0dHJpYnV0ZXMYBSADKAsyIC5DdWx0aXZhdGlvbkluZm8uQXR0",
+          "cmlidXRlc0VudHJ5EhMKC0Rlc2NyaXB0aW9uGAYgASgJEhgKBlJhcml0eRgH",
+          "IAEoDjIILkVSYXJpdHkaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEo",
+          "CRINCgV2YWx1ZRgCIAEoDToCOAEiJQoISXRlbUluZm8SCgoCSUQYASABKA0S",
+          "DQoFY291bnQYAiABKA0i1gEKBkJCSW5mbxIMCgRCQklEGAEgASgJEhEKCUJC",
+          "VGFibGVJRBgCIAEoDRIYCgZSYXJpdHkYAyABKA4yCC5FUmFyaXR5Eg4KBkdy",
+          "b3d0aBgEIAEoAhIhCgZTa2lsbHMYBSABKAsyES5DdWx0aXZhdGlvblNraWxs",
+          "EisKCkF0dHJpYnV0ZXMYBiADKAsyFy5CQkluZm8uQXR0cmlidXRlc0VudHJ5",
+          "GjEKD0F0dHJpYnV0ZXNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiAB",
+          "KA06AjgBIjUKA0JhZxIYCgVpdGVtcxgBIAMoCzIJLkl0ZW1JbmZvEhQKA0JC",
+          "cxgCIAMoCzIHLkJCSW5mbyLqAgoOUGxheWVyRGF0YUluZm8SKQoPQ3VyckN1",
+          "bHRpdmF0aW9uGAEgASgLMhAuQ3VsdGl2YXRpb25JbmZvEi0KE0N1cnJDdWx0",
+          "aXZhdGlvbkxpc3QYAiADKAsyEC5DdWx0aXZhdGlvbkluZm8SFQoHQmFnSW5m",
+          "bxgDIAEoCzIELkJhZxIxCglFcXVpcEluZm8YBCADKAsyHi5QbGF5ZXJEYXRh",
+          "SW5mby5FcXVpcEluZm9FbnRyeRIzCgpBdHRyaWJ1dGVzGAUgAygLMh8uUGxh",
+          "eWVyRGF0YUluZm8uQXR0cmlidXRlc0VudHJ5EhoKCUJhdHRsZUJCcxgGIAMo",
+          "CzIHLkJCSW5mbxowCg5FcXVpcEluZm9FbnRyeRILCgNrZXkYASABKAkSDQoF",
+          "dmFsdWUYAiABKA06AjgBGjEKD0F0dHJpYnV0ZXNFbnRyeRILCgNrZXkYASAB",
+          "KAkSDQoFdmFsdWUYAiABKA06AjgBIjsKHUxlYXJuT3JHZWFyQ3VsdGl2YXRp",
+          "b25SZXF1ZXN0EhoKEkN1bHRpdmF0aW9uVGFibGVJRBgBIAEoDSJACh5MZWFy",
+          "bk9yR2VhckN1bHRpdmF0aW9uUmVzcG9uc2USHgoEaW5mbxgBIAEoCzIQLkN1",
+          "bHRpdmF0aW9uSW5mbyJfChhDcmVhdGVDdWx0aXZhdGlvblJlcXVlc3QSFgoO",
+          "Q3VsdGl2YXRpb25JRDAYASABKAkSFgoOQ3VsdGl2YXRpb25JRDEYAiABKAkS",
+          "EwoLRGVzY3JpcHRpb24YAyABKAki+gEKGUNyZWF0ZUN1bHRpdmF0aW9uUmVz",
+          "cG9uc2USFQoNQ3VsdGl2YXRpb25JRBgBIAEoCRIaChJDdWx0aXZhdGlvblRh",
+          "YmxlSUQYAiABKA0SPgoKQXR0cmlidXRlcxgDIAMoCzIqLkNyZWF0ZUN1bHRp",
+          "dmF0aW9uUmVzcG9uc2UuQXR0cmlidXRlc0VudHJ5EhQKDElzTmVlZFNlbGVj",
+          "dBgEIAEoCBIhCgZTa2lsbHMYBSADKAsyES5DdWx0aXZhdGlvblNraWxsGjEK",
+          "D0F0dHJpYnV0ZXNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKA06",
+          "AjgBIlQKGFNlbGVjdEN1bHRpdmF0aW9uUmVxdWVzdBIVCg1DdWx0aXZhdGlv",
+          "bklEGAEgASgJEiEKBlNraWxscxgCIAEoCzIRLkN1bHRpdmF0aW9uU2tpbGwi",
+          "OwoZU2VsZWN0Q3VsdGl2YXRpb25SZXNwb25zZRIeCgRpbmZvGAEgASgLMhAu",
+          "Q3VsdGl2YXRpb25JbmZvIisKD0Z1c2lvbkJCUmVxdWVzdBILCgNCQjAYASAB",
+          "KAkSCwoDQkIxGAIgASgJIikKD0Z1c2lvbkJCUmVzcG9uZRIWCgVOZXdCQhgB",
+          "IAEoCzIHLkJCSW5mbyq8AQoKRUF0dHJpYnV0ZRISCg5FQXR0cmlidXRlTm9u",
+          "ZRAAEg0KCUVTdHJlbmd0aBABEgwKCEVBZ2lsaXR5EAISEQoNRUludGVsbGln",
+          "ZW5jZRADEgYKAkhQEAQSBgoCTVAQBRITCg9FUGh5c2ljYWxBdHRhY2sQBhIU",
+          "ChBFUGh5c2ljYWxEZWZlbnNlEAcSEAoMRU1hZ2ljQXR0YWNrEAgSEQoNRU1h",
+          "Z2ljRGVmZW5zZRAJEgoKBkVTcGVlZBAKKk0KB0VSYXJpdHkSDwoLRVJhcml0",
+          "eU5vbmUQABILCgdFQ29tbW9uEAESCQoFRVJhcmUQAhIJCgVFRXBpYxADEg4K",
+          "CkVMZWdlbmRhcnkQBCpUCgZFRXF1aXASDgoKRUVxdWlwTm9uZRAAEgsKB0VI",
+          "ZWxtZXQQARIKCgZFQ2hlc3QQAhIJCgVFTGVncxADEgkKBUVGZWV0EAQSCwoH",
+          "RVdlYXBvbhAFYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
-        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EAttribute), typeof(global::EEquip), }, null, new pbr::GeneratedClrTypeInfo[] {
+        new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EAttribute), typeof(global::ERarity), typeof(global::EEquip), }, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::LoginRequest), global::LoginRequest.Parser, new[]{ "Code" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CultivationInfo), global::CultivationInfo.Parser, new[]{ "CultivationID", "XP", "ActiveSkills", "PassiveSkills" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CultivationSkill), global::CultivationSkill.Parser, new[]{ "ActiveSkills", "PassiveSkills" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CultivationInfo), global::CultivationInfo.Parser, new[]{ "CultivationID", "CultivationTableID", "XP", "Skills", "Attributes", "Description", "Rarity" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::ItemInfo), global::ItemInfo.Parser, new[]{ "ID", "Count" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Bag), global::Bag.Parser, new[]{ "Items" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerDataInfo), global::PlayerDataInfo.Parser, new[]{ "CurrCultivation", "CurrCultivationList", "BagInfo", "EquipInfo", "Attributes" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
-          new pbr::GeneratedClrTypeInfo(typeof(global::LearnOrGearCultivationRequest), global::LearnOrGearCultivationRequest.Parser, new[]{ "CultivationID" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::BBInfo), global::BBInfo.Parser, new[]{ "BBID", "BBTableID", "Rarity", "Growth", "Skills", "Attributes" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Bag), global::Bag.Parser, new[]{ "Items", "BBs" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::PlayerDataInfo), global::PlayerDataInfo.Parser, new[]{ "CurrCultivation", "CurrCultivationList", "BagInfo", "EquipInfo", "Attributes", "BattleBBs" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::LearnOrGearCultivationRequest), global::LearnOrGearCultivationRequest.Parser, new[]{ "CultivationTableID" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::LearnOrGearCultivationResponse), global::LearnOrGearCultivationResponse.Parser, new[]{ "Info" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CreateCultivationRequest), global::CreateCultivationRequest.Parser, new[]{ "CultivationID0", "CultivationID1" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CreateCultivationResponse), global::CreateCultivationResponse.Parser, new[]{ "CultivationID", "IsNeedSelect", "CurrCultivationList" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::SelectCultivationRequest), global::SelectCultivationRequest.Parser, null, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::CreateCultivationRequest), global::CreateCultivationRequest.Parser, new[]{ "CultivationID0", "CultivationID1", "Description" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CreateCultivationResponse), global::CreateCultivationResponse.Parser, new[]{ "CultivationID", "CultivationTableID", "Attributes", "IsNeedSelect", "Skills" }, null, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SelectCultivationRequest), global::SelectCultivationRequest.Parser, new[]{ "CultivationID", "Skills" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::SelectCultivationResponse), global::SelectCultivationResponse.Parser, new[]{ "Info" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::FusionBBRequest), global::FusionBBRequest.Parser, new[]{ "BB0", "BB1" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::FusionBBRespone), global::FusionBBRespone.Parser, new[]{ "NewBB" }, null, null, null, null)
         }));
   }
   #endregion
@@ -104,6 +130,26 @@ public enum EAttribute {
   /// 速度
   /// </summary>
   [pbr::OriginalName("ESpeed")] Espeed = 10,
+}
+
+public enum ERarity {
+  [pbr::OriginalName("ERarityNone")] None = 0,
+  /// <summary>
+  /// 普通
+  /// </summary>
+  [pbr::OriginalName("ECommon")] Ecommon = 1,
+  /// <summary>
+  /// 稀有
+  /// </summary>
+  [pbr::OriginalName("ERare")] Erare = 2,
+  /// <summary>
+  /// 史诗
+  /// </summary>
+  [pbr::OriginalName("EEpic")] Eepic = 3,
+  /// <summary>
+  /// 传说
+  /// </summary>
+  [pbr::OriginalName("ELegendary")] Elegendary = 4,
 }
 
 public enum EEquip {
@@ -332,6 +378,223 @@ public sealed partial class LoginRequest : pb::IMessage<LoginRequest>
 }
 
 [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class CultivationSkill : pb::IMessage<CultivationSkill>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<CultivationSkill> _parser = new pb::MessageParser<CultivationSkill>(() => new CultivationSkill());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<CultivationSkill> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessageReflection.Descriptor.MessageTypes[1]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public CultivationSkill() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public CultivationSkill(CultivationSkill other) : this() {
+    activeSkills_ = other.activeSkills_.Clone();
+    passiveSkills_ = other.passiveSkills_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public CultivationSkill Clone() {
+    return new CultivationSkill(this);
+  }
+
+  /// <summary>Field number for the "ActiveSkills" field.</summary>
+  public const int ActiveSkillsFieldNumber = 1;
+  private static readonly pb::FieldCodec<uint> _repeated_activeSkills_codec
+      = pb::FieldCodec.ForUInt32(10);
+  private readonly pbc::RepeatedField<uint> activeSkills_ = new pbc::RepeatedField<uint>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<uint> ActiveSkills {
+    get { return activeSkills_; }
+  }
+
+  /// <summary>Field number for the "PassiveSkills" field.</summary>
+  public const int PassiveSkillsFieldNumber = 2;
+  private static readonly pb::FieldCodec<uint> _repeated_passiveSkills_codec
+      = pb::FieldCodec.ForUInt32(18);
+  private readonly pbc::RepeatedField<uint> passiveSkills_ = new pbc::RepeatedField<uint>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<uint> PassiveSkills {
+    get { return passiveSkills_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as CultivationSkill);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(CultivationSkill other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if(!activeSkills_.Equals(other.activeSkills_)) return false;
+    if(!passiveSkills_.Equals(other.passiveSkills_)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    hash ^= activeSkills_.GetHashCode();
+    hash ^= passiveSkills_.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    activeSkills_.WriteTo(output, _repeated_activeSkills_codec);
+    passiveSkills_.WriteTo(output, _repeated_passiveSkills_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    activeSkills_.WriteTo(ref output, _repeated_activeSkills_codec);
+    passiveSkills_.WriteTo(ref output, _repeated_passiveSkills_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    size += activeSkills_.CalculateSize(_repeated_activeSkills_codec);
+    size += passiveSkills_.CalculateSize(_repeated_passiveSkills_codec);
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(CultivationSkill other) {
+    if (other == null) {
+      return;
+    }
+    activeSkills_.Add(other.activeSkills_);
+    passiveSkills_.Add(other.passiveSkills_);
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10:
+        case 8: {
+          activeSkills_.AddEntriesFrom(input, _repeated_activeSkills_codec);
+          break;
+        }
+        case 18:
+        case 16: {
+          passiveSkills_.AddEntriesFrom(input, _repeated_passiveSkills_codec);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10:
+        case 8: {
+          activeSkills_.AddEntriesFrom(ref input, _repeated_activeSkills_codec);
+          break;
+        }
+        case 18:
+        case 16: {
+          passiveSkills_.AddEntriesFrom(ref input, _repeated_passiveSkills_codec);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -346,7 +609,7 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[1]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[2]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -367,9 +630,12 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public CultivationInfo(CultivationInfo other) : this() {
     cultivationID_ = other.cultivationID_;
+    cultivationTableID_ = other.cultivationTableID_;
     xP_ = other.xP_;
-    activeSkills_ = other.activeSkills_.Clone();
-    passiveSkills_ = other.passiveSkills_.Clone();
+    skills_ = other.skills_ != null ? other.skills_.Clone() : null;
+    attributes_ = other.attributes_.Clone();
+    description_ = other.description_;
+    rarity_ = other.rarity_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -391,8 +657,20 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     }
   }
 
+  /// <summary>Field number for the "CultivationTableID" field.</summary>
+  public const int CultivationTableIDFieldNumber = 2;
+  private uint cultivationTableID_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint CultivationTableID {
+    get { return cultivationTableID_; }
+    set {
+      cultivationTableID_ = value;
+    }
+  }
+
   /// <summary>Field number for the "XP" field.</summary>
-  public const int XPFieldNumber = 2;
+  public const int XPFieldNumber = 3;
   private ulong xP_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -403,26 +681,51 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     }
   }
 
-  /// <summary>Field number for the "ActiveSkills" field.</summary>
-  public const int ActiveSkillsFieldNumber = 3;
-  private static readonly pb::FieldCodec<uint> _repeated_activeSkills_codec
-      = pb::FieldCodec.ForUInt32(26);
-  private readonly pbc::RepeatedField<uint> activeSkills_ = new pbc::RepeatedField<uint>();
+  /// <summary>Field number for the "Skills" field.</summary>
+  public const int SkillsFieldNumber = 4;
+  private global::CultivationSkill skills_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<uint> ActiveSkills {
-    get { return activeSkills_; }
+  public global::CultivationSkill Skills {
+    get { return skills_; }
+    set {
+      skills_ = value;
+    }
   }
 
-  /// <summary>Field number for the "PassiveSkills" field.</summary>
-  public const int PassiveSkillsFieldNumber = 4;
-  private static readonly pb::FieldCodec<uint> _repeated_passiveSkills_codec
-      = pb::FieldCodec.ForUInt32(34);
-  private readonly pbc::RepeatedField<uint> passiveSkills_ = new pbc::RepeatedField<uint>();
+  /// <summary>Field number for the "Attributes" field.</summary>
+  public const int AttributesFieldNumber = 5;
+  private static readonly pbc::MapField<string, uint>.Codec _map_attributes_codec
+      = new pbc::MapField<string, uint>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt32(16, 0), 42);
+  private readonly pbc::MapField<string, uint> attributes_ = new pbc::MapField<string, uint>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<uint> PassiveSkills {
-    get { return passiveSkills_; }
+  public pbc::MapField<string, uint> Attributes {
+    get { return attributes_; }
+  }
+
+  /// <summary>Field number for the "Description" field.</summary>
+  public const int DescriptionFieldNumber = 6;
+  private string description_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Description {
+    get { return description_; }
+    set {
+      description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Rarity" field.</summary>
+  public const int RarityFieldNumber = 7;
+  private global::ERarity rarity_ = global::ERarity.None;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ERarity Rarity {
+    get { return rarity_; }
+    set {
+      rarity_ = value;
+    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -441,9 +744,12 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
       return true;
     }
     if (CultivationID != other.CultivationID) return false;
+    if (CultivationTableID != other.CultivationTableID) return false;
     if (XP != other.XP) return false;
-    if(!activeSkills_.Equals(other.activeSkills_)) return false;
-    if(!passiveSkills_.Equals(other.passiveSkills_)) return false;
+    if (!object.Equals(Skills, other.Skills)) return false;
+    if (!Attributes.Equals(other.Attributes)) return false;
+    if (Description != other.Description) return false;
+    if (Rarity != other.Rarity) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -452,9 +758,12 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
   public override int GetHashCode() {
     int hash = 1;
     if (CultivationID.Length != 0) hash ^= CultivationID.GetHashCode();
+    if (CultivationTableID != 0) hash ^= CultivationTableID.GetHashCode();
     if (XP != 0UL) hash ^= XP.GetHashCode();
-    hash ^= activeSkills_.GetHashCode();
-    hash ^= passiveSkills_.GetHashCode();
+    if (skills_ != null) hash ^= Skills.GetHashCode();
+    hash ^= Attributes.GetHashCode();
+    if (Description.Length != 0) hash ^= Description.GetHashCode();
+    if (Rarity != global::ERarity.None) hash ^= Rarity.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -477,12 +786,27 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
       output.WriteRawTag(10);
       output.WriteString(CultivationID);
     }
-    if (XP != 0UL) {
+    if (CultivationTableID != 0) {
       output.WriteRawTag(16);
+      output.WriteUInt32(CultivationTableID);
+    }
+    if (XP != 0UL) {
+      output.WriteRawTag(24);
       output.WriteUInt64(XP);
     }
-    activeSkills_.WriteTo(output, _repeated_activeSkills_codec);
-    passiveSkills_.WriteTo(output, _repeated_passiveSkills_codec);
+    if (skills_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(Skills);
+    }
+    attributes_.WriteTo(output, _map_attributes_codec);
+    if (Description.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Description);
+    }
+    if (Rarity != global::ERarity.None) {
+      output.WriteRawTag(56);
+      output.WriteEnum((int) Rarity);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -497,12 +821,27 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
       output.WriteRawTag(10);
       output.WriteString(CultivationID);
     }
-    if (XP != 0UL) {
+    if (CultivationTableID != 0) {
       output.WriteRawTag(16);
+      output.WriteUInt32(CultivationTableID);
+    }
+    if (XP != 0UL) {
+      output.WriteRawTag(24);
       output.WriteUInt64(XP);
     }
-    activeSkills_.WriteTo(ref output, _repeated_activeSkills_codec);
-    passiveSkills_.WriteTo(ref output, _repeated_passiveSkills_codec);
+    if (skills_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(Skills);
+    }
+    attributes_.WriteTo(ref output, _map_attributes_codec);
+    if (Description.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(Description);
+    }
+    if (Rarity != global::ERarity.None) {
+      output.WriteRawTag(56);
+      output.WriteEnum((int) Rarity);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -516,11 +855,22 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     if (CultivationID.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(CultivationID);
     }
+    if (CultivationTableID != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CultivationTableID);
+    }
     if (XP != 0UL) {
       size += 1 + pb::CodedOutputStream.ComputeUInt64Size(XP);
     }
-    size += activeSkills_.CalculateSize(_repeated_activeSkills_codec);
-    size += passiveSkills_.CalculateSize(_repeated_passiveSkills_codec);
+    if (skills_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Skills);
+    }
+    size += attributes_.CalculateSize(_map_attributes_codec);
+    if (Description.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
+    }
+    if (Rarity != global::ERarity.None) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -536,11 +886,25 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
     if (other.CultivationID.Length != 0) {
       CultivationID = other.CultivationID;
     }
+    if (other.CultivationTableID != 0) {
+      CultivationTableID = other.CultivationTableID;
+    }
     if (other.XP != 0UL) {
       XP = other.XP;
     }
-    activeSkills_.Add(other.activeSkills_);
-    passiveSkills_.Add(other.passiveSkills_);
+    if (other.skills_ != null) {
+      if (skills_ == null) {
+        Skills = new global::CultivationSkill();
+      }
+      Skills.MergeFrom(other.Skills);
+    }
+    attributes_.MergeFrom(other.attributes_);
+    if (other.Description.Length != 0) {
+      Description = other.Description;
+    }
+    if (other.Rarity != global::ERarity.None) {
+      Rarity = other.Rarity;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -565,17 +929,30 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
           break;
         }
         case 16: {
+          CultivationTableID = input.ReadUInt32();
+          break;
+        }
+        case 24: {
           XP = input.ReadUInt64();
           break;
         }
-        case 26:
-        case 24: {
-          activeSkills_.AddEntriesFrom(input, _repeated_activeSkills_codec);
+        case 34: {
+          if (skills_ == null) {
+            Skills = new global::CultivationSkill();
+          }
+          input.ReadMessage(Skills);
           break;
         }
-        case 34:
-        case 32: {
-          passiveSkills_.AddEntriesFrom(input, _repeated_passiveSkills_codec);
+        case 42: {
+          attributes_.AddEntriesFrom(input, _map_attributes_codec);
+          break;
+        }
+        case 50: {
+          Description = input.ReadString();
+          break;
+        }
+        case 56: {
+          Rarity = (global::ERarity) input.ReadEnum();
           break;
         }
       }
@@ -602,17 +979,30 @@ public sealed partial class CultivationInfo : pb::IMessage<CultivationInfo>
           break;
         }
         case 16: {
+          CultivationTableID = input.ReadUInt32();
+          break;
+        }
+        case 24: {
           XP = input.ReadUInt64();
           break;
         }
-        case 26:
-        case 24: {
-          activeSkills_.AddEntriesFrom(ref input, _repeated_activeSkills_codec);
+        case 34: {
+          if (skills_ == null) {
+            Skills = new global::CultivationSkill();
+          }
+          input.ReadMessage(Skills);
           break;
         }
-        case 34:
-        case 32: {
-          passiveSkills_.AddEntriesFrom(ref input, _repeated_passiveSkills_codec);
+        case 42: {
+          attributes_.AddEntriesFrom(ref input, _map_attributes_codec);
+          break;
+        }
+        case 50: {
+          Description = input.ReadString();
+          break;
+        }
+        case 56: {
+          Rarity = (global::ERarity) input.ReadEnum();
           break;
         }
       }
@@ -637,7 +1027,7 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[2]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[3]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -858,6 +1248,387 @@ public sealed partial class ItemInfo : pb::IMessage<ItemInfo>
 }
 
 [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class BBInfo : pb::IMessage<BBInfo>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<BBInfo> _parser = new pb::MessageParser<BBInfo>(() => new BBInfo());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<BBInfo> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessageReflection.Descriptor.MessageTypes[4]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public BBInfo() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public BBInfo(BBInfo other) : this() {
+    bBID_ = other.bBID_;
+    bBTableID_ = other.bBTableID_;
+    rarity_ = other.rarity_;
+    growth_ = other.growth_;
+    skills_ = other.skills_ != null ? other.skills_.Clone() : null;
+    attributes_ = other.attributes_.Clone();
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public BBInfo Clone() {
+    return new BBInfo(this);
+  }
+
+  /// <summary>Field number for the "BBID" field.</summary>
+  public const int BBIDFieldNumber = 1;
+  private string bBID_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string BBID {
+    get { return bBID_; }
+    set {
+      bBID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "BBTableID" field.</summary>
+  public const int BBTableIDFieldNumber = 2;
+  private uint bBTableID_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint BBTableID {
+    get { return bBTableID_; }
+    set {
+      bBTableID_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Rarity" field.</summary>
+  public const int RarityFieldNumber = 3;
+  private global::ERarity rarity_ = global::ERarity.None;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::ERarity Rarity {
+    get { return rarity_; }
+    set {
+      rarity_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Growth" field.</summary>
+  public const int GrowthFieldNumber = 4;
+  private float growth_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public float Growth {
+    get { return growth_; }
+    set {
+      growth_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Skills" field.</summary>
+  public const int SkillsFieldNumber = 5;
+  private global::CultivationSkill skills_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::CultivationSkill Skills {
+    get { return skills_; }
+    set {
+      skills_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Attributes" field.</summary>
+  public const int AttributesFieldNumber = 6;
+  private static readonly pbc::MapField<string, uint>.Codec _map_attributes_codec
+      = new pbc::MapField<string, uint>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt32(16, 0), 50);
+  private readonly pbc::MapField<string, uint> attributes_ = new pbc::MapField<string, uint>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<string, uint> Attributes {
+    get { return attributes_; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as BBInfo);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(BBInfo other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (BBID != other.BBID) return false;
+    if (BBTableID != other.BBTableID) return false;
+    if (Rarity != other.Rarity) return false;
+    if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Growth, other.Growth)) return false;
+    if (!object.Equals(Skills, other.Skills)) return false;
+    if (!Attributes.Equals(other.Attributes)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (BBID.Length != 0) hash ^= BBID.GetHashCode();
+    if (BBTableID != 0) hash ^= BBTableID.GetHashCode();
+    if (Rarity != global::ERarity.None) hash ^= Rarity.GetHashCode();
+    if (Growth != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Growth);
+    if (skills_ != null) hash ^= Skills.GetHashCode();
+    hash ^= Attributes.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (BBID.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(BBID);
+    }
+    if (BBTableID != 0) {
+      output.WriteRawTag(16);
+      output.WriteUInt32(BBTableID);
+    }
+    if (Rarity != global::ERarity.None) {
+      output.WriteRawTag(24);
+      output.WriteEnum((int) Rarity);
+    }
+    if (Growth != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Growth);
+    }
+    if (skills_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(Skills);
+    }
+    attributes_.WriteTo(output, _map_attributes_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (BBID.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(BBID);
+    }
+    if (BBTableID != 0) {
+      output.WriteRawTag(16);
+      output.WriteUInt32(BBTableID);
+    }
+    if (Rarity != global::ERarity.None) {
+      output.WriteRawTag(24);
+      output.WriteEnum((int) Rarity);
+    }
+    if (Growth != 0F) {
+      output.WriteRawTag(37);
+      output.WriteFloat(Growth);
+    }
+    if (skills_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(Skills);
+    }
+    attributes_.WriteTo(ref output, _map_attributes_codec);
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (BBID.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(BBID);
+    }
+    if (BBTableID != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(BBTableID);
+    }
+    if (Rarity != global::ERarity.None) {
+      size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Rarity);
+    }
+    if (Growth != 0F) {
+      size += 1 + 4;
+    }
+    if (skills_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Skills);
+    }
+    size += attributes_.CalculateSize(_map_attributes_codec);
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(BBInfo other) {
+    if (other == null) {
+      return;
+    }
+    if (other.BBID.Length != 0) {
+      BBID = other.BBID;
+    }
+    if (other.BBTableID != 0) {
+      BBTableID = other.BBTableID;
+    }
+    if (other.Rarity != global::ERarity.None) {
+      Rarity = other.Rarity;
+    }
+    if (other.Growth != 0F) {
+      Growth = other.Growth;
+    }
+    if (other.skills_ != null) {
+      if (skills_ == null) {
+        Skills = new global::CultivationSkill();
+      }
+      Skills.MergeFrom(other.Skills);
+    }
+    attributes_.MergeFrom(other.attributes_);
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          BBID = input.ReadString();
+          break;
+        }
+        case 16: {
+          BBTableID = input.ReadUInt32();
+          break;
+        }
+        case 24: {
+          Rarity = (global::ERarity) input.ReadEnum();
+          break;
+        }
+        case 37: {
+          Growth = input.ReadFloat();
+          break;
+        }
+        case 42: {
+          if (skills_ == null) {
+            Skills = new global::CultivationSkill();
+          }
+          input.ReadMessage(Skills);
+          break;
+        }
+        case 50: {
+          attributes_.AddEntriesFrom(input, _map_attributes_codec);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          BBID = input.ReadString();
+          break;
+        }
+        case 16: {
+          BBTableID = input.ReadUInt32();
+          break;
+        }
+        case 24: {
+          Rarity = (global::ERarity) input.ReadEnum();
+          break;
+        }
+        case 37: {
+          Growth = input.ReadFloat();
+          break;
+        }
+        case 42: {
+          if (skills_ == null) {
+            Skills = new global::CultivationSkill();
+          }
+          input.ReadMessage(Skills);
+          break;
+        }
+        case 50: {
+          attributes_.AddEntriesFrom(ref input, _map_attributes_codec);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
 public sealed partial class Bag : pb::IMessage<Bag>
 #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     , pb::IBufferMessage
@@ -872,7 +1643,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[3]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[5]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -893,6 +1664,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public Bag(Bag other) : this() {
     items_ = other.items_.Clone();
+    bBs_ = other.bBs_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -913,6 +1685,17 @@ public sealed partial class Bag : pb::IMessage<Bag>
     get { return items_; }
   }
 
+  /// <summary>Field number for the "BBs" field.</summary>
+  public const int BBsFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::BBInfo> _repeated_bBs_codec
+      = pb::FieldCodec.ForMessage(18, global::BBInfo.Parser);
+  private readonly pbc::RepeatedField<global::BBInfo> bBs_ = new pbc::RepeatedField<global::BBInfo>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::BBInfo> BBs {
+    get { return bBs_; }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -929,6 +1712,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
       return true;
     }
     if(!items_.Equals(other.items_)) return false;
+    if(!bBs_.Equals(other.bBs_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -937,6 +1721,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
   public override int GetHashCode() {
     int hash = 1;
     hash ^= items_.GetHashCode();
+    hash ^= bBs_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -956,6 +1741,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
     output.WriteRawMessage(this);
   #else
     items_.WriteTo(output, _repeated_items_codec);
+    bBs_.WriteTo(output, _repeated_bBs_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -967,6 +1753,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
     items_.WriteTo(ref output, _repeated_items_codec);
+    bBs_.WriteTo(ref output, _repeated_bBs_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -978,6 +1765,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
   public int CalculateSize() {
     int size = 0;
     size += items_.CalculateSize(_repeated_items_codec);
+    size += bBs_.CalculateSize(_repeated_bBs_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -991,6 +1779,7 @@ public sealed partial class Bag : pb::IMessage<Bag>
       return;
     }
     items_.Add(other.items_);
+    bBs_.Add(other.bBs_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1012,6 +1801,10 @@ public sealed partial class Bag : pb::IMessage<Bag>
           break;
         case 10: {
           items_.AddEntriesFrom(input, _repeated_items_codec);
+          break;
+        }
+        case 18: {
+          bBs_.AddEntriesFrom(input, _repeated_bBs_codec);
           break;
         }
       }
@@ -1037,6 +1830,10 @@ public sealed partial class Bag : pb::IMessage<Bag>
           items_.AddEntriesFrom(ref input, _repeated_items_codec);
           break;
         }
+        case 18: {
+          bBs_.AddEntriesFrom(ref input, _repeated_bBs_codec);
+          break;
+        }
       }
     }
   }
@@ -1059,7 +1856,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[4]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[6]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1084,6 +1881,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     bagInfo_ = other.bagInfo_ != null ? other.bagInfo_.Clone() : null;
     equipInfo_ = other.equipInfo_.Clone();
     attributes_ = other.attributes_.Clone();
+    battleBBs_ = other.battleBBs_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1150,6 +1948,17 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     get { return attributes_; }
   }
 
+  /// <summary>Field number for the "BattleBBs" field.</summary>
+  public const int BattleBBsFieldNumber = 6;
+  private static readonly pb::FieldCodec<global::BBInfo> _repeated_battleBBs_codec
+      = pb::FieldCodec.ForMessage(50, global::BBInfo.Parser);
+  private readonly pbc::RepeatedField<global::BBInfo> battleBBs_ = new pbc::RepeatedField<global::BBInfo>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::BBInfo> BattleBBs {
+    get { return battleBBs_; }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -1170,6 +1979,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     if (!object.Equals(BagInfo, other.BagInfo)) return false;
     if (!EquipInfo.Equals(other.EquipInfo)) return false;
     if (!Attributes.Equals(other.Attributes)) return false;
+    if(!battleBBs_.Equals(other.battleBBs_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1182,6 +1992,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     if (bagInfo_ != null) hash ^= BagInfo.GetHashCode();
     hash ^= EquipInfo.GetHashCode();
     hash ^= Attributes.GetHashCode();
+    hash ^= battleBBs_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1211,6 +2022,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     }
     equipInfo_.WriteTo(output, _map_equipInfo_codec);
     attributes_.WriteTo(output, _map_attributes_codec);
+    battleBBs_.WriteTo(output, _repeated_battleBBs_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1232,6 +2044,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     }
     equipInfo_.WriteTo(ref output, _map_equipInfo_codec);
     attributes_.WriteTo(ref output, _map_attributes_codec);
+    battleBBs_.WriteTo(ref output, _repeated_battleBBs_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1251,6 +2064,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     }
     size += equipInfo_.CalculateSize(_map_equipInfo_codec);
     size += attributes_.CalculateSize(_map_attributes_codec);
+    size += battleBBs_.CalculateSize(_repeated_battleBBs_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1278,6 +2092,7 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
     }
     equipInfo_.MergeFrom(other.equipInfo_);
     attributes_.MergeFrom(other.attributes_);
+    battleBBs_.Add(other.battleBBs_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1321,6 +2136,10 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
         }
         case 42: {
           attributes_.AddEntriesFrom(input, _map_attributes_codec);
+          break;
+        }
+        case 50: {
+          battleBBs_.AddEntriesFrom(input, _repeated_battleBBs_codec);
           break;
         }
       }
@@ -1368,6 +2187,10 @@ public sealed partial class PlayerDataInfo : pb::IMessage<PlayerDataInfo>
           attributes_.AddEntriesFrom(ref input, _map_attributes_codec);
           break;
         }
+        case 50: {
+          battleBBs_.AddEntriesFrom(ref input, _repeated_battleBBs_codec);
+          break;
+        }
       }
     }
   }
@@ -1390,7 +2213,7 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[5]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[7]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1410,7 +2233,7 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public LearnOrGearCultivationRequest(LearnOrGearCultivationRequest other) : this() {
-    cultivationID_ = other.cultivationID_;
+    cultivationTableID_ = other.cultivationTableID_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1420,15 +2243,15 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
     return new LearnOrGearCultivationRequest(this);
   }
 
-  /// <summary>Field number for the "CultivationID" field.</summary>
-  public const int CultivationIDFieldNumber = 1;
-  private string cultivationID_ = "";
+  /// <summary>Field number for the "CultivationTableID" field.</summary>
+  public const int CultivationTableIDFieldNumber = 1;
+  private uint cultivationTableID_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public string CultivationID {
-    get { return cultivationID_; }
+  public uint CultivationTableID {
+    get { return cultivationTableID_; }
     set {
-      cultivationID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      cultivationTableID_ = value;
     }
   }
 
@@ -1447,7 +2270,7 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if (CultivationID != other.CultivationID) return false;
+    if (CultivationTableID != other.CultivationTableID) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1455,7 +2278,7 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    if (CultivationID.Length != 0) hash ^= CultivationID.GetHashCode();
+    if (CultivationTableID != 0) hash ^= CultivationTableID.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1474,9 +2297,9 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    if (CultivationID.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(CultivationID);
+    if (CultivationTableID != 0) {
+      output.WriteRawTag(8);
+      output.WriteUInt32(CultivationTableID);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -1488,9 +2311,9 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    if (CultivationID.Length != 0) {
-      output.WriteRawTag(10);
-      output.WriteString(CultivationID);
+    if (CultivationTableID != 0) {
+      output.WriteRawTag(8);
+      output.WriteUInt32(CultivationTableID);
     }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -1502,8 +2325,8 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    if (CultivationID.Length != 0) {
-      size += 1 + pb::CodedOutputStream.ComputeStringSize(CultivationID);
+    if (CultivationTableID != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CultivationTableID);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1517,8 +2340,8 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
     if (other == null) {
       return;
     }
-    if (other.CultivationID.Length != 0) {
-      CultivationID = other.CultivationID;
+    if (other.CultivationTableID != 0) {
+      CultivationTableID = other.CultivationTableID;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1539,8 +2362,8 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
-        case 10: {
-          CultivationID = input.ReadString();
+        case 8: {
+          CultivationTableID = input.ReadUInt32();
           break;
         }
       }
@@ -1562,8 +2385,8 @@ public sealed partial class LearnOrGearCultivationRequest : pb::IMessage<LearnOr
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
-        case 10: {
-          CultivationID = input.ReadString();
+        case 8: {
+          CultivationTableID = input.ReadUInt32();
           break;
         }
       }
@@ -1588,7 +2411,7 @@ public sealed partial class LearnOrGearCultivationResponse : pb::IMessage<LearnO
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[6]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[8]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1795,7 +2618,7 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[7]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[9]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1817,6 +2640,7 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
   public CreateCultivationRequest(CreateCultivationRequest other) : this() {
     cultivationID0_ = other.cultivationID0_;
     cultivationID1_ = other.cultivationID1_;
+    description_ = other.description_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1850,6 +2674,18 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
     }
   }
 
+  /// <summary>Field number for the "Description" field.</summary>
+  public const int DescriptionFieldNumber = 3;
+  private string description_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string Description {
+    get { return description_; }
+    set {
+      description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override bool Equals(object other) {
@@ -1867,6 +2703,7 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
     }
     if (CultivationID0 != other.CultivationID0) return false;
     if (CultivationID1 != other.CultivationID1) return false;
+    if (Description != other.Description) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1876,6 +2713,7 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
     int hash = 1;
     if (CultivationID0.Length != 0) hash ^= CultivationID0.GetHashCode();
     if (CultivationID1.Length != 0) hash ^= CultivationID1.GetHashCode();
+    if (Description.Length != 0) hash ^= Description.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1902,6 +2740,10 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
       output.WriteRawTag(18);
       output.WriteString(CultivationID1);
     }
+    if (Description.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Description);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1920,6 +2762,10 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
       output.WriteRawTag(18);
       output.WriteString(CultivationID1);
     }
+    if (Description.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Description);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1935,6 +2781,9 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
     }
     if (CultivationID1.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(CultivationID1);
+    }
+    if (Description.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1953,6 +2802,9 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
     }
     if (other.CultivationID1.Length != 0) {
       CultivationID1 = other.CultivationID1;
+    }
+    if (other.Description.Length != 0) {
+      Description = other.Description;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1981,6 +2833,10 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
           CultivationID1 = input.ReadString();
           break;
         }
+        case 26: {
+          Description = input.ReadString();
+          break;
+        }
       }
     }
   #endif
@@ -2006,6 +2862,10 @@ public sealed partial class CreateCultivationRequest : pb::IMessage<CreateCultiv
         }
         case 18: {
           CultivationID1 = input.ReadString();
+          break;
+        }
+        case 26: {
+          Description = input.ReadString();
           break;
         }
       }
@@ -2030,7 +2890,7 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[8]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[10]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2051,8 +2911,10 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public CreateCultivationResponse(CreateCultivationResponse other) : this() {
     cultivationID_ = other.cultivationID_;
+    cultivationTableID_ = other.cultivationTableID_;
+    attributes_ = other.attributes_.Clone();
     isNeedSelect_ = other.isNeedSelect_;
-    currCultivationList_ = other.currCultivationList_.Clone();
+    skills_ = other.skills_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -2074,8 +2936,31 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
     }
   }
 
+  /// <summary>Field number for the "CultivationTableID" field.</summary>
+  public const int CultivationTableIDFieldNumber = 2;
+  private uint cultivationTableID_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public uint CultivationTableID {
+    get { return cultivationTableID_; }
+    set {
+      cultivationTableID_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "Attributes" field.</summary>
+  public const int AttributesFieldNumber = 3;
+  private static readonly pbc::MapField<string, uint>.Codec _map_attributes_codec
+      = new pbc::MapField<string, uint>.Codec(pb::FieldCodec.ForString(10, ""), pb::FieldCodec.ForUInt32(16, 0), 26);
+  private readonly pbc::MapField<string, uint> attributes_ = new pbc::MapField<string, uint>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::MapField<string, uint> Attributes {
+    get { return attributes_; }
+  }
+
   /// <summary>Field number for the "IsNeedSelect" field.</summary>
-  public const int IsNeedSelectFieldNumber = 2;
+  public const int IsNeedSelectFieldNumber = 4;
   private bool isNeedSelect_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2086,15 +2971,15 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
     }
   }
 
-  /// <summary>Field number for the "CurrCultivationList" field.</summary>
-  public const int CurrCultivationListFieldNumber = 3;
-  private static readonly pb::FieldCodec<global::CultivationInfo> _repeated_currCultivationList_codec
-      = pb::FieldCodec.ForMessage(26, global::CultivationInfo.Parser);
-  private readonly pbc::RepeatedField<global::CultivationInfo> currCultivationList_ = new pbc::RepeatedField<global::CultivationInfo>();
+  /// <summary>Field number for the "Skills" field.</summary>
+  public const int SkillsFieldNumber = 5;
+  private static readonly pb::FieldCodec<global::CultivationSkill> _repeated_skills_codec
+      = pb::FieldCodec.ForMessage(42, global::CultivationSkill.Parser);
+  private readonly pbc::RepeatedField<global::CultivationSkill> skills_ = new pbc::RepeatedField<global::CultivationSkill>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::CultivationInfo> CurrCultivationList {
-    get { return currCultivationList_; }
+  public pbc::RepeatedField<global::CultivationSkill> Skills {
+    get { return skills_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2113,8 +2998,10 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
       return true;
     }
     if (CultivationID != other.CultivationID) return false;
+    if (CultivationTableID != other.CultivationTableID) return false;
+    if (!Attributes.Equals(other.Attributes)) return false;
     if (IsNeedSelect != other.IsNeedSelect) return false;
-    if(!currCultivationList_.Equals(other.currCultivationList_)) return false;
+    if(!skills_.Equals(other.skills_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2123,8 +3010,10 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
   public override int GetHashCode() {
     int hash = 1;
     if (CultivationID.Length != 0) hash ^= CultivationID.GetHashCode();
+    if (CultivationTableID != 0) hash ^= CultivationTableID.GetHashCode();
+    hash ^= Attributes.GetHashCode();
     if (IsNeedSelect != false) hash ^= IsNeedSelect.GetHashCode();
-    hash ^= currCultivationList_.GetHashCode();
+    hash ^= skills_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2147,11 +3036,16 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
       output.WriteRawTag(10);
       output.WriteString(CultivationID);
     }
-    if (IsNeedSelect != false) {
+    if (CultivationTableID != 0) {
       output.WriteRawTag(16);
+      output.WriteUInt32(CultivationTableID);
+    }
+    attributes_.WriteTo(output, _map_attributes_codec);
+    if (IsNeedSelect != false) {
+      output.WriteRawTag(32);
       output.WriteBool(IsNeedSelect);
     }
-    currCultivationList_.WriteTo(output, _repeated_currCultivationList_codec);
+    skills_.WriteTo(output, _repeated_skills_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -2166,11 +3060,16 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
       output.WriteRawTag(10);
       output.WriteString(CultivationID);
     }
-    if (IsNeedSelect != false) {
+    if (CultivationTableID != 0) {
       output.WriteRawTag(16);
+      output.WriteUInt32(CultivationTableID);
+    }
+    attributes_.WriteTo(ref output, _map_attributes_codec);
+    if (IsNeedSelect != false) {
+      output.WriteRawTag(32);
       output.WriteBool(IsNeedSelect);
     }
-    currCultivationList_.WriteTo(ref output, _repeated_currCultivationList_codec);
+    skills_.WriteTo(ref output, _repeated_skills_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -2184,10 +3083,14 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
     if (CultivationID.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(CultivationID);
     }
+    if (CultivationTableID != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeUInt32Size(CultivationTableID);
+    }
+    size += attributes_.CalculateSize(_map_attributes_codec);
     if (IsNeedSelect != false) {
       size += 1 + 1;
     }
-    size += currCultivationList_.CalculateSize(_repeated_currCultivationList_codec);
+    size += skills_.CalculateSize(_repeated_skills_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -2203,10 +3106,14 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
     if (other.CultivationID.Length != 0) {
       CultivationID = other.CultivationID;
     }
+    if (other.CultivationTableID != 0) {
+      CultivationTableID = other.CultivationTableID;
+    }
+    attributes_.MergeFrom(other.attributes_);
     if (other.IsNeedSelect != false) {
       IsNeedSelect = other.IsNeedSelect;
     }
-    currCultivationList_.Add(other.currCultivationList_);
+    skills_.Add(other.skills_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -2231,11 +3138,19 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
           break;
         }
         case 16: {
-          IsNeedSelect = input.ReadBool();
+          CultivationTableID = input.ReadUInt32();
           break;
         }
         case 26: {
-          currCultivationList_.AddEntriesFrom(input, _repeated_currCultivationList_codec);
+          attributes_.AddEntriesFrom(input, _map_attributes_codec);
+          break;
+        }
+        case 32: {
+          IsNeedSelect = input.ReadBool();
+          break;
+        }
+        case 42: {
+          skills_.AddEntriesFrom(input, _repeated_skills_codec);
           break;
         }
       }
@@ -2262,11 +3177,19 @@ public sealed partial class CreateCultivationResponse : pb::IMessage<CreateCulti
           break;
         }
         case 16: {
-          IsNeedSelect = input.ReadBool();
+          CultivationTableID = input.ReadUInt32();
           break;
         }
         case 26: {
-          currCultivationList_.AddEntriesFrom(ref input, _repeated_currCultivationList_codec);
+          attributes_.AddEntriesFrom(ref input, _map_attributes_codec);
+          break;
+        }
+        case 32: {
+          IsNeedSelect = input.ReadBool();
+          break;
+        }
+        case 42: {
+          skills_.AddEntriesFrom(ref input, _repeated_skills_codec);
           break;
         }
       }
@@ -2291,7 +3214,7 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public static pbr::MessageDescriptor Descriptor {
-    get { return global::MessageReflection.Descriptor.MessageTypes[9]; }
+    get { return global::MessageReflection.Descriptor.MessageTypes[11]; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2311,6 +3234,8 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public SelectCultivationRequest(SelectCultivationRequest other) : this() {
+    cultivationID_ = other.cultivationID_;
+    skills_ = other.skills_ != null ? other.skills_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -2318,6 +3243,30 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public SelectCultivationRequest Clone() {
     return new SelectCultivationRequest(this);
+  }
+
+  /// <summary>Field number for the "CultivationID" field.</summary>
+  public const int CultivationIDFieldNumber = 1;
+  private string cultivationID_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string CultivationID {
+    get { return cultivationID_; }
+    set {
+      cultivationID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "Skills" field.</summary>
+  public const int SkillsFieldNumber = 2;
+  private global::CultivationSkill skills_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::CultivationSkill Skills {
+    get { return skills_; }
+    set {
+      skills_ = value;
+    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2335,6 +3284,8 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
     if (ReferenceEquals(other, this)) {
       return true;
     }
+    if (CultivationID != other.CultivationID) return false;
+    if (!object.Equals(Skills, other.Skills)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -2342,6 +3293,8 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
+    if (CultivationID.Length != 0) hash ^= CultivationID.GetHashCode();
+    if (skills_ != null) hash ^= Skills.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -2360,6 +3313,14 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
+    if (CultivationID.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(CultivationID);
+    }
+    if (skills_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Skills);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -2370,6 +3331,14 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (CultivationID.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(CultivationID);
+    }
+    if (skills_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(Skills);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -2380,6 +3349,12 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
+    if (CultivationID.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(CultivationID);
+    }
+    if (skills_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Skills);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -2391,6 +3366,15 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
   public void MergeFrom(SelectCultivationRequest other) {
     if (other == null) {
       return;
+    }
+    if (other.CultivationID.Length != 0) {
+      CultivationID = other.CultivationID;
+    }
+    if (other.skills_ != null) {
+      if (skills_ == null) {
+        Skills = new global::CultivationSkill();
+      }
+      Skills.MergeFrom(other.Skills);
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -2411,6 +3395,17 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
+        case 10: {
+          CultivationID = input.ReadString();
+          break;
+        }
+        case 18: {
+          if (skills_ == null) {
+            Skills = new global::CultivationSkill();
+          }
+          input.ReadMessage(Skills);
+          break;
+        }
       }
     }
   #endif
@@ -2430,6 +3425,666 @@ public sealed partial class SelectCultivationRequest : pb::IMessage<SelectCultiv
         default:
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
+        case 10: {
+          CultivationID = input.ReadString();
+          break;
+        }
+        case 18: {
+          if (skills_ == null) {
+            Skills = new global::CultivationSkill();
+          }
+          input.ReadMessage(Skills);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class SelectCultivationResponse : pb::IMessage<SelectCultivationResponse>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<SelectCultivationResponse> _parser = new pb::MessageParser<SelectCultivationResponse>(() => new SelectCultivationResponse());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<SelectCultivationResponse> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessageReflection.Descriptor.MessageTypes[12]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SelectCultivationResponse() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SelectCultivationResponse(SelectCultivationResponse other) : this() {
+    info_ = other.info_ != null ? other.info_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public SelectCultivationResponse Clone() {
+    return new SelectCultivationResponse(this);
+  }
+
+  /// <summary>Field number for the "info" field.</summary>
+  public const int InfoFieldNumber = 1;
+  private global::CultivationInfo info_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::CultivationInfo Info {
+    get { return info_; }
+    set {
+      info_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as SelectCultivationResponse);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(SelectCultivationResponse other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!object.Equals(Info, other.Info)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (info_ != null) hash ^= Info.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (info_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(Info);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (info_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(Info);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (info_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Info);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(SelectCultivationResponse other) {
+    if (other == null) {
+      return;
+    }
+    if (other.info_ != null) {
+      if (info_ == null) {
+        Info = new global::CultivationInfo();
+      }
+      Info.MergeFrom(other.Info);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          if (info_ == null) {
+            Info = new global::CultivationInfo();
+          }
+          input.ReadMessage(Info);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          if (info_ == null) {
+            Info = new global::CultivationInfo();
+          }
+          input.ReadMessage(Info);
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class FusionBBRequest : pb::IMessage<FusionBBRequest>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<FusionBBRequest> _parser = new pb::MessageParser<FusionBBRequest>(() => new FusionBBRequest());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<FusionBBRequest> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessageReflection.Descriptor.MessageTypes[13]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FusionBBRequest() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FusionBBRequest(FusionBBRequest other) : this() {
+    bB0_ = other.bB0_;
+    bB1_ = other.bB1_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FusionBBRequest Clone() {
+    return new FusionBBRequest(this);
+  }
+
+  /// <summary>Field number for the "BB0" field.</summary>
+  public const int BB0FieldNumber = 1;
+  private string bB0_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string BB0 {
+    get { return bB0_; }
+    set {
+      bB0_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "BB1" field.</summary>
+  public const int BB1FieldNumber = 2;
+  private string bB1_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string BB1 {
+    get { return bB1_; }
+    set {
+      bB1_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as FusionBBRequest);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(FusionBBRequest other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (BB0 != other.BB0) return false;
+    if (BB1 != other.BB1) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (BB0.Length != 0) hash ^= BB0.GetHashCode();
+    if (BB1.Length != 0) hash ^= BB1.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (BB0.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(BB0);
+    }
+    if (BB1.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(BB1);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (BB0.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(BB0);
+    }
+    if (BB1.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(BB1);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (BB0.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(BB0);
+    }
+    if (BB1.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(BB1);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(FusionBBRequest other) {
+    if (other == null) {
+      return;
+    }
+    if (other.BB0.Length != 0) {
+      BB0 = other.BB0;
+    }
+    if (other.BB1.Length != 0) {
+      BB1 = other.BB1;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          BB0 = input.ReadString();
+          break;
+        }
+        case 18: {
+          BB1 = input.ReadString();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          BB0 = input.ReadString();
+          break;
+        }
+        case 18: {
+          BB1 = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class FusionBBRespone : pb::IMessage<FusionBBRespone>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<FusionBBRespone> _parser = new pb::MessageParser<FusionBBRespone>(() => new FusionBBRespone());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<FusionBBRespone> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::MessageReflection.Descriptor.MessageTypes[14]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FusionBBRespone() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FusionBBRespone(FusionBBRespone other) : this() {
+    newBB_ = other.newBB_ != null ? other.newBB_.Clone() : null;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FusionBBRespone Clone() {
+    return new FusionBBRespone(this);
+  }
+
+  /// <summary>Field number for the "NewBB" field.</summary>
+  public const int NewBBFieldNumber = 1;
+  private global::BBInfo newBB_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public global::BBInfo NewBB {
+    get { return newBB_; }
+    set {
+      newBB_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as FusionBBRespone);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(FusionBBRespone other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (!object.Equals(NewBB, other.NewBB)) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (newBB_ != null) hash ^= NewBB.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (newBB_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(NewBB);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (newBB_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(NewBB);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (newBB_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(NewBB);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(FusionBBRespone other) {
+    if (other == null) {
+      return;
+    }
+    if (other.newBB_ != null) {
+      if (newBB_ == null) {
+        NewBB = new global::BBInfo();
+      }
+      NewBB.MergeFrom(other.NewBB);
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          if (newBB_ == null) {
+            NewBB = new global::BBInfo();
+          }
+          input.ReadMessage(NewBB);
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          if (newBB_ == null) {
+            NewBB = new global::BBInfo();
+          }
+          input.ReadMessage(NewBB);
+          break;
+        }
       }
     }
   }
