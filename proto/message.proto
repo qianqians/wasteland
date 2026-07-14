@@ -52,11 +52,11 @@ message CultivationSkill {
 message CultivationInfo {
   string CultivationID = 1;
   uint32 CultivationTableID = 2;
-  uint64 XP = 3;
-  CultivationSkill Skills = 4;
-  map<string, uint32> Attributes = 5;
-  string Description = 6;
-  ERarity Rarity = 7;
+  ERarity Rarity = 3;
+  uint64 XP = 4;
+  string Description = 5;
+  CultivationSkill Skills = 6;
+  map<string, uint32> Attributes = 7;
 }
 
 message ItemInfo {
@@ -69,7 +69,7 @@ message BBInfo {
   uint32 BBTableID = 2;
   ERarity Rarity = 3;
   float Growth = 4;
-  CultivationSkill Skills = 5;
+  repeated uint32 Skills = 5;
   map<string, uint32> Attributes = 6;
 }
 

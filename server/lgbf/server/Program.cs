@@ -41,7 +41,6 @@ namespace wasteland
                 {
                     throw new EndOfStreamException("file read at" + read.ToString() + " failed");
                 }
-
                 remaining -= read;
                 offset += read;
             }

@@ -305,7 +305,7 @@ export interface BBInfo {
   BBTableID: number;
   Rarity: ERarity;
   Growth: number;
-  Skills: CultivationSkill | undefined;
+  Skills: number[];
   Attributes: { [key: string]: number };
 }
 
@@ -969,7 +969,7 @@ export const ItemInfo: MessageFns<ItemInfo> = {
 };
 
 function createBaseBBInfo(): BBInfo {
-  return { BBID: "", BBTableID: 0, Rarity: 0, Growth: 0, Skills: undefined, Attributes: {} };
+  return { BBID: "", BBTableID: 0, Rarity: 0, Growth: 0, Skills: [], Attributes: {} };
 }
 
 export const BBInfo: MessageFns<BBInfo> = {
@@ -986,9 +986,11 @@ export const BBInfo: MessageFns<BBInfo> = {
     if (message.Growth !== 0) {
       writer.uint32(37).float(message.Growth);
     }
-    if (message.Skills !== undefined) {
-      CultivationSkill.encode(message.Skills, writer.uint32(42).fork()).join();
+    writer.uint32(42).fork();
+    for (const v of message.Skills) {
+      writer.uint32(v);
     }
+    writer.join();
     globalThis.Object.entries(message.Attributes).forEach(([key, value]: [string, number]) => {
       BBInfo_AttributesEntry.encode({ key: key as any, value }, writer.uint32(50).fork()).join();
     });
@@ -1035,12 +1037,22 @@ export const BBInfo: MessageFns<BBInfo> = {
           continue;
         }
         case 5: {
-          if (tag !== 42) {
-            break;
+          if (tag === 40) {
+            message.Skills.push(reader.uint32());
+
+            continue;
           }
 
-          message.Skills = CultivationSkill.decode(reader, reader.uint32());
-          continue;
+          if (tag === 42) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.Skills.push(reader.uint32());
+            }
+
+            continue;
+          }
+
+          break;
         }
         case 6: {
           if (tag !== 50) {
@@ -1068,7 +1080,7 @@ export const BBInfo: MessageFns<BBInfo> = {
       BBTableID: isSet(object.BBTableID) ? globalThis.Number(object.BBTableID) : 0,
       Rarity: isSet(object.Rarity) ? eRarityFromJSON(object.Rarity) : 0,
       Growth: isSet(object.Growth) ? globalThis.Number(object.Growth) : 0,
-      Skills: isSet(object.Skills) ? CultivationSkill.fromJSON(object.Skills) : undefined,
+      Skills: globalThis.Array.isArray(object?.Skills) ? object.Skills.map((e: any) => globalThis.Number(e)) : [],
       Attributes: isObject(object.Attributes)
         ? (globalThis.Object.entries(object.Attributes) as [string, any][]).reduce(
           (acc: { [key: string]: number }, [key, value]: [string, any]) => {
@@ -1095,8 +1107,8 @@ export const BBInfo: MessageFns<BBInfo> = {
     if (message.Growth !== 0) {
       obj.Growth = message.Growth;
     }
-    if (message.Skills !== undefined) {
-      obj.Skills = CultivationSkill.toJSON(message.Skills);
+    if (message.Skills?.length) {
+      obj.Skills = message.Skills.map((e) => Math.round(e));
     }
     if (message.Attributes) {
       const entries = globalThis.Object.entries(message.Attributes) as [string, number][];
@@ -1119,9 +1131,7 @@ export const BBInfo: MessageFns<BBInfo> = {
     message.BBTableID = object.BBTableID ?? 0;
     message.Rarity = object.Rarity ?? 0;
     message.Growth = object.Growth ?? 0;
-    message.Skills = (object.Skills !== undefined && object.Skills !== null)
-      ? CultivationSkill.fromPartial(object.Skills)
-      : undefined;
+    message.Skills = object.Skills?.map((e) => e) || [];
     message.Attributes = (globalThis.Object.entries(object.Attributes ?? {}) as [string, number][]).reduce(
       (acc: { [key: string]: number }, [key, value]: [string, number]) => {
         if (value !== undefined) {

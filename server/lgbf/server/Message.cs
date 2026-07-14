@@ -33,46 +33,46 @@ public static partial class MessageReflection {
           "EhMKC0Rlc2NyaXB0aW9uGAYgASgJEhgKBlJhcml0eRgHIAEoDjIILkVSYXJp",
           "dHkaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgC",
           "IAEoDToCOAEiJQoISXRlbUluZm8SCgoCSUQYASABKA0SDQoFY291bnQYAiAB",
-          "KA0i1gEKBkJCSW5mbxIMCgRCQklEGAEgASgJEhEKCUJCVGFibGVJRBgCIAEo",
-          "DRIYCgZSYXJpdHkYAyABKA4yCC5FUmFyaXR5Eg4KBkdyb3d0aBgEIAEoAhIh",
-          "CgZTa2lsbHMYBSABKAsyES5DdWx0aXZhdGlvblNraWxsEisKCkF0dHJpYnV0",
-          "ZXMYBiADKAsyFy5CQkluZm8uQXR0cmlidXRlc0VudHJ5GjEKD0F0dHJpYnV0",
-          "ZXNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKA06AjgBIjUKA0Jh",
-          "ZxIYCgVpdGVtcxgBIAMoCzIJLkl0ZW1JbmZvEhQKA0JCcxgCIAMoCzIHLkJC",
-          "SW5mbyLqAgoOUGxheWVyRGF0YUluZm8SKQoPQ3VyckN1bHRpdmF0aW9uGAEg",
-          "ASgLMhAuQ3VsdGl2YXRpb25JbmZvEi0KE0N1cnJDdWx0aXZhdGlvbkxpc3QY",
-          "AiADKAsyEC5DdWx0aXZhdGlvbkluZm8SFQoHQmFnSW5mbxgDIAEoCzIELkJh",
-          "ZxIxCglFcXVpcEluZm8YBCADKAsyHi5QbGF5ZXJEYXRhSW5mby5FcXVpcElu",
-          "Zm9FbnRyeRIzCgpBdHRyaWJ1dGVzGAUgAygLMh8uUGxheWVyRGF0YUluZm8u",
-          "QXR0cmlidXRlc0VudHJ5EhoKCUJhdHRsZUJCcxgGIAMoCzIHLkJCSW5mbxow",
-          "Cg5FcXVpcEluZm9FbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKA06",
-          "AjgBGjEKD0F0dHJpYnV0ZXNFbnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUY",
-          "AiABKA06AjgBIjsKHUxlYXJuT3JHZWFyQ3VsdGl2YXRpb25SZXF1ZXN0EhoK",
-          "EkN1bHRpdmF0aW9uVGFibGVJRBgBIAEoDSJACh5MZWFybk9yR2VhckN1bHRp",
-          "dmF0aW9uUmVzcG9uc2USHgoEaW5mbxgBIAEoCzIQLkN1bHRpdmF0aW9uSW5m",
-          "byJfChhDcmVhdGVDdWx0aXZhdGlvblJlcXVlc3QSFgoOQ3VsdGl2YXRpb25J",
-          "RDAYASABKAkSFgoOQ3VsdGl2YXRpb25JRDEYAiABKAkSEwoLRGVzY3JpcHRp",
-          "b24YAyABKAki+gEKGUNyZWF0ZUN1bHRpdmF0aW9uUmVzcG9uc2USFQoNQ3Vs",
-          "dGl2YXRpb25JRBgBIAEoCRIaChJDdWx0aXZhdGlvblRhYmxlSUQYAiABKA0S",
-          "PgoKQXR0cmlidXRlcxgDIAMoCzIqLkNyZWF0ZUN1bHRpdmF0aW9uUmVzcG9u",
-          "c2UuQXR0cmlidXRlc0VudHJ5EhQKDElzTmVlZFNlbGVjdBgEIAEoCBIhCgZT",
-          "a2lsbHMYBSADKAsyES5DdWx0aXZhdGlvblNraWxsGjEKD0F0dHJpYnV0ZXNF",
-          "bnRyeRILCgNrZXkYASABKAkSDQoFdmFsdWUYAiABKA06AjgBIlQKGFNlbGVj",
-          "dEN1bHRpdmF0aW9uUmVxdWVzdBIVCg1DdWx0aXZhdGlvbklEGAEgASgJEiEK",
-          "BlNraWxscxgCIAEoCzIRLkN1bHRpdmF0aW9uU2tpbGwiOwoZU2VsZWN0Q3Vs",
-          "dGl2YXRpb25SZXNwb25zZRIeCgRpbmZvGAEgASgLMhAuQ3VsdGl2YXRpb25J",
-          "bmZvIisKD0Z1c2lvbkJCUmVxdWVzdBILCgNCQjAYASABKAkSCwoDQkIxGAIg",
-          "ASgJIikKD0Z1c2lvbkJCUmVzcG9uZRIWCgVOZXdCQhgBIAEoCzIHLkJCSW5m",
-          "bypSCglFUGxhdGZvcm0SEQoNRVBsYXRmb3JtTm9uZRAAEg8KC0VQbGF0Zm9y",
-          "bVdYEAESEAoMRVBsYXRmb3JtVGFwEAISDwoLRVBsYXRmb3JtRHkQAyq8AQoK",
-          "RUF0dHJpYnV0ZRISCg5FQXR0cmlidXRlTm9uZRAAEg0KCUVTdHJlbmd0aBAB",
-          "EgwKCEVBZ2lsaXR5EAISEQoNRUludGVsbGlnZW5jZRADEgYKAkhQEAQSBgoC",
-          "TVAQBRITCg9FUGh5c2ljYWxBdHRhY2sQBhIUChBFUGh5c2ljYWxEZWZlbnNl",
-          "EAcSEAoMRU1hZ2ljQXR0YWNrEAgSEQoNRU1hZ2ljRGVmZW5zZRAJEgoKBkVT",
-          "cGVlZBAKKk0KB0VSYXJpdHkSDwoLRVJhcml0eU5vbmUQABILCgdFQ29tbW9u",
-          "EAESCQoFRVJhcmUQAhIJCgVFRXBpYxADEg4KCkVMZWdlbmRhcnkQBCpUCgZF",
-          "RXF1aXASDgoKRUVxdWlwTm9uZRAAEgsKB0VIZWxtZXQQARIKCgZFQ2hlc3QQ",
-          "AhIJCgVFTGVncxADEgkKBUVGZWV0EAQSCwoHRVdlYXBvbhAFYgZwcm90bzM="));
+          "KA0iwwEKBkJCSW5mbxIMCgRCQklEGAEgASgJEhEKCUJCVGFibGVJRBgCIAEo",
+          "DRIYCgZSYXJpdHkYAyABKA4yCC5FUmFyaXR5Eg4KBkdyb3d0aBgEIAEoAhIO",
+          "CgZTa2lsbHMYBSADKA0SKwoKQXR0cmlidXRlcxgGIAMoCzIXLkJCSW5mby5B",
+          "dHRyaWJ1dGVzRW50cnkaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEo",
+          "CRINCgV2YWx1ZRgCIAEoDToCOAEiNQoDQmFnEhgKBWl0ZW1zGAEgAygLMgku",
+          "SXRlbUluZm8SFAoDQkJzGAIgAygLMgcuQkJJbmZvIuoCCg5QbGF5ZXJEYXRh",
+          "SW5mbxIpCg9DdXJyQ3VsdGl2YXRpb24YASABKAsyEC5DdWx0aXZhdGlvbklu",
+          "Zm8SLQoTQ3VyckN1bHRpdmF0aW9uTGlzdBgCIAMoCzIQLkN1bHRpdmF0aW9u",
+          "SW5mbxIVCgdCYWdJbmZvGAMgASgLMgQuQmFnEjEKCUVxdWlwSW5mbxgEIAMo",
+          "CzIeLlBsYXllckRhdGFJbmZvLkVxdWlwSW5mb0VudHJ5EjMKCkF0dHJpYnV0",
+          "ZXMYBSADKAsyHy5QbGF5ZXJEYXRhSW5mby5BdHRyaWJ1dGVzRW50cnkSGgoJ",
+          "QmF0dGxlQkJzGAYgAygLMgcuQkJJbmZvGjAKDkVxdWlwSW5mb0VudHJ5EgsK",
+          "A2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDToCOAEaMQoPQXR0cmlidXRlc0Vu",
+          "dHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoDToCOAEiOwodTGVhcm5P",
+          "ckdlYXJDdWx0aXZhdGlvblJlcXVlc3QSGgoSQ3VsdGl2YXRpb25UYWJsZUlE",
+          "GAEgASgNIkAKHkxlYXJuT3JHZWFyQ3VsdGl2YXRpb25SZXNwb25zZRIeCgRp",
+          "bmZvGAEgASgLMhAuQ3VsdGl2YXRpb25JbmZvIl8KGENyZWF0ZUN1bHRpdmF0",
+          "aW9uUmVxdWVzdBIWCg5DdWx0aXZhdGlvbklEMBgBIAEoCRIWCg5DdWx0aXZh",
+          "dGlvbklEMRgCIAEoCRITCgtEZXNjcmlwdGlvbhgDIAEoCSL6AQoZQ3JlYXRl",
+          "Q3VsdGl2YXRpb25SZXNwb25zZRIVCg1DdWx0aXZhdGlvbklEGAEgASgJEhoK",
+          "EkN1bHRpdmF0aW9uVGFibGVJRBgCIAEoDRI+CgpBdHRyaWJ1dGVzGAMgAygL",
+          "MiouQ3JlYXRlQ3VsdGl2YXRpb25SZXNwb25zZS5BdHRyaWJ1dGVzRW50cnkS",
+          "FAoMSXNOZWVkU2VsZWN0GAQgASgIEiEKBlNraWxscxgFIAMoCzIRLkN1bHRp",
+          "dmF0aW9uU2tpbGwaMQoPQXR0cmlidXRlc0VudHJ5EgsKA2tleRgBIAEoCRIN",
+          "CgV2YWx1ZRgCIAEoDToCOAEiVAoYU2VsZWN0Q3VsdGl2YXRpb25SZXF1ZXN0",
+          "EhUKDUN1bHRpdmF0aW9uSUQYASABKAkSIQoGU2tpbGxzGAIgASgLMhEuQ3Vs",
+          "dGl2YXRpb25Ta2lsbCI7ChlTZWxlY3RDdWx0aXZhdGlvblJlc3BvbnNlEh4K",
+          "BGluZm8YASABKAsyEC5DdWx0aXZhdGlvbkluZm8iKwoPRnVzaW9uQkJSZXF1",
+          "ZXN0EgsKA0JCMBgBIAEoCRILCgNCQjEYAiABKAkiKQoPRnVzaW9uQkJSZXNw",
+          "b25lEhYKBU5ld0JCGAEgASgLMgcuQkJJbmZvKlIKCUVQbGF0Zm9ybRIRCg1F",
+          "UGxhdGZvcm1Ob25lEAASDwoLRVBsYXRmb3JtV1gQARIQCgxFUGxhdGZvcm1U",
+          "YXAQAhIPCgtFUGxhdGZvcm1EeRADKrwBCgpFQXR0cmlidXRlEhIKDkVBdHRy",
+          "aWJ1dGVOb25lEAASDQoJRVN0cmVuZ3RoEAESDAoIRUFnaWxpdHkQAhIRCg1F",
+          "SW50ZWxsaWdlbmNlEAMSBgoCSFAQBBIGCgJNUBAFEhMKD0VQaHlzaWNhbEF0",
+          "dGFjaxAGEhQKEEVQaHlzaWNhbERlZmVuc2UQBxIQCgxFTWFnaWNBdHRhY2sQ",
+          "CBIRCg1FTWFnaWNEZWZlbnNlEAkSCgoGRVNwZWVkEAoqTQoHRVJhcml0eRIP",
+          "CgtFUmFyaXR5Tm9uZRAAEgsKB0VDb21tb24QARIJCgVFUmFyZRACEgkKBUVF",
+          "cGljEAMSDgoKRUxlZ2VuZGFyeRAEKlQKBkVFcXVpcBIOCgpFRXF1aXBOb25l",
+          "EAASCwoHRUhlbG1ldBABEgoKBkVDaGVzdBACEgkKBUVMZWdzEAMSCQoFRUZl",
+          "ZXQQBBILCgdFV2VhcG9uEAViBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(new[] {typeof(global::EPlatform), typeof(global::EAttribute), typeof(global::ERarity), typeof(global::EEquip), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -1541,7 +1541,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
     bBTableID_ = other.bBTableID_;
     rarity_ = other.rarity_;
     growth_ = other.growth_;
-    skills_ = other.skills_ != null ? other.skills_.Clone() : null;
+    skills_ = other.skills_.Clone();
     attributes_ = other.attributes_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
@@ -1602,14 +1602,13 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
 
   /// <summary>Field number for the "Skills" field.</summary>
   public const int SkillsFieldNumber = 5;
-  private global::CultivationSkill skills_;
+  private static readonly pb::FieldCodec<uint> _repeated_skills_codec
+      = pb::FieldCodec.ForUInt32(42);
+  private readonly pbc::RepeatedField<uint> skills_ = new pbc::RepeatedField<uint>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public global::CultivationSkill Skills {
+  public pbc::RepeatedField<uint> Skills {
     get { return skills_; }
-    set {
-      skills_ = value;
-    }
   }
 
   /// <summary>Field number for the "Attributes" field.</summary>
@@ -1642,7 +1641,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
     if (BBTableID != other.BBTableID) return false;
     if (Rarity != other.Rarity) return false;
     if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Growth, other.Growth)) return false;
-    if (!object.Equals(Skills, other.Skills)) return false;
+    if(!skills_.Equals(other.skills_)) return false;
     if (!Attributes.Equals(other.Attributes)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
@@ -1655,7 +1654,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
     if (BBTableID != 0) hash ^= BBTableID.GetHashCode();
     if (Rarity != global::ERarity.None) hash ^= Rarity.GetHashCode();
     if (Growth != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Growth);
-    if (skills_ != null) hash ^= Skills.GetHashCode();
+    hash ^= skills_.GetHashCode();
     hash ^= Attributes.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
@@ -1691,10 +1690,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
       output.WriteRawTag(37);
       output.WriteFloat(Growth);
     }
-    if (skills_ != null) {
-      output.WriteRawTag(42);
-      output.WriteMessage(Skills);
-    }
+    skills_.WriteTo(output, _repeated_skills_codec);
     attributes_.WriteTo(output, _map_attributes_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
@@ -1722,10 +1718,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
       output.WriteRawTag(37);
       output.WriteFloat(Growth);
     }
-    if (skills_ != null) {
-      output.WriteRawTag(42);
-      output.WriteMessage(Skills);
-    }
+    skills_.WriteTo(ref output, _repeated_skills_codec);
     attributes_.WriteTo(ref output, _map_attributes_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
@@ -1749,9 +1742,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
     if (Growth != 0F) {
       size += 1 + 4;
     }
-    if (skills_ != null) {
-      size += 1 + pb::CodedOutputStream.ComputeMessageSize(Skills);
-    }
+    size += skills_.CalculateSize(_repeated_skills_codec);
     size += attributes_.CalculateSize(_map_attributes_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1777,12 +1768,7 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
     if (other.Growth != 0F) {
       Growth = other.Growth;
     }
-    if (other.skills_ != null) {
-      if (skills_ == null) {
-        Skills = new global::CultivationSkill();
-      }
-      Skills.MergeFrom(other.Skills);
-    }
+    skills_.Add(other.skills_);
     attributes_.MergeFrom(other.attributes_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -1819,11 +1805,9 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
           Growth = input.ReadFloat();
           break;
         }
-        case 42: {
-          if (skills_ == null) {
-            Skills = new global::CultivationSkill();
-          }
-          input.ReadMessage(Skills);
+        case 42:
+        case 40: {
+          skills_.AddEntriesFrom(input, _repeated_skills_codec);
           break;
         }
         case 50: {
@@ -1865,11 +1849,9 @@ public sealed partial class BBInfo : pb::IMessage<BBInfo>
           Growth = input.ReadFloat();
           break;
         }
-        case 42: {
-          if (skills_ == null) {
-            Skills = new global::CultivationSkill();
-          }
-          input.ReadMessage(Skills);
+        case 42:
+        case 40: {
+          skills_.AddEntriesFrom(ref input, _repeated_skills_codec);
           break;
         }
         case 50: {
