@@ -137,3 +137,11 @@ message FusionBBRequest {
 message FusionBBRespone {
   BBInfo NewBB = 1;
 }
+
+message CompleteTaskRequest {
+  uint32 TaskID = 1;
+}
+
+message CompleteTaskResponse {
+  PlayerDataInfo info = 1;
+}
