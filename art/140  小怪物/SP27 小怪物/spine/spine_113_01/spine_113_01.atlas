@@ -1,0 +1,69 @@
+
+spine_113_01.png
+size: 139,133
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: false
+  xy: 2, 65
+  size: 99, 66
+  orig: 99, 66
+  offset: 0, 0
+  index: -1
+2
+  rotate: true
+  xy: 103, 51
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 92, 17
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+4
+  rotate: true
+  xy: 70, 4
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: -1
+5
+  rotate: true
+  xy: 103, 85
+  size: 46, 22
+  orig: 46, 22
+  offset: 0, 0
+  index: -1
+6
+  rotate: true
+  xy: 70, 17
+  size: 46, 20
+  orig: 46, 20
+  offset: 0, 0
+  index: -1
+7
+  rotate: true
+  xy: 127, 89
+  size: 42, 6
+  orig: 42, 6
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 2, 2
+  size: 66, 61
+  orig: 66, 61
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 125, 17
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

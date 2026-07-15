@@ -1,0 +1,62 @@
+
+CKJM.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A/chouka_jinbi_changjing_2
+  rotate: false
+  xy: 2, 192
+  size: 407, 313
+  orig: 407, 313
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_3
+  rotate: false
+  xy: 411, 34
+  size: 304, 235
+  orig: 304, 235
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_8
+  rotate: false
+  xy: 132, 91
+  size: 102, 99
+  orig: 102, 99
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_9
+  rotate: false
+  xy: 2, 2
+  size: 74, 58
+  orig: 74, 58
+  offset: 0, 0
+  index: -1
+A/glo_042_c #227005035
+  rotate: false
+  xy: 2, 62
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+A/glo_063_c #227001752
+  rotate: false
+  xy: 804, 377
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_2
+  rotate: false
+  xy: 411, 271
+  size: 391, 234
+  orig: 391, 234
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_3
+  rotate: false
+  xy: 717, 34
+  size: 304, 235
+  orig: 304, 235
+  offset: 0, 0
+  index: -1

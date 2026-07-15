@@ -1,0 +1,118 @@
+
+spine_157_02.png
+size: 355,108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bizi
+  rotate: false
+  xy: 336, 100
+  size: 13, 6
+  orig: 13, 6
+  offset: 0, 0
+  index: -1
+erduo1
+  rotate: true
+  xy: 302, 48
+  size: 41, 29
+  orig: 41, 29
+  offset: 0, 0
+  index: -1
+erduo2
+  rotate: true
+  xy: 302, 20
+  size: 26, 33
+  orig: 26, 33
+  offset: 0, 0
+  index: -1
+eyeb
+  rotate: false
+  xy: 229, 87
+  size: 61, 19
+  orig: 61, 19
+  offset: 0, 0
+  index: -1
+eyeg
+  rotate: false
+  xy: 204, 2
+  size: 56, 15
+  orig: 56, 15
+  offset: 0, 0
+  index: -1
+pd1
+  rotate: false
+  xy: 204, 19
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+pd2
+  rotate: false
+  xy: 257, 40
+  size: 43, 45
+  orig: 43, 45
+  offset: 0, 0
+  index: -1
+s1
+  rotate: true
+  xy: 333, 48
+  size: 41, 20
+  orig: 41, 20
+  offset: 0, 0
+  index: -1
+s2
+  rotate: false
+  xy: 262, 18
+  size: 29, 20
+  orig: 29, 20
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 292, 91
+  size: 42, 15
+  orig: 42, 15
+  offset: 0, 0
+  index: -1
+st
+  rotate: true
+  xy: 109, 9
+  size: 65, 43
+  orig: 65, 43
+  offset: 0, 0
+  index: -1
+t
+  rotate: false
+  xy: 2, 2
+  size: 105, 72
+  orig: 105, 72
+  offset: 0, 0
+  index: -1
+tf
+  rotate: false
+  xy: 154, 15
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: -1
+tui
+  rotate: false
+  xy: 150, 81
+  size: 77, 25
+  orig: 77, 25
+  offset: 0, 0
+  index: -1
+zuig
+  rotate: true
+  xy: 293, 27
+  size: 11, 7
+  orig: 11, 7
+  offset: 0, 0
+  index: -1
+zz
+  rotate: false
+  xy: 2, 76
+  size: 146, 30
+  orig: 146, 30
+  offset: 0, 0
+  index: -1

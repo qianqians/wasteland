@@ -1,0 +1,251 @@
+
+spine_118_02.png
+size: 372,139
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: false
+  xy: 60, 7
+  size: 45, 26
+  orig: 45, 26
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 2, 26
+  size: 111, 48
+  orig: 111, 48
+  offset: 0, 0
+  index: -1
+03
+  rotate: true
+  xy: 150, 8
+  size: 43, 39
+  orig: 43, 39
+  offset: 0, 0
+  index: -1
+04
+  rotate: false
+  xy: 150, 53
+  size: 70, 84
+  orig: 70, 84
+  offset: 0, 0
+  index: -1
+04a
+  rotate: false
+  xy: 356, 120
+  size: 14, 17
+  orig: 14, 17
+  offset: 0, 0
+  index: -1
+05
+  rotate: true
+  xy: 191, 12
+  size: 39, 27
+  orig: 39, 27
+  offset: 0, 0
+  index: -1
+06
+  rotate: true
+  xy: 107, 10
+  size: 23, 41
+  orig: 23, 41
+  offset: 0, 0
+  index: -1
+09
+  rotate: true
+  xy: 320, 14
+  size: 28, 16
+  orig: 28, 16
+  offset: 0, 0
+  index: -1
+10
+  rotate: true
+  xy: 222, 59
+  size: 11, 10
+  orig: 11, 10
+  offset: 0, 0
+  index: -1
+11
+  rotate: false
+  xy: 320, 2
+  size: 12, 10
+  orig: 12, 10
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 351, 53
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 220, 5
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 2, 2
+  size: 56, 22
+  orig: 56, 22
+  offset: 0, 0
+  index: -1
+15
+  rotate: false
+  xy: 52, 35
+  size: 96, 102
+  orig: 96, 102
+  offset: 0, 0
+  index: -1
+16
+  rotate: false
+  xy: 222, 72
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+17
+  rotate: false
+  xy: 312, 80
+  size: 20, 27
+  orig: 20, 27
+  offset: 0, 0
+  index: -1
+19
+  rotate: false
+  xy: 338, 6
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+20
+  rotate: false
+  xy: 313, 113
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+a/x01
+  rotate: false
+  xy: 339, 126
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+a/x02
+  rotate: true
+  xy: 351, 66
+  size: 20, 15
+  orig: 20, 15
+  offset: 0, 0
+  index: -1
+a/x03
+  rotate: true
+  xy: 334, 88
+  size: 23, 20
+  orig: 23, 20
+  offset: 0, 0
+  index: -1
+a/x04
+  rotate: false
+  xy: 338, 26
+  size: 26, 23
+  orig: 26, 23
+  offset: 0, 0
+  index: -1
+a/x05
+  rotate: true
+  xy: 325, 51
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+a/x06
+  rotate: true
+  xy: 294, 9
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+a/x07
+  rotate: true
+  xy: 285, 109
+  size: 28, 26
+  orig: 28, 26
+  offset: 0, 0
+  index: -1
+a/x08
+  rotate: true
+  xy: 234, 7
+  size: 30, 27
+  orig: 30, 27
+  offset: 0, 0
+  index: -1
+a/x09
+  rotate: false
+  xy: 282, 75
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+a/x10
+  rotate: true
+  xy: 263, 7
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+a/x11
+  rotate: false
+  xy: 234, 39
+  size: 30, 31
+  orig: 30, 31
+  offset: 0, 0
+  index: -1
+a/x12
+  rotate: false
+  xy: 250, 72
+  size: 30, 31
+  orig: 30, 31
+  offset: 0, 0
+  index: -1
+a/x13
+  rotate: false
+  xy: 254, 106
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+a/x14
+  rotate: false
+  xy: 222, 105
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+a/x15
+  rotate: true
+  xy: 266, 40
+  size: 30, 27
+  orig: 30, 27
+  offset: 0, 0
+  index: -1
+a/x16
+  rotate: true
+  xy: 295, 44
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 220, 19
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,48 @@
+
+spine_104_01.png
+size: 173,138
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+du
+  rotate: false
+  xy: 2, 2
+  size: 71, 38
+  orig: 71, 38
+  offset: 0, 0
+  index: -1
+du2
+  rotate: true
+  xy: 75, 12
+  size: 28, 47
+  orig: 28, 47
+  offset: 0, 0
+  index: -1
+du3
+  rotate: true
+  xy: 2, 42
+  size: 94, 71
+  orig: 94, 71
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 124, 16
+  size: 47, 24
+  orig: 47, 24
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 124, 2
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 75, 42
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1

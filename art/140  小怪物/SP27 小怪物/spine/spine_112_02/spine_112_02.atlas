@@ -1,0 +1,90 @@
+
+spine_112_02.png
+size: 295,119
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: false
+  xy: 2, 7
+  size: 105, 110
+  orig: 105, 110
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 211, 13
+  size: 40, 33
+  orig: 40, 33
+  offset: 0, 0
+  index: -1
+11
+  rotate: true
+  xy: 109, 6
+  size: 41, 57
+  orig: 41, 57
+  offset: 0, 0
+  index: -1
+2
+  rotate: true
+  xy: 263, 32
+  size: 33, 25
+  orig: 33, 25
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 253, 2
+  size: 22, 14
+  orig: 22, 14
+  offset: 0, 0
+  index: -1
+4
+  rotate: true
+  xy: 277, 7
+  size: 9, 16
+  orig: 9, 16
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 287, 25
+  size: 6, 5
+  orig: 6, 5
+  offset: 0, 0
+  index: -1
+6
+  rotate: true
+  xy: 168, 11
+  size: 35, 41
+  orig: 35, 41
+  offset: 0, 0
+  index: -1
+7
+  rotate: true
+  xy: 263, 67
+  size: 50, 30
+  orig: 50, 30
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 189, 48
+  size: 72, 69
+  orig: 72, 69
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 109, 49
+  size: 78, 68
+  orig: 78, 68
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 253, 18
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

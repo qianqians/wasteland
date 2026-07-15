@@ -1,0 +1,76 @@
+
+spine_151_01.png
+size: 153,108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bz
+  rotate: false
+  xy: 115, 2
+  size: 4, 2
+  orig: 4, 2
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 115, 23
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: false
+  xy: 115, 6
+  size: 13, 15
+  orig: 13, 15
+  offset: 0, 0
+  index: -1
+eyeb1
+  rotate: false
+  xy: 131, 31
+  size: 15, 7
+  orig: 15, 7
+  offset: 0, 0
+  index: -1
+eyeb2
+  rotate: true
+  xy: 145, 4
+  size: 12, 6
+  orig: 12, 6
+  offset: 0, 0
+  index: -1
+eyeg1
+  rotate: false
+  xy: 131, 18
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+eyeg2
+  rotate: true
+  xy: 130, 4
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1
+lian
+  rotate: true
+  xy: 115, 54
+  size: 52, 36
+  orig: 52, 36
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 115, 40
+  size: 34, 12
+  orig: 34, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 2, 5
+  size: 111, 101
+  orig: 111, 101
+  offset: 0, 0
+  index: -1

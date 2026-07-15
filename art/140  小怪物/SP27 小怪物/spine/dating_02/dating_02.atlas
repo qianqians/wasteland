@@ -1,0 +1,62 @@
+
+dating_02.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+glo_063_c #227001752
+  rotate: false
+  xy: 2, 126
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+nat_061_z
+  rotate: false
+  xy: 144, 167
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+zhizhu01
+  rotate: false
+  xy: 2, 35
+  size: 105, 89
+  orig: 105, 89
+  offset: 0, 0
+  index: -1
+zhizhu02
+  rotate: false
+  xy: 109, 102
+  size: 11, 22
+  orig: 11, 22
+  offset: 0, 0
+  index: -1
+zhizhu03
+  rotate: false
+  xy: 144, 201
+  size: 65, 53
+  orig: 65, 53
+  offset: 0, 0
+  index: -1
+zhizhu04
+  rotate: false
+  xy: 72, 14
+  size: 9, 19
+  orig: 9, 19
+  offset: 0, 0
+  index: -1
+zhizhu05
+  rotate: false
+  xy: 132, 28
+  size: 10, 226
+  orig: 10, 226
+  offset: 0, 0
+  index: -1
+zhizhu06
+  rotate: false
+  xy: 2, 2
+  size: 68, 31
+  orig: 68, 31
+  offset: 0, 0
+  index: -1

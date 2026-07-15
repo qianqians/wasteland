@@ -1,0 +1,69 @@
+
+spine_105_01.png
+size: 172,108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bing1
+  rotate: false
+  xy: 135, 58
+  size: 27, 16
+  orig: 27, 16
+  offset: 0, 0
+  index: -1
+bing2
+  rotate: true
+  xy: 147, 76
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+bing3
+  rotate: false
+  xy: 98, 42
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+bing4
+  rotate: false
+  xy: 98, 2
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+bing5
+  rotate: false
+  xy: 129, 2
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 98, 82
+  size: 47, 24
+  orig: 47, 24
+  offset: 0, 0
+  index: -1
+g
+  rotate: true
+  xy: 135, 36
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 98, 28
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 2, 12
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1

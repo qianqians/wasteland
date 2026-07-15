@@ -1,0 +1,55 @@
+
+spine_116_01.png
+size: 190,77
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: true
+  xy: 95, 14
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 2, 7
+  size: 36, 10
+  orig: 36, 10
+  offset: 0, 0
+  index: -1
+3
+  rotate: true
+  xy: 129, 16
+  size: 27, 32
+  orig: 27, 32
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 95, 45
+  size: 85, 30
+  orig: 85, 30
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 2, 19
+  size: 91, 56
+  orig: 91, 56
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 163, 12
+  size: 25, 31
+  orig: 25, 31
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 129, 2
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

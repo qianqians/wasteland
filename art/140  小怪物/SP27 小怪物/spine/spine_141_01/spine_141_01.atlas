@@ -1,0 +1,83 @@
+
+spine_141_01.png
+size: 237,92
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cb1
+  rotate: false
+  xy: 89, 19
+  size: 46, 71
+  orig: 46, 71
+  offset: 0, 0
+  index: -1
+cb2
+  rotate: false
+  xy: 137, 21
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 201, 40
+  size: 50, 21
+  orig: 50, 21
+  offset: 0, 0
+  index: -1
+eyeB
+  rotate: false
+  xy: 2, 3
+  size: 49, 11
+  orig: 49, 11
+  offset: 0, 0
+  index: -1
+eyeG
+  rotate: false
+  xy: 137, 2
+  size: 49, 17
+  orig: 49, 17
+  offset: 0, 0
+  index: -1
+mm
+  rotate: true
+  xy: 224, 62
+  size: 28, 11
+  orig: 28, 11
+  offset: 0, 0
+  index: -1
+s1
+  rotate: false
+  xy: 86, 2
+  size: 21, 12
+  orig: 21, 12
+  offset: 0, 0
+  index: -1
+s2
+  rotate: false
+  xy: 109, 2
+  size: 21, 15
+  orig: 21, 15
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 53, 3
+  size: 31, 11
+  orig: 31, 11
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 201, 7
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+t
+  rotate: false
+  xy: 2, 16
+  size: 85, 74
+  orig: 85, 74
+  offset: 0, 0
+  index: -1

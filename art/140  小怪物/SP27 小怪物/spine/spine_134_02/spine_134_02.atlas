@@ -1,0 +1,167 @@
+
+spine_134_02.png
+size: 402,77
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bs1
+  rotate: false
+  xy: 96, 54
+  size: 65, 21
+  orig: 65, 21
+  offset: 0, 0
+  index: -1
+bs2
+  rotate: true
+  xy: 376, 43
+  size: 32, 13
+  orig: 32, 13
+  offset: 0, 0
+  index: -1
+bs3
+  rotate: true
+  xy: 334, 57
+  size: 18, 40
+  orig: 18, 40
+  offset: 0, 0
+  index: -1
+bs4
+  rotate: true
+  xy: 265, 3
+  size: 18, 13
+  orig: 18, 13
+  offset: 0, 0
+  index: -1
+erduo2
+  rotate: true
+  xy: 132, 3
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: -1
+ereuo1
+  rotate: false
+  xy: 328, 34
+  size: 36, 21
+  orig: 36, 21
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 280, 5
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+eyeB
+  rotate: true
+  xy: 366, 41
+  size: 14, 8
+  orig: 14, 8
+  offset: 0, 0
+  index: -1
+eyeG
+  rotate: false
+  xy: 299, 2
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+hua
+  rotate: false
+  xy: 228, 2
+  size: 35, 16
+  orig: 35, 16
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 96, 10
+  size: 34, 12
+  orig: 34, 12
+  offset: 0, 0
+  index: -1
+sj1
+  rotate: false
+  xy: 258, 23
+  size: 23, 52
+  orig: 23, 52
+  offset: 0, 0
+  index: -1
+sj2
+  rotate: false
+  xy: 67, 9
+  size: 27, 66
+  orig: 27, 66
+  offset: 0, 0
+  index: -1
+sj3
+  rotate: false
+  xy: 391, 44
+  size: 9, 31
+  orig: 9, 31
+  offset: 0, 0
+  index: -1
+sj4
+  rotate: false
+  xy: 283, 60
+  size: 49, 15
+  orig: 49, 15
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 163, 13
+  size: 63, 62
+  orig: 63, 62
+  offset: 0, 0
+  index: -1
+t1
+  rotate: false
+  xy: 40, 7
+  size: 25, 68
+  orig: 25, 68
+  offset: 0, 0
+  index: -1
+t2
+  rotate: false
+  xy: 2, 2
+  size: 36, 73
+  orig: 36, 73
+  offset: 0, 0
+  index: -1
+t3
+  rotate: true
+  xy: 96, 24
+  size: 28, 62
+  orig: 28, 62
+  offset: 0, 0
+  index: -1
+t4
+  rotate: false
+  xy: 228, 20
+  size: 28, 55
+  orig: 28, 55
+  offset: 0, 0
+  index: -1
+tf
+  rotate: true
+  xy: 364, 2
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+tou
+  rotate: true
+  xy: 283, 19
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+weiba
+  rotate: true
+  xy: 328, 10
+  size: 22, 34
+  orig: 22, 34
+  offset: 0, 0
+  index: -1

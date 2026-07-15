@@ -1,0 +1,83 @@
+
+spine_157_01.png
+size: 259,61
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+eye
+  rotate: false
+  xy: 178, 36
+  size: 47, 23
+  orig: 47, 23
+  offset: 0, 0
+  index: -1
+eyeg1
+  rotate: false
+  xy: 209, 9
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+eyeg2
+  rotate: false
+  xy: 241, 20
+  size: 11, 10
+  orig: 11, 10
+  offset: 0, 0
+  index: -1
+gzui
+  rotate: true
+  xy: 211, 23
+  size: 11, 14
+  orig: 11, 14
+  offset: 0, 0
+  index: -1
+s
+  rotate: true
+  xy: 197, 5
+  size: 16, 10
+  orig: 16, 10
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 178, 23
+  size: 31, 11
+  orig: 31, 11
+  offset: 0, 0
+  index: -1
+st
+  rotate: true
+  xy: 227, 32
+  size: 27, 30
+  orig: 27, 30
+  offset: 0, 0
+  index: -1
+t
+  rotate: false
+  xy: 106, 2
+  size: 70, 57
+  orig: 70, 57
+  offset: 0, 0
+  index: -1
+tui
+  rotate: false
+  xy: 178, 7
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: -1
+wb
+  rotate: true
+  xy: 227, 19
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1
+zz
+  rotate: true
+  xy: 2, 4
+  size: 55, 102
+  orig: 55, 102
+  offset: 0, 0
+  index: -1

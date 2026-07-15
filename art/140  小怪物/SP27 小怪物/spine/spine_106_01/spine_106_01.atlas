@@ -1,0 +1,41 @@
+
+spine_106_01.png
+size: 151,75
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: false
+  xy: 101, 3
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 135, 23
+  size: 8, 14
+  orig: 8, 14
+  offset: 0, 0
+  index: -1
+03
+  rotate: false
+  xy: 2, 2
+  size: 97, 71
+  orig: 97, 71
+  offset: 0, 0
+  index: -1
+04
+  rotate: false
+  xy: 101, 33
+  size: 48, 40
+  orig: 48, 40
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 101, 19
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

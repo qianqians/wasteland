@@ -1,0 +1,55 @@
+
+dating_01.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dating_beijingtu03
+  rotate: true
+  xy: 899, 141
+  size: 87, 114
+  orig: 87, 114
+  offset: 0, 0
+  index: -1
+dating_beijingtu_guangban01
+  rotate: false
+  xy: 2, 2
+  size: 245, 89
+  orig: 245, 89
+  offset: 0, 0
+  index: -1
+dating_beijingtu_guangban02
+  rotate: false
+  xy: 728, 139
+  size: 169, 89
+  orig: 169, 89
+  offset: 0, 0
+  index: -1
+dating_beijingtu_guangban03
+  rotate: false
+  xy: 2, 93
+  size: 274, 135
+  orig: 274, 135
+  offset: 0, 0
+  index: -1
+glo_063_c #227001752
+  rotate: false
+  xy: 728, 9
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+train_unlock_select@2x
+  rotate: true
+  xy: 278, 97
+  size: 131, 223
+  orig: 131, 223
+  offset: 0, 0
+  index: -1
+train_unlock_select@2x_01
+  rotate: true
+  xy: 503, 97
+  size: 131, 223
+  orig: 131, 223
+  offset: 0, 0
+  index: -1

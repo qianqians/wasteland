@@ -1,0 +1,104 @@
+
+spine_141_02.png
+size: 264,139
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cb1
+  rotate: true
+  xy: 159, 10
+  size: 61, 71
+  orig: 61, 71
+  offset: 0, 0
+  index: -1
+cb2
+  rotate: false
+  xy: 77, 61
+  size: 30, 76
+  orig: 30, 76
+  offset: 0, 0
+  index: -1
+cb3
+  rotate: false
+  xy: 2, 57
+  size: 73, 80
+  orig: 73, 80
+  offset: 0, 0
+  index: -1
+cb4
+  rotate: false
+  xy: 109, 61
+  size: 48, 76
+  orig: 48, 76
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 235, 95
+  size: 42, 17
+  orig: 42, 17
+  offset: 0, 0
+  index: -1
+eyeB
+  rotate: true
+  xy: 111, 2
+  size: 41, 9
+  orig: 41, 9
+  offset: 0, 0
+  index: -1
+eyeG
+  rotate: false
+  xy: 111, 45
+  size: 42, 14
+  orig: 42, 14
+  offset: 0, 0
+  index: -1
+mm
+  rotate: true
+  xy: 253, 76
+  size: 17, 9
+  orig: 17, 9
+  offset: 0, 0
+  index: -1
+s1
+  rotate: true
+  xy: 136, 14
+  size: 29, 16
+  orig: 29, 16
+  offset: 0, 0
+  index: -1
+s2
+  rotate: true
+  xy: 235, 71
+  size: 22, 16
+  orig: 22, 16
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 122, 11
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: true
+  xy: 59, 2
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+t
+  rotate: false
+  xy: 159, 73
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+tui
+  rotate: true
+  xy: 2, 6
+  size: 49, 55
+  orig: 49, 55
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,76 @@
+
+spine_133_01.png
+size: 396,61
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+j1
+  rotate: false
+  xy: 36, 2
+  size: 25, 20
+  orig: 25, 20
+  offset: 0, 0
+  index: -1
+j2
+  rotate: false
+  xy: 140, 2
+  size: 26, 18
+  orig: 26, 18
+  offset: 0, 0
+  index: -1
+k1
+  rotate: false
+  xy: 198, 4
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+k2
+  rotate: false
+  xy: 349, 12
+  size: 45, 47
+  orig: 45, 47
+  offset: 0, 0
+  index: -1
+k3
+  rotate: false
+  xy: 297, 9
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 10
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 76, 19
+  size: 62, 40
+  orig: 62, 40
+  offset: 0, 0
+  index: -1
+yz1
+  rotate: false
+  xy: 2, 24
+  size: 72, 35
+  orig: 72, 35
+  offset: 0, 0
+  index: -1
+yz2
+  rotate: false
+  xy: 140, 22
+  size: 56, 37
+  orig: 56, 37
+  offset: 0, 0
+  index: -1
+yz3
+  rotate: false
+  xy: 255, 7
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,48 @@
+
+spine_132_02.png
+size: 166,138
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ggg
+  rotate: false
+  xy: 149, 2
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+ggggg
+  rotate: true
+  xy: 149, 74
+  size: 28, 13
+  orig: 28, 13
+  offset: 0, 0
+  index: -1
+huo1
+  rotate: false
+  xy: 149, 18
+  size: 12, 24
+  orig: 12, 24
+  offset: 0, 0
+  index: -1
+huo2
+  rotate: false
+  xy: 149, 44
+  size: 15, 28
+  orig: 15, 28
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 149, 104
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: true
+  xy: 2, 5
+  size: 131, 145
+  orig: 131, 145
+  offset: 0, 0
+  index: -1

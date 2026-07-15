@@ -1,0 +1,97 @@
+
+ZL.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+DJS_glow_035_ywj #41421008
+  rotate: false
+  xy: 893, 410
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+eye_left
+  rotate: true
+  xy: 513, 240
+  size: 54, 55
+  orig: 54, 55
+  offset: 0, 0
+  index: -1
+eye_left_1
+  rotate: false
+  xy: 626, 324
+  size: 68, 54
+  orig: 68, 54
+  offset: 0, 0
+  index: -1
+eye_lefta
+  rotate: false
+  xy: 570, 263
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+eye_right_2
+  rotate: false
+  xy: 443, 240
+  size: 68, 54
+  orig: 68, 54
+  offset: 0, 0
+  index: -1
+head_1
+  rotate: false
+  xy: 465, 380
+  size: 232, 106
+  orig: 232, 106
+  offset: 0, 0
+  index: -1
+head_2
+  rotate: false
+  xy: 282, 325
+  size: 181, 161
+  orig: 181, 161
+  offset: 0, 0
+  index: -1
+nose
+  rotate: false
+  xy: 971, 441
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+sasa
+  rotate: false
+  xy: 699, 398
+  size: 192, 88
+  orig: 192, 88
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 2
+  size: 267, 205
+  orig: 267, 205
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 2, 209
+  size: 278, 277
+  orig: 278, 277
+  offset: 0, 0
+  index: -1
+wing_left
+  rotate: false
+  xy: 282, 241
+  size: 159, 82
+  orig: 159, 82
+  offset: 0, 0
+  index: -1
+wing_right
+  rotate: false
+  xy: 465, 296
+  size: 159, 82
+  orig: 159, 82
+  offset: 0, 0
+  index: -1

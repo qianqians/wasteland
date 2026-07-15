@@ -1,0 +1,41 @@
+
+spine_102_01.png
+size: 158,104
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dian
+  rotate: false
+  xy: 101, 54
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 101, 28
+  size: 48, 24
+  orig: 48, 24
+  offset: 0, 0
+  index: -1
+g
+  rotate: false
+  xy: 135, 2
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 101, 14
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 2, 5
+  size: 97, 97
+  orig: 97, 97
+  offset: 0, 0
+  index: -1

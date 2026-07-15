@@ -1,0 +1,153 @@
+
+spine_103_02.png
+size: 232,108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 72, 14
+  size: 15, 4
+  orig: 15, 4
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 137, 6
+  size: 16, 17
+  orig: 16, 17
+  offset: 0, 0
+  index: -1
+03
+  rotate: true
+  xy: 78, 2
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+04
+  rotate: false
+  xy: 209, 56
+  size: 20, 6
+  orig: 20, 6
+  offset: 0, 0
+  index: -1
+05
+  rotate: false
+  xy: 51, 13
+  size: 19, 16
+  orig: 19, 16
+  offset: 0, 0
+  index: -1
+06
+  rotate: true
+  xy: 156, 6
+  size: 16, 13
+  orig: 16, 13
+  offset: 0, 0
+  index: -1
+07
+  rotate: false
+  xy: 51, 3
+  size: 15, 8
+  orig: 15, 8
+  offset: 0, 0
+  index: -1
+08
+  rotate: true
+  xy: 94, 2
+  size: 13, 10
+  orig: 13, 10
+  offset: 0, 0
+  index: -1
+09
+  rotate: true
+  xy: 78, 21
+  size: 8, 5
+  orig: 8, 5
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 173, 25
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: -1
+11
+  rotate: false
+  xy: 137, 24
+  size: 34, 41
+  orig: 34, 41
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 209, 36
+  size: 19, 18
+  orig: 19, 18
+  offset: 0, 0
+  index: -1
+13
+  rotate: true
+  xy: 209, 17
+  size: 17, 18
+  orig: 17, 18
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 2, 31
+  size: 81, 75
+  orig: 81, 75
+  offset: 0, 0
+  index: -1
+15
+  rotate: false
+  xy: 32, 2
+  size: 17, 27
+  orig: 17, 27
+  offset: 0, 0
+  index: -1
+16
+  rotate: true
+  xy: 2, 11
+  size: 18, 28
+  orig: 18, 28
+  offset: 0, 0
+  index: -1
+17
+  rotate: true
+  xy: 85, 17
+  size: 48, 50
+  orig: 48, 50
+  offset: 0, 0
+  index: -1
+18
+  rotate: false
+  xy: 196, 64
+  size: 34, 42
+  orig: 34, 42
+  offset: 0, 0
+  index: -1
+19
+  rotate: false
+  xy: 141, 67
+  size: 53, 39
+  orig: 53, 39
+  offset: 0, 0
+  index: -1
+20
+  rotate: false
+  xy: 85, 67
+  size: 54, 39
+  orig: 54, 39
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 2
+  size: 20, 7
+  orig: 20, 7
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,48 @@
+
+spine_103_01.png
+size: 190,104
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cb1
+  rotate: true
+  xy: 101, 54
+  size: 48, 73
+  orig: 48, 73
+  offset: 0, 0
+  index: -1
+cb2
+  rotate: true
+  xy: 101, 28
+  size: 24, 48
+  orig: 24, 48
+  offset: 0, 0
+  index: -1
+eye
+  rotate: true
+  xy: 151, 4
+  size: 48, 24
+  orig: 48, 24
+  offset: 0, 0
+  index: -1
+g
+  rotate: false
+  xy: 101, 2
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 176, 70
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 2, 5
+  size: 97, 97
+  orig: 97, 97
+  offset: 0, 0
+  index: -1

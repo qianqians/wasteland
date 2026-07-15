@@ -1,0 +1,83 @@
+
+spine_118_01.png
+size: 201,108
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 165, 27
+  size: 25, 31
+  orig: 25, 31
+  offset: 0, 0
+  index: -1
+02
+  rotate: false
+  xy: 2, 19
+  size: 101, 87
+  orig: 101, 87
+  offset: 0, 0
+  index: -1
+03
+  rotate: true
+  xy: 165, 7
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+03a
+  rotate: true
+  xy: 2, 5
+  size: 12, 19
+  orig: 12, 19
+  offset: 0, 0
+  index: -1
+06
+  rotate: false
+  xy: 186, 61
+  size: 13, 11
+  orig: 13, 11
+  offset: 0, 0
+  index: -1
+06a
+  rotate: false
+  xy: 38, 6
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+06q
+  rotate: false
+  xy: 23, 6
+  size: 13, 11
+  orig: 13, 11
+  offset: 0, 0
+  index: -1
+06wa
+  rotate: false
+  xy: 52, 6
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+07
+  rotate: true
+  xy: 105, 2
+  size: 50, 58
+  orig: 50, 58
+  offset: 0, 0
+  index: -1
+08
+  rotate: false
+  xy: 105, 54
+  size: 79, 52
+  orig: 79, 52
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 186, 74
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

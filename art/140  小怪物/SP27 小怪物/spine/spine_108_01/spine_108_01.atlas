@@ -1,0 +1,139 @@
+
+spine_108_01.png
+size: 185,139
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1
+  rotate: true
+  xy: 161, 90
+  size: 47, 20
+  orig: 47, 20
+  offset: 0, 0
+  index: -1
+10
+  rotate: true
+  xy: 83, 5
+  size: 18, 15
+  orig: 18, 15
+  offset: 0, 0
+  index: -1
+11
+  rotate: true
+  xy: 2, 48
+  size: 89, 80
+  orig: 89, 80
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 84, 76
+  size: 75, 61
+  orig: 75, 61
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 161, 46
+  size: 21, 42
+  orig: 21, 42
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 39, 26
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+15
+  rotate: true
+  xy: 27, 2
+  size: 21, 40
+  orig: 21, 40
+  offset: 0, 0
+  index: -1
+16
+  rotate: false
+  xy: 110, 7
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+17
+  rotate: false
+  xy: 84, 25
+  size: 48, 49
+  orig: 48, 49
+  offset: 0, 0
+  index: -1
+18
+  rotate: true
+  xy: 134, 3
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+2
+  rotate: true
+  xy: 2, 3
+  size: 43, 23
+  orig: 43, 23
+  offset: 0, 0
+  index: -1
+3
+  rotate: true
+  xy: 171, 2
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 69, 4
+  size: 12, 17
+  orig: 12, 17
+  offset: 0, 0
+  index: -1
+5
+  rotate: true
+  xy: 134, 55
+  size: 19, 24
+  orig: 19, 24
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 69, 23
+  size: 12, 23
+  orig: 12, 23
+  offset: 0, 0
+  index: -1
+7
+  rotate: false
+  xy: 128, 16
+  size: 4, 7
+  orig: 4, 7
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 100, 6
+  size: 8, 17
+  orig: 8, 17
+  offset: 0, 0
+  index: -1
+9
+  rotate: false
+  xy: 27, 26
+  size: 10, 20
+  orig: 10, 20
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 171, 10
+  size: 34, 12
+  orig: 34, 12
+  offset: 0, 0
+  index: -1

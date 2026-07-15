@@ -1,0 +1,304 @@
+
+ss.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A/chouka_jinbi_changjing_11
+  rotate: true
+  xy: 2, 2
+  size: 47, 67
+  orig: 47, 67
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_12
+  rotate: true
+  xy: 157, 17
+  size: 32, 39
+  orig: 32, 39
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_4
+  rotate: false
+  xy: 2, 51
+  size: 932, 970
+  orig: 932, 970
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_5_2
+  rotate: false
+  xy: 936, 21
+  size: 84, 35
+  orig: 84, 35
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_5_4
+  rotate: false
+  xy: 198, 23
+  size: 43, 26
+  orig: 43, 26
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_5x
+  rotate: true
+  xy: 936, 690
+  size: 214, 71
+  orig: 214, 71
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_11
+  rotate: true
+  xy: 936, 906
+  size: 115, 83
+  orig: 115, 83
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_5_2
+  rotate: false
+  xy: 71, 14
+  size: 84, 35
+  orig: 84, 35
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_5_4
+  rotate: false
+  xy: 243, 23
+  size: 43, 26
+  orig: 43, 26
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_5x
+  rotate: true
+  xy: 936, 474
+  size: 214, 71
+  orig: 214, 71
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_7c
+  rotate: true
+  xy: 936, 58
+  size: 331, 64
+  orig: 331, 64
+  offset: 0, 0
+  index: -1
+B/chouka_zuanshi_changjing_11
+  rotate: true
+  xy: 936, 391
+  size: 81, 68
+  orig: 81, 68
+  offset: 0, 0
+  index: -1
+
+ss2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A/chouka_jinbi_changjing_14
+  rotate: false
+  xy: 936, 755
+  size: 49, 238
+  orig: 49, 238
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_5_3
+  rotate: true
+  xy: 936, 625
+  size: 128, 49
+  orig: 128, 49
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_7c
+  rotate: false
+  xy: 2, 8
+  size: 276, 54
+  orig: 276, 54
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_1
+  rotate: false
+  xy: 280, 2
+  size: 182, 60
+  orig: 182, 60
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_5_3
+  rotate: false
+  xy: 464, 13
+  size: 128, 49
+  orig: 128, 49
+  offset: 0, 0
+  index: -1
+B/chouka_zuanshi_changjing_4
+  rotate: false
+  xy: 2, 64
+  size: 932, 929
+  orig: 932, 929
+  offset: 0, 0
+  index: -1
+chouka_jinbi_changjing_9
+  rotate: true
+  xy: 936, 549
+  size: 74, 58
+  orig: 74, 58
+  offset: 0, 0
+  index: -1
+
+ss3.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A/chouka_jinbi_changjing_13
+  rotate: false
+  xy: 802, 747
+  size: 196, 274
+  orig: 196, 274
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_5
+  rotate: false
+  xy: 2, 364
+  size: 798, 657
+  orig: 798, 657
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_6
+  rotate: false
+  xy: 602, 3
+  size: 122, 101
+  orig: 122, 101
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_7
+  rotate: true
+  xy: 285, 15
+  size: 335, 106
+  orig: 335, 106
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_13
+  rotate: false
+  xy: 802, 471
+  size: 196, 274
+  orig: 196, 274
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_2
+  rotate: false
+  xy: 802, 352
+  size: 196, 117
+  orig: 196, 117
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_6
+  rotate: false
+  xy: 726, 3
+  size: 122, 101
+  orig: 122, 101
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_7
+  rotate: true
+  xy: 393, 15
+  size: 335, 106
+  orig: 335, 106
+  offset: 0, 0
+  index: -1
+B/chouka_zuanshi_changjing_6
+  rotate: true
+  xy: 2, 18
+  size: 344, 281
+  orig: 344, 281
+  offset: 0, 0
+  index: -1
+chouka_jinbi_changjing_8
+  rotate: true
+  xy: 501, 2
+  size: 102, 99
+  orig: 102, 99
+  offset: 0, 0
+  index: -1
+fx_cloud_white_2
+  rotate: false
+  xy: 501, 106
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+shangcheng_bj_3
+  rotate: false
+  xy: 759, 106
+  size: 171, 244
+  orig: 171, 244
+  offset: 0, 0
+  index: -1
+vcvcv
+  rotate: true
+  xy: 850, 4
+  size: 100, 150
+  orig: 100, 150
+  offset: 0, 0
+  index: -1
+
+ss4.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+A/chouka_jinbi_changjing_1
+  rotate: false
+  xy: 2, 122
+  size: 363, 119
+  orig: 363, 119
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_2
+  rotate: false
+  xy: 802, 743
+  size: 170, 157
+  orig: 170, 157
+  offset: 0, 0
+  index: -1
+A/chouka_jinbi_changjing_3
+  rotate: false
+  xy: 2, 2
+  size: 152, 118
+  orig: 152, 118
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_3
+  rotate: false
+  xy: 367, 123
+  size: 152, 118
+  orig: 152, 118
+  offset: 0, 0
+  index: -1
+B/chouka_jinbi_changjing_5
+  rotate: false
+  xy: 2, 243
+  size: 798, 657
+  orig: 798, 657
+  offset: 0, 0
+  index: -1
+DJS_glo_019_b_zsk_001 #32160777
+  rotate: false
+  xy: 802, 613
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+glo_042_c #227005035
+  rotate: false
+  xy: 802, 483
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+glo_063_c #227001752
+  rotate: false
+  xy: 802, 353
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

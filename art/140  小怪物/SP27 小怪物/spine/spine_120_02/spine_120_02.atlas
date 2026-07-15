@@ -1,0 +1,160 @@
+
+spine_120_02.png
+size: 449,123
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: false
+  xy: 417, 41
+  size: 18, 12
+  orig: 18, 12
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 437, 38
+  size: 15, 10
+  orig: 15, 10
+  offset: 0, 0
+  index: -1
+04
+  rotate: true
+  xy: 296, 34
+  size: 16, 44
+  orig: 16, 44
+  offset: 0, 0
+  index: -1
+05
+  rotate: false
+  xy: 338, 61
+  size: 61, 60
+  orig: 61, 60
+  offset: 0, 0
+  index: -1
+06
+  rotate: true
+  xy: 190, 9
+  size: 14, 32
+  orig: 14, 32
+  offset: 0, 0
+  index: -1
+07
+  rotate: true
+  xy: 401, 88
+  size: 33, 41
+  orig: 33, 41
+  offset: 0, 0
+  index: -1
+08
+  rotate: true
+  xy: 401, 55
+  size: 31, 41
+  orig: 31, 41
+  offset: 0, 0
+  index: -1
+09
+  rotate: false
+  xy: 296, 52
+  size: 40, 69
+  orig: 40, 69
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 386, 14
+  size: 29, 39
+  orig: 29, 39
+  offset: 0, 0
+  index: -1
+11
+  rotate: true
+  xy: 2, 58
+  size: 63, 122
+  orig: 63, 122
+  offset: 0, 0
+  index: -1
+12
+  rotate: true
+  xy: 2, 7
+  size: 49, 122
+  orig: 49, 122
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 126, 2
+  size: 62, 119
+  orig: 62, 119
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 225, 34
+  size: 69, 87
+  orig: 69, 87
+  offset: 0, 0
+  index: -1
+15
+  rotate: true
+  xy: 344, 25
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1
+16
+  rotate: true
+  xy: 295, 12
+  size: 20, 47
+  orig: 20, 47
+  offset: 0, 0
+  index: -1
+17
+  rotate: true
+  xy: 225, 2
+  size: 30, 68
+  orig: 30, 68
+  offset: 0, 0
+  index: -1
+18
+  rotate: false
+  xy: 338, 56
+  size: 4, 3
+  orig: 4, 3
+  offset: 0, 0
+  index: -1
+19
+  rotate: true
+  xy: 386, 56
+  size: 3, 9
+  orig: 3, 9
+  offset: 0, 0
+  index: -1
+20
+  rotate: true
+  xy: 433, 24
+  size: 12, 13
+  orig: 12, 13
+  offset: 0, 0
+  index: -1
+21
+  rotate: false
+  xy: 417, 29
+  size: 14, 10
+  orig: 14, 10
+  offset: 0, 0
+  index: -1
+22
+  rotate: false
+  xy: 190, 25
+  size: 33, 96
+  orig: 33, 96
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 344, 11
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

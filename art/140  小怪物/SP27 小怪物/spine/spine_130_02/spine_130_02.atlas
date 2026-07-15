@@ -1,0 +1,300 @@
+
+spine_130_02.png
+size: 434,139
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 122, 27
+  size: 42, 36
+  orig: 42, 36
+  offset: 0, 0
+  index: -1
+03
+  rotate: false
+  xy: 402, 69
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+06
+  rotate: true
+  xy: 2, 71
+  size: 41, 156
+  orig: 41, 156
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 362, 101
+  size: 50, 36
+  orig: 50, 36
+  offset: 0, 0
+  index: -1
+12
+  rotate: true
+  xy: 349, 16
+  size: 28, 14
+  orig: 28, 14
+  offset: 0, 0
+  index: -1
+13
+  rotate: true
+  xy: 244, 14
+  size: 8, 5
+  orig: 8, 5
+  offset: 0, 0
+  index: -1
+15
+  rotate: true
+  xy: 144, 2
+  size: 23, 9
+  orig: 23, 9
+  offset: 0, 0
+  index: -1
+15a
+  rotate: true
+  xy: 52, 2
+  size: 32, 10
+  orig: 32, 10
+  offset: 0, 0
+  index: -1
+16
+  rotate: true
+  xy: 98, 4
+  size: 27, 15
+  orig: 27, 15
+  offset: 0, 0
+  index: -1
+17
+  rotate: false
+  xy: 365, 12
+  size: 19, 16
+  orig: 19, 16
+  offset: 0, 0
+  index: -1
+18
+  rotate: true
+  xy: 155, 19
+  size: 6, 3
+  orig: 6, 3
+  offset: 0, 0
+  index: -1
+19
+  rotate: false
+  xy: 279, 22
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+20
+  rotate: false
+  xy: 194, 5
+  size: 16, 9
+  orig: 16, 9
+  offset: 0, 0
+  index: -1
+21
+  rotate: false
+  xy: 223, 24
+  size: 26, 14
+  orig: 26, 14
+  offset: 0, 0
+  index: -1
+22
+  rotate: false
+  xy: 395, 36
+  size: 22, 15
+  orig: 22, 15
+  offset: 0, 0
+  index: -1
+23
+  rotate: false
+  xy: 362, 95
+  size: 5, 4
+  orig: 5, 4
+  offset: 0, 0
+  index: -1
+24
+  rotate: true
+  xy: 279, 30
+  size: 8, 6
+  orig: 8, 6
+  offset: 0, 0
+  index: -1
+25
+  rotate: false
+  xy: 349, 5
+  size: 14, 9
+  orig: 14, 9
+  offset: 0, 0
+  index: -1
+26
+  rotate: true
+  xy: 386, 10
+  size: 18, 14
+  orig: 18, 14
+  offset: 0, 0
+  index: -1
+27
+  rotate: true
+  xy: 402, 17
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+28
+  rotate: true
+  xy: 184, 40
+  size: 97, 101
+  orig: 97, 101
+  offset: 0, 0
+  index: -1
+29
+  rotate: false
+  xy: 325, 9
+  size: 22, 31
+  orig: 22, 31
+  offset: 0, 0
+  index: -1
+30
+  rotate: true
+  xy: 402, 53
+  size: 14, 30
+  orig: 14, 30
+  offset: 0, 0
+  index: -1
+31
+  rotate: false
+  xy: 287, 95
+  size: 73, 42
+  orig: 73, 42
+  offset: 0, 0
+  index: -1
+33
+  rotate: true
+  xy: 369, 55
+  size: 44, 31
+  orig: 44, 31
+  offset: 0, 0
+  index: -1
+34
+  rotate: false
+  xy: 287, 2
+  size: 36, 38
+  orig: 36, 38
+  offset: 0, 0
+  index: -1
+35
+  rotate: true
+  xy: 160, 29
+  size: 37, 19
+  orig: 37, 19
+  offset: 0, 0
+  index: -1
+36
+  rotate: false
+  xy: 72, 33
+  size: 48, 36
+  orig: 48, 36
+  offset: 0, 0
+  index: -1
+36a
+  rotate: false
+  xy: 369, 30
+  size: 24, 23
+  orig: 24, 23
+  offset: 0, 0
+  index: -1
+39
+  rotate: true
+  xy: 340, 46
+  size: 47, 27
+  orig: 47, 27
+  offset: 0, 0
+  index: -1
+40
+  rotate: false
+  xy: 251, 12
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+41
+  rotate: false
+  xy: 160, 2
+  size: 32, 25
+  orig: 32, 25
+  offset: 0, 0
+  index: -1
+42
+  rotate: false
+  xy: 115, 5
+  size: 27, 20
+  orig: 27, 20
+  offset: 0, 0
+  index: -1
+43
+  rotate: false
+  xy: 2, 4
+  size: 48, 30
+  orig: 48, 30
+  offset: 0, 0
+  index: -1
+44
+  rotate: false
+  xy: 64, 2
+  size: 32, 23
+  orig: 32, 23
+  offset: 0, 0
+  index: -1
+45
+  rotate: true
+  xy: 2, 36
+  size: 33, 68
+  orig: 33, 68
+  offset: 0, 0
+  index: -1
+46
+  rotate: false
+  xy: 194, 16
+  size: 27, 22
+  orig: 27, 22
+  offset: 0, 0
+  index: -1
+47
+  rotate: true
+  xy: 223, 6
+  size: 16, 19
+  orig: 16, 19
+  offset: 0, 0
+  index: -1
+48
+  rotate: false
+  xy: 2, 114
+  size: 180, 23
+  orig: 180, 23
+  offset: 0, 0
+  index: -1
+49
+  rotate: true
+  xy: 160, 68
+  size: 44, 22
+  orig: 44, 22
+  offset: 0, 0
+  index: -1
+rad_0411_e
+  rotate: false
+  xy: 287, 42
+  size: 51, 51
+  orig: 51, 51
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 414, 105
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

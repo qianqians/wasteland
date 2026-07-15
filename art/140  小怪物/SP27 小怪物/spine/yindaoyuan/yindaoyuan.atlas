@@ -1,0 +1,223 @@
+
+yindaoyuan.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: false
+  xy: 318, 2
+  size: 20, 14
+  orig: 20, 14
+  offset: 0, 0
+  index: -1
+02
+  rotate: true
+  xy: 499, 176
+  size: 12, 11
+  orig: 12, 11
+  offset: 0, 0
+  index: -1
+03
+  rotate: true
+  xy: 491, 229
+  size: 25, 19
+  orig: 25, 19
+  offset: 0, 0
+  index: -1
+04
+  rotate: false
+  xy: 394, 116
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+05
+  rotate: true
+  xy: 491, 206
+  size: 21, 12
+  orig: 21, 12
+  offset: 0, 0
+  index: -1
+06
+  rotate: false
+  xy: 352, 23
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+07
+  rotate: true
+  xy: 340, 2
+  size: 14, 17
+  orig: 14, 17
+  offset: 0, 0
+  index: -1
+08
+  rotate: false
+  xy: 491, 190
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: -1
+09
+  rotate: false
+  xy: 499, 166
+  size: 11, 8
+  orig: 11, 8
+  offset: 0, 0
+  index: -1
+10
+  rotate: true
+  xy: 431, 44
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+11
+  rotate: false
+  xy: 252, 7
+  size: 21, 4
+  orig: 21, 4
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 2, 2
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 414, 45
+  size: 15, 12
+  orig: 15, 12
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 414, 72
+  size: 40, 60
+  orig: 40, 60
+  offset: 0, 0
+  index: -1
+15
+  rotate: true
+  xy: 243, 183
+  size: 71, 153
+  orig: 71, 153
+  offset: 0, 0
+  index: -1
+16
+  rotate: true
+  xy: 398, 179
+  size: 75, 91
+  orig: 75, 91
+  offset: 0, 0
+  index: -1
+17
+  rotate: true
+  xy: 198, 5
+  size: 99, 52
+  orig: 99, 52
+  offset: 0, 0
+  index: -1
+18
+  rotate: true
+  xy: 380, 45
+  size: 69, 32
+  orig: 69, 32
+  offset: 0, 0
+  index: -1
+19
+  rotate: false
+  xy: 456, 65
+  size: 28, 55
+  orig: 28, 55
+  offset: 0, 0
+  index: -1
+20
+  rotate: true
+  xy: 137, 2
+  size: 102, 59
+  orig: 102, 59
+  offset: 0, 0
+  index: -1
+21
+  rotate: false
+  xy: 460, 122
+  size: 37, 55
+  orig: 37, 55
+  offset: 0, 0
+  index: -1
+22
+  rotate: false
+  xy: 394, 134
+  size: 64, 43
+  orig: 64, 43
+  offset: 0, 0
+  index: -1
+23
+  rotate: false
+  xy: 318, 18
+  size: 32, 91
+  orig: 32, 91
+  offset: 0, 0
+  index: -1
+24
+  rotate: true
+  xy: 2, 11
+  size: 93, 133
+  orig: 93, 133
+  offset: 0, 0
+  index: -1
+24a
+  rotate: true
+  xy: 414, 59
+  size: 11, 31
+  orig: 11, 31
+  offset: 0, 0
+  index: -1
+25
+  rotate: false
+  xy: 352, 38
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+26
+  rotate: true
+  xy: 344, 116
+  size: 65, 48
+  orig: 65, 48
+  offset: 0, 0
+  index: -1
+27
+  rotate: true
+  xy: 486, 59
+  size: 61, 23
+  orig: 61, 23
+  offset: 0, 0
+  index: -1
+28
+  rotate: false
+  xy: 252, 13
+  size: 64, 96
+  orig: 64, 96
+  offset: 0, 0
+  index: -1
+29
+  rotate: true
+  xy: 243, 111
+  size: 70, 99
+  orig: 70, 99
+  offset: 0, 0
+  index: -1
+30
+  rotate: false
+  xy: 2, 106
+  size: 239, 148
+  orig: 239, 148
+  offset: 0, 0
+  index: -1

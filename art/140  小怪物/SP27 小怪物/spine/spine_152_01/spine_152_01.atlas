@@ -1,0 +1,83 @@
+
+spine_152_01.png
+size: 229,92
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+eye
+  rotate: false
+  xy: 194, 15
+  size: 28, 13
+  orig: 28, 13
+  offset: 0, 0
+  index: -1
+eyeb
+  rotate: false
+  xy: 83, 2
+  size: 26, 9
+  orig: 26, 9
+  offset: 0, 0
+  index: -1
+eyek
+  rotate: false
+  xy: 119, 11
+  size: 31, 14
+  orig: 31, 14
+  offset: 0, 0
+  index: -1
+eyet
+  rotate: false
+  xy: 152, 12
+  size: 16, 9
+  orig: 16, 9
+  offset: 0, 0
+  index: -1
+jiao
+  rotate: false
+  xy: 194, 30
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 83, 13
+  size: 34, 12
+  orig: 34, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 83, 27
+  size: 74, 63
+  orig: 74, 63
+  offset: 0, 0
+  index: -1
+t
+  rotate: false
+  xy: 2, 7
+  size: 79, 83
+  orig: 79, 83
+  offset: 0, 0
+  index: -1
+t1
+  rotate: false
+  xy: 193, 61
+  size: 34, 29
+  orig: 34, 29
+  offset: 0, 0
+  index: -1
+t2
+  rotate: false
+  xy: 159, 50
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+t3
+  rotate: false
+  xy: 159, 23
+  size: 33, 25
+  orig: 33, 25
+  offset: 0, 0
+  index: -1

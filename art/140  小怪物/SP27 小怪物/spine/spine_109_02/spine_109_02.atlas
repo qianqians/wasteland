@@ -1,0 +1,160 @@
+
+spine_109_02.png
+size: 154,264
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: true
+  xy: 65, 15
+  size: 34, 27
+  orig: 34, 27
+  offset: 0, 0
+  index: -1
+03
+  rotate: true
+  xy: 127, 204
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+04
+  rotate: false
+  xy: 124, 65
+  size: 18, 19
+  orig: 18, 19
+  offset: 0, 0
+  index: -1
+05
+  rotate: true
+  xy: 127, 179
+  size: 23, 18
+  orig: 23, 18
+  offset: 0, 0
+  index: -1
+06
+  rotate: true
+  xy: 127, 154
+  size: 23, 18
+  orig: 23, 18
+  offset: 0, 0
+  index: -1
+07
+  rotate: true
+  xy: 56, 2
+  size: 5, 6
+  orig: 5, 6
+  offset: 0, 0
+  index: -1
+08
+  rotate: false
+  xy: 41, 3
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+09
+  rotate: false
+  xy: 2, 2
+  size: 19, 15
+  orig: 19, 15
+  offset: 0, 0
+  index: -1
+10
+  rotate: false
+  xy: 124, 45
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+11
+  rotate: false
+  xy: 120, 25
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+12
+  rotate: false
+  xy: 141, 240
+  size: 6, 6
+  orig: 6, 6
+  offset: 0, 0
+  index: -1
+13
+  rotate: false
+  xy: 141, 248
+  size: 11, 14
+  orig: 11, 14
+  offset: 0, 0
+  index: -1
+14
+  rotate: false
+  xy: 23, 2
+  size: 16, 15
+  orig: 16, 15
+  offset: 0, 0
+  index: -1
+15
+  rotate: false
+  xy: 56, 9
+  size: 7, 8
+  orig: 7, 8
+  offset: 0, 0
+  index: -1
+15a
+  rotate: false
+  xy: 127, 144
+  size: 9, 8
+  orig: 9, 8
+  offset: 0, 0
+  index: -1
+16
+  rotate: false
+  xy: 2, 51
+  size: 92, 89
+  orig: 92, 89
+  offset: 0, 0
+  index: -1
+17
+  rotate: false
+  xy: 94, 19
+  size: 24, 26
+  orig: 24, 26
+  offset: 0, 0
+  index: -1
+18
+  rotate: false
+  xy: 96, 47
+  size: 26, 37
+  orig: 26, 37
+  offset: 0, 0
+  index: -1
+19
+  rotate: true
+  xy: 2, 19
+  size: 30, 61
+  orig: 30, 61
+  offset: 0, 0
+  index: -1
+20
+  rotate: false
+  xy: 96, 86
+  size: 33, 54
+  orig: 33, 54
+  offset: 0, 0
+  index: -1
+22
+  rotate: false
+  xy: 2, 142
+  size: 123, 120
+  orig: 123, 120
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 127, 230
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1

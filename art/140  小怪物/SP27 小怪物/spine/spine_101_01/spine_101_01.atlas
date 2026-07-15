@@ -1,0 +1,55 @@
+
+spine_101_01.png
+size: 145,138
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+eye
+  rotate: false
+  xy: 2, 16
+  size: 47, 24
+  orig: 47, 24
+  offset: 0, 0
+  index: -1
+fire
+  rotate: true
+  xy: 98, 76
+  size: 60, 45
+  orig: 60, 45
+  offset: 0, 0
+  index: -1
+g
+  rotate: true
+  xy: 85, 12
+  size: 28, 24
+  orig: 28, 24
+  offset: 0, 0
+  index: -1
+jiao1
+  rotate: false
+  xy: 51, 8
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+jiao2
+  rotate: true
+  xy: 98, 43
+  size: 31, 36
+  orig: 31, 36
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 2
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+st
+  rotate: false
+  xy: 2, 42
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1
