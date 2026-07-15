@@ -1,0 +1,237 @@
+
+skill_levelup_eff.png
+size: 2030,590
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_ray_out_p_00000
+  rotate: true
+  xy: 417, 298
+  size: 290, 143
+  orig: 300, 150
+  offset: 6, 3
+  index: -1
+skill_ray_out_p_00001
+  rotate: true
+  xy: 137, 3
+  size: 291, 143
+  orig: 300, 150
+  offset: 5, 3
+  index: -1
+skill_ray_out_p_00002
+  rotate: true
+  xy: 2, 296
+  size: 292, 133
+  orig: 300, 150
+  offset: 4, 4
+  index: -1
+skill_ray_out_p_00003
+  rotate: true
+  xy: 572, 7
+  size: 289, 117
+  orig: 300, 150
+  offset: 6, 8
+  index: -1
+skill_ray_out_r_00000
+  rotate: true
+  xy: 427, 6
+  size: 290, 143
+  orig: 300, 150
+  offset: 6, 3
+  index: -1
+skill_ray_out_r_00001
+  rotate: true
+  xy: 272, 297
+  size: 291, 143
+  orig: 300, 150
+  offset: 5, 3
+  index: -1
+skill_ray_out_r_00002
+  rotate: true
+  xy: 2, 2
+  size: 292, 133
+  orig: 300, 150
+  offset: 4, 4
+  index: -1
+skill_ray_out_r_00003
+  rotate: true
+  xy: 691, 7
+  size: 289, 117
+  orig: 300, 150
+  offset: 6, 8
+  index: -1
+skill_ray_out_y_00000
+  rotate: true
+  xy: 562, 298
+  size: 290, 143
+  orig: 300, 150
+  offset: 6, 3
+  index: -1
+skill_ray_out_y_00001
+  rotate: true
+  xy: 282, 4
+  size: 291, 143
+  orig: 300, 150
+  offset: 5, 3
+  index: -1
+skill_ray_out_y_00002
+  rotate: true
+  xy: 137, 296
+  size: 292, 133
+  orig: 300, 150
+  offset: 4, 4
+  index: -1
+skill_ray_out_y_00003
+  rotate: true
+  xy: 707, 299
+  size: 289, 117
+  orig: 300, 150
+  offset: 6, 8
+  index: -1
+skill_ray_up_p_00000
+  rotate: true
+  xy: 810, 31
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_p_00001
+  rotate: true
+  xy: 826, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_p_00002
+  rotate: true
+  xy: 927, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_p_00003
+  rotate: true
+  xy: 943, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_p_00004
+  rotate: true
+  xy: 1044, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_p_00005
+  rotate: true
+  xy: 1060, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_p_00006
+  rotate: true
+  xy: 1161, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00000
+  rotate: true
+  xy: 1177, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00001
+  rotate: true
+  xy: 1278, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00002
+  rotate: true
+  xy: 1294, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00003
+  rotate: true
+  xy: 1395, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00004
+  rotate: true
+  xy: 1411, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00005
+  rotate: true
+  xy: 1512, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_r_00006
+  rotate: true
+  xy: 1528, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00000
+  rotate: true
+  xy: 1629, 54
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00001
+  rotate: true
+  xy: 1645, 322
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00002
+  rotate: false
+  xy: 1762, 473
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00003
+  rotate: false
+  xy: 1762, 356
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00004
+  rotate: false
+  xy: 1762, 239
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00005
+  rotate: false
+  xy: 1746, 122
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1
+skill_ray_up_y_00006
+  rotate: false
+  xy: 1746, 5
+  size: 266, 115
+  orig: 300, 120
+  offset: 20, 0
+  index: -1

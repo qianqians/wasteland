@@ -1,0 +1,27 @@
+
+aura.png
+size: 809,273
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_levelup_ray_p
+  rotate: true
+  xy: 2, 2
+  size: 269, 267
+  orig: 300, 300
+  offset: 15, 18
+  index: -1
+skill_levelup_ray_r_00000
+  rotate: true
+  xy: 271, 2
+  size: 269, 267
+  orig: 300, 300
+  offset: 15, 18
+  index: -1
+skill_levelup_ray_y_00000
+  rotate: true
+  xy: 540, 2
+  size: 269, 267
+  orig: 300, 300
+  offset: 15, 18
+  index: -1

@@ -1,0 +1,160 @@
+
+tower_water_transition.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tower_water_00000
+  rotate: false
+  xy: 422, 57
+  size: 279, 210
+  orig: 330, 578
+  offset: 0, 368
+  index: -1
+tower_water_00001
+  rotate: false
+  xy: 1330, 66
+  size: 330, 317
+  orig: 330, 578
+  offset: 0, 261
+  index: -1
+tower_water_00002
+  rotate: false
+  xy: 1662, 1462
+  size: 330, 545
+  orig: 330, 578
+  offset: 0, 33
+  index: -1
+tower_water_00003
+  rotate: false
+  xy: 2, 1429
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00004
+  rotate: false
+  xy: 2, 849
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00005
+  rotate: false
+  xy: 334, 1429
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00006
+  rotate: false
+  xy: 2, 269
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00007
+  rotate: false
+  xy: 334, 849
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00008
+  rotate: false
+  xy: 666, 1429
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00009
+  rotate: false
+  xy: 334, 269
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00010
+  rotate: false
+  xy: 666, 849
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00011
+  rotate: false
+  xy: 998, 1429
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00012
+  rotate: false
+  xy: 666, 269
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00013
+  rotate: false
+  xy: 998, 849
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00014
+  rotate: false
+  xy: 1330, 1429
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00015
+  rotate: false
+  xy: 998, 269
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_water_00016
+  rotate: false
+  xy: 1330, 877
+  size: 330, 550
+  orig: 330, 578
+  offset: 0, 10
+  index: -1
+tower_water_00017
+  rotate: false
+  xy: 1330, 385
+  size: 329, 490
+  orig: 330, 578
+  offset: 0, 23
+  index: -1
+tower_water_00018
+  rotate: true
+  xy: 2, 2
+  size: 265, 418
+  orig: 330, 578
+  offset: 0, 33
+  index: -1
+tower_water_00019
+  rotate: false
+  xy: 1662, 1047
+  size: 263, 413
+  orig: 330, 578
+  offset: 0, 43
+  index: -1
+tower_water_00020
+  rotate: true
+  xy: 703, 132
+  size: 135, 276
+  orig: 330, 578
+  offset: 41, 183
+  index: -1
+tower_water_00021
+  rotate: true
+  xy: 1662, 915
+  size: 130, 177
+  orig: 330, 578
+  offset: 44, 241
+  index: -1

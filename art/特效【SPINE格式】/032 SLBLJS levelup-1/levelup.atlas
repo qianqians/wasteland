@@ -1,0 +1,202 @@
+
+levelup.png
+size: 1928,1233
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+0301_eff_00025
+  rotate: false
+  xy: 1227, 318
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+levelup_p_00000
+  rotate: true
+  xy: 1800, 198
+  size: 118, 122
+  orig: 350, 350
+  offset: 117, 117
+  index: -1
+levelup_p_00001
+  rotate: true
+  xy: 2, 68
+  size: 203, 197
+  orig: 350, 350
+  offset: 71, 78
+  index: -1
+levelup_p_00002
+  rotate: false
+  xy: 400, 7
+  size: 310, 273
+  orig: 350, 350
+  offset: 19, 43
+  index: -1
+levelup_p_00003
+  rotate: true
+  xy: 2, 913
+  size: 318, 310
+  orig: 350, 350
+  offset: 11, 24
+  index: -1
+levelup_p_00004
+  rotate: true
+  xy: 314, 916
+  size: 315, 300
+  orig: 350, 350
+  offset: 14, 29
+  index: -1
+levelup_p_00005
+  rotate: false
+  xy: 1014, 8
+  size: 310, 299
+  orig: 350, 350
+  offset: 19, 30
+  index: -1
+levelup_p_00006
+  rotate: true
+  xy: 616, 921
+  size: 310, 303
+  orig: 350, 350
+  offset: 19, 28
+  index: -1
+levelup_p_00007
+  rotate: true
+  xy: 921, 925
+  size: 306, 304
+  orig: 350, 350
+  offset: 23, 29
+  index: -1
+levelup_p_00008
+  rotate: true
+  xy: 712, 2
+  size: 293, 300
+  orig: 350, 350
+  offset: 29, 32
+  index: -1
+levelup_r_00000
+  rotate: true
+  xy: 1800, 78
+  size: 118, 122
+  orig: 350, 350
+  offset: 117, 117
+  index: -1
+levelup_r_00001
+  rotate: true
+  xy: 201, 68
+  size: 203, 197
+  orig: 350, 350
+  offset: 71, 78
+  index: -1
+levelup_r_00002
+  rotate: true
+  xy: 1326, 6
+  size: 310, 273
+  orig: 350, 350
+  offset: 19, 43
+  index: -1
+levelup_r_00003
+  rotate: true
+  xy: 2, 593
+  size: 318, 310
+  orig: 350, 350
+  offset: 11, 24
+  index: -1
+levelup_r_00004
+  rotate: true
+  xy: 314, 599
+  size: 315, 300
+  orig: 350, 350
+  offset: 14, 29
+  index: -1
+levelup_r_00005
+  rotate: false
+  xy: 1227, 932
+  size: 310, 299
+  orig: 350, 350
+  offset: 19, 30
+  index: -1
+levelup_r_00006
+  rotate: true
+  xy: 616, 609
+  size: 310, 303
+  orig: 350, 350
+  offset: 19, 28
+  index: -1
+levelup_r_00007
+  rotate: true
+  xy: 921, 617
+  size: 306, 304
+  orig: 350, 350
+  offset: 23, 29
+  index: -1
+levelup_r_00008
+  rotate: false
+  xy: 1528, 630
+  size: 293, 300
+  orig: 350, 350
+  offset: 29, 32
+  index: -1
+levelup_y_00000
+  rotate: true
+  xy: 1804, 510
+  size: 118, 122
+  orig: 350, 350
+  offset: 117, 117
+  index: -1
+levelup_y_00001
+  rotate: true
+  xy: 1601, 113
+  size: 203, 197
+  orig: 350, 350
+  offset: 71, 78
+  index: -1
+levelup_y_00002
+  rotate: true
+  xy: 1529, 318
+  size: 310, 273
+  orig: 350, 350
+  offset: 19, 43
+  index: -1
+levelup_y_00003
+  rotate: true
+  xy: 2, 273
+  size: 318, 310
+  orig: 350, 350
+  offset: 11, 24
+  index: -1
+levelup_y_00004
+  rotate: true
+  xy: 314, 282
+  size: 315, 300
+  orig: 350, 350
+  offset: 14, 29
+  index: -1
+levelup_y_00005
+  rotate: true
+  xy: 1227, 620
+  size: 310, 299
+  orig: 350, 350
+  offset: 19, 30
+  index: -1
+levelup_y_00006
+  rotate: true
+  xy: 616, 297
+  size: 310, 303
+  orig: 350, 350
+  offset: 19, 28
+  index: -1
+levelup_y_00007
+  rotate: true
+  xy: 921, 309
+  size: 306, 304
+  orig: 350, 350
+  offset: 23, 29
+  index: -1
+levelup_y_00008
+  rotate: true
+  xy: 1539, 938
+  size: 293, 300
+  orig: 350, 350
+  offset: 29, 32
+  index: -1

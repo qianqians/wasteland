@@ -1,0 +1,76 @@
+
+exclusive_gear_down.png
+size: 923,656
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+exclusive_gear_down_00000
+  rotate: true
+  xy: 693, 440
+  size: 214, 228
+  orig: 300, 300
+  offset: 53, 31
+  index: -1
+exclusive_gear_down_00001
+  rotate: true
+  xy: 2, 229
+  size: 212, 262
+  orig: 300, 300
+  offset: 59, 20
+  index: -1
+exclusive_gear_down_00002
+  rotate: true
+  xy: 2, 12
+  size: 215, 273
+  orig: 300, 300
+  offset: 56, 19
+  index: -1
+exclusive_gear_down_00003
+  rotate: true
+  xy: 266, 229
+  size: 212, 270
+  orig: 300, 300
+  offset: 52, 25
+  index: -1
+exclusive_gear_down_00004
+  rotate: true
+  xy: 538, 224
+  size: 214, 249
+  orig: 300, 300
+  offset: 44, 36
+  index: -1
+exclusive_gear_down_00005
+  rotate: true
+  xy: 514, 2
+  size: 220, 234
+  orig: 300, 300
+  offset: 42, 46
+  index: -1
+exclusive_gear_down_00006
+  rotate: true
+  xy: 277, 12
+  size: 215, 235
+  orig: 300, 300
+  offset: 44, 49
+  index: -1
+exclusive_gear_down_00007
+  rotate: true
+  xy: 457, 443
+  size: 211, 234
+  orig: 300, 300
+  offset: 43, 51
+  index: -1
+exclusive_gear_down_00008
+  rotate: true
+  xy: 2, 444
+  size: 210, 226
+  orig: 300, 300
+  offset: 44, 50
+  index: -1
+exclusive_gear_down_00009
+  rotate: true
+  xy: 230, 443
+  size: 211, 225
+  orig: 300, 300
+  offset: 48, 39
+  index: -1

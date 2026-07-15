@@ -1,0 +1,174 @@
+
+tower_earth_transition.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tower_land_00000
+  rotate: false
+  xy: 582, 10
+  size: 330, 296
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00001
+  rotate: false
+  xy: 2, 1468
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00002
+  rotate: false
+  xy: 2, 888
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00003
+  rotate: false
+  xy: 334, 1468
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00004
+  rotate: false
+  xy: 2, 308
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00005
+  rotate: false
+  xy: 666, 1468
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00006
+  rotate: false
+  xy: 334, 888
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00007
+  rotate: false
+  xy: 334, 308
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00008
+  rotate: false
+  xy: 998, 1468
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00009
+  rotate: false
+  xy: 666, 888
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00010
+  rotate: false
+  xy: 1330, 1468
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00011
+  rotate: false
+  xy: 666, 308
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00012
+  rotate: false
+  xy: 998, 888
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00013
+  rotate: false
+  xy: 1662, 1468
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00014
+  rotate: false
+  xy: 998, 308
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00015
+  rotate: false
+  xy: 1330, 888
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00016
+  rotate: false
+  xy: 1330, 308
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00017
+  rotate: false
+  xy: 1662, 888
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00018
+  rotate: false
+  xy: 1662, 308
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_land_00019
+  rotate: true
+  xy: 2, 2
+  size: 304, 578
+  orig: 330, 578
+  offset: 26, 0
+  index: -1
+tower_land_00020_1
+  rotate: false
+  xy: 914, 153
+  size: 161, 153
+  orig: 330, 578
+  offset: 169, 425
+  index: -1
+tower_land_00020_2
+  rotate: true
+  xy: 1077, 148
+  size: 83, 189
+  orig: 330, 578
+  offset: 108, 0
+  index: -1
+tower_land_00021_1
+  rotate: false
+  xy: 914, 69
+  size: 114, 82
+  orig: 330, 578
+  offset: 216, 496
+  index: -1
+tower_land_00021_2
+  rotate: true
+  xy: 1077, 233
+  size: 73, 199
+  orig: 330, 578
+  offset: 121, 0
+  index: -1

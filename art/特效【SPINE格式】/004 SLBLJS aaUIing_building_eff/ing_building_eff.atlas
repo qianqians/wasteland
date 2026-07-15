@@ -1,0 +1,111 @@
+
+ing_building_eff.png
+size: 1649,874
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ing_building_eff_00029
+  rotate: true
+  xy: 328, 305
+  size: 288, 323
+  orig: 400, 400
+  offset: 45, 27
+  index: -1
+ing_building_eff_00030
+  rotate: true
+  xy: 333, 8
+  size: 295, 326
+  orig: 400, 400
+  offset: 45, 25
+  index: -1
+ing_building_eff_00031
+  rotate: true
+  xy: 661, 5
+  size: 295, 328
+  orig: 400, 400
+  offset: 45, 24
+  index: -1
+ing_building_eff_00032
+  rotate: true
+  xy: 1307, 299
+  size: 291, 329
+  orig: 400, 400
+  offset: 45, 23
+  index: -1
+ing_building_eff_00033
+  rotate: true
+  xy: 2, 595
+  size: 277, 293
+  orig: 400, 400
+  offset: 45, 23
+  index: -1
+ing_building_eff_00034
+  rotate: true
+  xy: 297, 595
+  size: 277, 320
+  orig: 400, 400
+  offset: 45, 27
+  index: -1
+ing_building_eff_00035
+  rotate: true
+  xy: 1264, 592
+  size: 280, 325
+  orig: 400, 400
+  offset: 45, 27
+  index: -1
+ing_building_eff_00036
+  rotate: true
+  xy: 653, 305
+  size: 288, 325
+  orig: 400, 400
+  offset: 45, 27
+  index: -1
+ing_building_eff_00037
+  rotate: true
+  xy: 991, 2
+  size: 295, 326
+  orig: 400, 400
+  offset: 45, 25
+  index: -1
+ing_building_eff_00038
+  rotate: true
+  xy: 1319, 2
+  size: 295, 328
+  orig: 400, 400
+  offset: 45, 24
+  index: -1
+ing_building_eff_00039
+  rotate: true
+  xy: 2, 12
+  size: 291, 329
+  orig: 400, 400
+  offset: 45, 23
+  index: -1
+ing_building_eff_00040
+  rotate: true
+  xy: 619, 595
+  size: 277, 321
+  orig: 400, 400
+  offset: 45, 23
+  index: -1
+ing_building_eff_00041
+  rotate: true
+  xy: 942, 595
+  size: 277, 320
+  orig: 400, 400
+  offset: 45, 27
+  index: -1
+ing_building_eff_00042
+  rotate: true
+  xy: 2, 313
+  size: 280, 324
+  orig: 400, 400
+  offset: 45, 27
+  index: -1
+ing_building_eff_00043
+  rotate: true
+  xy: 980, 302
+  size: 288, 325
+  orig: 400, 400
+  offset: 45, 27
+  index: -1

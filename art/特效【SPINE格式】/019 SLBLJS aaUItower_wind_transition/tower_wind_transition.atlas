@@ -1,0 +1,160 @@
+
+tower_wind_transition.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tower_wind_00000
+  rotate: false
+  xy: 259, 38
+  size: 145, 102
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00001
+  rotate: false
+  xy: 1662, 138
+  size: 330, 369
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00002
+  rotate: false
+  xy: 2, 1423
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00003
+  rotate: false
+  xy: 2, 843
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00004
+  rotate: false
+  xy: 334, 1423
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00005
+  rotate: false
+  xy: 2, 263
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00006
+  rotate: false
+  xy: 334, 843
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00007
+  rotate: false
+  xy: 666, 1423
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00008
+  rotate: false
+  xy: 334, 263
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00009
+  rotate: false
+  xy: 666, 843
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00010
+  rotate: false
+  xy: 998, 1423
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00011
+  rotate: false
+  xy: 666, 263
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00012
+  rotate: false
+  xy: 998, 843
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00013
+  rotate: false
+  xy: 1330, 1423
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00014
+  rotate: false
+  xy: 998, 263
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00015
+  rotate: false
+  xy: 1330, 843
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00016
+  rotate: false
+  xy: 1662, 1423
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00017
+  rotate: false
+  xy: 1330, 263
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_wind_00018
+  rotate: false
+  xy: 1662, 904
+  size: 310, 517
+  orig: 330, 578
+  offset: 0, 61
+  index: -1
+tower_wind_00019
+  rotate: false
+  xy: 1662, 509
+  size: 320, 393
+  orig: 330, 578
+  offset: 0, 185
+  index: -1
+tower_wind_00020
+  rotate: false
+  xy: 2, 2
+  size: 255, 259
+  orig: 330, 578
+  offset: 31, 319
+  index: -1
+tower_wind_00021
+  rotate: false
+  xy: 259, 142
+  size: 242, 119
+  orig: 330, 578
+  offset: 0, 459
+  index: -1

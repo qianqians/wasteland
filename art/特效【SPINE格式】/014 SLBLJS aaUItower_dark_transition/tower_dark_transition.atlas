@@ -1,0 +1,132 @@
+
+tower_dark_transition.png
+size: 1987,1494
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tower_dark_00002
+  rotate: false
+  xy: 1652, 424
+  size: 330, 511
+  orig: 330, 578
+  offset: 0, 67
+  index: -1
+tower_dark_00003
+  rotate: false
+  xy: 2, 914
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00004
+  rotate: false
+  xy: 2, 334
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00005
+  rotate: true
+  xy: 2, 2
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00007
+  rotate: false
+  xy: 334, 914
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00008
+  rotate: false
+  xy: 334, 334
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00009
+  rotate: true
+  xy: 582, 2
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00010
+  rotate: false
+  xy: 666, 914
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00012
+  rotate: false
+  xy: 666, 334
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00013
+  rotate: false
+  xy: 998, 917
+  size: 330, 575
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00014
+  rotate: false
+  xy: 1330, 937
+  size: 330, 555
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00015
+  rotate: false
+  xy: 998, 365
+  size: 330, 550
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00016
+  rotate: false
+  xy: 1330, 407
+  size: 320, 528
+  orig: 330, 578
+  offset: 0, 7
+  index: -1
+tower_dark_00017
+  rotate: false
+  xy: 1662, 1125
+  size: 323, 367
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_dark_00018
+  rotate: true
+  xy: 1162, 71
+  size: 292, 363
+  orig: 330, 578
+  offset: 33, 0
+  index: -1
+tower_dark_00019
+  rotate: true
+  xy: 1527, 148
+  size: 257, 242
+  orig: 330, 578
+  offset: 70, 0
+  index: -1
+tower_dark_00020
+  rotate: false
+  xy: 1662, 994
+  size: 259, 129
+  orig: 330, 578
+  offset: 70, 0
+  index: -1
+tower_dark_00021
+  rotate: false
+  xy: 1527, 65
+  size: 120, 81
+  orig: 330, 578
+  offset: 72, 40
+  index: -1

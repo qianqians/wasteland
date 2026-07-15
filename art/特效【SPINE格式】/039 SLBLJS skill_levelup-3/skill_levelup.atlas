@@ -1,0 +1,321 @@
+
+skill_levelup.png
+size: 2017,1565
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_levelup_pop_p_00000
+  rotate: false
+  xy: 1699, 195
+  size: 121, 121
+  orig: 350, 300
+  offset: 116, 91
+  index: -1
+skill_levelup_pop_p_00001
+  rotate: true
+  xy: 1563, 600
+  size: 233, 234
+  orig: 350, 300
+  offset: 60, 35
+  index: -1
+skill_levelup_pop_p_00002
+  rotate: true
+  xy: 2, 250
+  size: 323, 300
+  orig: 350, 300
+  offset: 15, 0
+  index: -1
+skill_levelup_pop_p_00003
+  rotate: true
+  xy: 235, 594
+  size: 319, 300
+  orig: 350, 300
+  offset: 18, 0
+  index: -1
+skill_levelup_pop_p_00004
+  rotate: true
+  xy: 606, 305
+  size: 301, 300
+  orig: 350, 300
+  offset: 28, 0
+  index: -1
+skill_levelup_pop_p_00005
+  rotate: false
+  xy: 908, 337
+  size: 280, 299
+  orig: 350, 300
+  offset: 44, 0
+  index: -1
+skill_levelup_pop_p_00006
+  rotate: false
+  xy: 1311, 1277
+  size: 271, 286
+  orig: 350, 300
+  offset: 48, 4
+  index: -1
+skill_levelup_pop_r_00000
+  rotate: false
+  xy: 1803, 72
+  size: 121, 121
+  orig: 350, 300
+  offset: 116, 91
+  index: -1
+skill_levelup_pop_r_00001
+  rotate: true
+  xy: 1727, 318
+  size: 233, 234
+  orig: 350, 300
+  offset: 60, 35
+  index: -1
+skill_levelup_pop_r_00002
+  rotate: true
+  xy: 235, 1240
+  size: 323, 300
+  orig: 350, 300
+  offset: 15, 0
+  index: -1
+skill_levelup_pop_r_00003
+  rotate: true
+  xy: 304, 273
+  size: 319, 300
+  orig: 350, 300
+  offset: 18, 0
+  index: -1
+skill_levelup_pop_r_00004
+  rotate: true
+  xy: 858, 2
+  size: 301, 300
+  orig: 350, 300
+  offset: 28, 0
+  index: -1
+skill_levelup_pop_r_00005
+  rotate: false
+  xy: 1012, 640
+  size: 280, 299
+  orig: 350, 300
+  offset: 44, 0
+  index: -1
+skill_levelup_pop_r_00006
+  rotate: false
+  xy: 1160, 49
+  size: 271, 286
+  orig: 350, 300
+  offset: 48, 4
+  index: -1
+skill_levelup_pop_y_00000
+  rotate: false
+  xy: 1822, 195
+  size: 121, 121
+  orig: 350, 300
+  offset: 116, 91
+  index: -1
+skill_levelup_pop_y_00001
+  rotate: true
+  xy: 1463, 138
+  size: 233, 234
+  orig: 350, 300
+  offset: 60, 35
+  index: -1
+skill_levelup_pop_y_00002
+  rotate: true
+  xy: 235, 915
+  size: 323, 300
+  orig: 350, 300
+  offset: 15, 0
+  index: -1
+skill_levelup_pop_y_00003
+  rotate: true
+  xy: 537, 1244
+  size: 319, 300
+  orig: 350, 300
+  offset: 18, 0
+  index: -1
+skill_levelup_pop_y_00004
+  rotate: true
+  xy: 776, 941
+  size: 301, 300
+  orig: 350, 300
+  offset: 28, 0
+  index: -1
+skill_levelup_pop_y_00005
+  rotate: false
+  xy: 1078, 961
+  size: 280, 299
+  orig: 350, 300
+  offset: 44, 0
+  index: -1
+skill_levelup_pop_y_00006
+  rotate: false
+  xy: 1190, 352
+  size: 271, 286
+  orig: 350, 300
+  offset: 48, 4
+  index: -1
+skill_levelup_prt_p_00000
+  rotate: false
+  xy: 1805, 786
+  size: 183, 129
+  orig: 250, 350
+  offset: 11, 221
+  index: -1
+skill_levelup_prt_p_00001
+  rotate: false
+  xy: 1811, 1349
+  size: 189, 214
+  orig: 250, 350
+  offset: 56, 132
+  index: -1
+skill_levelup_prt_p_00002
+  rotate: false
+  xy: 2, 1235
+  size: 231, 328
+  orig: 250, 350
+  offset: 19, 0
+  index: -1
+skill_levelup_prt_p_00003
+  rotate: true
+  xy: 2, 11
+  size: 237, 316
+  orig: 250, 350
+  offset: 6, 0
+  index: -1
+skill_levelup_prt_p_00004
+  rotate: false
+  xy: 839, 1262
+  size: 234, 301
+  orig: 250, 350
+  offset: 0, 0
+  index: -1
+skill_levelup_prt_p_00005
+  rotate: false
+  xy: 1360, 1013
+  size: 225, 262
+  orig: 250, 350
+  offset: 4, 9
+  index: -1
+skill_levelup_prt_p_00006
+  rotate: false
+  xy: 1587, 1068
+  size: 216, 231
+  orig: 250, 350
+  offset: 10, 17
+  index: -1
+skill_levelup_prt_r_00000
+  rotate: false
+  xy: 1433, 7
+  size: 183, 129
+  orig: 250, 350
+  offset: 11, 221
+  index: -1
+skill_levelup_prt_r_00001
+  rotate: false
+  xy: 1811, 1133
+  size: 189, 214
+  orig: 250, 350
+  offset: 56, 132
+  index: -1
+skill_levelup_prt_r_00002
+  rotate: false
+  xy: 2, 905
+  size: 231, 328
+  orig: 250, 350
+  offset: 19, 0
+  index: -1
+skill_levelup_prt_r_00003
+  rotate: false
+  xy: 537, 926
+  size: 237, 316
+  orig: 250, 350
+  offset: 6, 0
+  index: -1
+skill_levelup_prt_r_00004
+  rotate: false
+  xy: 1075, 1262
+  size: 234, 301
+  orig: 250, 350
+  offset: 0, 0
+  index: -1
+skill_levelup_prt_r_00005
+  rotate: false
+  xy: 1584, 1301
+  size: 225, 262
+  orig: 250, 350
+  offset: 4, 9
+  index: -1
+skill_levelup_prt_r_00006
+  rotate: false
+  xy: 1587, 835
+  size: 216, 231
+  orig: 250, 350
+  offset: 10, 17
+  index: -1
+skill_levelup_prt_y_00000
+  rotate: false
+  xy: 1618, 7
+  size: 183, 129
+  orig: 250, 350
+  offset: 11, 221
+  index: -1
+skill_levelup_prt_y_00001
+  rotate: false
+  xy: 1805, 917
+  size: 189, 214
+  orig: 250, 350
+  offset: 56, 132
+  index: -1
+skill_levelup_prt_y_00002
+  rotate: false
+  xy: 2, 575
+  size: 231, 328
+  orig: 250, 350
+  offset: 19, 0
+  index: -1
+skill_levelup_prt_y_00003
+  rotate: false
+  xy: 537, 608
+  size: 237, 316
+  orig: 250, 350
+  offset: 6, 0
+  index: -1
+skill_levelup_prt_y_00004
+  rotate: false
+  xy: 776, 638
+  size: 234, 301
+  orig: 250, 350
+  offset: 0, 0
+  index: -1
+skill_levelup_prt_y_00005
+  rotate: true
+  xy: 1463, 373
+  size: 225, 262
+  orig: 250, 350
+  offset: 4, 9
+  index: -1
+skill_levelup_prt_y_00006
+  rotate: false
+  xy: 1799, 553
+  size: 216, 231
+  orig: 250, 350
+  offset: 10, 17
+  index: -1
+skill_levelup_ray_p
+  rotate: true
+  xy: 320, 2
+  size: 269, 267
+  orig: 300, 300
+  offset: 15, 18
+  index: -1
+skill_levelup_ray_r_00000
+  rotate: true
+  xy: 589, 2
+  size: 269, 267
+  orig: 300, 300
+  offset: 15, 18
+  index: -1
+skill_levelup_ray_y_00000
+  rotate: true
+  xy: 1294, 690
+  size: 269, 267
+  orig: 300, 300
+  offset: 15, 18
+  index: -1

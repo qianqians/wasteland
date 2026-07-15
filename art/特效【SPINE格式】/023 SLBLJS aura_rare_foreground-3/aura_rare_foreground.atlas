@@ -1,0 +1,321 @@
+
+aura_rare_foreground.png
+size: 2017,1999
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aura_rare_foreground_p_00000
+  rotate: false
+  xy: 2, 4
+  size: 289, 235
+  orig: 350, 350
+  offset: 32, 50
+  index: -1
+aura_rare_foreground_p_00001
+  rotate: false
+  xy: 584, 2
+  size: 288, 246
+  orig: 350, 350
+  offset: 31, 40
+  index: -1
+aura_rare_foreground_p_00002
+  rotate: false
+  xy: 1712, 1158
+  size: 282, 270
+  orig: 350, 350
+  offset: 35, 27
+  index: -1
+aura_rare_foreground_p_00003
+  rotate: true
+  xy: 1484, 219
+  size: 288, 277
+  orig: 350, 350
+  offset: 35, 30
+  index: -1
+aura_rare_foreground_p_00004
+  rotate: true
+  xy: 1430, 1097
+  size: 292, 280
+  orig: 350, 350
+  offset: 34, 36
+  index: -1
+aura_rare_foreground_p_00005
+  rotate: true
+  xy: 1484, 69
+  size: 148, 142
+  orig: 175, 175
+  offset: 16, 21
+  index: -1
+aura_rare_foreground_p_00006
+  rotate: true
+  xy: 1198, 112
+  size: 302, 284
+  orig: 350, 350
+  offset: 29, 48
+  index: -1
+aura_rare_foreground_p_00007
+  rotate: true
+  xy: 905, 372
+  size: 305, 285
+  orig: 350, 350
+  offset: 27, 54
+  index: -1
+aura_rare_foreground_p_00008
+  rotate: false
+  xy: 306, 250
+  size: 305, 340
+  orig: 350, 350
+  offset: 27, 5
+  index: -1
+aura_rare_foreground_p_00009
+  rotate: false
+  xy: 2, 1647
+  size: 305, 350
+  orig: 350, 350
+  offset: 26, 0
+  index: -1
+aura_rare_foreground_p_00010
+  rotate: false
+  xy: 2, 592
+  size: 302, 349
+  orig: 350, 350
+  offset: 27, 0
+  index: -1
+aura_rare_foreground_p_00011
+  rotate: false
+  xy: 309, 966
+  size: 287, 347
+  orig: 350, 350
+  offset: 28, 3
+  index: -1
+aura_rare_foreground_p_00012
+  rotate: false
+  xy: 613, 281
+  size: 290, 334
+  orig: 350, 350
+  offset: 29, 9
+  index: -1
+aura_rare_foreground_p_00013
+  rotate: true
+  xy: 1159, 1062
+  size: 321, 269
+  orig: 350, 350
+  offset: 0, 15
+  index: -1
+aura_rare_foreground_p_00014
+  rotate: false
+  xy: 874, 9
+  size: 322, 270
+  orig: 350, 350
+  offset: 0, 23
+  index: -1
+aura_rare_foreground_r_00000
+  rotate: false
+  xy: 293, 4
+  size: 289, 235
+  orig: 350, 350
+  offset: 32, 50
+  index: -1
+aura_rare_foreground_r_00001
+  rotate: true
+  xy: 1760, 1430
+  size: 288, 246
+  orig: 350, 350
+  offset: 31, 40
+  index: -1
+aura_rare_foreground_r_00002
+  rotate: false
+  xy: 1724, 886
+  size: 282, 270
+  orig: 350, 350
+  offset: 35, 27
+  index: -1
+aura_rare_foreground_r_00003
+  rotate: false
+  xy: 1712, 1720
+  size: 288, 277
+  orig: 350, 350
+  offset: 35, 30
+  index: -1
+aura_rare_foreground_r_00004
+  rotate: true
+  xy: 1442, 803
+  size: 292, 280
+  orig: 350, 350
+  offset: 34, 36
+  index: -1
+aura_rare_foreground_r_00005
+  rotate: true
+  xy: 1628, 69
+  size: 148, 141
+  orig: 175, 175
+  offset: 16, 21
+  index: -1
+aura_rare_foreground_r_00006
+  rotate: true
+  xy: 1195, 1695
+  size: 302, 284
+  orig: 350, 350
+  offset: 29, 48
+  index: -1
+aura_rare_foreground_r_00007
+  rotate: true
+  xy: 908, 1692
+  size: 305, 285
+  orig: 350, 350
+  offset: 27, 54
+  index: -1
+aura_rare_foreground_r_00008
+  rotate: false
+  xy: 309, 1657
+  size: 305, 340
+  orig: 350, 350
+  offset: 27, 5
+  index: -1
+aura_rare_foreground_r_00009
+  rotate: false
+  xy: 2, 1295
+  size: 305, 350
+  orig: 350, 350
+  offset: 26, 0
+  index: -1
+aura_rare_foreground_r_00010
+  rotate: false
+  xy: 2, 241
+  size: 302, 349
+  orig: 350, 350
+  offset: 27, 0
+  index: -1
+aura_rare_foreground_r_00011
+  rotate: false
+  xy: 598, 966
+  size: 287, 347
+  orig: 350, 350
+  offset: 28, 3
+  index: -1
+aura_rare_foreground_r_00012
+  rotate: false
+  xy: 616, 1663
+  size: 290, 334
+  orig: 350, 350
+  offset: 29, 9
+  index: -1
+aura_rare_foreground_r_00013
+  rotate: true
+  xy: 1171, 739
+  size: 321, 269
+  orig: 350, 350
+  offset: 0, 15
+  index: -1
+aura_rare_foreground_r_00014
+  rotate: true
+  xy: 887, 1003
+  size: 322, 270
+  orig: 350, 350
+  offset: 0, 23
+  index: -1
+aura_rare_foreground_y_00000
+  rotate: true
+  xy: 1771, 21
+  size: 289, 235
+  orig: 350, 350
+  offset: 32, 50
+  index: -1
+aura_rare_foreground_y_00001
+  rotate: true
+  xy: 1763, 312
+  size: 288, 246
+  orig: 350, 350
+  offset: 31, 40
+  index: -1
+aura_rare_foreground_y_00002
+  rotate: true
+  xy: 1745, 602
+  size: 282, 270
+  orig: 350, 350
+  offset: 35, 27
+  index: -1
+aura_rare_foreground_y_00003
+  rotate: true
+  xy: 1481, 1430
+  size: 288, 277
+  orig: 350, 350
+  offset: 35, 30
+  index: -1
+aura_rare_foreground_y_00004
+  rotate: true
+  xy: 1463, 509
+  size: 292, 280
+  orig: 350, 350
+  offset: 34, 36
+  index: -1
+aura_rare_foreground_y_00005
+  rotate: false
+  xy: 1481, 1856
+  size: 148, 141
+  orig: 175, 175
+  offset: 16, 21
+  index: -1
+aura_rare_foreground_y_00006
+  rotate: true
+  xy: 1195, 1391
+  size: 302, 284
+  orig: 350, 350
+  offset: 29, 48
+  index: -1
+aura_rare_foreground_y_00007
+  rotate: true
+  xy: 908, 1385
+  size: 305, 285
+  orig: 350, 350
+  offset: 27, 54
+  index: -1
+aura_rare_foreground_y_00008
+  rotate: false
+  xy: 309, 1315
+  size: 305, 340
+  orig: 350, 350
+  offset: 27, 5
+  index: -1
+aura_rare_foreground_y_00009
+  rotate: false
+  xy: 2, 943
+  size: 305, 350
+  orig: 350, 350
+  offset: 26, 0
+  index: -1
+aura_rare_foreground_y_00010
+  rotate: false
+  xy: 306, 592
+  size: 302, 349
+  orig: 350, 350
+  offset: 27, 0
+  index: -1
+aura_rare_foreground_y_00011
+  rotate: false
+  xy: 610, 617
+  size: 287, 347
+  orig: 350, 350
+  offset: 28, 3
+  index: -1
+aura_rare_foreground_y_00012
+  rotate: false
+  xy: 616, 1327
+  size: 290, 334
+  orig: 350, 350
+  offset: 29, 9
+  index: -1
+aura_rare_foreground_y_00013
+  rotate: true
+  xy: 1192, 416
+  size: 321, 269
+  orig: 350, 350
+  offset: 0, 15
+  index: -1
+aura_rare_foreground_y_00014
+  rotate: true
+  xy: 899, 679
+  size: 322, 270
+  orig: 350, 350
+  offset: 0, 23
+  index: -1

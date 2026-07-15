@@ -1,0 +1,160 @@
+
+tower_fire_transition.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tower_fire_00000
+  rotate: false
+  xy: 469, 26
+  size: 330, 265
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00001
+  rotate: false
+  xy: 1662, 466
+  size: 330, 405
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00002
+  rotate: false
+  xy: 801, 2
+  size: 330, 289
+  orig: 330, 289
+  offset: 0, 0
+  index: -1
+tower_fire_00003
+  rotate: false
+  xy: 2, 1453
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00004
+  rotate: false
+  xy: 2, 873
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00005
+  rotate: false
+  xy: 334, 1453
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00006
+  rotate: false
+  xy: 2, 293
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00007
+  rotate: false
+  xy: 334, 873
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00008
+  rotate: false
+  xy: 666, 1453
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00009
+  rotate: false
+  xy: 334, 293
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00010
+  rotate: false
+  xy: 666, 873
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00011
+  rotate: false
+  xy: 998, 1453
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00012
+  rotate: false
+  xy: 666, 293
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00013
+  rotate: false
+  xy: 998, 873
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00014
+  rotate: false
+  xy: 1330, 1453
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00015
+  rotate: false
+  xy: 998, 293
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00016
+  rotate: false
+  xy: 1330, 873
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00017
+  rotate: false
+  xy: 1662, 1453
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00018
+  rotate: false
+  xy: 1330, 293
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00019
+  rotate: false
+  xy: 1662, 873
+  size: 330, 578
+  orig: 330, 578
+  offset: 0, 0
+  index: -1
+tower_fire_00020
+  rotate: true
+  xy: 2, 89
+  size: 202, 465
+  orig: 330, 578
+  offset: 109, 8
+  index: -1
+tower_fire_00021
+  rotate: false
+  xy: 1994, 2030
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
