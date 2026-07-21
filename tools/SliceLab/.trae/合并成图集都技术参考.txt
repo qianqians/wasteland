@@ -1,0 +1,24 @@
+
+
+一、核心矩形装箱库（直接可用）
+maxrects-packer（前端最主流、无依赖的 TS 实现，支持旋转、内边距、多图集拆分）
+npm 地址：https://www.npmjs.com/package/maxrects-packernpm
+max-rects（新版实现，带在线演示，支持多页布局）
+npm 地址：https://www.npmjs.com/package/max-rectsnpm
+二、plist 文件生成库
+plist（最经典的 JS plist 库，支持 XML 格式解析与生成，直接用 build() 方法即可输出标准 plist）
+npm 地址：https://www.npmjs.com/package/plistnpm
+plist-next（TypeScript 重制版，类型更严谨，适合 TS 项目）
+npm 地址：https://www.npmjs.com/package/plist-nextnpm
+三、装箱算法原理参考
+纹理图集打包算法对比（MaxRects vs Grid vs Shelf）
+英文深度讲解：https://ilovesprites.com/blog/texture-atlas-packing-algorithms
+MaxRects 算法细节与流程拆解
+英文技术文档：https://deepwiki.com/secnot/rectpack/4.1-maxrects-algorithms
+中文原理 + 工程实践解析
+CSDN 深度文：https://blog.csdn.net/qq_33060405/article/details/151615660
+四、Cocos plist 格式官方规范
+TexturePacker 官方 Cocos2d plist 格式说明（最权威，字段定义完整）
+官方文档：https://www.codeandweb.com/texturepacker/knowledgebase/cocos2d-plist-file-format
+Cocos2d-x plist 格式中文详解（含 format 版本差异）
+CSDN 详解：https://blog.csdn.net/qq_25600055/article/details/50994581

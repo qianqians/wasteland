@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Geist:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  font-family: "Inter Tight", "IBM Plex Sans", system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #0e0f13;
+  color: #e6e8ec;
+  background-image: radial-gradient(
+      circle at 18% 12%,
+      rgba(198, 244, 50, 0.05),
+      transparent 42%
+    ),
+    radial-gradient(circle at 88% 88%, rgba(94, 234, 212, 0.04), transparent 50%),
+    linear-gradient(180deg, #0e0f13 0%, #0b0c10 100%);
+  background-attachment: fixed;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #2e323d;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3f4b;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+/* 棋盘格透明背景 */
+.checker-bg {
+  background-image: linear-gradient(45deg, #1c1f28 25%, transparent 25%),
+    linear-gradient(-45deg, #1c1f28 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1c1f28 75%),
+    linear-gradient(-45deg, transparent 75%, #1c1f28 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-color: #11131a;
+}
+
+/* 通用工具类 */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg text-sm font-medium transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed select-none;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 px-3.5 py-2 hover:shadow-glow hover:-translate-y-px active:translate-y-0;
+  }
+  .btn-ghost {
+    @apply btn border border-ink-700 text-fg px-3.5 py-2 hover:bg-ink-800 hover:border-ink-600;
+  }
+  .btn-danger {
+    @apply btn border border-danger/30 text-danger px-3.5 py-2 hover:bg-danger/10 hover:border-danger/60;
+  }
+  .panel {
+    @apply bg-ink-900/80 backdrop-blur-sm border border-ink-700 rounded-xl;
+  }
+  .label {
+    @apply text-[11px] uppercase tracking-[0.14em] text-fg-dim font-mono;
+  }
+  .input {
+    @apply bg-ink-950 border border-ink-700 rounded-md px-3 py-2 text-sm text-fg focus:outline-none focus:border-accent/60 focus:shadow-glow transition-colors;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-mono uppercase tracking-wider;
+  }
+}
+
+/* 滑块自定义样式 */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 20px;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #2e323d;
+  height: 4px;
+  border-radius: 999px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  background: #c6f432;
+  height: 16px;
+  width: 16px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(198, 244, 50, 0.15);
+  transition: box-shadow 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 6px rgba(198, 244, 50, 0.22);
+}
+input[type="range"]::-moz-range-track {
+  background: #2e323d;
+  height: 4px;
+  border-radius: 999px;
+}
+input[type="range"]::-moz-range-thumb {
+  background: #c6f432;
+  height: 16px;
+  width: 16px;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(198, 244, 50, 0.15);
+}
+
+/* 复选框样式 */
+input[type="checkbox"].elem-check {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #3a3f4b;
+  border-radius: 4px;
+  background: rgba(14, 15, 19, 0.7);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s;
+}
+input[type="checkbox"].elem-check:hover {
+  border-color: #c6f432;
+}
+input[type="checkbox"].elem-check:checked {
+  background: #c6f432;
+  border-color: #c6f432;
+}
+input[type="checkbox"].elem-check:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid #0e0f13;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
