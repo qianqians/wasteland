@@ -1,57 +1,292 @@
-# React + TypeScript + Vite
+# SliceLab - 图像元素拆分器
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 版本信息
 
-Currently, two official plugins are available:
+**当前版本**: v2.0  
+**最后更新**: 2026-07-21
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 简介
 
-## Expanding the ESLint configuration
+SliceLab 是一款专业的图像处理工具,专为游戏开发者、UI设计师和电商运营打造。它可以智能识别并去除纯色背景,自动拆分图像中的独立元素,支持素材库管理和图集打包导出。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 核心价值
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **智能处理**: 自动检测纯色背景并去除,支持透明图像直接处理
+- **高效拆分**: 基于连通区域算法,快速识别并切分独立元素
+- **素材管理**: SQLite 数据库管理素材,支持分类和检索
+- **图集导出**: MaxRects 算法优化排版,支持 Cocos2d plist 格式
+
+## 功能特性
+
+### 1. 工作台 (Workspace)
+
+- **智能去背景**
+  - 自动检测纯色背景(四角像素投票算法)
+  - 支持手动吸取背景色
+  - 容差调节(0-100)
+  - 边缘抗锯齿处理
+
+- **元素拆分**
+  - 8邻域连通区域标记算法
+  - 自动过滤噪点(最小元素尺寸可调)
+  - Bounding Box 计算 + Padding 外扩
+  - 输出透明 PNG
+
+- **参数面板**
+  - 背景模式选择(自动/吸取/透明)
+  - 容差滑块(0-100)
+  - 抗锯齿开关
+  - 最小元素尺寸(像素)
+  - Padding 外扩(像素)
+
+- **元素画廊**
+  - 网格缩略图展示
+  - 显示序号、尺寸、Bounding Box
+  - 多选/全选/反选
+  - 单击放大预览
+
+- **批量导出**
+  - 下载选中元素(ZIP打包)
+  - 下载全部元素
+  - 清空结果(需二次确认)
+
+### 2. 素材库 (Library)
+
+- **SQLite 数据库管理**
+  - 持久化存储素材信息
+  - 支持分类标签
+  - 快速检索和筛选
+
+- **素材操作**
+  - 从工作台导入元素
+  - 批量管理素材
+  - 标签分类系统
+
+### 3. 图集打包 (Atlas Builder)
+
+- **MaxRects 排版算法**
+  - 自动优化排版,减少空白空间
+  - 支持多种尺寸策略
+
+- **导出格式**
+  - PNG 图集文件
+  - Cocos2d plist 元数据
+  - JSON 格式描述文件
+
+## 技术架构
+
+### 前端技术栈
+
+- **框架**: React 18 + TypeScript
+- **构建工具**: Vite 5
+- **样式**: Tailwind CSS 3 + CSS Variables
+- **状态管理**: Zustand
+- **图标**: lucide-react
+- **拖拽上传**: react-dropzone
+- **打包下载**: JSZip + FileSaver
+
+### 后端技术栈
+
+- **服务器**: Express.js
+- **数据库**: SQLite (better-sqlite3)
+- **图像处理**: Canvas API + pngjs
+- **排版算法**: maxrects-packer
+
+### 核心算法
+
+#### 背景去除算法
+
+```
+1. 绘制图片到 Canvas,获取 ImageData
+2. 取四角像素颜色,投票确定主背景色
+3. 遍历像素,RGB 距离 < 容差则 alpha = 0
+4. 边缘羽化处理(可选)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+#### 连通区域标记算法
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  extends: [
-    // other configs...
-    // Enable lint rules for React
-    reactX.configs['recommended-typescript'],
-    // Enable lint rules for React DOM
-    reactDom.configs.recommended,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
 ```
+1. 创建 visited 数组标记已访问像素
+2. 对每个 alpha > 0 且未访问的像素启动 BFS
+3. 收集连通像素,记录 Bounding Box
+4. 过滤面积小于阈值的区域
+5. 按 padding 外扩 bbox 并裁剪
+```
+
+### 性能优化
+
+- Uint8ClampedArray 直接操作像素
+- BFS 迭代实现(避免栈溢出)
+- 大图自动缩放(>4000px → 2000px)
+- Web Worker 并行处理
+
+## 安装与运行
+
+### 环境要求
+
+- Node.js >= 18.0.0
+- npm >= 9.0.0
+
+### 快速开始
+
+```bash
+# 安装依赖
+npm install
+
+# 启动开发服务器(前端+后端)
+npm start
+
+# 或分别启动
+npm run dev        # 仅前端
+npm run dev:server # 仅后端
+```
+
+### 构建生产版本
+
+```bash
+npm run build
+npm run preview
+```
+
+## 使用流程
+
+### 基本流程
+
+1. **上传图片**: 拖拽或点击上传 PNG/JPG/WEBP 文件
+2. **设置参数**: 调整背景去除参数和元素过滤条件
+3. **自动处理**: 系统自动去背景并拆分元素
+4. **预览选择**: 在元素画廊中查看和选择需要的元素
+5. **导出下载**: 批量下载选中的元素(ZIP打包)
+
+### 高级用法
+
+#### 素材库管理
+
+1. 切换到"素材库"标签页
+2. 从工作台导入处理好的元素
+3. 添加标签分类
+4. 检索和管理素材
+
+#### 图集打包
+
+1. 切换到"图集打包"标签页
+2. 从素材库选择需要的元素
+3. 设置图集参数(尺寸、间距等)
+4. 选择导出格式(PNG + plist/JSON)
+5. 生成并下载图集
+
+## 项目结构
+
+```
+SliceLab/
+├── src/                    # 前端源码
+│   ├── components/         # React 组件
+│   │   ├── Uploader.tsx
+│   │   ├── ParameterPanel.tsx
+│   │   ├── PreviewCanvas.tsx
+│   │   ├── ElementGallery.tsx
+│   │   ├── BatchActionBar.tsx
+│   │   ├── ConfirmDialog.tsx
+│   │   ├── ProgressOverlay.tsx
+│   │   ├── LibraryView.tsx
+│   │   └── AtlasBuilderView.tsx
+│   ├── hooks/              # 自定义 Hooks
+│   │   └── useImageProcessor.ts
+│   ├── store/              # 状态管理
+│   │   └── useImageStore.ts
+│   ├── types/              # TypeScript 类型定义
+│   │   └── index.ts
+│   ├── App.tsx             # 主应用组件
+│   └── main.tsx            # 入口文件
+├── server/                 # 后端服务
+│   ├── index.ts            # Express 服务器
+│   ├── db.ts               # SQLite 数据库
+│   └── atlas.ts            # 图集生成
+├── data/                   # 数据目录
+│   └── slicelab.db         # SQLite 数据库文件
+├── public/                 # 静态资源
+├── index.html              # HTML 模板
+├── vite.config.ts          # Vite 配置
+├── tsconfig.json           # TypeScript 配置
+└── package.json            # 项目依赖
+```
+
+## 未来计划
+
+### v2.1 - 使用流程优化
+
+- [ ] **批量处理**: 支持一次上传多张图片批量处理
+- [ ] **历史记录**: 记录处理历史,支持撤销/重做
+- [ ] **快捷键**: 添加常用操作的快捷键支持
+- [ ] **进度可视化**: 改进处理进度显示,显示当前步骤
+- [ ] **预览优化**: 添加缩放、平移、旋转等预览功能
+- [ ] **拖拽排序**: 元素画廊支持拖拽调整顺序
+
+### v2.2 - 素材编辑分离和扩展
+
+- [ ] **独立编辑器**: 素材编辑器独立为单独模块
+- [ ] **图像编辑功能**
+  - 裁剪、旋转、翻转
+  - 色彩调整(亮度、对比度、饱和度)
+  - 滤镜效果
+  - 画笔工具(添加/擦除)
+- [ ] **矢量图形支持**: 支持导入和编辑 SVG 格式
+- [ ] **图层系统**: 多图层编辑和管理
+- [ ] **模板系统**: 预设模板快速应用
+
+### v2.3 - 导出更强大的图集方式
+
+- [ ] **多格式支持**
+  - TexturePacker 格式
+  - Unity Sprite Atlas
+  - Phaser 纹理图集
+  - Godot Atlas
+- [ ] **高级排版算法**
+  - 多图集自动分页
+  - 动态尺寸策略
+  - 旋转优化
+  - 自定义区域划分
+- [ ] **压缩优化**
+  - PNG 优化(Quantization)
+  - WebP 格式支持
+  - 基础压缩率调节
+- [ ] **元数据导出**
+  - 完整精灵信息
+  - 动画序列支持
+  - 自定义属性字段
+  - 脚本代码生成
+
+### v2.4 - 协作与云端
+
+- [ ] **云端同步**: 素材库云端备份
+- [ ] **团队协作**: 多人协作编辑
+- [ ] **版本控制**: 素材版本管理
+- [ ] **分享功能**: 一键分享素材包
+
+### v2.5 - AI 增强
+
+- [ ] **智能抠图**: AI 辅助复杂背景去除
+- [ ] **自动标注**: AI 自动识别元素类型并添加标签
+- [ ] **智能排版**: AI 优化图集排版方案
+- [ ] **批量优化**: AI 批量优化图像质量
+
+## 已知问题
+
+- [ ] 大尺寸图片(>4000px)处理速度较慢
+- [ ] 复杂背景去色效果不理想
+- [ ] 素材库导入大量素材时性能下降
+- [ ] 图集打包不支持动态尺寸调整
+
+## 技术支持
+
+- **作者**: kong
+- **邮箱**: sgkongai@gmail.com
+- **GitHub**: https://github.com/qianqians/wasteland
+
+## 许可证
+
+本项目仅供学习和内部使用,未经授权不得用于商业用途。
+
+---
+
+**感谢使用 SliceLab!** 🎨✨
