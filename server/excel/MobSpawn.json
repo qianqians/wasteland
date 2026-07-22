@@ -1,0 +1,16 @@
+{
+    "50001": {
+        "id": 50001,
+        "scene": "wasteland_expedition_1",
+        "postion": "[1.5,1.6]",
+        "mob_id": 900001,
+        "mobs_num": 5
+    },
+    "50002": {
+        "id": 50002,
+        "scene": "wasteland_expedition_2",
+        "postion": "[2.5,2.6]",
+        "mob_id": 900002,
+        "mobs_num": 5
+    }
+}

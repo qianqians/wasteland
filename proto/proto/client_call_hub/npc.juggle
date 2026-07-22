@@ -1,0 +1,8 @@
+import common
+
+entity_service npc {
+    accept_task req(int32 task_id) rsp(task_info[] tasks) err(error_code err);
+    complete_task req(int32 task_id) rsp(task_info[] tasks) err(error_code err);
+
+    purchase req(string item_id) rsp(item[] items) err(error_code err);
+}

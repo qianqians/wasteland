@@ -1,0 +1,16 @@
+{
+    "20001": {
+        "id": 20001,
+        "cast_spells": 0.5,
+        "cd": 0,
+        "attack": 20,
+        "attack_range": 15
+    },
+    "20002": {
+        "id": 20002,
+        "cast_spells": 1.1,
+        "cd": 0,
+        "attack": 20,
+        "attack_range": 15
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "10001": {
+        "id": 10001,
+        "unlock_level": 1,
+        "need_talk": 0,
+        "next_talk": "[10011, 10012]",
+        "talk_npc": 100001,
+        "talk": "[[[novice_player_talk1_1, novice_player_talk1_2],[novice_npc_talk1_1]], [[novice_player_talk2_1, novice_player_talk2_2],[novice_npc_talk2_1, novice_npc_talk2_2]]]"
+    },
+    "10002": {
+        "id": 10002,
+        "unlock_level": 1,
+        "need_talk": 0,
+        "next_talk": "",
+        "talk_npc": 100001,
+        "talk": "[[[novice_player_talk1_1, novice_player_talk1_2],[novice_npc_talk1_1]], [[novice_player_talk2_1, novice_player_talk2_2],[novice_npc_talk2_1, novice_npc_talk2_2]]]"
+    },
+    "": {
+        "id": 0,
+        "unlock_level": 0,
+        "need_talk": 0,
+        "next_talk": "",
+        "talk_npc": 0,
+        "talk": ""
+    },
+    "10011": {
+        "id": 10011,
+        "unlock_level": 1,
+        "need_talk": 10001,
+        "next_talk": "",
+        "talk_npc": 100001,
+        "talk": "[[[novice_player_talk1_1, novice_player_talk1_2],[novice_npc_talk1_1]]]"
+    },
+    "10012": {
+        "id": 10012,
+        "unlock_level": 1,
+        "need_talk": 10001,
+        "next_talk": "",
+        "talk_npc": 100001,
+        "talk": "[[[novice_player_talk1_1, novice_player_talk1_2],[novice_npc_talk1_1]]]"
+    }
+}
