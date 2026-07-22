@@ -20,6 +20,7 @@ import {
   CheckSquare,
   SquareDashedMousePointer,
   Database,
+  ListPlus,
 } from "lucide-react";
 
 /** 将分类列表构建为树结构 */
@@ -59,6 +60,9 @@ export default function LibraryView() {
   const [deleteCat, setDeleteCat] = useState<Category | null>(null);
   const [deleteImagesOpen, setDeleteImagesOpen] = useState(false);
   const [editingImage, setEditingImage] = useState<ImageMeta | null>(null);
+  const [batchRenameOpen, setBatchRenameOpen] = useState(false);
+  const [batchRenamePrefix, setBatchRenamePrefix] = useState("");
+  const [batchRenameBusy, setBatchRenameBusy] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
   const searchTimer = useRef<number | undefined>(undefined);
@@ -114,6 +118,13 @@ export default function LibraryView() {
 
   // 分类树
   const tree = useMemo(() => buildTree(categories), [categories]);
+
+  // 当前批量导入的目标分类名（用于上传按钮提示）
+  // 选中"全部图片"(null) 时导入为未分类
+  const targetCategoryName =
+    selectedCategoryId === null
+      ? "未分类"
+      : categories.find((c) => c.id === selectedCategoryId)?.name ?? "未分类";
 
   // 选中图片
   const allSelected = images.length > 0 && selectedIds.size === images.length;
@@ -178,6 +189,29 @@ export default function LibraryView() {
     }
   };
 
+  // 操作：批量改名
+  const handleBatchRename = async () => {
+    const prefix = batchRenamePrefix.trim();
+    if (!prefix) return;
+    if (selectedIds.size === 0) return;
+    setBatchRenameBusy(true);
+    try {
+      // 按 images 数组顺序生成 ids，保证命名顺序与展示顺序一致
+      const orderedIds = images
+        .filter((img) => selectedIds.has(img.id))
+        .map((img) => img.id);
+      await api.batchRenameImages(orderedIds, prefix);
+      showToast(`已重命名 ${orderedIds.length} 张图片（${prefix}1~${prefix}${orderedIds.length}）`);
+      setBatchRenameOpen(false);
+      setBatchRenamePrefix("");
+      void refreshImages();
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBatchRenameBusy(false);
+    }
+  };
+
   // 单张下载
   const handleDownload = (img: ImageMeta) => {
     const a = document.createElement("a");
@@ -186,7 +220,7 @@ export default function LibraryView() {
     a.click();
   };
 
-  // 文件上传（PNG）
+  // 文件上传（PNG）—— 导入到当前选中的分类，未选中分类时为未分类
   const fileInputRef = useRef<HTMLInputElement>(null);
   const handleUploadFiles = async (files: FileList) => {
     setLoading(true);
@@ -202,7 +236,7 @@ export default function LibraryView() {
           console.error("upload failed", f.name, e);
         }
       }
-      showToast(`已上传 ${count} 张图片`);
+      showToast(`已导入 ${count} 张图片到「${targetCategoryName}」`);
       void refreshImages();
     } finally {
       setLoading(false);
@@ -364,11 +398,14 @@ export default function LibraryView() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="btn-ghost h-8 px-3 text-xs"
-              title="上传 PNG 图片到当前分类"
+              className="btn-primary h-8 px-3 text-xs"
+              title={`批量导入图片到「${targetCategoryName}」（支持多选）`}
             >
               <Upload size={13} strokeWidth={1.8} />
-              上传
+              批量导入
+              <span className="ml-1 px-1.5 py-0.5 rounded bg-ink-950/30 text-[10px] font-mono">
+                {targetCategoryName}
+              </span>
             </button>
             <input
               ref={fileInputRef}
@@ -415,6 +452,17 @@ export default function LibraryView() {
             >
               <SquareDashedMousePointer size={13} strokeWidth={1.8} />
               反选
+            </button>
+            <span className="text-ink-700">|</span>
+            <button
+              type="button"
+              onClick={() => setBatchRenameOpen(true)}
+              disabled={selectedIds.size === 0}
+              className="btn-ghost h-8 px-3 text-xs"
+              title="将选中图片按顺序命名为 前缀+序号"
+            >
+              <ListPlus size={13} strokeWidth={1.8} />
+              批量改名{selectedIds.size > 0 ? ` (${selectedIds.size})` : ""}
             </button>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
@@ -573,6 +621,39 @@ export default function LibraryView() {
         onConfirm={handleBatchDelete}
         onCancel={() => setDeleteImagesOpen(false)}
       />
+
+      {/* 批量改名对话框 */}
+      <ConfirmDialog
+        open={batchRenameOpen}
+        title={`批量改名（${selectedIds.size} 张）`}
+        message={`输入统一前缀，将按当前列表顺序依次命名为「前缀1、前缀2、前缀3…」`}
+        confirmText="改名"
+        onConfirm={handleBatchRename}
+        onCancel={() => {
+          setBatchRenameOpen(false);
+          setBatchRenamePrefix("");
+        }}
+      >
+        <input
+          autoFocus
+          type="text"
+          value={batchRenamePrefix}
+          onChange={(e) => setBatchRenamePrefix(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && batchRenamePrefix.trim() && !batchRenameBusy) {
+              void handleBatchRename();
+            }
+          }}
+          className="input w-full mt-3"
+          placeholder="例如：kong"
+          disabled={batchRenameBusy}
+        />
+        {batchRenamePrefix.trim() && (
+          <p className="text-[11px] text-fg-dim mt-2 font-mono">
+            预览：{batchRenamePrefix.trim()}1, {batchRenamePrefix.trim()}2, {batchRenamePrefix.trim()}3 …
+          </p>
+        )}
+      </ConfirmDialog>
 
       {/* 移动分类选择对话框 */}
       <ConfirmDialog
@@ -871,9 +952,13 @@ function LibraryImageCard({
           src={api.getImageThumbnailUrl(image.id, image.updated_at)}
           alt={image.name}
           loading="lazy"
-          className="absolute inset-0 w-full h-full object-contain p-2 cursor-pointer"
+          className={`absolute inset-0 w-full h-full object-contain p-2 cursor-pointer ${
+            selected ? "" : "opacity-90 hover:opacity-100"
+          }`}
           draggable={false}
-          onClick={onEdit}
+          onClick={onToggle}
+          onDoubleClick={onEdit}
+          title="单击选中，双击编辑"
         />
         <label className="absolute top-1.5 left-1.5 cursor-pointer">
           <input

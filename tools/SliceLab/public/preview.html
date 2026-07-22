@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI预览</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #1a1a2e;
+      font-family: sans-serif;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .loading {
+      color: #fff;
+      font-size: 18px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .error {
+      color: #ef4444;
+      font-size: 16px;
+      text-align: center;
+      padding: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .preview-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .ui-node { position: absolute; }
+    .ui-node[data-type="text"] {
+      display: flex;
+      align-items: flex-start;
+      word-break: break-word;
+      overflow: hidden;
+    }
+    .ui-node[data-type="container"] { overflow: visible; }
+    .ui-node[data-type="container"].clip { overflow: hidden; }
+    .ui-node[data-type="button"] {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ui-node[data-type="button"].disabled { cursor: not-allowed; opacity: 0.5; }
+    .ui-node[data-type="progress"] { position: relative; }
+    .progress-fill {
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+    }
+    .progress-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .ui-node img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="loading">加载中...</div>
+  </div>
+  <script>
+    // SliceLab 后端同源部署，直接使用相对路径
+    const API_BASE = '';
+    const urlParams = new URLSearchParams(window.location.search);
+    const schemeId = urlParams.get('id');
+    const rootId = urlParams.get('rootId');
+
+    let rootNode = null;
+    let canvasWidth = 1920;
+    let canvasHeight = 1080;
+    const nodeMap = new Map();
+
+    function getAssetUrl(assetId) {
+      if (!assetId) return '';
+      // assetId 直接对应素材库 images.id
+      return `${API_BASE}/api/images/${assetId}/file`;
+    }
+
+    async function loadScheme() {
+      if (!schemeId) {
+        showError('缺少方案ID');
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/api/ui/schemes/${schemeId}`);
+        if (!res.ok) {
+          showError('获取方案失败: HTTP ' + res.status);
+          return;
+        }
+        const scheme = await res.json();
+        const mainRoot = scheme.root_node;
+        const extraRoots = scheme.extra_root_nodes || [];
+        let targetRoot = null;
+        if (rootId) {
+          if (mainRoot && mainRoot.id === rootId) {
+            targetRoot = mainRoot;
+          } else {
+            targetRoot = extraRoots.find(r => r.id === rootId);
+          }
+          if (!targetRoot) {
+            showError('未找到指定的根节点 (rootId: ' + rootId + ')');
+            return;
+          }
+        } else {
+          targetRoot = mainRoot;
+        }
+        rootNode = targetRoot;
+        canvasWidth = (targetRoot.props && targetRoot.props.width) || scheme.canvas_width || 1920;
+        canvasHeight = (targetRoot.props && targetRoot.props.height) || scheme.canvas_height || 1080;
+        if (rootNode) {
+          rootNode.type = 'root';
+          if (!rootNode.props) rootNode.props = {};
+          if (!rootNode.props.backgroundColor) rootNode.props.backgroundColor = '#4d4d4d';
+          rootNode.props.x = 0;
+          rootNode.props.y = 0;
+        }
+        buildNodeMap(rootNode);
+        render();
+        triggerEvents('mounted');
+      } catch (e) {
+        showError('加载方案失败: ' + e.message);
+      }
+    }
+
+    function buildNodeMap(node) {
+      if (!node) return;
+      nodeMap.set(node.id, node);
+      if (node.children) node.children.forEach(buildNodeMap);
+    }
+
+    function showError(msg) {
+      const app = document.getElementById('app');
+      app.innerHTML = `<div class="error">${msg}</div>`;
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+      app.innerHTML = '';
+      const container = document.createElement('div');
+      container.className = 'preview-container';
+      container.id = 'preview-container';
+      container.style.width = canvasWidth + 'px';
+      container.style.height = canvasHeight + 'px';
+      container.style.backgroundColor = (rootNode && rootNode.props && rootNode.props.backgroundColor) || '#4d4d4d';
+      container.style.isolation = 'isolate';
+      if (rootNode && rootNode.children) {
+        rootNode.children.forEach(child => container.appendChild(renderNode(child)));
+      }
+      app.appendChild(container);
+      updateScale();
+      window.addEventListener('resize', updateScale);
+    }
+
+    function updateScale() {
+      const container = document.getElementById('preview-container');
+      if (!container) return;
+      const vw = document.documentElement.clientWidth || window.innerWidth;
+      const vh = document.documentElement.clientHeight || window.innerHeight;
+      const scaleX = vw / canvasWidth;
+      const scaleY = vh / canvasHeight;
+      const scale = Math.min(scaleX, scaleY);
+      container.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+
+    function applyProgressFill(el, dir, ratio) {
+      const pct = (ratio * 100) + '%';
+      if (dir === 'left-to-right') {
+        el.style.width = pct; el.style.height = '100%'; el.style.top = '0'; el.style.left = '0';
+      } else if (dir === 'right-to-left') {
+        el.style.width = pct; el.style.height = '100%'; el.style.top = '0'; el.style.right = '0'; el.style.left = 'auto';
+      } else if (dir === 'top-to-bottom') {
+        el.style.height = pct; el.style.width = '100%'; el.style.top = '0'; el.style.left = '0';
+      } else if (dir === 'bottom-to-top') {
+        el.style.height = pct; el.style.width = '100%'; el.style.bottom = '0'; el.style.top = 'auto'; el.style.left = '0';
+      }
+    }
+
+    function renderNode(node) {
+      if (!node.props || node.props.visible === false) {
+        const empty = document.createElement('div');
+        empty.style.display = 'none';
+        return empty;
+      }
+      const el = document.createElement('div');
+      el.className = 'ui-node';
+      el.dataset.nodeId = node.id;
+      el.dataset.type = node.type;
+      el.style.left = (node.props.x || 0) + 'px';
+      el.style.top = (node.props.y || 0) + 'px';
+      el.style.width = (node.props.width || 100) + 'px';
+      el.style.height = (node.props.height || 100) + 'px';
+      el.style.opacity = String(node.props.opacity ?? 1);
+      if (node.type === 'container') {
+        el.style.opacity = '1';
+        el.style.backgroundColor = 'transparent';
+        el.style.isolation = 'isolate';
+      }
+      if (node.props.rotation) {
+        el.style.transform = `rotate(${node.props.rotation}deg)`;
+      }
+      if (node.props.zIndex != null) {
+        el.style.zIndex = String(node.props.zIndex);
+      }
+
+      if (node.type === 'image') {
+        const url = getAssetUrl(node.props.assetId);
+        if (url) {
+          if (node.props.nineSliceEnabled) {
+            const ns = document.createElement('div');
+            ns.style.width = '100%';
+            ns.style.height = '100%';
+            ns.style.boxSizing = 'border-box';
+            ns.style.borderStyle = 'solid';
+            const top = node.props.sliceTop || 0;
+            const right = node.props.sliceRight || 0;
+            const bottom = node.props.sliceBottom || 0;
+            const left = node.props.sliceLeft || 0;
+            ns.style.borderWidth = top + 'px ' + right + 'px ' + bottom + 'px ' + left + 'px';
+            ns.style.borderImageSource = 'url(' + url + ')';
+            ns.style.borderImageSlice = top + ' ' + right + ' ' + bottom + ' ' + left + ' fill';
+            ns.style.borderImageRepeat = 'round';
+            el.appendChild(ns);
+          } else {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = node.name || '';
+            img.style.objectFit = node.props.fillMode || 'contain';
+            img.style.width = '100%';
+            img.style.height = '100%';
+            el.appendChild(img);
+          }
+        } else {
+          el.style.display = 'flex';
+          el.style.flexDirection = 'column';
+          el.style.alignItems = 'center';
+          el.style.justifyContent = 'center';
+          el.style.background = 'rgba(55, 65, 81, 0.5)';
+          el.style.color = 'rgba(209, 213, 219, 1)';
+          el.style.fontSize = '14px';
+          el.style.gap = '4px';
+          el.style.border = '1px dashed rgba(107, 114, 128, 1)';
+          el.style.boxSizing = 'border-box';
+          el.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>图片</span>';
+        }
+      } else if (node.type === 'text') {
+        el.textContent = node.props.content || '';
+        el.style.fontSize = (node.props.fontSize || 24) + 'px';
+        el.style.color = node.props.color || '#ffffff';
+        el.style.textAlign = node.props.textAlign || 'left';
+        el.style.lineHeight = node.props.lineHeight || 1.5;
+        el.style.fontFamily = node.props.fontFamily || 'sans-serif';
+        if (node.props.strokeWidth > 0 && node.props.strokeColor) {
+          el.style.webkitTextStroke = `${node.props.strokeWidth}px ${node.props.strokeColor}`;
+        }
+        el.style.alignItems = node.props.textAlign === 'center' ? 'center' : (node.props.textAlign === 'right' ? 'flex-end' : 'flex-start');
+        el.style.justifyContent = 'center';
+      } else if (node.type === 'container') {
+        if (node.props.clip) el.classList.add('clip');
+        if (node.children) {
+          node.children.forEach(child => el.appendChild(renderNode(child)));
+        }
+      } else if (node.type === 'button') {
+        const img = document.createElement('img');
+        const assetId = node.props.disabled ? node.props.disabledAssetId : node.props.normalAssetId;
+        img.src = getAssetUrl(assetId);
+        img.alt = node.name || '';
+        img.style.objectFit = 'fill';
+        el.appendChild(img);
+        if (node.props.disabled) el.classList.add('disabled');
+        if (!node.props.disabled) {
+          el.addEventListener('mouseenter', () => {
+            if (node.props.hoverAssetId) img.src = getAssetUrl(node.props.hoverAssetId);
+          });
+          el.addEventListener('mouseleave', () => {
+            img.src = getAssetUrl(node.props.normalAssetId);
+          });
+          el.addEventListener('mousedown', () => {
+            if (node.props.pressedAssetId) img.src = getAssetUrl(node.props.pressedAssetId);
+          });
+          el.addEventListener('mouseup', () => {
+            img.src = node.props.hoverAssetId ? getAssetUrl(node.props.hoverAssetId) : getAssetUrl(node.props.normalAssetId);
+          });
+        }
+      } else if (node.type === 'progress') {
+        const bgUrl = getAssetUrl(node.props.bgAssetId);
+        const fillUrl = getAssetUrl(node.props.fillAssetId);
+        const maxValue = node.props.maxValue || 100;
+        const currentValue = Math.min(node.props.currentValue || 0, maxValue);
+        const ratio = maxValue > 0 ? currentValue / maxValue : 0;
+        const dir = node.props.fillDirection || 'left-to-right';
+        if (bgUrl || fillUrl) {
+          if (bgUrl) {
+            const bg = document.createElement('div');
+            bg.className = 'progress-bg';
+            bg.style.backgroundImage = `url(${bgUrl})`;
+            el.appendChild(bg);
+          }
+          if (fillUrl) {
+            const fill = document.createElement('div');
+            fill.className = 'progress-fill';
+            fill.style.backgroundImage = `url(${fillUrl})`;
+            applyProgressFill(fill, dir, ratio);
+            el.appendChild(fill);
+          }
+        } else {
+          el.style.background = '#374151';
+          el.style.borderRadius = '4px';
+          el.style.overflow = 'hidden';
+          const bar = document.createElement('div');
+          bar.style.position = 'absolute';
+          bar.style.background = '#22c55e';
+          bar.style.borderRadius = '4px';
+          applyProgressFill(bar, dir, ratio);
+          el.appendChild(bar);
+          const text = document.createElement('span');
+          text.style.position = 'absolute';
+          text.style.inset = '0';
+          text.style.display = 'flex';
+          text.style.alignItems = 'center';
+          text.style.justifyContent = 'center';
+          text.style.fontSize = '10px';
+          text.style.color = '#fff';
+          text.textContent = currentValue + '/' + maxValue;
+          el.appendChild(text);
+        }
+      }
+
+      if (node.events && node.events.length > 0) {
+        for (const ev of node.events) {
+          if (ev.trigger === 'click') {
+            el.addEventListener('click', (e) => { e.stopPropagation(); executeActions(ev.actions); });
+          } else if (ev.trigger === 'mouseEnter') {
+            el.addEventListener('mouseenter', () => executeActions(ev.actions));
+          } else if (ev.trigger === 'mouseLeave') {
+            el.addEventListener('mouseleave', () => executeActions(ev.actions));
+          }
+        }
+      }
+      return el;
+    }
+
+    function triggerEvents(eventType) {
+      function traverse(node) {
+        if (!node) return;
+        if (node.events) {
+          for (const ev of node.events) {
+            if (ev.trigger === eventType) executeActions(ev.actions);
+          }
+        }
+        if (node.children) node.children.forEach(traverse);
+      }
+      traverse(rootNode);
+    }
+
+    function executeActions(actions) {
+      if (!actions) return;
+      for (const action of actions) {
+        const targetNode = nodeMap.get(action.targetId);
+        if (!targetNode) continue;
+        const targetEl = document.querySelector(`[data-node-id="${action.targetId}"]`);
+        switch (action.type) {
+          case 'show':
+            if (targetNode.props) targetNode.props.visible = true;
+            if (targetEl) targetEl.style.display = '';
+            break;
+          case 'hide':
+            if (targetNode.props) targetNode.props.visible = false;
+            if (targetEl) targetEl.style.display = 'none';
+            break;
+          case 'toggle':
+            if (targetNode.props) {
+              targetNode.props.visible = !targetNode.props.visible;
+              if (targetEl) targetEl.style.display = targetNode.props.visible ? '' : 'none';
+            }
+            break;
+          case 'setProp':
+            if (targetNode.props && action.params) {
+              Object.assign(targetNode.props, action.params);
+              if (targetEl) {
+                if (action.params.opacity != null) targetEl.style.opacity = action.params.opacity;
+                if (action.params.backgroundColor) targetEl.style.backgroundColor = action.params.backgroundColor;
+                if (action.params.width != null) targetEl.style.width = action.params.width + 'px';
+                if (action.params.height != null) targetEl.style.height = action.params.height + 'px';
+              }
+            }
+            break;
+          case 'dragEnable':
+            if (targetEl) makeDraggable(targetEl, targetNode);
+            break;
+        }
+      }
+    }
+
+    function makeDraggable(el, node) {
+      let isDragging = false;
+      let startX = 0, startY = 0;
+      let startNodeX = 0, startNodeY = 0;
+      el.style.cursor = 'move';
+      el.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startNodeX = node.props.x || 0;
+        startNodeY = node.props.y || 0;
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+      });
+      function onMove(e) {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        const container = document.getElementById('preview-container');
+        const scale = container ? (parseFloat(container.style.transform.match(/scale\(([\d.]+)\)/)?.[1]) || 1) : 1;
+        node.props.x = Math.round(startNodeX + dx / scale);
+        node.props.y = Math.round(startNodeY + dy / scale);
+        el.style.left = node.props.x + 'px';
+        el.style.top = node.props.y + 'px';
+      }
+      function onUp() {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      }
+    }
+
+    loadScheme();
+  </script>
+</body>
+</html>

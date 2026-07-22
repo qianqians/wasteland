@@ -12,19 +12,24 @@ import {
   listImages,
   getImageMeta,
   getImageData,
+  readImagePng,
+  readImageThumb,
   createImage,
   createImagesBatch,
   renameImage,
+  batchRenameImages,
   updateImageData,
   moveImage,
   batchMoveImages,
   deleteImage,
   batchDeleteImages,
   getImagesByIds,
+  migrateBlobsToDisk,
   type ImageRow,
   type CategoryRow,
 } from "./db.js";
 import { packAtlas, packAtlasAsZip, defaultPackOptions, type PackOptions } from "./atlas.js";
+import { mountUiSystem } from "./ui-system.js";
 
 const app = express();
 const PORT = 5181;
@@ -35,6 +40,12 @@ app.use(express.urlencoded({ extended: true, limit: "200mb" }));
 
 // 缩略图生成（仅返回原 PNG bytes；如需更小，可在前端展示时压缩）
 const upload = multer({ storage: multer.memoryStorage() });
+
+// ============ 启动时迁移 BLOB 到硬盘 ============
+migrateBlobsToDisk();
+
+// ============ 挂载 UI 系统 ============
+mountUiSystem(app);
 
 // ============ 错误处理中间件 ============
 function asyncHandler(
@@ -133,12 +144,14 @@ app.get(
     const id = Number(req.params.id);
     const row = getImageData(id);
     if (!row) return res.status(404).json({ error: "图片不存在" });
+    const buf = readImagePng(id);
+    if (!buf) return res.status(404).json({ error: "图片文件不存在" });
     res.setHeader("Content-Type", "image/png");
     res.setHeader(
       "Content-Disposition",
       `attachment; filename="${encodeURIComponent(row.name)}"`
     );
-    res.send(Buffer.from(row.data));
+    res.send(Buffer.from(buf));
   })
 );
 
@@ -148,9 +161,11 @@ app.get(
     const id = Number(req.params.id);
     const row = getImageData(id);
     if (!row) return res.status(404).json({ error: "图片不存在" });
+    const buf = readImageThumb(id);
+    if (!buf) return res.status(404).json({ error: "图片文件不存在" });
     res.setHeader("Content-Type", "image/png");
     res.setHeader("Cache-Control", "public, max-age=86400");
-    res.send(Buffer.from(row.thumbnail ?? row.data));
+    res.send(Buffer.from(buf));
   })
 );
 
@@ -164,10 +179,10 @@ app.post(
       ? Number(req.body.category_id)
       : null;
     const name = req.body.name || req.file.originalname;
-    // 解析 PNG 尺寸（PNG IHDR 在前 24 字节）
-    const dims = parsePngSize(req.file.buffer);
+    // 解析图片尺寸（支持 PNG/JPEG/GIF/WebP/BMP）
+    const dims = parseImageSize(req.file.buffer);
     if (!dims) {
-      return res.status(400).json({ error: "无效的 PNG 文件" });
+      return res.status(400).json({ error: "无效的图片文件" });
     }
     const id = createImage({
       name,
@@ -276,6 +291,22 @@ app.post(
   })
 );
 
+// 批量改名：接收 ids 和 prefix，按顺序命名 prefix1, prefix2, ...
+app.post(
+  "/api/images/batch-rename",
+  asyncHandler(async (req, res) => {
+    const { ids, prefix } = req.body as { ids: number[]; prefix: string };
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ error: "ids 不能为空" });
+    }
+    if (!prefix || !prefix.trim()) {
+      return res.status(400).json({ error: "prefix 不能为空" });
+    }
+    batchRenameImages(ids, prefix.trim());
+    res.json({ ok: true, renamed: ids.length });
+  })
+);
+
 app.delete(
   "/api/images/:id",
   asyncHandler(async (req, res) => {
@@ -318,7 +349,8 @@ app.post(
         }
       }
       usedNames.set(r.name, used + 1);
-      zip.file(filename, Buffer.from(r.data));
+      const buf = readImagePng(r.id);
+      if (buf) zip.file(filename, Buffer.from(buf));
     }
     const buffer = await zip.generateAsync({
       type: "nodebuffer",
@@ -347,9 +379,14 @@ app.post(
     if (rows.length === 0) {
       return res.status(404).json({ error: "未找到任何图片" });
     }
+    // 为打包器注入 PNG buffer（从硬盘读取）
+    const rowsWithBuf = rows.map((r) => ({
+      ...r,
+      data: readImagePng(r.id) ?? r.data,
+    })) as ImageRow[];
     const opts: PackOptions = { ...defaultPackOptions, ...(options || {}) };
     if (format === "json") {
-      const result = await packAtlas(rows, opts);
+      const result = await packAtlas(rowsWithBuf, opts);
       res.json({
         baseName: result.baseName,
         width: result.width,
@@ -360,7 +397,7 @@ app.post(
       });
       return;
     }
-    const { buffer, baseName } = await packAtlasAsZip(rows, opts);
+    const { buffer, baseName } = await packAtlasAsZip(rowsWithBuf, opts);
     res.setHeader("Content-Type", "application/zip");
     res.setHeader(
       "Content-Disposition",
@@ -392,6 +429,137 @@ function parsePngSize(buf: Buffer): { width: number; height: number } | null {
   const width = buf.readUInt32BE(16);
   const height = buf.readUInt32BE(20);
   return { width, height };
+}
+
+/** 解析 JPEG 尺寸：遍历 markers，从 SOF0/SOF2 读取宽高 */
+function parseJpegSize(buf: Buffer): { width: number; height: number } | null {
+  // JPEG 以 SOI (0xFFD8) 开头
+  if (buf.length < 4 || buf[0] !== 0xff || buf[1] !== 0xd8) return null;
+  let offset = 2;
+  while (offset + 4 <= buf.length) {
+    // 寻找 marker 起始 0xFF
+    if (buf[offset] !== 0xff) {
+      offset++;
+      continue;
+    }
+    // 跳过填充 0xFF
+    while (offset < buf.length && buf[offset] === 0xff) offset++;
+    if (offset >= buf.length) return null;
+    const marker = buf[offset];
+    offset++;
+    // SOI / EOI / RSTn 无 payload
+    if (marker === 0xd8 || marker === 0xd9 || (marker >= 0xd0 && marker <= 0xd7)) {
+      continue;
+    }
+    // SOS：后面是图像数据，停止搜索
+    if (marker === 0xda) return null;
+    // 读取 marker payload 长度（含长度字段自身，2 字节 big-endian）
+    if (offset + 2 > buf.length) return null;
+    const segLen = buf.readUInt16BE(offset);
+    if (segLen < 2 || offset + segLen > buf.length) return null;
+    // SOF0 (0xC0) / SOF2 (0xC2)：payload = length(2) + precision(1) + height(2) + width(2)
+    if (marker === 0xc0 || marker === 0xc2) {
+      if (segLen < 7) return null;
+      const height = buf.readUInt16BE(offset + 3);
+      const width = buf.readUInt16BE(offset + 5);
+      if (width === 0 || height === 0) return null;
+      return { width, height };
+    }
+    // 其他 marker：跳过 payload
+    offset += segLen;
+  }
+  return null;
+}
+
+/** 解析 GIF 尺寸：逻辑屏幕描述符在 header 第 6 字节起 */
+function parseGifSize(buf: Buffer): { width: number; height: number } | null {
+  // GIF87a / GIF89a
+  if (buf.length < 10) return null;
+  if (
+    buf[0] !== 0x47 || buf[1] !== 0x49 || buf[2] !== 0x46 || buf[3] !== 0x38
+  ) return null;
+  const width = buf.readUInt16LE(6);
+  const height = buf.readUInt16LE(8);
+  if (width === 0 || height === 0) return null;
+  return { width, height };
+}
+
+/** 解析 WebP 尺寸：根据 VP8 / VP8L / VP8X chunk 读取 */
+function parseWebpSize(buf: Buffer): { width: number; height: number } | null {
+  // RIFF....WEBP
+  if (buf.length < 30) return null;
+  if (
+    buf[0] !== 0x52 || buf[1] !== 0x49 || buf[2] !== 0x46 || buf[3] !== 0x46 ||
+    buf[8] !== 0x57 || buf[9] !== 0x45 || buf[10] !== 0x42 || buf[11] !== 0x50
+  ) return null;
+  const fourcc = buf.toString("ascii", 12, 16);
+  if (fourcc === "VP8 ") {
+    // lossy: 第 26 字节起 width/height 各 2 字节 LE（仅低 14 位有效）
+    const width = buf.readUInt16LE(26) & 0x3fff;
+    const height = buf.readUInt16LE(28) & 0x3fff;
+    if (width === 0 || height === 0) return null;
+    return { width, height };
+  }
+  if (fourcc === "VP8L") {
+    // lossless: 第 21 字节起 4 字节包含 14 位 width-1 和 14 位 height-1
+    const b0 = buf[21];
+    const b1 = buf[22];
+    const b2 = buf[23];
+    const b3 = buf[24];
+    const width = 1 + (((b1 & 0x3f) << 8) | b0);
+    const height = 1 + (((b3 & 0x0f) << 10) | (b2 << 2) | ((b1 & 0xc0) >> 6));
+    if (width === 0 || height === 0) return null;
+    return { width, height };
+  }
+  if (fourcc === "VP8X") {
+    // extended: 第 24 字节起 width-1（3 字节 LE），第 27 字节起 height-1（3 字节 LE）
+    const width = 1 + (buf[24] | (buf[25] << 8) | (buf[26] << 16));
+    const height = 1 + (buf[27] | (buf[28] << 8) | (buf[29] << 16));
+    if (width === 0 || height === 0) return null;
+    return { width, height };
+  }
+  return null;
+}
+
+/** 解析 BMP 尺寸：DIB header 在第 14 字节起 */
+function parseBmpSize(buf: Buffer): { width: number; height: number } | null {
+  // BM
+  if (buf.length < 26) return null;
+  if (buf[0] !== 0x42 || buf[1] !== 0x4d) return null;
+  const width = buf.readInt32LE(18);
+  // height 可能为负（top-down），取绝对值
+  const height = Math.abs(buf.readInt32LE(22));
+  if (width <= 0 || height === 0) return null;
+  return { width, height: height };
+}
+
+/** 根据文件头判断图片格式并解析尺寸，支持 PNG/JPEG/GIF/WebP/BMP */
+function parseImageSize(buf: Buffer): { width: number; height: number } | null {
+  if (buf.length < 12) return null;
+  // PNG: \x89PNG
+  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) {
+    return parsePngSize(buf);
+  }
+  // JPEG: \xFF\xD8
+  if (buf[0] === 0xff && buf[1] === 0xd8) {
+    return parseJpegSize(buf);
+  }
+  // GIF: GIF8
+  if (buf[0] === 0x47 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x38) {
+    return parseGifSize(buf);
+  }
+  // WebP: RIFF....WEBP
+  if (
+    buf[0] === 0x52 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x46 &&
+    buf[8] === 0x57 && buf[9] === 0x45 && buf[10] === 0x42 && buf[11] === 0x50
+  ) {
+    return parseWebpSize(buf);
+  }
+  // BMP: BM
+  if (buf[0] === 0x42 && buf[1] === 0x4d) {
+    return parseBmpSize(buf);
+  }
+  return null;
 }
 
 /** 生成 PNG 缩略图（等比缩放到 maxSize 内）。失败时返回 null。 */

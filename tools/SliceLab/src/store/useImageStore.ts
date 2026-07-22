@@ -39,6 +39,8 @@ interface ImageStore {
   invertSelect: () => void;
   clearResult: () => void;
   reset: () => void;
+  /** 批量拆分时追加元素到现有列表（不清空已有结果） */
+  appendElements: (elements: DetectedElement[]) => void;
 }
 
 const defaultOptions: ProcessOptions = {
@@ -148,4 +150,7 @@ export const useImageStore = create<ImageStore>((set) => ({
         options: defaultOptions,
       };
     }),
+
+  appendElements: (newElements) =>
+    set((s) => ({ elements: [...s.elements, ...newElements] })),
 }));

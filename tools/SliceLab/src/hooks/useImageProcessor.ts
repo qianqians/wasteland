@@ -6,6 +6,7 @@ import {
   findConnectedRegions,
   cropRegionToPng,
 } from "@/lib/connectedComponents";
+import type { DetectedElement } from "@/types";
 
 export function useImageProcessor() {
   const store = useImageStore();
@@ -126,7 +127,92 @@ export function useImageProcessor() {
     });
   }, [store]);
 
-  return { process };
+  // 批量拆分：对多张图片逐一处理，结果累积到 elements 列表
+  const processBatch = useCallback(async (files: File[]) => {
+    if (files.length === 0) return;
+    const options = store.options;
+
+    // 清空之前的结果（elements 此时为空，第一张 setOriginal 不会丢失数据）
+    store.clearResult();
+
+    let totalElements = 0;
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      store.setProgress({
+        status: "processing",
+        percent: Math.round((i / files.length) * 100),
+        message: `批量处理 ${i + 1}/${files.length}：${file.name}`,
+      });
+
+      // 加载图片
+      const img = await loadImage(file);
+
+      // 第一张设置为原图（进入工作台模式，此时 elements 已被 clearResult 清空）
+      if (i === 0) {
+        store.setOriginal(img, file);
+      }
+
+      // 大图限制
+      const { canvas, ctx } = imageToCanvas(img, 4000);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      const effectiveBgMode =
+        options.bgMode === "auto" && hasAlphaChannel(img)
+          ? "transparent"
+          : options.bgMode;
+
+      await nextFrame();
+
+      const { data: processed } = removeBackground(imageData, {
+        ...options,
+        bgMode: effectiveBgMode,
+      });
+
+      await nextFrame();
+
+      const regions = findConnectedRegions(processed, options.minElementSize);
+
+      // 按面积降序排
+      regions.sort((a, b) => b.pixelCount - a.pixelCount);
+
+      const newElements: DetectedElement[] = [];
+      for (let j = 0; j < regions.length; j++) {
+        const r = regions[j];
+        const { blob } = await cropRegionToPng(processed, r.bbox, options.padding);
+        const url = URL.createObjectURL(blob);
+        newElements.push({
+          id: `el_${i}_${j}_${Date.now()}`,
+          index: totalElements + j,
+          bbox: r.bbox,
+          width: r.bbox.w + options.padding * 2,
+          height: r.bbox.h + options.padding * 2,
+          blob,
+          url,
+          pixelCount: r.pixelCount,
+          selected: false,
+        });
+      }
+
+      totalElements += newElements.length;
+      store.appendElements(newElements);
+      store.setProgress({
+        status: "processing",
+        percent: Math.round(((i + 1) / files.length) * 100),
+        message: `批量处理 ${i + 1}/${files.length} 完成，累计 ${totalElements} 个元素`,
+      });
+
+      await nextFrame();
+    }
+
+    store.setProgress({
+      status: "done",
+      percent: 100,
+      message: `批量识别完成，共 ${totalElements} 个元素`,
+    });
+  }, [store]);
+
+  return { process, processBatch };
 }
 
 function nextFrame(): Promise<void> {
