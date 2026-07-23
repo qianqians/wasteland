@@ -19,6 +19,13 @@ struct position {
     direction dir;
 }
 
+enum em_rarity {
+  common = 1;     // 普通
+  rare = 2;       // 稀有
+  epic = 3;       // 史诗
+  legendary = 4;  // 传说
+}
+
 enum em_equip_type {
     helmet = 1;     // 头盔
     jacket = 2;     // 上装
@@ -26,34 +33,29 @@ enum em_equip_type {
     gloves = 4;     // 手套
     boots = 5;      // 靴子
     weapon = 6;     // 武器
-    shooting = 7;   // 远程攻击武器
+
+    bb_attack = 11;    // 宠物武器
+    bb_defense = 12;   // 宠物防御
+    bb_resist = 13;    // 宠物抗性
 }
 
-enum em_shooting_bullet {
-    arrow = 1;
-    bullet = 2;
+struct attribute {
+    int32 add_hp;
+    int32 add_mp;
+    int32 attack;
+    int32 defense;
+    int32 matk;
+    int32 resist;
 }
 
 struct equip_info {
-    string id;
+    string equip_id;
     string name;
     string icon;
     string desc;
     em_equip_type equip_type;
-    int32 add_hp;
-    int32 add_mp;
-    int32 attack;
-    int32 add_defense;
-}
-
-struct bullet_info {
-    string id;
-    string name;
-    string icon;
-    string desc;
-    em_shooting_bullet type;
-    int32 attack;
-    int32 speed;
+    em_rarity rarity;
+    attribute bonus;
 }
 
 enum direction {
@@ -64,17 +66,24 @@ enum direction {
 	right = 4;
 }
 
-struct player_info {
-    string account_id;
-    string player_id;
-    string player_nick_name; // 玩家昵称
-    int32 player_appearance; // 玩家外观
-    int32 gender;    // 玩家性别
-	int32 level;     // 玩家等级
-    string scene;    // 玩家所在场景
-    int32 line;      // 玩家所在世界线
-	position pos;    // 玩家位置
-    direction dir;   // 玩家朝向
+struct skill_info {
+    int32 skill_id;
+    int32 attack;
+    int32 attack_range;
+    int32 cd_round;
+    float cast_spells;
+}
+
+struct gongfa_bonus {
+    attribute abonus;
+    skill_info[] skills;
+}
+
+struct gongfa {
+    int32 gongfa_table_id;
+    em_rarity rarity;
+    int32 gongfa_level;
+    gongfa_bonus bonus;
 }
 
 enum em_task_state {
@@ -85,20 +94,15 @@ enum em_task_state {
 }
 
 struct task_progress_info {
-    int32 id;
-    int32 progress;
-    int32[] watch_task;
-}
-
-struct task_progress_total {
-    int32 id;
+    int32 table_id;
     int32 total;
+    int32 progress;
 }
 
 struct task_info {
     int32 task_id;
     em_task_state status;
-    task_progress_total[] progress;
+    task_progress_info[] progress;
     int64 refresh_time;
 }
 
@@ -108,17 +112,43 @@ struct item {
     int32 item_count;
 }
 
-enum em_harm_type {
-    melee_attack = 1;
-    bullet_damage = 2;
-    bow_arrow = 3;
+struct bb {
+    int32 bb_table_id;
+    em_rarity rarity;
+    int32 level;
+    attribute bonus;
+    skill_info[] skills;
+    equip_info[] equips;     // 宠物穿戴的装备
 }
 
-struct skill_info {
-    int32 skill_id;
-    int32 attack;
-    int32 attack_range;
-    int32 cd_time;
-    int32 cd_ready;
-    float cast_spells;
+struct player_info {
+    string account_id;
+    string player_id;
+    string player_nick_name; // 玩家昵称
+    int32 player_appearance; // 玩家外观
+    attribute abonus;        // 玩家基础属性
+    gongfa[] gfs;            // 玩家修炼过的功法
+    gongfa curr_gf;          // 玩家当前使用的功法
+    equip_info[] equips;     // 玩家穿戴的装备
+    bb[] bbs;                // 玩家携带的宠物
+    bb curr_bb;              // 当前出战宠物
+    task_info[] tasks;       // 领取的任务
+    int32 gender;            // 玩家性别
+	string scene;            // 玩家所在场景
+    int32 line;              // 玩家所在世界线
+	position pos;            // 玩家位置
+    direction dir;           // 玩家朝向
+}
+
+struct friendship {
+    int32 friend_table_id;   // npc好友
+    attribute abonus;        // 好友基础属性
+    gongfa curr_gf;          // 好友当前使用的功法
+    equip_info[] equips;     // 好友穿戴的装备
+}
+
+struct team {
+    string team_id;
+    player_info[] players;
+    friendship[] friends;
 }

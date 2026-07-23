@@ -1,6 +1,8 @@
 import common
 
 entity_service battle {
+    start_battle req(string enemy_id) rsp(team self, team enemy) err(error_code err);
+    auto_battle req() rsp() err(error_code err);
     use_skill req(int32 skill_id) rsp() err(error_code err); 
     use_item req(string item_id) rsp(item item) err(error_code err);
 }

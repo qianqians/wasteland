@@ -9,6 +9,58 @@ from .common_svr import *
 
 #this struct code is codegen by geese codegen for python
 #this module code is codegen by geese codegen for python
+class battle_start_battle_rsp(session):
+    def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
+        session.__init__(self, gate_name)
+        self.entity = entity
+        self.conn_id = conn_id
+        self.is_rsp = False
+        self.msg_cb_id = msg_cb_id
+
+    def rsp(self, self:team, enemy:team):
+        if self.is_rsp:
+            return
+        self.is_rsp = True
+
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = []
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(team_to_protcol(self))
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(team_to_protcol(enemy))
+        self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
+
+    def err(self, err:error_code):
+        if self.is_rsp:
+            return
+        self.is_rsp = True
+
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = [self.uuid_ee4a9042_3083_3d2e_90e2_aa58942d4f15]
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(err)
+        self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
+
+class battle_auto_battle_rsp(session):
+    def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
+        session.__init__(self, gate_name)
+        self.entity = entity
+        self.conn_id = conn_id
+        self.is_rsp = False
+        self.msg_cb_id = msg_cb_id
+
+    def rsp(self):
+        if self.is_rsp:
+            return
+        self.is_rsp = True
+
+        _argv_c83b89ec_ce1c_31e7_964d_507d39716743 = []
+        self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_c83b89ec_ce1c_31e7_964d_507d39716743))
+
+    def err(self, err:error_code):
+        if self.is_rsp:
+            return
+        self.is_rsp = True
+
+        _argv_c83b89ec_ce1c_31e7_964d_507d39716743 = [self.uuid_4ff4cfcd_f184_3844_99e8_28d9f69aa96b]
+        _argv_c83b89ec_ce1c_31e7_964d_507d39716743.append(err)
+        self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_c83b89ec_ce1c_31e7_964d_507d39716743))
+
 class battle_use_skill_rsp(session):
     def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
         session.__init__(self, gate_name)
@@ -17,13 +69,12 @@ class battle_use_skill_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self, item:item):
+    def rsp(self):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = []
-        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(item_to_protcol(item))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe))
 
     def err(self, err:error_code):
@@ -43,16 +94,13 @@ class battle_use_item_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self, items:list[item]):
+    def rsp(self, item:item):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_8e931b2d_2ecb_30da_928a_750ecb587c14 = []
-        _list_345fb533_0c2c_3ec8_899f_fe985da7fd3a = []
-        for v_bf5596fb_837a_5272_bf0d_cd29c7c99192 in items:
-            _list_345fb533_0c2c_3ec8_899f_fe985da7fd3a.append(item_to_protcol(v_bf5596fb_837a_5272_bf0d_cd29c7c99192))
-        _argv_8e931b2d_2ecb_30da_928a_750ecb587c14.append(_list_345fb533_0c2c_3ec8_899f_fe985da7fd3a)
+        _argv_8e931b2d_2ecb_30da_928a_750ecb587c14.append(item_to_protcol(item))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_8e931b2d_2ecb_30da_928a_750ecb587c14))
 
     def err(self, err:error_code):
@@ -68,10 +116,27 @@ class battle_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
+        self.on_start_battle:list[Callable[[battle_start_battle_rsp, str], None]] = []
+        self.entity.reg_client_request_callback("start_battle", self.start_battle)
+        self.on_auto_battle:list[Callable[[battle_auto_battle_rsp, ], None]] = []
+        self.entity.reg_client_request_callback("auto_battle", self.auto_battle)
         self.on_use_skill:list[Callable[[battle_use_skill_rsp, int], None]] = []
         self.entity.reg_client_request_callback("use_skill", self.use_skill)
         self.on_use_item:list[Callable[[battle_use_item_rsp, str], None]] = []
         self.entity.reg_client_request_callback("use_item", self.use_item)
+
+    def start_battle(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
+        inArray = loads(bin)
+        _enemy_id = inArray[0]
+        rsp = battle_start_battle_rsp(gate_name, conn_id, msg_cb_id, self.entity)
+        for fn in self.on_start_battle:
+            fn(rsp, _enemy_id)
+
+    def auto_battle(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
+        inArray = loads(bin)
+        rsp = battle_auto_battle_rsp(gate_name, conn_id, msg_cb_id, self.entity)
+        for fn in self.on_auto_battle:
+            fn(rsp, )
 
     def use_skill(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)

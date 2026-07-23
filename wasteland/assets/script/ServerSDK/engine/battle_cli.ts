@@ -5,7 +5,111 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript
+export class battle_start_battle_cb {
+    public entity:engine.subentity|engine.player;
+    public cb:((self:common.team, enemy:common.team) => void)|null = null;
+    public err:((err:common.error_code) => void)|null = null;
+    public rsp:engine.callback;
+    public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
+        this.entity = _entity
+        this.rsp = new engine.callback(() => { return this.entity.del_callback(_cb_uuid); });
+        this.entity.reg_hub_callback(_cb_uuid, this.rsp)
+
+    }
+
+    private on_rsp(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let _self = common.protcol_to_team(inArray[0]);
+        let _enemy = common.protcol_to_team(inArray[1]);
+        if (this.cb) this.cb.call(null, _self, _enemy);
+
+    }
+
+    private on_err(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let _err = inArray[0];
+        if (this.err) this.err.call(null, _err, )
+
+    }
+
+    public callBack(_cb:(self:common.team, enemy:common.team) => void, _err:(err:common.error_code) => void) {
+        this.cb = _cb;
+        this.err = _err;
+        this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
+        return this.rsp;
+    }
+
+}
+
+export class battle_auto_battle_cb {
+    public entity:engine.subentity|engine.player;
+    public cb:(() => void)|null = null;
+    public err:((err:common.error_code) => void)|null = null;
+    public rsp:engine.callback;
+    public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
+        this.entity = _entity
+        this.rsp = new engine.callback(() => { return this.entity.del_callback(_cb_uuid); });
+        this.entity.reg_hub_callback(_cb_uuid, this.rsp)
+
+    }
+
+    private on_rsp(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        if (this.cb) this.cb.call(null, );
+
+    }
+
+    private on_err(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let _err = inArray[0];
+        if (this.err) this.err.call(null, _err)
+
+    }
+
+    public callBack(_cb:() => void, _err:(err:common.error_code) => void) {
+        this.cb = _cb;
+        this.err = _err;
+        this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
+        return this.rsp;
+    }
+
+}
+
 export class battle_use_skill_cb {
+    public entity:engine.subentity|engine.player;
+    public cb:(() => void)|null = null;
+    public err:((err:common.error_code) => void)|null = null;
+    public rsp:engine.callback;
+    public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
+        this.entity = _entity
+        this.rsp = new engine.callback(() => { return this.entity.del_callback(_cb_uuid); });
+        this.entity.reg_hub_callback(_cb_uuid, this.rsp)
+
+    }
+
+    private on_rsp(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        if (this.cb) this.cb.call(null, );
+
+    }
+
+    private on_err(bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let _err = inArray[0];
+        if (this.err) this.err.call(null, _err)
+
+    }
+
+    public callBack(_cb:() => void, _err:(err:common.error_code) => void) {
+        this.cb = _cb;
+        this.err = _err;
+        this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
+        return this.rsp;
+    }
+
+}
+
+export class battle_use_item_cb {
     public entity:engine.subentity|engine.player;
     public cb:((item:common.item) => void)|null = null;
     public err:((err:common.error_code) => void)|null = null;
@@ -40,48 +144,23 @@ export class battle_use_skill_cb {
 
 }
 
-export class battle_use_item_cb {
-    public entity:engine.subentity|engine.player;
-    public cb:((items:Array<common.item>) => void)|null = null;
-    public err:((err:common.error_code) => void)|null = null;
-    public rsp:engine.callback;
-    public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
-        this.entity = _entity
-        this.rsp = new engine.callback(() => { return this.entity.del_callback(_cb_uuid); });
-        this.entity.reg_hub_callback(_cb_uuid, this.rsp)
-
-    }
-
-    private on_rsp(bin:Uint8Array) {
-        let inArray = decode(bin) as any;
-        let _items:Array<common.item> = [];
-        for (let v_bf5596fb_837a_5272_bf0d_cd29c7c99192 of inArray[0]) {
-            _items.push(common.protcol_to_item(v_bf5596fb_837a_5272_bf0d_cd29c7c99192))
-        }
-        if (this.cb) this.cb.call(null, _items);
-
-    }
-
-    private on_err(bin:Uint8Array) {
-        let inArray = decode(bin) as any;
-        let _err = inArray[0];
-        if (this.err) this.err.call(null, _err)
-
-    }
-
-    public callBack(_cb:(items:Array<common.item>) => void, _err:(err:common.error_code) => void) {
-        this.cb = _cb;
-        this.err = _err;
-        this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
-        return this.rsp;
-    }
-
-}
-
 export class battle_caller {
     public entity:engine.subentity|engine.player;
     public constructor(entity:engine.subentity|engine.player) {
         this.entity = entity;
+    }
+
+    public  start_battle(enemy_id:string) {
+        let _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873:any[] = []
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.push(enemy_id);
+        let _cb_uuid = this.entity.call_hub_request("start_battle", encode(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873));
+        return new battle_start_battle_cb(_cb_uuid, this.entity);
+    }
+
+    public  auto_battle() {
+        let _argv_c83b89ec_ce1c_31e7_964d_507d39716743:any[] = []
+        let _cb_uuid = this.entity.call_hub_request("auto_battle", encode(_argv_c83b89ec_ce1c_31e7_964d_507d39716743));
+        return new battle_auto_battle_cb(_cb_uuid, this.entity);
     }
 
     public  use_skill(skill_id:number) {

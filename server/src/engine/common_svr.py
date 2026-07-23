@@ -21,6 +21,13 @@ class error_code(Enum):
     cannot_use_skill = 11
 
 
+class em_rarity(Enum):
+    common = 1
+    rare = 2
+    epic = 3
+    legendary = 4
+
+
 class em_equip_type(Enum):
     helmet = 1
     jacket = 2
@@ -28,12 +35,9 @@ class em_equip_type(Enum):
     gloves = 4
     boots = 5
     weapon = 6
-    shooting = 7
-
-
-class em_shooting_bullet(Enum):
-    arrow = 1
-    bullet = 2
+    bb_attack = 11
+    bb_defense = 12
+    bb_resist = 13
 
 
 class direction(Enum):
@@ -49,12 +53,6 @@ class em_task_state(Enum):
     in_progress = 2
     can_completed = 3
     completed = 4
-
-
-class em_harm_type(Enum):
-    melee_attack = 1
-    bullet_damage = 2
-    bow_arrow = 3
 
 
 #this struct code is codegen by geese codegen for python
@@ -85,39 +83,74 @@ def protcol_to_position(_protocol:dict):
             _struct.dir = val
     return _struct
 
+class attribute(object):
+    def __init__(self):
+        self.add_hp:int = 0
+        self.add_mp:int = 0
+        self.attack:int = 0
+        self.defense:int = 0
+        self.matk:int = 0
+        self.resist:int = 0
+
+
+def attribute_to_protcol(_struct:attribute):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["add_hp"] = _struct.add_hp
+    _protocol["add_mp"] = _struct.add_mp
+    _protocol["attack"] = _struct.attack
+    _protocol["defense"] = _struct.defense
+    _protocol["matk"] = _struct.matk
+    _protocol["resist"] = _struct.resist
+    return _protocol
+
+def protcol_to_attribute(_protocol:dict):
+    _struct = attribute()
+    for (key, val) in _protocol.items():
+        if key == "add_hp":
+            _struct.add_hp = val
+        elif key == "add_mp":
+            _struct.add_mp = val
+        elif key == "attack":
+            _struct.attack = val
+        elif key == "defense":
+            _struct.defense = val
+        elif key == "matk":
+            _struct.matk = val
+        elif key == "resist":
+            _struct.resist = val
+    return _struct
+
 class equip_info(object):
     def __init__(self):
-        self.id:str = ""
+        self.equip_id:str = ""
         self.name:str = ""
         self.icon:str = ""
         self.desc:str = ""
         self.equip_type:em_equip_type = 0
-        self.add_hp:int = 0
-        self.add_mp:int = 0
-        self.attack:int = 0
-        self.add_defense:int = 0
+        self.rarity:em_rarity = 0
+        self.bonus:attribute = None
 
 
 def equip_info_to_protcol(_struct:equip_info):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["id"] = _struct.id
+    _protocol["equip_id"] = _struct.equip_id
     _protocol["name"] = _struct.name
     _protocol["icon"] = _struct.icon
     _protocol["desc"] = _struct.desc
     _protocol["equip_type"] = _struct.equip_type
-    _protocol["add_hp"] = _struct.add_hp
-    _protocol["add_mp"] = _struct.add_mp
-    _protocol["attack"] = _struct.attack
-    _protocol["add_defense"] = _struct.add_defense
+    _protocol["rarity"] = _struct.rarity
+    _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
     return _protocol
 
 def protcol_to_equip_info(_protocol:dict):
     _struct = equip_info()
     for (key, val) in _protocol.items():
-        if key == "id":
-            _struct.id = val
+        if key == "equip_id":
+            _struct.equip_id = val
         elif key == "name":
             _struct.name = val
         elif key == "icon":
@@ -126,175 +159,139 @@ def protcol_to_equip_info(_protocol:dict):
             _struct.desc = val
         elif key == "equip_type":
             _struct.equip_type = val
-        elif key == "add_hp":
-            _struct.add_hp = val
-        elif key == "add_mp":
-            _struct.add_mp = val
-        elif key == "attack":
-            _struct.attack = val
-        elif key == "add_defense":
-            _struct.add_defense = val
+        elif key == "rarity":
+            _struct.rarity = val
+        elif key == "bonus":
+            _struct.bonus = protcol_to_attribute(val)
     return _struct
 
-class bullet_info(object):
+class skill_info(object):
     def __init__(self):
-        self.id:str = ""
-        self.name:str = ""
-        self.icon:str = ""
-        self.desc:str = ""
-        self.type:em_shooting_bullet = 0
+        self.skill_id:int = 0
         self.attack:int = 0
-        self.speed:int = 0
+        self.attack_range:int = 0
+        self.cd_round:int = 0
+        self.cast_spells:float = 0.0
 
 
-def bullet_info_to_protcol(_struct:bullet_info):
+def skill_info_to_protcol(_struct:skill_info):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["id"] = _struct.id
-    _protocol["name"] = _struct.name
-    _protocol["icon"] = _struct.icon
-    _protocol["desc"] = _struct.desc
-    _protocol["type"] = _struct.type
+    _protocol["skill_id"] = _struct.skill_id
     _protocol["attack"] = _struct.attack
-    _protocol["speed"] = _struct.speed
+    _protocol["attack_range"] = _struct.attack_range
+    _protocol["cd_round"] = _struct.cd_round
+    _protocol["cast_spells"] = _struct.cast_spells
     return _protocol
 
-def protcol_to_bullet_info(_protocol:dict):
-    _struct = bullet_info()
+def protcol_to_skill_info(_protocol:dict):
+    _struct = skill_info()
     for (key, val) in _protocol.items():
-        if key == "id":
-            _struct.id = val
-        elif key == "name":
-            _struct.name = val
-        elif key == "icon":
-            _struct.icon = val
-        elif key == "desc":
-            _struct.desc = val
-        elif key == "type":
-            _struct.type = val
+        if key == "skill_id":
+            _struct.skill_id = val
         elif key == "attack":
             _struct.attack = val
-        elif key == "speed":
-            _struct.speed = val
+        elif key == "attack_range":
+            _struct.attack_range = val
+        elif key == "cd_round":
+            _struct.cd_round = val
+        elif key == "cast_spells":
+            _struct.cast_spells = val
     return _struct
 
-class player_info(object):
+class gongfa_bonus(object):
     def __init__(self):
-        self.account_id:str = ""
-        self.player_id:str = ""
-        self.player_nick_name:str = ""
-        self.player_appearance:int = 0
-        self.gender:int = 0
-        self.level:int = 0
-        self.scene:str = ""
-        self.line:int = 0
-        self.pos:position = None
-        self.dir:direction = 0
+        self.abonus:attribute = None
+        self.skills:list[skill_info] = []
 
 
-def player_info_to_protcol(_struct:player_info):
+def gongfa_bonus_to_protcol(_struct:gongfa_bonus):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["account_id"] = _struct.account_id
-    _protocol["player_id"] = _struct.player_id
-    _protocol["player_nick_name"] = _struct.player_nick_name
-    _protocol["player_appearance"] = _struct.player_appearance
-    _protocol["gender"] = _struct.gender
-    _protocol["level"] = _struct.level
-    _protocol["scene"] = _struct.scene
-    _protocol["line"] = _struct.line
-    _protocol["pos"] = position_to_protcol(_struct.pos)
-    _protocol["dir"] = _struct.dir
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
+    if _struct.skills:
+        _array_skills = []
+        for v_ in _struct.skills:
+            _array_skills.append(skill_info_to_protcol(v_))
+        _protocol["skills"] = _array_skills
     return _protocol
 
-def protcol_to_player_info(_protocol:dict):
-    _struct = player_info()
+def protcol_to_gongfa_bonus(_protocol:dict):
+    _struct = gongfa_bonus()
     for (key, val) in _protocol.items():
-        if key == "account_id":
-            _struct.account_id = val
-        elif key == "player_id":
-            _struct.player_id = val
-        elif key == "player_nick_name":
-            _struct.player_nick_name = val
-        elif key == "player_appearance":
-            _struct.player_appearance = val
-        elif key == "gender":
-            _struct.gender = val
-        elif key == "level":
-            _struct.level = val
-        elif key == "scene":
-            _struct.scene = val
-        elif key == "line":
-            _struct.line = val
-        elif key == "pos":
-            _struct.pos = protcol_to_position(val)
-        elif key == "dir":
-            _struct.dir = val
+        if key == "abonus":
+            _struct.abonus = protcol_to_attribute(val)
+        elif key == "skills":
+            _struct.skills = []
+            for v_ in val:
+                _struct.skills.append(skill_info_to_protcol(v_))
+    return _struct
+
+class gongfa(object):
+    def __init__(self):
+        self.gongfa_table_id:int = 0
+        self.rarity:em_rarity = 0
+        self.gongfa_level:int = 0
+        self.bonus:gongfa_bonus = None
+
+
+def gongfa_to_protcol(_struct:gongfa):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["gongfa_table_id"] = _struct.gongfa_table_id
+    _protocol["rarity"] = _struct.rarity
+    _protocol["gongfa_level"] = _struct.gongfa_level
+    _protocol["bonus"] = gongfa_bonus_to_protcol(_struct.bonus)
+    return _protocol
+
+def protcol_to_gongfa(_protocol:dict):
+    _struct = gongfa()
+    for (key, val) in _protocol.items():
+        if key == "gongfa_table_id":
+            _struct.gongfa_table_id = val
+        elif key == "rarity":
+            _struct.rarity = val
+        elif key == "gongfa_level":
+            _struct.gongfa_level = val
+        elif key == "bonus":
+            _struct.bonus = protcol_to_gongfa_bonus(val)
     return _struct
 
 class task_progress_info(object):
     def __init__(self):
-        self.id:int = 0
+        self.table_id:int = 0
+        self.total:int = 0
         self.progress:int = 0
-        self.watch_task:list[int] = []
 
 
 def task_progress_info_to_protcol(_struct:task_progress_info):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["id"] = _struct.id
+    _protocol["table_id"] = _struct.table_id
+    _protocol["total"] = _struct.total
     _protocol["progress"] = _struct.progress
-    if _struct.watch_task:
-        _array_watch_task = []
-        for v_ in _struct.watch_task:
-            _array_watch_task.append(v_)
-        _protocol["watch_task"] = _array_watch_task
     return _protocol
 
 def protcol_to_task_progress_info(_protocol:dict):
     _struct = task_progress_info()
     for (key, val) in _protocol.items():
-        if key == "id":
-            _struct.id = val
-        elif key == "progress":
-            _struct.progress = val
-        elif key == "watch_task":
-            _struct.watch_task = []
-            for v_ in val:
-                _struct.watch_task.append(v_)
-    return _struct
-
-class task_progress_total(object):
-    def __init__(self):
-        self.id:int = 0
-        self.total:int = 0
-
-
-def task_progress_total_to_protcol(_struct:task_progress_total):
-    if _struct is None:
-        return None
-    _protocol = {}
-    _protocol["id"] = _struct.id
-    _protocol["total"] = _struct.total
-    return _protocol
-
-def protcol_to_task_progress_total(_protocol:dict):
-    _struct = task_progress_total()
-    for (key, val) in _protocol.items():
-        if key == "id":
-            _struct.id = val
+        if key == "table_id":
+            _struct.table_id = val
         elif key == "total":
             _struct.total = val
+        elif key == "progress":
+            _struct.progress = val
     return _struct
 
 class task_info(object):
     def __init__(self):
         self.task_id:int = 0
         self.status:em_task_state = 0
-        self.progress:list[task_progress_total] = []
+        self.progress:list[task_progress_info] = []
         self.refresh_time:int = 0
 
 
@@ -307,7 +304,7 @@ def task_info_to_protcol(_struct:task_info):
     if _struct.progress:
         _array_progress = []
         for v_ in _struct.progress:
-            _array_progress.append(task_progress_total_to_protcol(v_))
+            _array_progress.append(task_progress_info_to_protcol(v_))
         _protocol["progress"] = _array_progress
     _protocol["refresh_time"] = _struct.refresh_time
     return _protocol
@@ -322,7 +319,7 @@ def protcol_to_task_info(_protocol:dict):
         elif key == "progress":
             _struct.progress = []
             for v_ in val:
-                _struct.progress.append(task_progress_total_to_protcol(v_))
+                _struct.progress.append(task_progress_info_to_protcol(v_))
         elif key == "refresh_time":
             _struct.refresh_time = val
     return _struct
@@ -354,43 +351,234 @@ def protcol_to_item(_protocol:dict):
             _struct.item_count = val
     return _struct
 
-class skill_info(object):
+class bb(object):
     def __init__(self):
-        self.skill_id:int = 0
-        self.attack:int = 0
-        self.attack_range:int = 0
-        self.cd_time:int = 0
-        self.cd_ready:int = 0
-        self.cast_spells:float = 0.0
+        self.bb_table_id:int = 0
+        self.rarity:em_rarity = 0
+        self.level:int = 0
+        self.bonus:attribute = None
+        self.skills:list[skill_info] = []
+        self.equips:list[equip_info] = []
 
 
-def skill_info_to_protcol(_struct:skill_info):
+def bb_to_protcol(_struct:bb):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["skill_id"] = _struct.skill_id
-    _protocol["attack"] = _struct.attack
-    _protocol["attack_range"] = _struct.attack_range
-    _protocol["cd_time"] = _struct.cd_time
-    _protocol["cd_ready"] = _struct.cd_ready
-    _protocol["cast_spells"] = _struct.cast_spells
+    _protocol["bb_table_id"] = _struct.bb_table_id
+    _protocol["rarity"] = _struct.rarity
+    _protocol["level"] = _struct.level
+    _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
+    if _struct.skills:
+        _array_skills = []
+        for v_ in _struct.skills:
+            _array_skills.append(skill_info_to_protcol(v_))
+        _protocol["skills"] = _array_skills
+    if _struct.equips:
+        _array_equips = []
+        for v_ in _struct.equips:
+            _array_equips.append(equip_info_to_protcol(v_))
+        _protocol["equips"] = _array_equips
     return _protocol
 
-def protcol_to_skill_info(_protocol:dict):
-    _struct = skill_info()
+def protcol_to_bb(_protocol:dict):
+    _struct = bb()
     for (key, val) in _protocol.items():
-        if key == "skill_id":
-            _struct.skill_id = val
-        elif key == "attack":
-            _struct.attack = val
-        elif key == "attack_range":
-            _struct.attack_range = val
-        elif key == "cd_time":
-            _struct.cd_time = val
-        elif key == "cd_ready":
-            _struct.cd_ready = val
-        elif key == "cast_spells":
-            _struct.cast_spells = val
+        if key == "bb_table_id":
+            _struct.bb_table_id = val
+        elif key == "rarity":
+            _struct.rarity = val
+        elif key == "level":
+            _struct.level = val
+        elif key == "bonus":
+            _struct.bonus = protcol_to_attribute(val)
+        elif key == "skills":
+            _struct.skills = []
+            for v_ in val:
+                _struct.skills.append(skill_info_to_protcol(v_))
+        elif key == "equips":
+            _struct.equips = []
+            for v_ in val:
+                _struct.equips.append(equip_info_to_protcol(v_))
+    return _struct
+
+class player_info(object):
+    def __init__(self):
+        self.account_id:str = ""
+        self.player_id:str = ""
+        self.player_nick_name:str = ""
+        self.player_appearance:int = 0
+        self.abonus:attribute = None
+        self.gfs:list[gongfa] = []
+        self.curr_gf:gongfa = None
+        self.equips:list[equip_info] = []
+        self.bbs:list[bb] = []
+        self.curr_bb:bb = None
+        self.tasks:list[task_info] = []
+        self.gender:int = 0
+        self.scene:str = ""
+        self.line:int = 0
+        self.pos:position = None
+        self.dir:direction = 0
+
+
+def player_info_to_protcol(_struct:player_info):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["account_id"] = _struct.account_id
+    _protocol["player_id"] = _struct.player_id
+    _protocol["player_nick_name"] = _struct.player_nick_name
+    _protocol["player_appearance"] = _struct.player_appearance
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
+    if _struct.gfs:
+        _array_gfs = []
+        for v_ in _struct.gfs:
+            _array_gfs.append(gongfa_to_protcol(v_))
+        _protocol["gfs"] = _array_gfs
+    _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
+    if _struct.equips:
+        _array_equips = []
+        for v_ in _struct.equips:
+            _array_equips.append(equip_info_to_protcol(v_))
+        _protocol["equips"] = _array_equips
+    if _struct.bbs:
+        _array_bbs = []
+        for v_ in _struct.bbs:
+            _array_bbs.append(bb_to_protcol(v_))
+        _protocol["bbs"] = _array_bbs
+    _protocol["curr_bb"] = bb_to_protcol(_struct.curr_bb)
+    if _struct.tasks:
+        _array_tasks = []
+        for v_ in _struct.tasks:
+            _array_tasks.append(task_info_to_protcol(v_))
+        _protocol["tasks"] = _array_tasks
+    _protocol["gender"] = _struct.gender
+    _protocol["scene"] = _struct.scene
+    _protocol["line"] = _struct.line
+    _protocol["pos"] = position_to_protcol(_struct.pos)
+    _protocol["dir"] = _struct.dir
+    return _protocol
+
+def protcol_to_player_info(_protocol:dict):
+    _struct = player_info()
+    for (key, val) in _protocol.items():
+        if key == "account_id":
+            _struct.account_id = val
+        elif key == "player_id":
+            _struct.player_id = val
+        elif key == "player_nick_name":
+            _struct.player_nick_name = val
+        elif key == "player_appearance":
+            _struct.player_appearance = val
+        elif key == "abonus":
+            _struct.abonus = protcol_to_attribute(val)
+        elif key == "gfs":
+            _struct.gfs = []
+            for v_ in val:
+                _struct.gfs.append(gongfa_to_protcol(v_))
+        elif key == "curr_gf":
+            _struct.curr_gf = protcol_to_gongfa(val)
+        elif key == "equips":
+            _struct.equips = []
+            for v_ in val:
+                _struct.equips.append(equip_info_to_protcol(v_))
+        elif key == "bbs":
+            _struct.bbs = []
+            for v_ in val:
+                _struct.bbs.append(bb_to_protcol(v_))
+        elif key == "curr_bb":
+            _struct.curr_bb = protcol_to_bb(val)
+        elif key == "tasks":
+            _struct.tasks = []
+            for v_ in val:
+                _struct.tasks.append(task_info_to_protcol(v_))
+        elif key == "gender":
+            _struct.gender = val
+        elif key == "scene":
+            _struct.scene = val
+        elif key == "line":
+            _struct.line = val
+        elif key == "pos":
+            _struct.pos = protcol_to_position(val)
+        elif key == "dir":
+            _struct.dir = val
+    return _struct
+
+class friendship(object):
+    def __init__(self):
+        self.friend_table_id:int = 0
+        self.abonus:attribute = None
+        self.curr_gf:gongfa = None
+        self.equips:list[equip_info] = []
+
+
+def friendship_to_protcol(_struct:friendship):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["friend_table_id"] = _struct.friend_table_id
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
+    _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
+    if _struct.equips:
+        _array_equips = []
+        for v_ in _struct.equips:
+            _array_equips.append(equip_info_to_protcol(v_))
+        _protocol["equips"] = _array_equips
+    return _protocol
+
+def protcol_to_friendship(_protocol:dict):
+    _struct = friendship()
+    for (key, val) in _protocol.items():
+        if key == "friend_table_id":
+            _struct.friend_table_id = val
+        elif key == "abonus":
+            _struct.abonus = protcol_to_attribute(val)
+        elif key == "curr_gf":
+            _struct.curr_gf = protcol_to_gongfa(val)
+        elif key == "equips":
+            _struct.equips = []
+            for v_ in val:
+                _struct.equips.append(equip_info_to_protcol(v_))
+    return _struct
+
+class team(object):
+    def __init__(self):
+        self.team_id:str = ""
+        self.players:list[player_info] = []
+        self.friends:list[friendship] = []
+
+
+def team_to_protcol(_struct:team):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["team_id"] = _struct.team_id
+    if _struct.players:
+        _array_players = []
+        for v_ in _struct.players:
+            _array_players.append(player_info_to_protcol(v_))
+        _protocol["players"] = _array_players
+    if _struct.friends:
+        _array_friends = []
+        for v_ in _struct.friends:
+            _array_friends.append(friendship_to_protcol(v_))
+        _protocol["friends"] = _array_friends
+    return _protocol
+
+def protcol_to_team(_protocol:dict):
+    _struct = team()
+    for (key, val) in _protocol.items():
+        if key == "team_id":
+            _struct.team_id = val
+        elif key == "players":
+            _struct.players = []
+            for v_ in val:
+                _struct.players.append(player_info_to_protcol(v_))
+        elif key == "friends":
+            _struct.friends = []
+            for v_ in val:
+                _struct.friends.append(friendship_to_protcol(v_))
     return _struct
 
 #this caller code is codegen by geese codegen for python

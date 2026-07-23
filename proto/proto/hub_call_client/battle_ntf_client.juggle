@@ -1,7 +1,13 @@
 import common
 
+struct harm 
+{
+    string attack_entity_id;
+    int32 skill_id;
+    int32 harm_value;
+    bool is_dead;
+}
+
 mutil_service battle_ntf_client {
-    use_skill ntf(int32 skill_id, position pos);
-    harm ntf(string attack_entity_id, int32 skill_id, position pos, em_harm_type harm_type, int32 harm_value);
-    dead ntf();
+    use_skill ntf(int32 skill_id, harm[] hits);
 }
