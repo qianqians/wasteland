@@ -68,7 +68,6 @@ class save(ABC, base_dbproxy_handle):
                 if data == None:
                     data = save.create()
                     _new_obj.__query__ = query
-                    data.update(query)
                     result = _new_obj.__get_dbproxy__().create_object(_new_obj.__db__, _new_obj.__collection__, data, 
                         lambda result : _new_obj.__creator_entity_callback__(result))
                     if not result:
