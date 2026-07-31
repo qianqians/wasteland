@@ -39,7 +39,7 @@ class scene_spawn_point(TypedDict):
 
 class scene_map_collection:
     scene_maps: dict[str, scene_map] = {}
-    scene_spawn_points: dict[str, scene_spawn_point] = {}
+    #scene_spawn_points: dict[str, scene_spawn_point] = {}
 
 def __load_portals__(scene_name:str, _map:scene_map) -> scene_map:
     with open('../../excel/Portal.json') as f:
@@ -239,6 +239,7 @@ def load_scene_map(scene_name:str):
     _map = __map_primitive_data__(scene_name, _map)
     scene_map_collection.scene_maps[scene_name] = _map
 
+'''
 def load_scene_spawn_point():
     with open('../../excel/Area.json') as f:
         data = json.load(f)
@@ -249,9 +250,12 @@ def load_scene_spawn_point():
             point.spawn_point.x = pos[0]
             point.spawn_point.y = pos[1]
             scene_map_collection.scene_spawn_points[s["scene"]] = point
+'''
 
 def get_scene_map(scene_name:str) -> scene_map | None:
     return scene_map_collection.scene_maps.get(scene_name)
 
+'''
 def get_scene_spawn_point(scene_name:str) -> scene_spawn_point:
     return scene_map_collection.scene_spawn_points.get(scene_name)
+'''
