@@ -1,0 +1,2 @@
+server/dependencies/windows/consul/consul.exe filter=lfs diff=lfs merge=lfs -text
+server/dependencies/windows/redis/RedisService.exe !text !filter !merge !diff
