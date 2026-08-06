@@ -11,11 +11,13 @@ enum error_code {
     unconfig_talk_task = 9;
     talk_npc_not_scene = 10;
     cannot_use_skill = 11;
+    not_in_spawn_point = 12;
 }
 
 struct position {
     int32 x;
     int32 y;
+    direction dir;
 }
 
 enum em_rarity {
@@ -61,8 +63,8 @@ enum direction {
 	none = 0;
 	up = 1;
 	down = 2;
-	left = 3;
-	right = 4;
+	left = 4;
+	right = 8;
 }
 
 struct skill_info {

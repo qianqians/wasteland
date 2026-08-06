@@ -1,7 +1,7 @@
 import common
 
 entity_service player {
-    into_scene req(string area, string scene_name, int32 scene_line) rsp() err(int32 err_code);
+    into_scene req(string scene_name, int32 scene_line) rsp() err(int32 err_code);
 
     talk_npc req(int32 talk_id) rsp() err(int32 err_code);
 

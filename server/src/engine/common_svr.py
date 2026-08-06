@@ -19,6 +19,7 @@ class error_code(Enum):
     unconfig_talk_task = 9
     talk_npc_not_scene = 10
     cannot_use_skill = 11
+    not_in_spawn_point = 12
 
 
 class em_rarity(Enum):
@@ -44,8 +45,8 @@ class direction(Enum):
     none = 0
     up = 1
     down = 2
-    left = 3
-    right = 4
+    left = 4
+    right = 8
 
 
 class em_task_state(Enum):
@@ -60,6 +61,7 @@ class position(object):
     def __init__(self):
         self.x:int = 0
         self.y:int = 0
+        self.dir:direction = 0
 
 
 def position_to_protcol(_struct:position):
@@ -68,6 +70,7 @@ def position_to_protcol(_struct:position):
     _protocol = {}
     _protocol["x"] = _struct.x
     _protocol["y"] = _struct.y
+    _protocol["dir"] = _struct.dir
     return _protocol
 
 def protcol_to_position(_protocol:dict):
@@ -77,6 +80,8 @@ def protcol_to_position(_protocol:dict):
             _struct.x = val
         elif key == "y":
             _struct.y = val
+        elif key == "dir":
+            _struct.dir = val
     return _struct
 
 class attribute(object):

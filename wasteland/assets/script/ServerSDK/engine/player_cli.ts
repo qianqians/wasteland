@@ -79,9 +79,8 @@ export class player_caller {
         this.entity = entity;
     }
 
-    public  into_scene(area:string, scene_name:string, scene_line:number) {
+    public  into_scene(scene_name:string, scene_line:number) {
         let _argv_85dc3aca_241a_3c31_ae2e_37e652224427:any[] = []
-        _argv_85dc3aca_241a_3c31_ae2e_37e652224427.push(area);
         _argv_85dc3aca_241a_3c31_ae2e_37e652224427.push(scene_name);
         _argv_85dc3aca_241a_3c31_ae2e_37e652224427.push(scene_line);
         let _cb_uuid = this.entity.call_hub_request("into_scene", encode(_argv_85dc3aca_241a_3c31_ae2e_37e652224427));

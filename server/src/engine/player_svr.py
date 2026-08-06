@@ -63,7 +63,7 @@ class player_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_into_scene:list[Callable[[player_into_scene_rsp, str, str, int], None]] = []
+        self.on_into_scene:list[Callable[[player_into_scene_rsp, str, int], None]] = []
         self.entity.reg_client_request_callback("into_scene", self.into_scene)
         self.on_talk_npc:list[Callable[[player_talk_npc_rsp, int], None]] = []
         self.entity.reg_client_request_callback("talk_npc", self.talk_npc)
@@ -74,12 +74,11 @@ class player_module(object):
 
     def into_scene(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)
-        _area = inArray[0]
-        _scene_name = inArray[1]
-        _scene_line = inArray[2]
+        _scene_name = inArray[0]
+        _scene_line = inArray[1]
         rsp = player_into_scene_rsp(gate_name, conn_id, msg_cb_id, self.entity)
         for fn in self.on_into_scene:
-            fn(rsp, _area, _scene_name, _scene_line)
+            fn(rsp, _scene_name, _scene_line)
 
     def talk_npc(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)

@@ -4,6 +4,12 @@ from typing import TypedDict
 from enum import Enum
 from ..engine.common_svr import *
 
+class scene_map_spawn_point(TypedDict):
+    in_scene_name:str
+    in_position:position
+    out_scene_name:str
+    out_position:position
+
 class em_map_element_property(Enum):
     em_map_empty = 0
     em_map_map = 1
@@ -18,6 +24,8 @@ class scene_map(TypedDict):
     blockingLayer:list[em_map_element_property] = []
     stairsLayer:list[em_map_element_property] = []
     climbingLayer:list[em_map_element_property] = []
+
+    spawn_point:list[scene_map_spawn_point] = []
     
 class scene_map_collection:
     scene_maps: dict[str, scene_map] = {}
@@ -94,3 +102,14 @@ def load_scene_map(scene_name:str):
 
 def get_scene_map(scene_name:str) -> scene_map | None:
     return scene_map_collection.scene_maps.get(scene_name)
+
+def get_scene_spawn_point(scene_name:str, in_:position) -> scene_map_spawn_point | None:
+    _map = get_scene_map(scene_name)
+    if _map == None:
+        return None
+    if len(_map.spawn_point) <= 0:
+        return None
+    for _spawn_point in _map.spawn_point:
+        if abs(_spawn_point.in_position.x - in_.x) < 16 and abs(_spawn_point.in_position.y - in_.y) < 16:
+            return _spawn_point
+    return None

@@ -31,8 +31,8 @@ class player_data(save, player):
         
         self.player_module = player_module(self)
         self.player_module.on_into_scene.append(
-            lambda rsp, area, scene_name, scene_line : 
-                app().run_coroutine_async(self.into_scene(rsp, area, scene_name, scene_line)))
+            lambda rsp, scene_name, scene_line : 
+                app().run_coroutine_async(self.into_scene(rsp, scene_name, scene_line)))
                 
         self.scene_module = scene_module(self)
         self.scene_module.on_move.append(lambda s, vertical_dir, pos: self.begin_move(vertical_dir, pos))
@@ -78,53 +78,32 @@ class player_data(save, player):
             return
         app().run_coroutine_async(self.__into_scene__(area, self.scene_data.scene_name, self.scene_data.scene_line))
         
-    async def __into_scene__(self, area:str, scene_name:str, scene_line:int):
+    async def __into_scene__(self, scene_name:str, scene_line:int):
         self.scene.leave_scene(self)
         for _s in app().service_mgr.services.values():
             _scene_service:scene_service = _s
             for _scene in _scene_service.scenes.values():
-                if _scene.area == area and _scene.scene_name == scene_name and _scene.scene_line == scene_line:
+                if _scene.scene_name == scene_name and _scene.scene_line == scene_line:
                     _scene.entry_scene(self)
                     self.entry_scene(_scene)
                     return 
         
-        migrate_hub = await app().ctx.entry_hub_service(f"{area}_{scene_line}")
+        migrate_hub = await app().ctx.entry_hub_service(f"{scene_name}_{scene_line}")
         await self.start_migrate_entity_initiative(migrate_hub)
         
-    async def into_scene(self, rsp:player_into_scene_rsp, area:str, scene_name:str, scene_line:int):
-        scene_spawn_point = get_scene_spawn_point(scene_name)
+    async def into_scene(self, rsp:player_into_scene_rsp, scene_name:str, scene_line:int):
+        scene_spawn_point = get_scene_spawn_point(scene_name, self.scene_data.postion)
+        if scene_spawn_point == None:
+            rsp.err(error_code.not_in_spawn_point)
+            return
         
         self.scene_data.scene_name = scene_name
         self.scene_data.scene_line = scene_line
-        self.scene_data.postion = scene_spawn_point.spawn_point
+        self.scene_data.postion = scene_spawn_point.out_position
         
-        await self.__into_scene__(rsp, area, scene_name, scene_line)
+        await self.__into_scene__(rsp, scene_name, scene_line)
         rsp.rsp()
 
-    def use_skill(self, rsp:battle_use_skill_rsp, skill_id:int):
-        if self.skill_data.use_skill(skill_id, self, self.scene):
-            rsp.rsp()
-        else:
-            rsp.err(error_code.cannot_use_skill)
-            
-    def use_item(self, rsp:battle_use_item_rsp, item_id:str):
-        self.bag_data.use_item(item_id)
-        self.refresh()
-        
-    def be_harm(self, attack_entity_id:str, skill_id:int, harm_type:em_harm_type, harm_value:int):
-        self.attribute_data.hp -= harm_value
-        self.battle_caller.harm(
-            attack_entity_id, skill_id, self.scene_data.postion, harm_type, harm_value)
-        
-        if self.is_dead():
-            self.battle_caller.dead()
-            self.scene.leave_scene(self)
-        else:
-            self.refresh()
-            
-    def is_dead(self):
-        return self.attribute_data.hp <= 0
-    
     def refresh(self):
         self.scene_caller.entity_refresh(dumps(self.client_info()))
 
