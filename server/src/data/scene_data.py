@@ -56,6 +56,20 @@ class scene_data:
             return -1
         return 0
 
+    def check_move_climbing(self, _scene:scene, timeDetail:float):
+        dic_y = 0
+        if (self.postion.dir & direction.up) == direction.up:
+            dic_y = 1
+        elif (self.postion.dir & direction.down) == direction.down:
+            dic_y = -1
+        if dic_y != 0:
+            y_box = self.postion.y/64
+            element = _scene.scene_map_data.climbingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
+            if element == em_map_element_property.em_map_map:
+                self.postion.y += self.speed * timeDetail * dic_y
+                self.postion.dir = direction.up if dic_y > 0 else direction.down
+                self.vertical_dir = direction.none
+
     def update(self, _scene:scene):
         timestamp = time.time()
         timeDetail = timestamp - self.update_timestamp
@@ -80,36 +94,41 @@ class scene_data:
                     stairs = self.check_stairs(_scene, dir_c)
                     if stairs != 0:
                         self.postion.y += (y_box + stairs)*64
-        dic_y = 0
-        if (self.postion.dir & direction.up) == direction.up:
-            dic_y = 1
-        elif (self.postion.dir & direction.down) == direction.down:
-            dic_y = -1
-        if dic_y != 0:
-            y_box = self.postion.y/64
-            element = _scene.scene_map_data.climbingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
-            if element == em_map_element_property.em_map_map:
-                self.postion.y += self.speed * timeDetail * dic_y
-                self.postion.dir = direction.up if dic_y > 0 else direction.down
-                self.vertical_dir = direction.none
+        self.check_move_climbing(_scene, timeDetail)
 
         if self.vertical_dir == direction.up:
-            self.postion.y += self.vertical_speed * timeDetail
-            self.up_time += timeDetail
-            if self.up_time >= const.up_time:
-                self.up_time = 0
-                self.vertical_dir = direction.down
+            self.check_move_up(_scene, timeDetail)
         elif self.vertical_dir == direction.down:
-            y_box = self.postion.y/64 - 1
-            element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
-            if element == em_map_element_property.em_map_map:
-                self.postion.y = y_box*64
-                self.vertical_dir = direction.none
-            else:
-                self.postion.y -= self.vertical_speed * timeDetail
-                
+            self.check_move_down(_scene, timeDetail)
+
         self.__ntf_move__()
         self.update_timestamp = timestamp
+
+    def check_move_up(self, _scene:scene, timeDetail:float):
+        self.postion.y += self.vertical_speed * timeDetail
+        self.up_time += timeDetail
+        if self.up_time >= const.up_time:
+            self.up_time = 0
+            self.vertical_dir = direction.down
+
+    def check_move_down(self, _scene:scene, timeDetail:float):
+        y_box = self.postion.y/64 - 1
+        if y_box < 0:
+            self.postion.y = 0
+            self.vertical_dir = direction.none
+        element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
+        if element == em_map_element_property.em_map_map:
+            self.postion.y = y_box*64
+            self.vertical_dir = direction.none
+        else:
+            can_down = False
+            for y in range(y_box):
+                element = _scene.scene_map_data.moveLayer[y*_scene.scene_map_data.map_width_box + self.postion.x/64]
+                if element == em_map_element_property.em_map_map:
+                    can_down = True
+                    break
+            if can_down:
+                self.postion.y -= self.vertical_speed * timeDetail
 
     def __ntf_move__(self):
         self.scene_caller.move(self.vertical_dir, self.postion)
