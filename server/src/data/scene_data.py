@@ -34,22 +34,27 @@ class scene_data:
         self.update_timestamp:float = time.time()
 
     def check_blocking_move(self, _scene:scene, dir_c:int) -> bool:
-        y_box = self.postion.y/16
+        y_box = self.postion.y/64
         if dir_c == 1:
-            blocking_element_forward = _scene.scene_map_data.blockingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16 + 1]
+            blocking_element_forward = _scene.scene_map_data.blockingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64 + 1]
         elif dir_c == -1:
-            blocking_element_forward = _scene.scene_map_data.blockingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16 - 1]
+            blocking_element_forward = _scene.scene_map_data.blockingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64 - 1]
         return blocking_element_forward == em_map_element_property.em_map_map
 
     def check_fall_off(self, _scene:scene) -> bool:
-        y_box = self.postion.y/16
-        element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
+        y_box = self.postion.y/64 - 1
+        element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
         return element == em_map_element_property.em_map_empty
 
-    def check_stairs(self, _scene:scene, dir_c:int) -> bool:
-        y_box = self.postion.y/16
-        element = _scene.scene_map_data.stairsLayer[(y_box+1)*_scene.scene_map_data.map_width_box + self.postion.x/16 + dir_c]
-        return element == em_map_element_property.em_map_map
+    def check_stairs(self, _scene:scene, dir_c:int) -> int:
+        y_box = self.postion.y/64 - 1
+        element = _scene.scene_map_data.stairsLayer[(y_box+1)*_scene.scene_map_data.map_width_box + self.postion.x/64 + dir_c]
+        if element == em_map_element_property.em_map_map:
+            return 1
+        element = _scene.scene_map_data.stairsLayer[(y_box-1)*_scene.scene_map_data.map_width_box + self.postion.x/64 + dir_c]
+        if element == em_map_element_property.em_map_map:
+            return -1
+        return 0
 
     def update(self, _scene:scene):
         timestamp = time.time()
@@ -62,8 +67,8 @@ class scene_data:
             dir_c = -1
         if dir_c != 0:
             self.postion.x += self.speed * timeDetail * dir_c
-            y_box = self.postion.y/16
-            element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
+            y_box = self.postion.y/64 - 1
+            element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
             if element == em_map_element_property.em_map_empty:
                 self.vertical_dir = direction.down
             else:
@@ -71,21 +76,22 @@ class scene_data:
                     self.postion.dir = direction.none
                 elif self.check_fall_off(_scene):
                     self.vertical_dir = direction.down
-                elif self.check_stairs(_scene, dir_c):
-                    self.postion.y += (y_box + 1)*16
-        else:
-            dic_y = 0
-            if (self.postion.dir & direction.up) == direction.up:
-                dic_y = 1
-            elif (self.postion.dir & direction.down) == direction.down:
-                dic_y = -1
-            if dic_y != 0:
+                else:
+                    stairs = self.check_stairs(_scene, dir_c)
+                    if stairs != 0:
+                        self.postion.y += (y_box + stairs)*64
+        dic_y = 0
+        if (self.postion.dir & direction.up) == direction.up:
+            dic_y = 1
+        elif (self.postion.dir & direction.down) == direction.down:
+            dic_y = -1
+        if dic_y != 0:
+            y_box = self.postion.y/64
+            element = _scene.scene_map_data.climbingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
+            if element == em_map_element_property.em_map_map:
                 self.postion.y += self.speed * timeDetail * dic_y
-                y_box = self.postion.y/16
-                element = _scene.scene_map_data.climbingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
-                if element == em_map_element_property.em_map_empty:
-                    self.postion.dir = direction.none
-                    self.vertical_dir = direction.down
+                self.postion.dir = direction.up if dic_y > 0 else direction.down
+                self.vertical_dir = direction.none
 
         if self.vertical_dir == direction.up:
             self.postion.y += self.vertical_speed * timeDetail
@@ -94,10 +100,10 @@ class scene_data:
                 self.up_time = 0
                 self.vertical_dir = direction.down
         elif self.vertical_dir == direction.down:
-            y_box = self.postion.y/16
-            element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/16]
+            y_box = self.postion.y/64 - 1
+            element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
             if element == em_map_element_property.em_map_map:
-                self.postion.y = y_box*16
+                self.postion.y = y_box*64
                 self.vertical_dir = direction.none
             else:
                 self.postion.y -= self.vertical_speed * timeDetail
@@ -117,7 +123,7 @@ class scene_data:
             if scene_map == None:
                 raise RuntimeError(f"scene_map not found for scene_name={self.scene_name}")
             for p in scene_map.spawn_point:
-                if abs(p.in_position.x - self.postion.x) <= 0.5 and abs(p.in_position.y - self.postion.y) <= 0.5:
+                if abs(p.in_position.x - self.postion.x) <= 64 and abs(p.in_position.y - self.postion.y) <= 64:
                     self.scene_name = p.out_scene_name
                     self.postion = p.out_position
                     return (False, p.out_scene_name)
