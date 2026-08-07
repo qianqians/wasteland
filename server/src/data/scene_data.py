@@ -124,9 +124,8 @@ class scene_data:
             can_down = False
             for y in range(y_box):
                 element = _scene.scene_map_data.moveLayer[y*_scene.scene_map_data.map_width_box + self.postion.x/64]
-                if element == em_map_element_property.em_map_map:
-                    can_down = True
-                    break
+                can_down = element == em_map_element_property.em_map_map
+                if can_down: break
             if can_down:
                 self.postion.y -= self.vertical_speed * timeDetail
 
