@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from ..engine.engine import *
 from ..engine.common_svr import *
-from ..scene_map.scene_map_data import scene_map, get_scene_map
+from .scene_map_data import scene_map, get_scene_map
 from .player_data import player_data
 from .npc import npc
 

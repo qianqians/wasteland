@@ -6,7 +6,7 @@ from .player_data import *
 from .scene import *
 from .scene_service import *
 from ..config.config import *
-from ..scene_map import *
+from .scene_map_data import *
 
 class PlayerEventHandle(player_event_handle):
     def player_offline(self, _player:player) -> dict:
@@ -21,7 +21,7 @@ def main(cfg_file:str):
     load_monster_config()
     load_skill_config()
     
-    load_scene_spawn_point()
+    #load_scene_spawn_point()
 
     _app = app()
     _app.build(cfg_file)

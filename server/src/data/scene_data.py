@@ -4,7 +4,7 @@ from typing import TypedDict
 from ..engine.common_svr import *
 from ..engine.scene_ntf_client_svr import *
 from ..engine.scene_svr import *
-from ..scene_map.scene_map_data import *
+from ..scene.scene_map_data import *
 from ..scene.scene import *
 from ..helper import const
 

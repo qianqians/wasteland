@@ -7,7 +7,7 @@ from ..data.equip_data import *
 from ..data.scene_data import *
 from ..data.bag_data import *
 from ..data.task_data import *
-from ..scene_map.scene_map_data import *
+from .scene_map_data import *
 from .scene import *
 
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):

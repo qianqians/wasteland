@@ -110,6 +110,6 @@ def get_scene_spawn_point(scene_name:str, in_:position) -> scene_map_spawn_point
     if len(_map.spawn_point) <= 0:
         return None
     for _spawn_point in _map.spawn_point:
-        if abs(_spawn_point.in_position.x - in_.x) < 16 and abs(_spawn_point.in_position.y - in_.y) < 16:
+        if abs(_spawn_point.in_position.x - in_.x) < 32 and abs(_spawn_point.in_position.y - in_.y) < 32:
             return _spawn_point
     return None

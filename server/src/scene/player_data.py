@@ -11,7 +11,7 @@ from ..data.attribute_data import *
 from ..data.equip_data import *
 from ..data.scene_data import *
 from ..data.bag_data import *
-from ..scene_map import *
+from .scene_map_data import *
 from .scene import scene
 from .scene_service import scene_service
 
