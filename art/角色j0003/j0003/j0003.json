@@ -1,0 +1,149 @@
+{ "skeleton": { "images": "H:/【work】/浅浅的游戏UI界面设计原型/spine/psd/j0003/images/" },
+"PhotoshopToSpine": { "scale": 1, "padding": 1, "trim": true },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "arm_left2_down", "bone": "root", "attachment": "arm_left2_down" },
+	{ "name": "arm_left2_up", "bone": "root", "attachment": "arm_left2_up" },
+	{ "name": "hand_left_1", "bone": "root" },
+	{ "name": "hand_left_2", "bone": "root", "attachment": "hand_left_2" },
+	{ "name": "cloth_bG", "bone": "root", "attachment": "cloth_bG" },
+	{ "name": "leg_left_up", "bone": "root", "attachment": "leg_left_up" },
+	{ "name": "leg_left_down", "bone": "root", "attachment": "leg_left_down" },
+	{ "name": "toe_left", "bone": "root", "attachment": "toe_left" },
+	{ "name": "leg_right_up", "bone": "root", "attachment": "leg_right_up" },
+	{ "name": "leg_right_down", "bone": "root", "attachment": "leg_right_down" },
+	{ "name": "toe_right_2", "bone": "root" },
+	{ "name": "teo_right", "bone": "root", "attachment": "teo_right" },
+	{ "name": "body_side", "bone": "root" },
+	{ "name": "body", "bone": "root", "attachment": "body" },
+	{ "name": "bow1", "bone": "root", "attachment": "bow1" },
+	{ "name": "bow2", "bone": "root", "attachment": "bow2" },
+	{ "name": "arm_right2", "bone": "root" },
+	{ "name": "arm_right1_up", "bone": "root", "attachment": "arm_right1_up" },
+	{ "name": "arm_right1_down", "bone": "root", "attachment": "arm_right1_down" },
+	{ "name": "hand_right", "bone": "root", "attachment": "hand_right" },
+	{ "name": "face_side", "bone": "root" },
+	{ "name": "hair_side", "bone": "root" },
+	{ "name": "face", "bone": "root", "attachment": "face" },
+	{ "name": "nose", "bone": "root", "attachment": "nose" },
+	{ "name": "hair", "bone": "root", "attachment": "hair" },
+	{ "name": "mouth1", "bone": "root", "attachment": "mouth1" },
+	{ "name": "mouth2", "bone": "root", "attachment": "mouth2" },
+	{ "name": "eye_left", "bone": "root", "attachment": "eye_left" },
+	{ "name": "eye_left_close", "bone": "root" },
+	{ "name": "eye_right", "bone": "root", "attachment": "eye_right" },
+	{ "name": "eye_right_close", "bone": "root" },
+	{ "name": "ear_right", "bone": "root", "attachment": "ear_right" },
+	{ "name": "eyebrow_left", "bone": "root", "attachment": "eyebrow_left" },
+	{ "name": "eyebrow_right", "bone": "root", "attachment": "eyebrow_right" }
+],
+"skins": {
+	"default": {
+		"arm_left2_down": {
+			"arm_left2_down": { "x": 55, "y": 175.5, "width": 52, "height": 57 }
+		},
+		"arm_left2_up": {
+			"arm_left2_up": { "x": 40.5, "y": 227.5, "width": 69, "height": 91 }
+		},
+		"hand_left_1": {
+			"hand_left_1": { "x": 69.5, "y": 149, "width": 47, "height": 46 }
+		},
+		"hand_left_2": {
+			"hand_left_2": { "x": 69, "y": 148, "width": 40, "height": 40 }
+		},
+		"cloth_bG": {
+			"cloth_bG": { "x": -13.5, "y": 141.5, "width": 119, "height": 65 }
+		},
+		"leg_left_up": {
+			"leg_left_up": { "x": 17.5, "y": 113, "width": 57, "height": 100 }
+		},
+		"leg_left_down": {
+			"leg_left_down": { "x": 23.5, "y": 49.5, "width": 55, "height": 71 }
+		},
+		"toe_left": {
+			"toe_left": { "x": 33.5, "y": 16.5, "width": 59, "height": 35 }
+		},
+		"leg_right_up": {
+			"leg_right_up": { "x": -26.5, "y": 99.5, "width": 59, "height": 111 }
+		},
+		"leg_right_down": {
+			"leg_right_down": { "x": -32.5, "y": 41.5, "width": 53, "height": 81 }
+		},
+		"toe_right_2": {
+			"toe_right_2": { "x": -29.5, "y": 8.5, "width": 57, "height": 37 }
+		},
+		"teo_right": {
+			"teo_right": { "x": -34, "y": 10.5, "width": 50, "height": 41 }
+		},
+		"body_side": {
+			"body_side": { "x": -16.5, "y": 192, "width": 145, "height": 188 }
+		},
+		"body": {
+			"body": { "x": -4.5, "y": 202, "width": 145, "height": 198 }
+		},
+		"bow1": {
+			"bow1": { "x": -57.5, "y": 165, "width": 55, "height": 60 }
+		},
+		"bow2": {
+			"bow2": { "x": -29, "y": 164.5, "width": 42, "height": 63 }
+		},
+		"arm_right2": {
+			"arm_right2": { "x": 8.5, "y": 231.5, "width": 131, "height": 85 }
+		},
+		"arm_right1_up": {
+			"arm_right1_up": { "x": -58.5, "y": 228, "width": 71, "height": 90 }
+		},
+		"arm_right1_down": {
+			"arm_right1_down": { "x": -66.5, "y": 177, "width": 47, "height": 52 }
+		},
+		"hand_right": {
+			"hand_right": { "x": -73.5, "y": 148.5, "width": 47, "height": 45 }
+		},
+		"face_side": {
+			"face_side": { "x": 1, "y": 369.5, "width": 192, "height": 181 }
+		},
+		"hair_side": {
+			"hair_side": { "x": 91.5, "y": 381.5, "width": 47, "height": 125 }
+		},
+		"face": {
+			"face": { "x": 0, "y": 369, "width": 170, "height": 184 }
+		},
+		"nose": {
+			"nose": { "x": 40, "y": 319.5, "width": 6, "height": 7 }
+		},
+		"hair": {
+			"hair": { "x": -11, "y": 368, "width": 236, "height": 220 }
+		},
+		"mouth1": {
+			"mouth1": { "x": 29.5, "y": 301, "width": 15, "height": 8 }
+		},
+		"mouth2": {
+			"mouth2": { "x": 23.5, "y": 299.5, "width": 35, "height": 19 }
+		},
+		"eye_left": {
+			"eye_left": { "x": 67, "y": 340.5, "width": 32, "height": 45 }
+		},
+		"eye_left_close": {
+			"eye_left_close": { "x": 62, "y": 336, "width": 34, "height": 18 }
+		},
+		"eye_right": {
+			"eye_right": { "x": -8.5, "y": 344, "width": 53, "height": 46 }
+		},
+		"eye_right_close": {
+			"eye_right_close": { "x": 1, "y": 341, "width": 52, "height": 18 }
+		},
+		"ear_right": {
+			"ear_right": { "x": -66.5, "y": 335.5, "width": 31, "height": 43 }
+		},
+		"eyebrow_left": {
+			"eyebrow_left": { "x": 63.5, "y": 375.5, "width": 21, "height": 9 }
+		},
+		"eyebrow_right": {
+			"eyebrow_right": { "x": 6.5, "y": 378, "width": 27, "height": 10 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
