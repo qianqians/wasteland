@@ -5,5 +5,8 @@
   "uuid": "21e2a5be-9a8e-47b0-9b76-145162e51758",
   "files": [],
   "subMetas": {},
-  "userData": {}
+  "userData": {
+    "isBundle": true,
+    "bundleName": "map_skyland"
+  }
 }

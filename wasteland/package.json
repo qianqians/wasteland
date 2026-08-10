@@ -2,7 +2,7 @@
   "name": "wasteland",
   "uuid": "02dc08d1-5a1f-4b43-9eff-d642cd3258c6",
   "creator": {
-    "version": "3.8.7"
+    "version": "3.8.8"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
