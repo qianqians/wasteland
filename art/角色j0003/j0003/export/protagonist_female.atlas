@@ -13,7 +13,7 @@ repeat: none
   index: -1
 arm_left2_down
   rotate: false
-  xy: 494, 133
+  xy: 539, 238
   size: 49, 56
   orig: 52, 57
   offset: 1, 1
@@ -27,7 +27,7 @@ arm_left2_up
   index: -1
 arm_right1_down
   rotate: false
-  xy: 445, 17
+  xy: 445, 79
   size: 46, 52
   orig: 47, 52
   offset: 1, 0
@@ -55,14 +55,14 @@ body_side
   index: -1
 bow1
   rotate: false
-  xy: 445, 71
+  xy: 539, 296
   size: 55, 60
   orig: 55, 60
   offset: 0, 0
   index: -1
 bow2
   rotate: true
-  xy: 539, 231
+  xy: 539, 358
   size: 42, 61
   orig: 42, 63
   offset: 0, 0
@@ -75,15 +75,15 @@ cloth_bG
   offset: 0, 0
   index: -1
 ear_right
-  rotate: false
-  xy: 493, 26
+  rotate: true
+  xy: 493, 77
   size: 31, 43
   orig: 31, 43
   offset: 0, 0
   index: -1
 eye_left
   rotate: true
-  xy: 545, 65
+  xy: 494, 110
   size: 32, 45
   orig: 32, 45
   offset: 0, 0
@@ -110,15 +110,15 @@ eye_right_close
   offset: 1, 0
   index: -1
 eyebrow_left
-  rotate: false
-  xy: 502, 71
+  rotate: true
+  xy: 483, 56
   size: 21, 8
   orig: 21, 9
   offset: 0, 0
   index: -1
 eyebrow_right
   rotate: true
-  xy: 584, 573
+  xy: 590, 267
   size: 27, 10
   orig: 27, 10
   offset: 0, 0
@@ -144,16 +144,9 @@ hair
   orig: 236, 220
   offset: 0, 1
   index: -1
-hair_side
-  rotate: false
-  xy: 539, 275
-  size: 47, 125
-  orig: 47, 125
-  offset: 0, 0
-  index: -1
 hand_left_1
   rotate: false
-  xy: 545, 146
+  xy: 539, 191
   size: 47, 45
   orig: 47, 46
   offset: 0, 1
@@ -167,7 +160,7 @@ hand_left_2
   index: -1
 hand_right
   rotate: false
-  xy: 545, 99
+  xy: 494, 144
   size: 47, 45
   orig: 47, 45
   offset: 0, 0
@@ -223,7 +216,7 @@ nose
   index: -1
 teo_right
   rotate: true
-  xy: 502, 81
+  xy: 543, 139
   size: 50, 41
   orig: 50, 41
   offset: 0, 0
@@ -236,8 +229,8 @@ toe_left
   offset: 0, 0
   index: -1
 toe_right_2
-  rotate: false
-  xy: 539, 193
+  rotate: true
+  xy: 445, 20
   size: 57, 36
   orig: 57, 37
   offset: 0, 1
