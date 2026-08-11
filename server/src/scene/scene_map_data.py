@@ -50,9 +50,9 @@ def __map_primitive_data__(scene_name:str) -> scene_map:
 
                 for x in range(w):
                     for y in range(h):
-                        id = data[y * w + x]
+                        id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.moveLayer[(h-y-1)*_map.map_width_box + x] = element_property
+                        _map.moveLayer[y*w + x] = element_property
                         print(f"_map.moveLayer id:{id} x:{x} y{y}")
             elif layer_name == "blockingLayer":
                 data = layer_info["data"]
@@ -63,9 +63,9 @@ def __map_primitive_data__(scene_name:str) -> scene_map:
 
                 for x in range(w):
                     for y in range(h):
-                        id = data[y * w + x]
+                        id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.blockingLayer[(h-y-1)*_map.map_width_box + x] = element_property
+                        _map.blockingLayer[y*w + x] = element_property
                         print(f"_map.blockingLayer id:{id} x:{x} y{y}")
             elif layer_name == "stairsLayer":
                 data = layer_info["data"]
@@ -76,9 +76,9 @@ def __map_primitive_data__(scene_name:str) -> scene_map:
 
                 for x in range(w):
                     for y in range(h):
-                        id = data[y * w + x]
+                        id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.stairsLayer[(h-y-1)*_map.map_width_box + x] = element_property
+                        _map.stairsLayer[y*w + x] = element_property
                         print(f"_map.stairsLayer id:{id} x:{x} y{y}")
             elif layer_name == "climbingLayer":
                 data = layer_info["data"]
@@ -89,9 +89,9 @@ def __map_primitive_data__(scene_name:str) -> scene_map:
 
                 for x in range(w):
                     for y in range(h):
-                        id = data[y * w + x]
+                        id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.climbingLayer[(h-y-1)*_map.map_width_box + x] = element_property
+                        _map.climbingLayer[y*w + x] = element_property
                         print(f"_map.climbingLayer id:{id} x:{x} y{y}")
 
     return _map

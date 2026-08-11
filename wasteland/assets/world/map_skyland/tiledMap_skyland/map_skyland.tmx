@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="26">
- <tileset firstgid="1" source="map_ice.tsx"/>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="left-up" width="60" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="18" nextobjectid="26">
+ <tileset firstgid="1" source="map_skyland.tsx"/>
  <imagelayer id="2" name="bg" offsetx="2000" offsety="0" parallaxx="0.2" repeatx="1">
   <image source="images/bg.jpg" width="3017" height="1280"/>
  </imagelayer>
@@ -292,7 +292,7 @@
 476,477,478,479,480,449,450,451,452,453,454,455,449,450,451,452,453,454,455,456,414,415,416,417,418,419,420,450,451,452,453,454,455,456,0,0,0,2147484128,2147484127,2147484126,2147484125,2147484124,476,477,478,479,480,450,451,452,453,454,455,456,473,474,475,476,477,478
 </data>
  </layer>
- <objectgroup id="13" name="object">
+ <objectgroup id="13" name="object" visible="0">
   <object id="15" gid="322" x="1882" y="708" width="64" height="64"/>
   <object id="16" gid="464" x="1574" y="454" width="64" height="64"/>
   <object id="17" gid="464" x="2920" y="522" width="64" height="64"/>
