@@ -56,13 +56,17 @@ export enum em_task_state {
 export class position {
      public x:number = 0
      public y:number = 0
-     public dir:direction = direction.none
+     public x_speed:number = 0
+     public y_speed:number = 0
+     public dir:number = 0
 }
 
 export function position_to_protcol(_struct:position) {
     let _protocol:any = {}
     _protocol["x"] = _struct.x
     _protocol["y"] = _struct.y
+    _protocol["x_speed"] = _struct.x_speed
+    _protocol["y_speed"] = _struct.y_speed
     _protocol["dir"] = _struct.dir
     return _protocol;
 }
@@ -76,6 +80,12 @@ export function protcol_to_position(_protocol:any) {
         }
         else if (key == "y") {
             _struct.y = val;
+        }
+        else if (key == "x_speed") {
+            _struct.x_speed = val;
+        }
+        else if (key == "y_speed") {
+            _struct.y_speed = val;
         }
         else if (key == "dir") {
             _struct.dir = val;

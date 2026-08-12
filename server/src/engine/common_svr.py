@@ -61,7 +61,9 @@ class position(object):
     def __init__(self):
         self.x:int = 0
         self.y:int = 0
-        self.dir:direction = 0
+        self.x_speed:int = 0
+        self.y_speed:int = 0
+        self.dir:int = 0
 
 
 def position_to_protcol(_struct:position):
@@ -70,6 +72,8 @@ def position_to_protcol(_struct:position):
     _protocol = {}
     _protocol["x"] = _struct.x
     _protocol["y"] = _struct.y
+    _protocol["x_speed"] = _struct.x_speed
+    _protocol["y_speed"] = _struct.y_speed
     _protocol["dir"] = _struct.dir
     return _protocol
 
@@ -80,6 +84,10 @@ def protcol_to_position(_protocol:dict):
             _struct.x = val
         elif key == "y":
             _struct.y = val
+        elif key == "x_speed":
+            _struct.x_speed = val
+        elif key == "y_speed":
+            _struct.y_speed = val
         elif key == "dir":
             _struct.dir = val
     return _struct

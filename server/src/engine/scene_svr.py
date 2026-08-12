@@ -13,16 +13,15 @@ class scene_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_move:list[Callable[[session, direction, position], None]] = []
+        self.on_move:list[Callable[[session, direction], None]] = []
         self.entity.reg_client_notify_callback("move", self.move)
 
     def move(self, gate_name:str, bin:bytes):
         inArray = loads(bin)
         _dir = inArray[0]
-        _pos = protcol_to_position(inArray[1])
         s = session(gate_name)
         for fn in self.on_move:
-            fn(s, _dir, _pos)
+            fn(s, _dir)
 
 
 

@@ -73,10 +73,9 @@ class player_data(save, player):
         self.scene = _scene
         
     def begin_move(self, vertical_dir:direction, pos:position):
-        (is_move, _) = self.scene_data.begin_move(vertical_dir, pos)
-        if is_move:
-            return
-        app().run_coroutine_async(self.__into_scene__(self.scene_data.scene_name, self.scene_data.scene_line))
+        (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)
+        if is_spawn:
+            app().run_coroutine_async(self.__into_scene__(spawn_scene_name, self.scene_data.scene_line))
         
     async def __into_scene__(self, scene_name:str, scene_line:int):
         self.scene.leave_scene(self)

@@ -17,7 +17,9 @@ enum error_code {
 struct position {
     int32 x;
     int32 y;
-    direction dir;
+    int32 x_speed;
+    int32 y_speed;
+    int32 dir;
 }
 
 enum em_rarity {
