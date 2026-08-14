@@ -14,14 +14,6 @@ enum error_code {
     not_in_spawn_point = 12;
 }
 
-struct position {
-    int32 x;
-    int32 y;
-    int32 x_speed;
-    int32 y_speed;
-    int32 dir;
-}
-
 enum em_rarity {
   common = 1;     // 普通
   rare = 2;       // 稀有
@@ -67,6 +59,14 @@ enum direction {
 	down = 2;
 	left = 4;
 	right = 8;
+}
+
+struct position {
+    int32 x;
+    int32 y;
+    int32 x_speed;
+    int32 y_speed;
+    int32 dir;
 }
 
 struct skill_info {

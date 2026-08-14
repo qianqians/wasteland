@@ -23,13 +23,16 @@ class login_get_character_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self, player:player_info):
+    def rsp(self, player:list[player_info]):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2 = []
-        _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2.append(player_info_to_protcol(player))
+        _list_beaf3cae_2489_3c76_bb55_127b704822c5 = []
+        for v_be0298d9_3298_5e5f_ae83_c00e58168711 in player:
+            _list_beaf3cae_2489_3c76_bb55_127b704822c5.append(player_info_to_protcol(v_be0298d9_3298_5e5f_ae83_c00e58168711))
+        _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2.append(_list_beaf3cae_2489_3c76_bb55_127b704822c5)
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2))
 
     def err(self, errCode:int):
@@ -49,12 +52,13 @@ class login_create_character_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self):
+    def rsp(self, player:player_info):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87 = []
+        _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.append(player_info_to_protcol(player))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_b09e2393_3876_3f7c_be40_cdd789a21e87))
 
     def err(self, errCode:int):
@@ -74,12 +78,13 @@ class login_select_character_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self):
+    def rsp(self, player:player_info):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_6f89916d_93ec_3d09_b91d_511264985bc0 = []
+        _argv_6f89916d_93ec_3d09_b91d_511264985bc0.append(player_info_to_protcol(player))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_6f89916d_93ec_3d09_b91d_511264985bc0))
 
     def err(self, errCode:int):

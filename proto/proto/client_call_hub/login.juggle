@@ -7,7 +7,7 @@ enum em_platform {
 }
 
 entity_service login {
-    get_character req(em_platform platform, string code) rsp(player_info player) err(int32 errCode);
-    create_character req(string player_nick_name, int32 gender, string scene) rsp() err(int32 errCode);
-    select_character req(string player_id) rsp() err(int32 errCode);
+    get_character req(em_platform platform, string code) rsp(player_info[] player) err(int32 errCode);
+    create_character req(string player_nick_name, int32 gender, string scene) rsp(player_info player) err(int32 errCode);
+    select_character req(string player_id) rsp(player_info player) err(int32 errCode);
 }

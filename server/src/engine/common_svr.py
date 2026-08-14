@@ -57,41 +57,6 @@ class em_task_state(Enum):
 
 
 #this struct code is codegen by geese codegen for python
-class position(object):
-    def __init__(self):
-        self.x:int = 0
-        self.y:int = 0
-        self.x_speed:int = 0
-        self.y_speed:int = 0
-        self.dir:int = 0
-
-
-def position_to_protcol(_struct:position):
-    if _struct is None:
-        return None
-    _protocol = {}
-    _protocol["x"] = _struct.x
-    _protocol["y"] = _struct.y
-    _protocol["x_speed"] = _struct.x_speed
-    _protocol["y_speed"] = _struct.y_speed
-    _protocol["dir"] = _struct.dir
-    return _protocol
-
-def protcol_to_position(_protocol:dict):
-    _struct = position()
-    for (key, val) in _protocol.items():
-        if key == "x":
-            _struct.x = val
-        elif key == "y":
-            _struct.y = val
-        elif key == "x_speed":
-            _struct.x_speed = val
-        elif key == "y_speed":
-            _struct.y_speed = val
-        elif key == "dir":
-            _struct.dir = val
-    return _struct
-
 class attribute(object):
     def __init__(self):
         self.add_hp:int = 0
@@ -172,6 +137,41 @@ def protcol_to_equip_info(_protocol:dict):
             _struct.rarity = val
         elif key == "bonus":
             _struct.bonus = protcol_to_attribute(val)
+    return _struct
+
+class position(object):
+    def __init__(self):
+        self.x:int = 0
+        self.y:int = 0
+        self.x_speed:int = 0
+        self.y_speed:int = 0
+        self.dir:int = 0
+
+
+def position_to_protcol(_struct:position):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["x"] = _struct.x
+    _protocol["y"] = _struct.y
+    _protocol["x_speed"] = _struct.x_speed
+    _protocol["y_speed"] = _struct.y_speed
+    _protocol["dir"] = _struct.dir
+    return _protocol
+
+def protcol_to_position(_protocol:dict):
+    _struct = position()
+    for (key, val) in _protocol.items():
+        if key == "x":
+            _struct.x = val
+        elif key == "y":
+            _struct.y = val
+        elif key == "x_speed":
+            _struct.x_speed = val
+        elif key == "y_speed":
+            _struct.y_speed = val
+        elif key == "dir":
+            _struct.dir = val
     return _struct
 
 class skill_info(object):
