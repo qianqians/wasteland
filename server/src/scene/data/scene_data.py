@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
 from typing import TypedDict
-from ..engine.common_svr import *
-from ..engine.scene_ntf_client_svr import *
-from ..engine.scene_svr import *
-from ..scene.scene_map_data import *
-from ..scene.scene import *
-from ..helper import const
+from ...engine.common_svr import *
+from ...engine.scene_ntf_client_svr import *
+from ...engine.scene_svr import *
+from ..scene_map_data import *
+from ...helper import const
+from ..scene_map_data import scene_map as scene_map_data
 
 class postion_data(TypedDict):
     x:int = 0
@@ -33,36 +33,36 @@ class scene_data:
         self.scene_caller:scene_ntf_client_caller = scene_caller
         self.update_timestamp:float = time.time()
 
-    def check_blocking_move(self, _scene:scene) -> bool:
+    def check_blocking_move(self, _scene_map_data:scene_map_data) -> bool:
         y_box = self.postion.y/64
         if self.__check_direction__(direction.right):
-            blocking_element_forward = _scene.scene_map_data.blockingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64 + 1]
+            blocking_element_forward = _scene_map_data.blockingLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64 + 1]
         elif self.__check_direction__(direction.left):
-            blocking_element_forward = _scene.scene_map_data.blockingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64 - 1]
+            blocking_element_forward = _scene_map_data.blockingLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64 - 1]
         return blocking_element_forward == em_map_element_property.em_map_map
 
-    def check_fall_off(self, _scene:scene) -> bool:
+    def check_fall_off(self, _scene_map_data:scene_map_data) -> bool:
         y_box = self.postion.y/64 - 1
-        element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
+        element = _scene_map_data.moveLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64]
         return element == em_map_element_property.em_map_empty
 
-    def check_stairs(self, _scene:scene) -> int:
+    def check_stairs(self, _scene_map_data:scene_map_data) -> int:
         y_box = self.postion.y/64
         x_box = self.__check_direction__(direction.right) and 1 or self.__check_direction__(direction.left) and -1 or 0
-        element = _scene.scene_map_data.stairsLayer[(y_box+1)*_scene.scene_map_data.map_width_box + self.postion.x/64 + x_box]
+        element = _scene_map_data.stairsLayer[(y_box+1)*_scene_map_data.map_width_box + self.postion.x/64 + x_box]
         if element == em_map_element_property.em_map_map:
             return y_box+1
-        element = _scene.scene_map_data.stairsLayer[(y_box-1)*_scene.scene_map_data.map_width_box + self.postion.x/64 + x_box]
+        element = _scene_map_data.stairsLayer[(y_box-1)*_scene_map_data.map_width_box + self.postion.x/64 + x_box]
         if element == em_map_element_property.em_map_map:
             return y_box-1
         return 0
 
-    def check_move_climbing(self, _scene:scene, timeDetail:float):
+    def check_move_climbing(self, _scene_map_data:scene_map_data, timeDetail:float):
         dir_y = self.__check_direction__(direction.up) and 1 or self.__check_direction__(direction.down) and -1 or 0
         if dir_y == 0:
             return
         y_box = self.postion.y/64
-        element = _scene.scene_map_data.climbingLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
+        element = _scene_map_data.climbingLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64]
         if element == em_map_element_property.em_map_map:
             self.postion.dir |= direction.up if dir_y > 0 else direction.down
             self.postion.y += self.climbing_speed * timeDetail * dir_y
@@ -76,25 +76,25 @@ class scene_data:
         else:
             self.postion.dir |= direction.up
 
-    def check_move_down(self, _scene:scene, timeDetail:float):
+    def check_move_down(self, _scene_map_data:scene_map_data, timeDetail:float):
         y_box = self.postion.y/64 - 1
         if y_box < 0:
             self.postion.y = 0
             self.postion.dir &= ~direction.down
-        element = _scene.scene_map_data.moveLayer[y_box*_scene.scene_map_data.map_width_box + self.postion.x/64]
+        element = _scene_map_data.moveLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64]
         if element == em_map_element_property.em_map_map:
             self.postion.y = y_box*64
             self.postion.dir &= ~direction.down
         else:
             can_down = False
             for y in range(y_box):
-                element = _scene.scene_map_data.moveLayer[y*_scene.scene_map_data.map_width_box + self.postion.x/64]
+                element = _scene_map_data.moveLayer[y*_scene_map_data.map_width_box + self.postion.x/64]
                 can_down = element == em_map_element_property.em_map_map
                 if can_down: break
             if can_down:
                 self.postion.y -= self.jump_speed * timeDetail
 
-    def update(self, _scene:scene):
+    def update(self, _scene_map_data:scene_map_data):
         timestamp = time.time()
         timeDetail = timestamp - self.update_timestamp
 
@@ -105,14 +105,14 @@ class scene_data:
             dir_c = -1
         if dir_c != 0:
             self.postion.x += self.speed * timeDetail * dir_c
-            if self.check_blocking_move(_scene):
+            if self.check_blocking_move(_scene_map_data):
                 self.postion.dir = direction.none
                 self.postion.x_speed = 0
-            elif self.check_fall_off(_scene):
+            elif self.check_fall_off(_scene_map_data):
                 self.postion.dir |= direction.down
                 self.postion.y_speed = -self.jump_speed
             else:
-                stairs = self.check_stairs(_scene, dir_c)
+                stairs = self.check_stairs(_scene_map_data, dir_c)
                 if stairs != 0:
                     self.postion.y += stairs*64
                 self.postion.x_speed = self.speed
@@ -120,12 +120,12 @@ class scene_data:
                     self.postion.dir |= direction.right
                 elif self.__check_direction__(direction.left):
                     self.postion.dir |= direction.left
-        self.check_move_climbing(_scene, timeDetail)
+        self.check_move_climbing(_scene_map_data, timeDetail)
 
         if self.__check_direction__(direction.up):
-            self.check_move_up(_scene, timeDetail)
+            self.check_move_up(_scene_map_data, timeDetail)
         elif self.__check_direction__(direction.down):
-            self.check_move_down(_scene, timeDetail)
+            self.check_move_down(_scene_map_data, timeDetail)
 
         self.__ntf_move__()
         self.update_timestamp = timestamp

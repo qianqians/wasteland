@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
-from ..engine.common_svr import *
+from ...engine.common_svr import *
 
 class equip:
     def __init__(self):

@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 import sys
 from ..engine.engine import *
-import steam_sdk
-import character
+from .steam_sdk import *
+from .character import *
 
 class LoginErrorCallback(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
@@ -40,7 +40,7 @@ class LoginEventHandle(login_event_handle):
         
     async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
-        response = await steam_sdk.code2Session(self.AppID, self.Secret, sdk_uuid)
+        response = await code2Session(self.AppID, self.Secret, sdk_uuid)
         error = None
         steamid = None
         while True:
@@ -90,7 +90,7 @@ class LoginEventHandle(login_event_handle):
             return
         
         accound_id = await self.__get_client_account_id__(steamid)
-        _character = character.LoginCharacterCallback(self, 
+        _character = LoginCharacterCallback(self, 
             accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)

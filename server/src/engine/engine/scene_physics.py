@@ -153,7 +153,7 @@ def sync_scene_to_group(
     if hasattr(group, "_scene_cache") and group._scene_cache is not None:
         cached = group._scene_cache  # dict[str, bytes]
         for entity_id, msg_bytes in cached.items():
-            from app import app
+            from .app import app
             app().ctx.hub_call_client_create_remote_entity(
                 gate_name,
                 False,  # is_migrate
@@ -198,7 +198,7 @@ def sync_scene_to_group(
         msg_bytes = msgpack.dumps(msg)
         cache[entity_id] = msg_bytes
 
-        from app import app
+        from .app import app
         app().ctx.hub_call_client_create_remote_entity(
             gate_name,
             False,  # is_migrate
@@ -237,7 +237,7 @@ def sync_scene_to_group(
         msg_bytes = msgpack.dumps(msg)
         cache[entity_id] = msg_bytes
 
-        from app import app
+        from .app import app
         app().ctx.hub_call_client_create_remote_entity(
             gate_name,
             False,  # is_migrate

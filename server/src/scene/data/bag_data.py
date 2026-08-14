@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
-from ..engine.engine import *
-from ..engine.player_ntf_client_svr import *
-from ..engine.common_svr import *
-from ..engine.battle_svr import *
-from ..engine.scene_ntf_client_svr import *
-from ..config.config import *
+from ...engine.engine import *
+from ...engine.player_ntf_client_svr import *
+from ...engine.common_svr import *
+from ...engine.battle_svr import *
+from ...engine.scene_ntf_client_svr import *
+from ...config.config import *
 from .attribute_data import *
 
 class bag_data:

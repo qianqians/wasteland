@@ -2,11 +2,11 @@
 from __future__ import annotations
 from ..engine.engine import *
 from ..helper import const
-from ..data.attribute_data import *
-from ..data.equip_data import *
-from ..data.scene_data import *
-from ..data.bag_data import *
-from ..data.task_data import *
+from .data.attribute_data import *
+from .data.equip_data import *
+from .data.scene_data import *
+from .data.bag_data import *
+from .data.task_data import *
 from .scene_map_data import *
 from .scene import *
 

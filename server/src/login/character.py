@@ -28,12 +28,12 @@ class LoginCharacterCallback(player):
         self.LoginModule.on_select_character.append(self.__on_select_character__)
     
     def __get_object_one_callback_data__(self, data_list:list):
-        from app import app
+        from .app import app
         app().trace(f"__get_object_one_callback_data__ data_list:{data_list}")
         self.Character.extend(data_list)
         
     async def init(self) -> list[dict]:
-        from app import app
+        from .app import app
         future = asyncio.Future()
         self.DBproxy.get_object_info("wasteland", "players", {"accound_id": self.AccountID}, 0, 100, "", False, 
             lambda _list: self.__get_object_one_callback_data__(_list),

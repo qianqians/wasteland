@@ -27,7 +27,7 @@ class scene:
                 self.npcs[s["id"]] = npc(f"{self.scene_name}_{scene_line}", s["id"], str(uuid.uuid4()))
                 
         self.updates:list[Callable[[], None]] = []
-        self.add_update(lambda : [p.scene_data.update(self) for p in self.players.values()])
+        self.add_update(lambda : [p.scene_data.update(self.scene_map_data) for p in self.players.values()])
 
     def add_update(self, update:Callable[[], None]):
         self.updates.append(update)

@@ -6,13 +6,12 @@ from ..engine.scene_ntf_client_svr import *
 from ..engine.battle_ntf_client_svr import *
 from ..engine.battle_svr import *
 from ..engine.player_svr import *
+from ..engine.scene_svr import *
 from ..engine.common_svr import *
-from ..data.attribute_data import *
-from ..data.equip_data import *
-from ..data.scene_data import *
-from ..data.bag_data import *
-from .scene_map_data import *
-from .scene import scene
+from .data.attribute_data import *
+from .data.equip_data import *
+from .data.scene_data import *
+from .data.bag_data import *
 from .scene_service import scene_service
 
 
@@ -39,7 +38,6 @@ class player_data(save, player):
 
         self.battle_module = battle_module(self)
         self.battle_module.on_use_skill.append(lambda rsp, skill_id : self.use_skill(rsp, skill_id))
-        self.battle_module.on_use_item.append(lambda rsp, item_id : self.use_item(rsp, item_id))
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
@@ -49,10 +47,10 @@ class player_data(save, player):
         self.attribute_data = attribute_data(self.player_id, info["attribute_data"])
         self.bag_data = bag_data(self.player_id, info["bag_data"], self.player_caller)
         
-        from ..data.skill_data import skill_data
+        from .data.skill_data import skill_data
         self.skill_data = skill_data(self.player_id, self.battle_module, info["skill_data"])
 
-        from ..data.task_data import task_data
+        from .data.task_data import task_data
         self.task_data = task_data(self.player_id, info["task_data"], 
                                    self.player_module, self.player_caller, 
                                    self.skill_data, self.bag_data, self)
@@ -127,10 +125,10 @@ class player_data(save, player):
         _attribute_data = attribute_create()
         _bag_data = bag_create()
         
-        from ..data.skill_data import skill_create
+        from .data.skill_data import skill_create
         _skill_date = skill_create()
         
-        from ..data.task_data import task_create
+        from .data.task_data import task_create
         _task_data = task_create()
 
         return { 

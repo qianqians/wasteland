@@ -238,7 +238,7 @@ class AoiEntityMixin:
         """行为只广播给 observer_set 中的 player。"""
         if self._aoi_mgr is None:
             return 0
-        from app import app
+        from .app import app
         observers = self._aoi_mgr.observers_of(self.entity_id)  # type: ignore[attr-defined]
         if not observers:
             return 0
