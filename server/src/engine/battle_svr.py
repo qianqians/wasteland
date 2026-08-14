@@ -17,14 +17,14 @@ class battle_start_battle_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self, self:team, enemy:team):
+    def rsp(self, self:player_battle_info, enemy:player_battle_info):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = []
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(team_to_protcol(self))
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(team_to_protcol(enemy))
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(player_battle_info_to_protcol(self))
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(player_battle_info_to_protcol(enemy))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
 
     def err(self, err:error_code):
@@ -69,12 +69,13 @@ class battle_use_skill_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self):
+    def rsp(self, self:player_battle_info):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = []
+        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(player_battle_info_to_protcol(self))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe))
 
     def err(self, err:error_code):
@@ -86,44 +87,16 @@ class battle_use_skill_rsp(session):
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe))
 
-class battle_use_item_rsp(session):
-    def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
-        session.__init__(self, gate_name)
-        self.entity = entity
-        self.conn_id = conn_id
-        self.is_rsp = False
-        self.msg_cb_id = msg_cb_id
-
-    def rsp(self, item:item):
-        if self.is_rsp:
-            return
-        self.is_rsp = True
-
-        _argv_8e931b2d_2ecb_30da_928a_750ecb587c14 = []
-        _argv_8e931b2d_2ecb_30da_928a_750ecb587c14.append(item_to_protcol(item))
-        self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_8e931b2d_2ecb_30da_928a_750ecb587c14))
-
-    def err(self, err:error_code):
-        if self.is_rsp:
-            return
-        self.is_rsp = True
-
-        _argv_8e931b2d_2ecb_30da_928a_750ecb587c14 = [self.uuid_6a895a27_7c90_3d7f_b9f5_d47cbcbd1584]
-        _argv_8e931b2d_2ecb_30da_928a_750ecb587c14.append(err)
-        self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_8e931b2d_2ecb_30da_928a_750ecb587c14))
-
 class battle_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
         self.on_start_battle:list[Callable[[battle_start_battle_rsp, str], None]] = []
         self.entity.reg_client_request_callback("start_battle", self.start_battle)
-        self.on_auto_battle:list[Callable[[battle_auto_battle_rsp, ], None]] = []
+        self.on_auto_battle:list[Callable[[battle_auto_battle_rsp, int], None]] = []
         self.entity.reg_client_request_callback("auto_battle", self.auto_battle)
-        self.on_use_skill:list[Callable[[battle_use_skill_rsp, int], None]] = []
+        self.on_use_skill:list[Callable[[battle_use_skill_rsp, int, str], None]] = []
         self.entity.reg_client_request_callback("use_skill", self.use_skill)
-        self.on_use_item:list[Callable[[battle_use_item_rsp, str], None]] = []
-        self.entity.reg_client_request_callback("use_item", self.use_item)
 
     def start_battle(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)
@@ -134,23 +107,18 @@ class battle_module(object):
 
     def auto_battle(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)
+        _skill_id = inArray[0]
         rsp = battle_auto_battle_rsp(gate_name, conn_id, msg_cb_id, self.entity)
         for fn in self.on_auto_battle:
-            fn(rsp, )
+            fn(rsp, _skill_id)
 
     def use_skill(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)
         _skill_id = inArray[0]
+        _target = inArray[1]
         rsp = battle_use_skill_rsp(gate_name, conn_id, msg_cb_id, self.entity)
         for fn in self.on_use_skill:
-            fn(rsp, _skill_id)
-
-    def use_item(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
-        inArray = loads(bin)
-        _item_id = inArray[0]
-        rsp = battle_use_item_rsp(gate_name, conn_id, msg_cb_id, self.entity)
-        for fn in self.on_use_item:
-            fn(rsp, _item_id)
+            fn(rsp, _skill_id, _target)
 
 
 

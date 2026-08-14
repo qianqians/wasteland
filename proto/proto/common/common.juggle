@@ -110,7 +110,6 @@ struct task_info {
 }
 
 struct item {
-    string item_id;
     int32 item_type;
     int32 item_count;
 }
@@ -134,24 +133,25 @@ struct player_info {
     gongfa curr_gf;          // 玩家当前使用的功法
     equip_info[] equips;     // 玩家穿戴的装备
     bb[] bbs;                // 玩家携带的宠物
-    bb curr_bb;              // 当前出战宠物
+    bb[] curr_bb;            // 当前出战宠物
+    item[] items;            // 玩家背包 
     task_info[] tasks;       // 领取的任务
     int32 gender;            // 玩家性别
 	string scene;            // 玩家所在场景
     int32 line;              // 玩家所在世界线
 	position pos;            // 玩家位置
-    direction dir;           // 玩家朝向
 }
 
-struct friendship {
-    int32 friend_table_id;   // npc好友
-    attribute abonus;        // 好友基础属性
-    gongfa curr_gf;          // 好友当前使用的功法
-    equip_info[] equips;     // 好友穿戴的装备
-}
-
-struct team {
-    string team_id;
-    player_info[] players;
-    friendship[] friends;
+struct player_battle_info {
+    string player_id;
+    string player_nick_name; // 玩家昵称
+    int32 player_appearance; // 玩家外观
+    attribute abonus;        // 玩家基础属性
+    gongfa curr_gf;          // 玩家当前使用的功法
+    equip_info[] equips;     // 玩家穿戴的装备
+    bb[] bbs;                // 玩家携带的宠物
+    bb[] curr_bb;            // 当前出战宠物
+    item[] items;            // 玩家背包 
+    int32 gender;            // 玩家性别
+	string scene;            // 玩家所在战斗场景
 }

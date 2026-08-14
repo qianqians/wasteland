@@ -388,14 +388,12 @@ export function protcol_to_task_info(_protocol:any) {
 }
 
 export class item {
-     public item_id:string = ""
      public item_type:number = 0
      public item_count:number = 0
 }
 
 export function item_to_protcol(_struct:item) {
     let _protocol:any = {}
-    _protocol["item_id"] = _struct.item_id
     _protocol["item_type"] = _struct.item_type
     _protocol["item_count"] = _struct.item_count
     return _protocol;
@@ -405,10 +403,7 @@ export function protcol_to_item(_protocol:any) {
     let _struct = new item()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "item_id") {
-            _struct.item_id = val;
-        }
-        else if (key == "item_type") {
+        if (key == "item_type") {
             _struct.item_type = val;
         }
         else if (key == "item_count") {
@@ -494,13 +489,13 @@ export class player_info {
      public curr_gf:gongfa = null
      public equips:Array<equip_info> = null
      public bbs:Array<bb> = null
-     public curr_bb:bb = null
+     public curr_bb:Array<bb> = null
+     public items:Array<item> = null
      public tasks:Array<task_info> = null
      public gender:number = 0
      public scene:string = ""
      public line:number = 0
      public pos:position = null
-     public dir:direction = direction.none
 }
 
 export function player_info_to_protcol(_struct:player_info) {
@@ -532,7 +527,20 @@ export function player_info_to_protcol(_struct:player_info) {
         }
         _protocol["bbs"] = _array_bbs
     }
-    _protocol["curr_bb"] = bb_to_protcol(_struct.curr_bb)
+    if (_struct.curr_bb) {
+        _array_curr_bb = []
+        for (let v_ of _struct.curr_bb) {
+            _array_curr_bb.push(bb_to_protcol(v_))
+        }
+        _protocol["curr_bb"] = _array_curr_bb
+    }
+    if (_struct.items) {
+        _array_items = []
+        for (let v_ of _struct.items) {
+            _array_items.push(item_to_protcol(v_))
+        }
+        _protocol["items"] = _array_items
+    }
     if (_struct.tasks) {
         _array_tasks = []
         for (let v_ of _struct.tasks) {
@@ -544,7 +552,6 @@ export function player_info_to_protcol(_struct:player_info) {
     _protocol["scene"] = _struct.scene
     _protocol["line"] = _struct.line
     _protocol["pos"] = position_to_protcol(_struct.pos)
-    _protocol["dir"] = _struct.dir
     return _protocol;
 }
 
@@ -589,7 +596,16 @@ export function protcol_to_player_info(_protocol:any) {
             }
         }
         else if (key == "curr_bb") {
-            _struct.curr_bb = protcol_to_bb(val);
+            _struct.curr_bb = []
+            for (let v_ of val) {
+                _struct.curr_bb.push(protcol_to_bb(v_));
+            }
+        }
+        else if (key == "items") {
+            _struct.items = []
+            for (let v_ of val) {
+                _struct.items.push(protcol_to_item(v_));
+            }
         }
         else if (key == "tasks") {
             _struct.tasks = []
@@ -609,24 +625,30 @@ export function protcol_to_player_info(_protocol:any) {
         else if (key == "pos") {
             _struct.pos = protcol_to_position(val);
         }
-        else if (key == "dir") {
-            _struct.dir = val;
-        }
     }
     return _struct;
 
 }
 
-export class friendship {
-     public friend_table_id:number = 0
+export class player_battle_info {
+     public player_id:string = ""
+     public player_nick_name:string = ""
+     public player_appearance:number = 0
      public abonus:attribute = null
      public curr_gf:gongfa = null
      public equips:Array<equip_info> = null
+     public bbs:Array<bb> = null
+     public curr_bb:Array<bb> = null
+     public items:Array<item> = null
+     public gender:number = 0
+     public scene:string = ""
 }
 
-export function friendship_to_protcol(_struct:friendship) {
+export function player_battle_info_to_protcol(_struct:player_battle_info) {
     let _protocol:any = {}
-    _protocol["friend_table_id"] = _struct.friend_table_id
+    _protocol["player_id"] = _struct.player_id
+    _protocol["player_nick_name"] = _struct.player_nick_name
+    _protocol["player_appearance"] = _struct.player_appearance
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
     if (_struct.equips) {
@@ -636,15 +658,44 @@ export function friendship_to_protcol(_struct:friendship) {
         }
         _protocol["equips"] = _array_equips
     }
+    if (_struct.bbs) {
+        _array_bbs = []
+        for (let v_ of _struct.bbs) {
+            _array_bbs.push(bb_to_protcol(v_))
+        }
+        _protocol["bbs"] = _array_bbs
+    }
+    if (_struct.curr_bb) {
+        _array_curr_bb = []
+        for (let v_ of _struct.curr_bb) {
+            _array_curr_bb.push(bb_to_protcol(v_))
+        }
+        _protocol["curr_bb"] = _array_curr_bb
+    }
+    if (_struct.items) {
+        _array_items = []
+        for (let v_ of _struct.items) {
+            _array_items.push(item_to_protcol(v_))
+        }
+        _protocol["items"] = _array_items
+    }
+    _protocol["gender"] = _struct.gender
+    _protocol["scene"] = _struct.scene
     return _protocol;
 }
 
-export function protcol_to_friendship(_protocol:any) {
-    let _struct = new friendship()
+export function protcol_to_player_battle_info(_protocol:any) {
+    let _struct = new player_battle_info()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "friend_table_id") {
-            _struct.friend_table_id = val;
+        if (key == "player_id") {
+            _struct.player_id = val;
+        }
+        else if (key == "player_nick_name") {
+            _struct.player_nick_name = val;
+        }
+        else if (key == "player_appearance") {
+            _struct.player_appearance = val;
         }
         else if (key == "abonus") {
             _struct.abonus = protcol_to_attribute(val);
@@ -658,55 +709,29 @@ export function protcol_to_friendship(_protocol:any) {
                 _struct.equips.push(protcol_to_equip_info(v_));
             }
         }
-    }
-    return _struct;
-
-}
-
-export class team {
-     public team_id:string = ""
-     public players:Array<player_info> = null
-     public friends:Array<friendship> = null
-}
-
-export function team_to_protcol(_struct:team) {
-    let _protocol:any = {}
-    _protocol["team_id"] = _struct.team_id
-    if (_struct.players) {
-        _array_players = []
-        for (let v_ of _struct.players) {
-            _array_players.push(player_info_to_protcol(v_))
-        }
-        _protocol["players"] = _array_players
-    }
-    if (_struct.friends) {
-        _array_friends = []
-        for (let v_ of _struct.friends) {
-            _array_friends.push(friendship_to_protcol(v_))
-        }
-        _protocol["friends"] = _array_friends
-    }
-    return _protocol;
-}
-
-export function protcol_to_team(_protocol:any) {
-    let _struct = new team()
-    for (let key in _protocol) {
-        let val = _protocol[key];
-        if (key == "team_id") {
-            _struct.team_id = val;
-        }
-        else if (key == "players") {
-            _struct.players = []
+        else if (key == "bbs") {
+            _struct.bbs = []
             for (let v_ of val) {
-                _struct.players.push(protcol_to_player_info(v_));
+                _struct.bbs.push(protcol_to_bb(v_));
             }
         }
-        else if (key == "friends") {
-            _struct.friends = []
+        else if (key == "curr_bb") {
+            _struct.curr_bb = []
             for (let v_ of val) {
-                _struct.friends.push(protcol_to_friendship(v_));
+                _struct.curr_bb.push(protcol_to_bb(v_));
             }
+        }
+        else if (key == "items") {
+            _struct.items = []
+            for (let v_ of val) {
+                _struct.items.push(protcol_to_item(v_));
+            }
+        }
+        else if (key == "gender") {
+            _struct.gender = val;
+        }
+        else if (key == "scene") {
+            _struct.scene = val;
         }
     }
     return _struct;
