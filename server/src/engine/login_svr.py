@@ -8,42 +8,13 @@ from .common_svr import *
 # this enum code is codegen by geese codegen for python
 
 class em_platform(Enum):
-    EPlatformWX = 1
-    EPlatformTap = 2
-    EPlatformDy = 3
+    EPlatformGoogle = 1
+    EPlatformIphone = 2
+    EPlatformSteam = 3
 
 
 #this struct code is codegen by geese codegen for python
 #this module code is codegen by geese codegen for python
-class login_get_character_rsp(session):
-    def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
-        session.__init__(self, gate_name)
-        self.entity = entity
-        self.conn_id = conn_id
-        self.is_rsp = False
-        self.msg_cb_id = msg_cb_id
-
-    def rsp(self, player:list[player_info]):
-        if self.is_rsp:
-            return
-        self.is_rsp = True
-
-        _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2 = []
-        _list_beaf3cae_2489_3c76_bb55_127b704822c5 = []
-        for v_be0298d9_3298_5e5f_ae83_c00e58168711 in player:
-            _list_beaf3cae_2489_3c76_bb55_127b704822c5.append(player_info_to_protcol(v_be0298d9_3298_5e5f_ae83_c00e58168711))
-        _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2.append(_list_beaf3cae_2489_3c76_bb55_127b704822c5)
-        self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2))
-
-    def err(self, errCode:int):
-        if self.is_rsp:
-            return
-        self.is_rsp = True
-
-        _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2 = [self.uuid_45b8dc02_2743_3fa7_b04a_e39511e1c80f]
-        _argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2.append(errCode)
-        self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_1bb5b9e8_2c5b_3c0e_a1df_9b01dff5f5f2))
-
 class login_create_character_rsp(session):
     def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
         session.__init__(self, gate_name)
@@ -100,20 +71,10 @@ class login_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_get_character:list[Callable[[login_get_character_rsp, em_platform, str], None]] = []
-        self.entity.reg_client_request_callback("get_character", self.get_character)
         self.on_create_character:list[Callable[[login_create_character_rsp, str, int, str], None]] = []
         self.entity.reg_client_request_callback("create_character", self.create_character)
         self.on_select_character:list[Callable[[login_select_character_rsp, str], None]] = []
         self.entity.reg_client_request_callback("select_character", self.select_character)
-
-    def get_character(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
-        inArray = loads(bin)
-        _platform = inArray[0]
-        _code = inArray[1]
-        rsp = login_get_character_rsp(gate_name, conn_id, msg_cb_id, self.entity)
-        for fn in self.on_get_character:
-            fn(rsp, _platform, _code)
 
     def create_character(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)

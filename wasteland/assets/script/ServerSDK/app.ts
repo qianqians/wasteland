@@ -1,6 +1,7 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, CCInteger } from 'cc';
 const { ccclass, property } = _decorator;
-import * as engine from './engine/engine' 
+import * as engine from './engine/engine'
+import * as login from './engine/login_cli'
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
@@ -36,7 +37,7 @@ class WSChannel extends engine.channel {
         return true;
     }
 
-    public send(data:Uint8Array) {
+    public send(data:Uint8Array<ArrayBuffer>) {
         if (this.client) {
             this.client.send(data);
         }
@@ -72,12 +73,15 @@ class WSContext extends engine.context {
 export class new_driver extends Component {
     private _app: engine.app;
 
+    @property({ type: login.em_platform, tooltip: "Platform Type" })
+    platform = login.em_platform.EPlatformGoogle;
+
     start() {
         this._app = new engine.app();
         this._app.build(new ClientEventHandle());
         this._app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
         this._app.on_conn = () => {
-            engine.app.instance.login("1234567890qwerdsa", {})
+            engine.app.instance.login("1234567890qwerdsa", {"em_platform":this.platform})
         };
     }
 

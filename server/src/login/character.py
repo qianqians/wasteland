@@ -36,7 +36,7 @@ class LoginCharacterCallback(player):
         from app import app
         future = asyncio.Future()
         self.DBproxy.get_object_info("wasteland", "players", {"accound_id": self.AccountID}, 0, 100, "", False, 
-            lambda _list: dbproxy.__get_object_one_callback_data__(_list),
+            lambda _list: self.__get_object_one_callback_data__(_list),
             lambda : app().run_coroutine_async(__get_object_one_callback_set_future__(future, self.Character)))
         return await future
     
