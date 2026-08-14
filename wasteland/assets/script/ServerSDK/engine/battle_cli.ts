@@ -7,7 +7,7 @@ import * as common from "./common_cli";
 // this caller code is codegen by geese codegen for typescript
 export class battle_start_battle_cb {
     public entity:engine.subentity|engine.player;
-    public cb:((self:common.player_battle_info, enemy:common.player_battle_info) => void)|null = null;
+    public cb:((self_side:common.player_battle_info, enemy:common.player_battle_info) => void)|null = null;
     public err:((err:common.error_code) => void)|null = null;
     public rsp:engine.callback;
     public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
@@ -19,9 +19,9 @@ export class battle_start_battle_cb {
 
     private on_rsp(bin:Uint8Array) {
         let inArray = decode(bin) as any;
-        let _self = common.protcol_to_player_battle_info(inArray[0]);
+        let _self_side = common.protcol_to_player_battle_info(inArray[0]);
         let _enemy = common.protcol_to_player_battle_info(inArray[1]);
-        if (this.cb) this.cb.call(null, _self, _enemy);
+        if (this.cb) this.cb.call(null, _self_side, _enemy);
 
     }
 
@@ -32,7 +32,7 @@ export class battle_start_battle_cb {
 
     }
 
-    public callBack(_cb:(self:common.player_battle_info, enemy:common.player_battle_info) => void, _err:(err:common.error_code) => void) {
+    public callBack(_cb:(self_side:common.player_battle_info, enemy:common.player_battle_info) => void, _err:(err:common.error_code) => void) {
         this.cb = _cb;
         this.err = _err;
         this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
@@ -77,7 +77,7 @@ export class battle_auto_battle_cb {
 
 export class battle_use_skill_cb {
     public entity:engine.subentity|engine.player;
-    public cb:((self:common.player_battle_info) => void)|null = null;
+    public cb:((self_side:common.player_battle_info) => void)|null = null;
     public err:((err:common.error_code) => void)|null = null;
     public rsp:engine.callback;
     public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
@@ -89,8 +89,8 @@ export class battle_use_skill_cb {
 
     private on_rsp(bin:Uint8Array) {
         let inArray = decode(bin) as any;
-        let _self = common.protcol_to_player_battle_info(inArray[0]);
-        if (this.cb) this.cb.call(null, _self);
+        let _self_side = common.protcol_to_player_battle_info(inArray[0]);
+        if (this.cb) this.cb.call(null, _self_side);
 
     }
 
@@ -101,7 +101,7 @@ export class battle_use_skill_cb {
 
     }
 
-    public callBack(_cb:(self:common.player_battle_info) => void, _err:(err:common.error_code) => void) {
+    public callBack(_cb:(self_side:common.player_battle_info) => void, _err:(err:common.error_code) => void) {
         this.cb = _cb;
         this.err = _err;
         this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));

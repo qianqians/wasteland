@@ -1,7 +1,7 @@
 import common
 
 entity_service battle {
-    start_battle req(string enemy_id) rsp(player_battle_info self, player_battle_info enemy) err(error_code err);
+    start_battle req(string enemy_id) rsp(player_battle_info self_side, player_battle_info enemy) err(error_code err);
     auto_battle req(int32 skill_id) rsp() err(error_code err);
-    use_skill req(int32 skill_id, string target) rsp(player_battle_info self) err(error_code err); 
+    use_skill req(int32 skill_id, string target) rsp(player_battle_info self_side) err(error_code err); 
 }

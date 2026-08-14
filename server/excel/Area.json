@@ -1,17 +1,14 @@
 {
     "wasteland_novice_village": {
         "scene": "wasteland_novice_village",
-        "area": "wasteland",
-        "postion": "[1.5,1.6]"
+        "area": "wasteland"
     },
     "wasteland_expedition_1": {
         "scene": "wasteland_expedition_1",
-        "area": "wasteland",
-        "postion": "[1.5,1.6]"
+        "area": "wasteland"
     },
     "wasteland_expedition_2": {
         "scene": "wasteland_expedition_2",
-        "area": "wasteland",
-        "postion": "[1.5,1.6]"
+        "area": "wasteland"
     }
 }

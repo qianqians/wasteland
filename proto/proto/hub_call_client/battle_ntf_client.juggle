@@ -2,12 +2,12 @@ import common
 
 struct harm 
 {
-    string attack_entity_id;
+    string be_attack_entity_id;
     int32 skill_id;
     int32 harm_value;
     bool is_dead;
 }
 
 mutil_service battle_ntf_client {
-    use_skill ntf(int32 skill_id, harm[] hits);
+    use_skill ntf(string caster, harm[] hits);
 }

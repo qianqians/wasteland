@@ -45,6 +45,15 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
     else:
         app().error(f"scene:{scene_name}_{scene_line} not found!")
 
+class novice_village_postion(TypedDict):
+    x_1: int
+    x_2: int
+    y: int
+
+class scene_novice_village(TypedDict):
+    scene_name:str
+    pos:novice_village_postion
+
 class scene_service(service):
     def __init__(self, area:str, scene_line:int):
         super().__init__(f"{area}_{scene_line}")
@@ -55,24 +64,24 @@ class scene_service(service):
         with open('../../excel/Area.json') as f:
             data = json.load(f)
             for s in data.value():
-                if s["area"] != area:
-                    continue    
+                if s["area"] != area: continue    
                 load_scene_map(s["scene"])
                 self.scenes[s["scene"]] = scene(area, s["scene"], scene_line)
         
-        self.novice_village:scene_postion = None
+        self.novice_village:scene_novice_village = None
         with open('../../excel/NoviceVillage.json') as f:
             data = json.load(f)
             if area in data:
                 novice_village = data[area]
-                pos = json.loads(novice_village["postion"])
-                pos:postion_data = {
-                    "x": pos[0],
-                    "y": pos[1]
+                pos_x = json.loads(novice_village["postion_x"])
+                pos_y = int(novice_village["postion_y"])
+                pos:novice_village_postion = {
+                    "x_1": pos_x[0],
+                    "x_2": pos_x[1],
+                    "y": pos_y
                 }
                 self.novice_village = {
                     "scene_name": novice_village["novice_village"],
-                    "scene_line": scene_line,
                     "pos": pos
                 }
 
@@ -81,7 +90,19 @@ class scene_service(service):
             _scene.update()
 
     def get_novice_village(self) -> dict:
-        return self.novice_village
+        x_1 = self.novice_village["pos"]["x_1"]
+        x_2 = self.novice_village["pos"]["x_2"]
+        random_x = random.random() * (x_2 - x_1) + x_1
+        pos:postion_data = {
+            "x": random_x,
+            "y": self.novice_village["pos"]["y"],
+        }
+        novice_village:scene_postion = {
+            "scene_name": self.novice_village["scene_name"],
+            "scene_line": self.line,
+            "pos": pos,
+        }
+        return novice_village
 
     @abstractmethod
     def on_migrate(self, _entity:entity|player):

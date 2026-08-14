@@ -11,7 +11,6 @@ from ..helper import const
 class postion_data(TypedDict):
     x:int = 0
     y:int = 0
-    dir:direction = direction.none
     
 class scene_postion(TypedDict):
     scene_name:str

@@ -10,7 +10,7 @@ from .common_svr import *
 #this struct code is codegen by geese codegen for python
 class harm(object):
     def __init__(self):
-        self.attack_entity_id:str = ""
+        self.be_attack_entity_id:str = ""
         self.skill_id:int = 0
         self.harm_value:int = 0
         self.is_dead:bool = False
@@ -20,7 +20,7 @@ def harm_to_protcol(_struct:harm):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["attack_entity_id"] = _struct.attack_entity_id
+    _protocol["be_attack_entity_id"] = _struct.be_attack_entity_id
     _protocol["skill_id"] = _struct.skill_id
     _protocol["harm_value"] = _struct.harm_value
     _protocol["is_dead"] = _struct.is_dead
@@ -29,8 +29,8 @@ def harm_to_protcol(_struct:harm):
 def protcol_to_harm(_protocol:dict):
     _struct = harm()
     for (key, val) in _protocol.items():
-        if key == "attack_entity_id":
-            _struct.attack_entity_id = val
+        if key == "be_attack_entity_id":
+            _struct.be_attack_entity_id = val
         elif key == "skill_id":
             _struct.skill_id = val
         elif key == "harm_value":
@@ -44,9 +44,9 @@ class battle_ntf_client_caller(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-    def use_skill(self, skill_id:int, hits:list[harm]):
+    def use_skill(self, caster:str, hits:list[harm]):
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = []
-        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(skill_id)
+        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(caster)
         _list_3b80b646_eaae_3eb3_b5db_41773fbe433a = []
         for v_84c0e237_1395_5b20_b7fa_478a639ad4b4 in hits:
             _list_3b80b646_eaae_3eb3_b5db_41773fbe433a.append(harm_to_protcol(v_84c0e237_1395_5b20_b7fa_478a639ad4b4))
