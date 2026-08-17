@@ -64,10 +64,18 @@ class player_data(save, player):
 
     def client_info(self) -> dict:
         return self.store()
+
+    def battle_info(self) -> dict:
+        return self.store()
     
     def entry_scene(self, _scene:any):
         from .scene import scene
         self.scene:scene = scene(_scene)
+
+    def start_battle(self, enemy_id:int):
+        from .battle import battle
+        enemy = self.scene.players.get(enemy_id)
+        self.battle_handle = battle(self, enemy)
         
     def begin_move(self, vertical_dir:direction, pos:position):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)
