@@ -9,5 +9,6 @@ struct harm
 }
 
 mutil_service battle_ntf_client {
+    start_battle ntf(player_battle_info self_side, player_battle_info enemy);
     use_skill ntf(string caster, harm[] hits);
 }

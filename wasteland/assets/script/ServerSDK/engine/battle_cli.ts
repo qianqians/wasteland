@@ -5,42 +5,6 @@ import * as common from "./common_cli";
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript
-export class battle_start_battle_cb {
-    public entity:engine.subentity|engine.player;
-    public cb:((self_side:common.player_battle_info, enemy:common.player_battle_info) => void)|null = null;
-    public err:((err:common.error_code) => void)|null = null;
-    public rsp:engine.callback;
-    public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
-        this.entity = _entity
-        this.rsp = new engine.callback(() => { return this.entity.del_callback(_cb_uuid); });
-        this.entity.reg_hub_callback(_cb_uuid, this.rsp)
-
-    }
-
-    private on_rsp(bin:Uint8Array) {
-        let inArray = decode(bin) as any;
-        let _self_side = common.protcol_to_player_battle_info(inArray[0]);
-        let _enemy = common.protcol_to_player_battle_info(inArray[1]);
-        if (this.cb) this.cb.call(null, _self_side, _enemy);
-
-    }
-
-    private on_err(bin:Uint8Array) {
-        let inArray = decode(bin) as any;
-        let _err = inArray[0];
-        if (this.err) this.err.call(null, _err, )
-
-    }
-
-    public callBack(_cb:(self_side:common.player_battle_info, enemy:common.player_battle_info) => void, _err:(err:common.error_code) => void) {
-        this.cb = _cb;
-        this.err = _err;
-        this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
-        return this.rsp;
-    }
-
-}
-
 export class battle_auto_battle_cb {
     public entity:engine.subentity|engine.player;
     public cb:(() => void)|null = null;
@@ -117,10 +81,9 @@ export class battle_caller {
     }
 
     public  start_battle(enemy_id:string) {
-        let _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873:any[] = []
+        let _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = []
         _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.push(enemy_id);
-        let _cb_uuid = this.entity.call_hub_request("start_battle", encode(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873));
-        return new battle_start_battle_cb(_cb_uuid, this.entity);
+        this.entity.call_hub_notify("start_battle", encode(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
     }
 
     public  auto_battle(skill_id:number) {

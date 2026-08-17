@@ -9,33 +9,6 @@ from .common_svr import *
 
 #this struct code is codegen by geese codegen for python
 #this module code is codegen by geese codegen for python
-class battle_start_battle_rsp(session):
-    def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
-        session.__init__(self, gate_name)
-        self.entity = entity
-        self.conn_id = conn_id
-        self.is_rsp = False
-        self.msg_cb_id = msg_cb_id
-
-    def rsp(self, self_side:player_battle_info, enemy:player_battle_info):
-        if self.is_rsp:
-            return
-        self.is_rsp = True
-
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = []
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(player_battle_info_to_protcol(self_side))
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(player_battle_info_to_protcol(enemy))
-        self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
-
-    def err(self, err:error_code):
-        if self.is_rsp:
-            return
-        self.is_rsp = True
-
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = [self.uuid_ee4a9042_3083_3d2e_90e2_aa58942d4f15]
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(err)
-        self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
-
 class battle_auto_battle_rsp(session):
     def __init__(self, gate_name:str, conn_id:str, msg_cb_id:int, entity:player|entity):
         session.__init__(self, gate_name)
@@ -91,19 +64,19 @@ class battle_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_start_battle:list[Callable[[battle_start_battle_rsp, str], None]] = []
-        self.entity.reg_client_request_callback("start_battle", self.start_battle)
+        self.on_start_battle:list[Callable[[session, str], None]] = []
+        self.entity.reg_client_notify_callback("start_battle", self.start_battle)
         self.on_auto_battle:list[Callable[[battle_auto_battle_rsp, int], None]] = []
         self.entity.reg_client_request_callback("auto_battle", self.auto_battle)
         self.on_use_skill:list[Callable[[battle_use_skill_rsp, int, str], None]] = []
         self.entity.reg_client_request_callback("use_skill", self.use_skill)
 
-    def start_battle(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
+    def start_battle(self, gate_name:str, bin:bytes):
         inArray = loads(bin)
         _enemy_id = inArray[0]
-        rsp = battle_start_battle_rsp(gate_name, conn_id, msg_cb_id, self.entity)
+        s = session(gate_name)
         for fn in self.on_start_battle:
-            fn(rsp, _enemy_id)
+            fn(s, _enemy_id)
 
     def auto_battle(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)

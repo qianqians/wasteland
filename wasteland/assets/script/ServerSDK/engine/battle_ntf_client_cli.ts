@@ -44,10 +44,22 @@ export function protcol_to_harm(_protocol:any) {
 // this module code is codegen by geese codegen for typescript
 export class battle_ntf_client_module {
     public entity:engine.player|engine.subentity|engine.receiver;
+    public on_start_battle:((s:engine.session, self_side:common.player_battle_info, enemy:common.player_battle_info) => void)[] = [];
     public on_use_skill:((s:engine.session, caster:string, hits:Array<harm>) => void)[] = [];
     public constructor(entity:engine.player|engine.subentity|engine.receiver) {
         this.entity = entity;
+        this.entity.reg_hub_notify_callback("start_battle", this.start_battle);
         this.entity.reg_hub_notify_callback("use_skill", this.use_skill);
+    }
+
+    public start_battle(hub_name:string, bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let _self_side = common.protcol_to_player_battle_info(inArray[0]);
+        let _enemy = common.protcol_to_player_battle_info(inArray[1]);
+        let s = new engine.session(hub_name)
+        for (let fn of this.on_start_battle) {
+            fn(s, _self_side, _enemy);
+        }
     }
 
     public use_skill(hub_name:string, bin:Uint8Array) {
