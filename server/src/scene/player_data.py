@@ -82,7 +82,7 @@ class player_data(save, player):
             for _scene in _scene_service.scenes.values():
                 if _scene.scene_name == scene_name and _scene.scene_line == scene_line:
                     _scene.entry_scene(self)
-                    self.entry_scene(_scene)
+                    self.scene = _scene
                     return 
         
         migrate_hub = await app().ctx.entry_hub_service(f"{scene_name}_{scene_line}")
