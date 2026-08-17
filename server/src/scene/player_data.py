@@ -12,7 +12,6 @@ from .data.attribute_data import *
 from .data.equip_data import *
 from .data.scene_data import *
 from .data.bag_data import *
-from .scene_service import scene_service
 
 
 @SaveDBDescribe("wasteland", "player_data")
@@ -67,7 +66,7 @@ class player_data(save, player):
     def client_info(self) -> dict:
         return self.store()
     
-    def entry_scene(self, _scene:scene):
+    def entry_scene(self, _scene:any):
         self.scene = _scene
         
     def begin_move(self, vertical_dir:direction, pos:position):
@@ -77,6 +76,7 @@ class player_data(save, player):
         
     async def __into_scene__(self, scene_name:str, scene_line:int):
         self.scene.leave_scene(self)
+        from .scene_service import scene_service
         for _s in app().service_mgr.services.values():
             _scene_service:scene_service = _s
             for _scene in _scene_service.scenes.values():

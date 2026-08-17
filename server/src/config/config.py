@@ -19,7 +19,7 @@ class configs:
     skill_list:list[skill_config] = []
 
 def load_task_config():
-    with open('../../excel/Task.json', 'r', encoding='utf-8') as f:
+    with open('./excel/Task.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         configs.task_list = [t for t in data.values()]
 
@@ -33,7 +33,7 @@ def get_task_config(id:int) -> task_config | None:
     return None
     
 def load_cond_config():
-    with open('../../excel/Cond.json', 'r', encoding='utf-8') as f:
+    with open('./excel/Condition.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         configs.cond_list = [c for c in data.values()]
 
@@ -44,7 +44,7 @@ def get_cond_config(id:int) -> cond_config | None:
     return None
 
 def load_pkg_config():
-    with open('../../excel/Package.json', 'r', encoding='utf-8') as f:
+    with open('./excel/Package.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         configs.pkg_list = [p for p in data.values()]
 
@@ -55,7 +55,7 @@ def get_pkg_config(id:int) -> pkg_config | None:
     return None
 
 def load_item_config():
-    with open('../../excel/Item.json', 'r', encoding='utf-8') as f:
+    with open('./excel/Item.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         configs.item_list = [item for item in data.values()]
 
@@ -66,7 +66,7 @@ def get_item_config(id:int) -> item_config | None:
     return None
 
 def load_talk_config():
-    with open('../../excel/Talk.json', 'r', encoding='utf-8') as f:
+    with open('./excel/Talk.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
         configs.talk_list = [t for t in data.values()]
         
@@ -77,7 +77,7 @@ def get_talk_config(id:int) -> talk_config | None:
     return None
 
 def load_monster_config():
-    with open('../../excel/Monster.json') as f:
+    with open('./excel/Monster.json') as f:
         data = json.load(f)
         configs.monster_list = [t for t in data.values()]
         
@@ -88,7 +88,7 @@ def get_monster_config(id:int) -> monster_config | None:
     return None
 
 def load_skill_config():
-    with open('../../excel/Skill.json') as f:
+    with open('./excel/Skill.json') as f:
         data = json.load(f)
         configs.skill_list = [t for t in data.values()]
         
