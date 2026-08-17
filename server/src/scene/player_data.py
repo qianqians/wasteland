@@ -20,7 +20,6 @@ class player_data(save, player):
         save.__init__(self)
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
 
-        self.scene 
         self.player_id = player_id
 
         self.player_caller = player_ntf_client_caller(self)
@@ -67,7 +66,8 @@ class player_data(save, player):
         return self.store()
     
     def entry_scene(self, _scene:any):
-        self.scene = _scene
+        from .scene import scene
+        self.scene:scene = _scene
         
     def begin_move(self, vertical_dir:direction, pos:position):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)
