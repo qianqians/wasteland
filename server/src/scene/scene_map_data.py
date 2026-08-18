@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
-from typing import TypedDict
+from typing import TypedDict, cast
 from enum import Enum
 from ..engine.common_svr import *
 
@@ -107,9 +107,10 @@ def get_scene_spawn_point(scene_name:str, in_:position) -> scene_map_spawn_point
     _map = get_scene_map(scene_name)
     if _map == None:
         return None
-    if len(_map.spawn_point) <= 0:
+    _map = cast(scene_map, _map)
+    if len(_map["spawn_point"]) <= 0:
         return None
-    for _spawn_point in _map.spawn_point:
-        if abs(_spawn_point.in_position.x - in_.x) < 32 and abs(_spawn_point.in_position.y - in_.y) < 32:
+    for _spawn_point in _map["spawn_point"]:
+        if abs(_spawn_point["in_position"].x - in_.x) < 32 and abs(_spawn_point["in_position"].y - in_.y) < 32:
             return _spawn_point
     return None

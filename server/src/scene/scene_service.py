@@ -24,10 +24,11 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
         info["gender"] = client_info["gender"]
            
     if "scene_data" not in info:
-        if _service.get_novice_village() == None:
+        novice_village = _service.get_novice_village()
+        if novice_village == None:
             app().error(f"Novice village not found for player={player_id} client_info={client_info}")
             return
-        info["scene_data"] = _service.get_novice_village()
+        info["scene_data"] = novice_village
     if "equip_data" not in info:
         info["equip_data"] = equip_create(client_info["gender"])
 
