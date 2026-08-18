@@ -13,7 +13,6 @@ from .data.equip_data import *
 from .data.scene_data import *
 from .data.bag_data import *
 
-
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
     def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
@@ -58,7 +57,7 @@ class player_data(save, player):
         self.gf_data = gf_data()
 
         from .data.bb_data import bb_data
-        self.bb_data = bb_data
+        self.bb_data = bb_data()
         
         self.equip_data = equip_data(self.player_id, info["equip_data"])
         self.scene_data = scene_data(self.player_id, info["scene_data"])
@@ -73,18 +72,16 @@ class player_data(save, player):
         return self.store()
 
     def battle_info(self) -> dict:
+        from .battle_entity import battle_entity
+        battle_team = [battle_entity(self.player_id, self.player_nick_name, self.appearance, self.attribute_data.info(), self.skill_data.skills.values())]
+        for b in self.bb_data.curr_bb:
+            battle_team.append(b.attribute.entity_id, b.nick_name, b.appearance, b.attribute.info(), b.skills.values())
         return {
-            "player_id": self.player_id,
-            "player_nick_name": self.player_nick_name,
-            "player_appearance": self.appearance,
-            "abonus": self.attribute_data.info(),
-            "curr_gf": self.gf_data.info(),
-            "equips": self.equip_data.equips.values(),
-            "bbs": self.bb_data.info(),
-            "curr_bb": self.bb_data.battle_bb(),
+            "wait_bbs": self.bb_data.wait_info(),
             "items": self.bag_data.bag.values(),
             "gender": self.gender,
             "scene": self.scene.scene_name,
+            "battle_team": battle_team,
         }
     
     def entry_scene(self, _scene:any):

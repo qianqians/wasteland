@@ -2,9 +2,10 @@
 from typing import TypedDict
 
 class monster_config(TypedDict):
+    id:int
     hp:int
     mp:int
     speed:int
     attack:int
-    skill:str
-    battle_script:str
+    defense:int
+    skill:list[str]
