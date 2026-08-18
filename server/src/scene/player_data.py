@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
+from typing import cast
 from ..engine.engine import *
 from ..engine.player_ntf_client_svr import *
 from ..engine.scene_ntf_client_svr import *
@@ -86,7 +87,7 @@ class player_data(save, player):
     
     def entry_scene(self, _scene:any):
         from .scene import scene
-        self.scene:scene = scene(_scene)
+        self.scene:scene = cast(scene, _scene)
 
     def start_battle(self, enemy_id:int):
         from .battle import battle
