@@ -73,7 +73,7 @@ class WSContext extends engine.context {
 export class new_driver extends Component {
     private _app: engine.app;
 
-    @property({ type: login.em_platform, tooltip: "Platform Type" })
+    @property({ type: CCInteger, tooltip: "Platform Type" })
     platform = login.em_platform.EPlatformGoogle;
 
     start() {
