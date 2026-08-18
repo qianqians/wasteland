@@ -6,6 +6,7 @@ from ..engine.common_svr import *
 from .scene_map_data import scene_map, get_scene_map
 from .player_data import player_data
 from .npc import npc
+from .mob import mob
 
 class scene:
     def __init__(self, area:str, scene_name:str, scene_line:int):
@@ -18,13 +19,15 @@ class scene:
         self.group = group()
         self.players:dict[str, player_data] = {}
 
-        self.npcs:dict[int, npc] = {}
+        self.npcs:dict[str, npc] = {}
         with open('../../excel/NPC.json') as f:
             data = json.load(f)
             for s in data.value():
                 if s["scene"] != self.scene_name:
                     continue
                 self.npcs[s["id"]] = npc(f"{self.scene_name}_{scene_line}", s["id"], str(uuid.uuid4()))
+
+        self.mobs:dict[str, mob] = {}
                 
         self.updates:list[Callable[[], None]] = []
         self.add_update(lambda : [p.scene_data.update(self.scene_map_data) for p in self.players.values()])

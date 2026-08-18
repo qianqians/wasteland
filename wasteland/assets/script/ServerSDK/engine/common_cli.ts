@@ -630,7 +630,7 @@ export function protcol_to_player_info(_protocol:any) {
 
 }
 
-export class player_battle_info {
+export class battle_info {
      public player_id:string = ""
      public player_nick_name:string = ""
      public player_appearance:number = 0
@@ -644,7 +644,7 @@ export class player_battle_info {
      public scene:string = ""
 }
 
-export function player_battle_info_to_protcol(_struct:player_battle_info) {
+export function battle_info_to_protcol(_struct:battle_info) {
     let _protocol:any = {}
     _protocol["player_id"] = _struct.player_id
     _protocol["player_nick_name"] = _struct.player_nick_name
@@ -684,8 +684,8 @@ export function player_battle_info_to_protcol(_struct:player_battle_info) {
     return _protocol;
 }
 
-export function protcol_to_player_battle_info(_protocol:any) {
-    let _struct = new player_battle_info()
+export function protcol_to_battle_info(_protocol:any) {
+    let _struct = new battle_info()
     for (let key in _protocol) {
         let val = _protocol[key];
         if (key == "player_id") {

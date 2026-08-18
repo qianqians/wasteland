@@ -522,7 +522,7 @@ def protcol_to_player_info(_protocol:dict):
             _struct.pos = protcol_to_position(val)
     return _struct
 
-class player_battle_info(object):
+class battle_info(object):
     def __init__(self):
         self.player_id:str = ""
         self.player_nick_name:str = ""
@@ -537,7 +537,7 @@ class player_battle_info(object):
         self.scene:str = ""
 
 
-def player_battle_info_to_protcol(_struct:player_battle_info):
+def battle_info_to_protcol(_struct:battle_info):
     if _struct is None:
         return None
     _protocol = {}
@@ -570,8 +570,8 @@ def player_battle_info_to_protcol(_struct:player_battle_info):
     _protocol["scene"] = _struct.scene
     return _protocol
 
-def protcol_to_player_battle_info(_protocol:dict):
-    _struct = player_battle_info()
+def protcol_to_battle_info(_protocol:dict):
+    _struct = battle_info()
     for (key, val) in _protocol.items():
         if key == "player_id":
             _struct.player_id = val

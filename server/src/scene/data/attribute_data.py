@@ -9,15 +9,17 @@ class attribute_data:
         self.mp = data["mp"]
         self.max_hp = data["max_hp"]
         self.max_mp = data["max_mp"]
-        self.base_attack = data["attack"]
+        self.attack = data["attack"]
         self.defense = data["defense"]
 
     def info(self) -> dict:
         return {
+            "id": self.user_id,
             "hp": self.hp,
             "mp": self.mp,
             "max_hp": self.max_hp,
             "max_mp": self.max_mp,
+            "attack": self.attack,
             "defense": self.defense,
         }
     

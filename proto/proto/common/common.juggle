@@ -142,7 +142,7 @@ struct player_info {
 	position pos;            // 玩家位置
 }
 
-struct player_battle_info {
+struct battle_info {
     string player_id;
     string player_nick_name; // 玩家昵称
     int32 player_appearance; // 玩家外观

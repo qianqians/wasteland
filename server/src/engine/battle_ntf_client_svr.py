@@ -44,15 +44,15 @@ class battle_ntf_client_caller(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-    def start_battle(self, self_side:player_battle_info, enemy:player_battle_info):
+    def start_battle(self, self_side:battle_info, enemy:battle_info):
         _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873 = []
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(player_battle_info_to_protcol(self_side))
-        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(player_battle_info_to_protcol(enemy))
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(battle_info_to_protcol(self_side))
+        _argv_01e120b2_ff3e_35bc_b812_e0d6fa294873.append(battle_info_to_protcol(enemy))
         self.entity.call_client_mutilcast("start_battle", dumps(_argv_01e120b2_ff3e_35bc_b812_e0d6fa294873))
 
-    def use_skill(self, caster:str, hits:list[harm]):
+    def use_skill(self, caster_entity_id:str, hits:list[harm]):
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = []
-        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(caster)
+        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(caster_entity_id)
         _list_3b80b646_eaae_3eb3_b5db_41773fbe433a = []
         for v_84c0e237_1395_5b20_b7fa_478a639ad4b4 in hits:
             _list_3b80b646_eaae_3eb3_b5db_41773fbe433a.append(harm_to_protcol(v_84c0e237_1395_5b20_b7fa_478a639ad4b4))

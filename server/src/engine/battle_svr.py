@@ -42,13 +42,13 @@ class battle_use_skill_rsp(session):
         self.is_rsp = False
         self.msg_cb_id = msg_cb_id
 
-    def rsp(self, self_side:player_battle_info):
+    def rsp(self, self_side:battle_info):
         if self.is_rsp:
             return
         self.is_rsp = True
 
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = []
-        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(player_battle_info_to_protcol(self_side))
+        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(battle_info_to_protcol(self_side))
         self.entity.call_client_response(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe))
 
     def err(self, err:error_code):

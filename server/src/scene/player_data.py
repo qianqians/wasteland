@@ -94,7 +94,12 @@ class player_data(save, player):
     def start_battle(self, enemy_id:int):
         from .battle import battle
         enemy = self.scene.players.get(enemy_id)
-        self.battle_handle = battle(self, enemy)
+        if enemy: 
+            self.battle_handle = battle(self.scene, self, enemy, self.battle_info(), enemy.battle_info(), self.battle_module)
+            return
+        else: 
+            enemy = self.scene.mobs.get(enemy_id)
+            self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)
         
     def begin_move(self, vertical_dir:direction, pos:position):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)
