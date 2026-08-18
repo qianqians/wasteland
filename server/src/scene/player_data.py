@@ -41,6 +41,7 @@ class player_data(save, player):
         self.player_nick_name = info["player_nick_name"]
         self.level = info["level"]
         self.gender = info["gender"]
+        self.appearance = info["appearance"]
 
         self.attribute_data = attribute_data(self.player_id, info["attribute_data"])
         self.bag_data = bag_data(self.player_id, info["bag_data"], self.player_caller)
@@ -52,6 +53,12 @@ class player_data(save, player):
         self.task_data = task_data(self.player_id, info["task_data"], 
                                    self.player_module, self.player_caller, 
                                    self.skill_data, self.bag_data, self)
+
+        from .data.gf_data import gf_data
+        self.gf_data = gf_data()
+
+        from .data.bb_data import bb_data
+        self.bb_data = bb_data
         
         self.equip_data = equip_data(self.player_id, info["equip_data"])
         self.scene_data = scene_data(self.player_id, info["scene_data"])
@@ -66,7 +73,19 @@ class player_data(save, player):
         return self.store()
 
     def battle_info(self) -> dict:
-        return self.store()
+        return {
+            "player_id": self.player_id,
+            "player_nick_name": self.player_nick_name,
+            "player_appearance": self.appearance,
+            "abonus": self.attribute_data.info(),
+            "curr_gf": self.gf_data.info(),
+            "equips": self.equip_data.equips.values(),
+            "bbs": self.bb_data.info(),
+            "curr_bb": self.bb_data.battle_bb(),
+            "items": self.bag_data.bag.values(),
+            "gender": self.gender,
+            "scene": self.scene.scene_name,
+        }
     
     def entry_scene(self, _scene:any):
         from .scene import scene
