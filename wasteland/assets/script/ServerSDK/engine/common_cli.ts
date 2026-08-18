@@ -313,6 +313,7 @@ export class task_progress_info {
      public table_id:number = 0
      public total:number = 0
      public progress:number = 0
+     public watch_task:Array<number> = null
 }
 
 export function task_progress_info_to_protcol(_struct:task_progress_info) {
@@ -320,6 +321,13 @@ export function task_progress_info_to_protcol(_struct:task_progress_info) {
     _protocol["table_id"] = _struct.table_id
     _protocol["total"] = _struct.total
     _protocol["progress"] = _struct.progress
+    if (_struct.watch_task) {
+        _array_watch_task = []
+        for (let v_ of _struct.watch_task) {
+            _array_watch_task.push(v_)
+        }
+        _protocol["watch_task"] = _array_watch_task
+    }
     return _protocol;
 }
 
@@ -335,6 +343,12 @@ export function protcol_to_task_progress_info(_protocol:any) {
         }
         else if (key == "progress") {
             _struct.progress = val;
+        }
+        else if (key == "watch_task") {
+            _struct.watch_task = []
+            for (let v_ of val) {
+                _struct.watch_task.push(v_);
+            }
         }
     }
     return _struct;

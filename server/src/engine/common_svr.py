@@ -274,6 +274,7 @@ class task_progress_info(object):
         self.table_id:int = 0
         self.total:int = 0
         self.progress:int = 0
+        self.watch_task:list[int] = []
 
 
 def task_progress_info_to_protcol(_struct:task_progress_info):
@@ -283,6 +284,11 @@ def task_progress_info_to_protcol(_struct:task_progress_info):
     _protocol["table_id"] = _struct.table_id
     _protocol["total"] = _struct.total
     _protocol["progress"] = _struct.progress
+    if _struct.watch_task:
+        _array_watch_task = []
+        for v_ in _struct.watch_task:
+            _array_watch_task.append(v_)
+        _protocol["watch_task"] = _array_watch_task
     return _protocol
 
 def protcol_to_task_progress_info(_protocol:dict):
@@ -294,6 +300,10 @@ def protcol_to_task_progress_info(_protocol:dict):
             _struct.total = val
         elif key == "progress":
             _struct.progress = val
+        elif key == "watch_task":
+            _struct.watch_task = []
+            for v_ in val:
+                _struct.watch_task.append(v_)
     return _struct
 
 class task_info(object):

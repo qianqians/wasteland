@@ -155,15 +155,8 @@ class task_data:
             info = task_progress_info()
             info.id = cond_type
             info.progress = 0
-            info.watch_task = []
-            return info
-        return None
-    
-    def __get_cond_progress_total__(self, cond: int, cond_type: int, value: int) -> task_progress_total | None:
-        if cond == 2:
-            info = task_progress_total()
-            info.id = cond_type
             info.total = value
+            info.watch_task = []
             return info
         return None
     
@@ -179,18 +172,6 @@ class task_data:
             cond["condition4"], cond["condition4_type"], cond["condition4_value"]))
         return task_progress_info_list
     
-    def get_cond_progress_total(self, cond: cond_config) -> list[task_progress_info]:
-        task_progress_total_list = []
-        task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond["condition1"], cond["condition1_type"], cond["condition1_value"]))
-        task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond["condition2"], cond["condition2_type"], cond["condition2_value"]))
-        task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond["condition3"], cond["condition3_type"], cond["condition3_value"]))
-        task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond["condition4"], cond["condition4_type"], cond["condition4_value"]))
-        return task_progress_total_list
-
     def check_accept_task(self):
         task_list = get_all_task_config()
         for task in task_list:
@@ -215,7 +196,7 @@ class task_data:
                     end_of_week = datetime(now.year, now.month, now.day) + timedelta(days=days_to_sunday, hours=23, minutes=59, seconds=59)
                     info.refresh_time = end_of_week.timestamp()
                     
-                info.progress = self.get_cond_progress_total(get_cond_config(task["complete_condition"]))
+                info.progress = self.get_cond_progress(get_cond_config(task["complete_condition"]))
                 self.__enter_task__(info, self.get_cond_progress(get_cond_config(task["accept_condition"])))
 
     def check_complete_task(self):

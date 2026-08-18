@@ -100,6 +100,7 @@ struct task_progress_info {
     int32 table_id;
     int32 total;
     int32 progress;
+    int32[] watch_task;
 }
 
 struct task_info {
