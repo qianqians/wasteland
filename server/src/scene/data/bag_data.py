@@ -48,10 +48,10 @@ class bag_data:
             return
         
         items:list[item] = []
-        items.append(self.__drop_item__(pkg.item1_id, pkg.item1_num))
-        items.append(self.__drop_item__(pkg.item2_id, pkg.item2_num))
-        items.append(self.__drop_item__(pkg.item3_id, pkg.item3_num))
-        items.append(self.__drop_item__(pkg.item4_id, pkg.item4_num))
+        items.append(self.__drop_item__(pkg["item1_id"], pkg["item1_num"]))
+        items.append(self.__drop_item__(pkg["item2_id"], pkg["item2_num"]))
+        items.append(self.__drop_item__(pkg["item3_id"], pkg["item3_num"]))
+        items.append(self.__drop_item__(pkg["item4_id"], pkg["item4_num"]))
         
         pkg_item:list[item] = [i for i in items if i != None]
         self.caller.drop(task_id, pkg_item, [i for i in self.bag.values() if i != None])
@@ -64,8 +64,8 @@ class bag_data:
                     del self.bag[i.item_id]
                     
                 item_c = get_item_config(i.item_type)
-                attr_data.hp += item_c.hp
-                attr_data.mp += item_c.mp
+                attr_data.hp += item_c["hp"]
+                attr_data.mp += item_c["mp"]
                 
                 rsp.rsp(i)
                 return

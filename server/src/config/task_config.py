@@ -14,3 +14,4 @@ class task_config(TypedDict):
     complete_talk: int
     complete_condition: int
     task_reward: int
+    refresh_type: int

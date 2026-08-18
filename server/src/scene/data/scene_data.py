@@ -36,23 +36,23 @@ class scene_data:
     def check_blocking_move(self, _scene_map_data:scene_map_data) -> bool:
         y_box = self.postion.y/64
         if self.__check_direction__(direction.right):
-            blocking_element_forward = _scene_map_data.blockingLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64 + 1]
+            blocking_element_forward = _scene_map_data["blockingLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64 + 1]
         elif self.__check_direction__(direction.left):
-            blocking_element_forward = _scene_map_data.blockingLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64 - 1]
+            blocking_element_forward = _scene_map_data["blockingLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64 - 1]
         return blocking_element_forward == em_map_element_property.em_map_map
 
     def check_fall_off(self, _scene_map_data:scene_map_data) -> bool:
         y_box = self.postion.y/64 - 1
-        element = _scene_map_data.moveLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64]
+        element = _scene_map_data["moveLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64]
         return element == em_map_element_property.em_map_empty
 
     def check_stairs(self, _scene_map_data:scene_map_data) -> int:
         y_box = self.postion.y/64
         x_box = self.__check_direction__(direction.right) and 1 or self.__check_direction__(direction.left) and -1 or 0
-        element = _scene_map_data.stairsLayer[(y_box+1)*_scene_map_data.map_width_box + self.postion.x/64 + x_box]
+        element = _scene_map_data["stairsLayer"][(y_box+1)*_scene_map_data["map_width_box"] + self.postion.x/64 + x_box]
         if element == em_map_element_property.em_map_map:
             return y_box+1
-        element = _scene_map_data.stairsLayer[(y_box-1)*_scene_map_data.map_width_box + self.postion.x/64 + x_box]
+        element = _scene_map_data["stairsLayer"][(y_box-1)*_scene_map_data["map_width_box"] + self.postion.x/64 + x_box]
         if element == em_map_element_property.em_map_map:
             return y_box-1
         return 0
@@ -62,7 +62,7 @@ class scene_data:
         if dir_y == 0:
             return
         y_box = self.postion.y/64
-        element = _scene_map_data.climbingLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64]
+        element = _scene_map_data["climbingLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64]
         if element == em_map_element_property.em_map_map:
             self.postion.dir |= direction.up if dir_y > 0 else direction.down
             self.postion.y += self.climbing_speed * timeDetail * dir_y
@@ -81,14 +81,14 @@ class scene_data:
         if y_box < 0:
             self.postion.y = 0
             self.postion.dir &= ~direction.down
-        element = _scene_map_data.moveLayer[y_box*_scene_map_data.map_width_box + self.postion.x/64]
+        element = _scene_map_data["moveLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64]
         if element == em_map_element_property.em_map_map:
             self.postion.y = y_box*64
             self.postion.dir &= ~direction.down
         else:
             can_down = False
             for y in range(y_box):
-                element = _scene_map_data.moveLayer[y*_scene_map_data.map_width_box + self.postion.x/64]
+                element = _scene_map_data["moveLayer"][y*_scene_map_data["map_width_box"] + self.postion.x/64]
                 can_down = element == em_map_element_property.em_map_map
                 if can_down: break
             if can_down:
@@ -147,11 +147,11 @@ class scene_data:
         scene_map = get_scene_map(self.scene_name)
         if scene_map == None:
             raise RuntimeError(f"scene_map not found for scene_name={self.scene_name}")
-        for p in scene_map.spawn_point:
-            if abs(p.in_position.x - self.postion.x) <= 64 and abs(p.in_position.y - self.postion.y) <= 64:
-                self.scene_name = p.out_scene_name
-                self.postion = p.out_position
-                return (True, p.out_scene_name)
+        for p in scene_map["spawn_point"]:
+            if abs(p["in_position"].x - self.postion.x) <= 64 and abs(p["in_position"].y - self.postion.y) <= 64:
+                self.scene_name = p["out_scene_name"]
+                self.postion = p["out_position"]
+                return (True, p["out_scene_name"])
         return (False, None)
 
     def begin_move(self, dir:direction) -> tuple[bool, str]:

@@ -55,18 +55,18 @@ class task_data:
             rsp.err(error_code.unconfig_talk_task)
             return
         
-        if self.player_data.level < tconf.unlock_level:
-            app().error(f"player_id:{self.user_id} {self.player_data.level} unlock_level{tconf.unlock_level} id={talk_id}")
+        if self.player_data.level < tconf["unlock_level"]:
+            app().error(f"player_id:{self.user_id} {self.player_data.level} unlock_level{tconf["unlock_level"]} id={talk_id}")
             rsp.err(error_code.unlock_level_not_completed)
             return
         
-        if tconf.need_talk not in self.talk:
-            app().error(f"player_id:{self.user_id} need_talk={tconf.need_talk}, talk_list={self.talk}, id={talk_id}")
+        if tconf["need_talk"] not in self.talk:
+            app().error(f"player_id:{self.user_id} need_talk={tconf["need_talk"]}, talk_list={self.talk}, id={talk_id}")
             rsp.err(error_code.unlock_talk_task)
             return
         
-        if not self.player_data.scene.have_npc(tconf.talk_npc):
-            app().error(f"player_id:{self.user_id} talk_npc={tconf.talk_npc} not in scene, id={talk_id}")
+        if not self.player_data.scene.have_npc(tconf["talk_npc"]):
+            app().error(f"player_id:{self.user_id} talk_npc={tconf["talk_npc"]} not in scene, id={talk_id}")
             rsp.err(error_code.talk_npc_not_scene)
             return
         
@@ -95,12 +95,12 @@ class task_data:
         if tconf == None:
             app().error(f"player_id:{self.user_id} task config not found, id={task_id}")
             return
-        if tconf.complete_type == 2 and tconf.complete_talk not in self.talk:
-            app().error(f"player_id:{self.user_id} task not completed talk:{tconf.complete_talk}, id={task_id}")
+        if tconf["complete_type"] == 2 and tconf["complete_talk"] not in self.talk:
+            app().error(f"player_id:{self.user_id} task not completed talk:{tconf["complete_talk"]}, id={task_id}")
             return
         
         task_info.status = em_task_state.completed
-        self.bag_data.drop(task_info.task_id, tconf.task_reward)
+        self.bag_data.drop(task_info.task_id, tconf["task_reward"])
         self.__complete_task__(task_info)
 
     def get_progress(self, progress_id: int) -> int:
@@ -145,10 +145,10 @@ class task_data:
         return False
 
     def check_cond(self, cond: cond_config) -> bool:
-        return self.__check_cond_value__(cond.condition1, cond.condition1_type, cond.condition1_value) and \
-               self.__check_cond_value__(cond.condition2, cond.condition2_type, cond.condition2_value) and \
-               self.__check_cond_value__(cond.condition3, cond.condition3_type, cond.condition3_value) and \
-               self.__check_cond_value__(cond.condition4, cond.condition4_type, cond.condition4_value)
+        return self.__check_cond_value__(cond["condition1"], cond["condition1_type"], cond["condition1_value"]) and \
+               self.__check_cond_value__(cond["condition2"], cond["condition2_type"], cond["condition2_value"]) and \
+               self.__check_cond_value__(cond["condition3"], cond["condition3_type"], cond["condition3_value"]) and \
+               self.__check_cond_value__(cond["condition4"], cond["condition4_type"], cond["condition4_value"])
 
     def __get_cond_progress__(self, cond: int, cond_type: int, value: int) -> task_progress_info | None:
         if cond == 2:
@@ -170,53 +170,53 @@ class task_data:
     def get_cond_progress(self, cond: cond_config) -> list[task_progress_info]:
         task_progress_info_list = []
         task_progress_info_list.append(self.__get_cond_progress__(
-            cond.condition1, cond.condition1_type, cond.condition1_value))
+            cond["condition1"], cond["condition1_type"], cond["condition1_value"]))
         task_progress_info_list.append(self.__get_cond_progress__(
-            cond.condition2, cond.condition2_type, cond.condition2_value))
+            cond["condition2"], cond["condition2_type"], cond["condition2_value"]))
         task_progress_info_list.append(self.__get_cond_progress__(
-            cond.condition3, cond.condition3_type, cond.condition3_value))
+            cond["condition3"], cond["condition3_type"], cond["condition3_value"]))
         task_progress_info_list.append(self.__get_cond_progress__(
-            cond.condition4, cond.condition4_type, cond.condition4_value))
+            cond["condition4"], cond["condition4_type"], cond["condition4_value"]))
         return task_progress_info_list
     
     def get_cond_progress_total(self, cond: cond_config) -> list[task_progress_info]:
         task_progress_total_list = []
         task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond.condition1, cond.condition1_type, cond.condition1_value))
+            cond["condition1"], cond["condition1_type"], cond["condition1_value"]))
         task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond.condition2, cond.condition2_type, cond.condition2_value))
+            cond["condition2"], cond["condition2_type"], cond["condition2_value"]))
         task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond.condition3, cond.condition3_type, cond.condition3_value))
+            cond["condition3"], cond["condition3_type"], cond["condition3_value"]))
         task_progress_total_list.append(self.__get_cond_progress_total__(
-            cond.condition4, cond.condition4_type, cond.condition4_value))
+            cond["condition4"], cond["condition4_type"], cond["condition4_value"]))
         return task_progress_total_list
 
     def check_accept_task(self):
         task_list = get_all_task_config()
         for task in task_list:
-            if self.check_cond(get_cond_config(task.accept_condition)):
+            if self.check_cond(get_cond_config(task["accept_condition"])):
                 info = task_info()
                 info.task_id = task["id"]
                 
-                if task.accept_type == 1:
+                if task["accept_type"] == 1:
                     info.status = em_task_state.in_progress
-                elif task.accept_type == 2:
+                elif task["accept_type"] == 2:
                     info.status = em_task_state.can_claimed
-                    if task.accept_talk in self.talk:
+                    if task["accept_talk"] in self.talk:
                         info.status = em_task_state.in_progress
                     
-                if task.refresh_type == 1:
+                if task["refresh_type"] == 1:
                     now = datetime.now()
                     end_of_day = datetime(now.year, now.month, now.day, 23, 59, 59)
                     info.refresh_time = end_of_day.timestamp()
-                elif task.refresh_type == 2:
+                elif task["refresh_type"] == 2:
                     now = datetime.now()
                     days_to_sunday = 7 - now.isoweekday()
                     end_of_week = datetime(now.year, now.month, now.day) + timedelta(days=days_to_sunday, hours=23, minutes=59, seconds=59)
                     info.refresh_time = end_of_week.timestamp()
                     
-                info.progress = self.get_cond_progress_total(get_cond_config(task.complete_condition))
-                self.__enter_task__(info, self.get_cond_progress(get_cond_config(task.accept_condition)))
+                info.progress = self.get_cond_progress_total(get_cond_config(task["complete_condition"]))
+                self.__enter_task__(info, self.get_cond_progress(get_cond_config(task["accept_condition"])))
 
     def check_complete_task(self):
         tasks = self.taskes
@@ -226,16 +226,16 @@ class task_data:
             if tconf == None:
                 app().error(f"player:{self.user_id} task config not found, id={task.task_id}")
                 continue
-            if self.check_cond(get_cond_config(tconf.complete_condition)):
-                if tconf.complete_type == 2:
+            if self.check_cond(get_cond_config(tconf["complete_condition"])):
+                if tconf["complete_type"] == 2:
                     task.status = em_task_state.can_completed
-                    if tconf.complete_talk in self.talk:
+                    if tconf["complete_talk"] in self.talk:
                         task.status = em_task_state.completed
-                        self.bag_data.drop(task.task_id, tconf.task_reward)
+                        self.bag_data.drop(task.task_id, tconf["task_reward"])
                         self.__complete_task__(task)
-                elif tconf.complete_type == 1:
+                elif tconf["complete_type"] == 1:
                     task.status = em_task_state.completed
-                    self.bag_data.drop(task.task_id, tconf.task_reward)
+                    self.bag_data.drop(task.task_id, tconf["task_reward"])
                     self.__complete_task__(task)
             self.taskes[id] = task
     

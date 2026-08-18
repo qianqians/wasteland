@@ -32,9 +32,16 @@ class scene_map_collection:
 
 def __map_primitive_data__(scene_name:str) -> scene_map:
     _map:scene_map = scene_map()
+    _map["spawn_point"] = []
 
     with open(f"../map/{scene_name}.tmj") as fjson:
         map_info_table = json.load(fjson)
+
+        _map_size = map_info_table["width"] * map_info_table["height"]
+        _map["moveLayer"] = [em_map_element_property.em_map_empty] * _map_size
+        _map["blockingLayer"] = [em_map_element_property.em_map_empty] * _map_size
+        _map["stairsLayer"] = [em_map_element_property.em_map_empty] * _map_size
+        _map["climbingLayer"] = [em_map_element_property.em_map_empty] * _map_size
 
         layers = map_info_table["layers"]
         for layer in range(len(layers)):
@@ -45,53 +52,53 @@ def __map_primitive_data__(scene_name:str) -> scene_map:
                 data = layer_info["data"]
                 h = layer_info["height"]
                 w = layer_info["width"]
-                _map.map_width_box = w
-                _map.map_height_box = h
+                _map["map_width_box"] = w
+                _map["map_height_box"] = h
 
                 for x in range(w):
                     for y in range(h):
                         id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.moveLayer[y*w + x] = element_property
+                        _map["moveLayer"][y*w + x] = element_property
                         print(f"_map.moveLayer id:{id} x:{x} y{y}")
             elif layer_name == "blockingLayer":
                 data = layer_info["data"]
                 h = layer_info["height"]
                 w = layer_info["width"]
-                _map.map_width_box = w
-                _map.map_height_box = h
+                _map["map_width_box"] = w
+                _map["map_height_box"] = h
 
                 for x in range(w):
                     for y in range(h):
                         id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.blockingLayer[y*w + x] = element_property
+                        _map["blockingLayer"][y*w + x] = element_property
                         print(f"_map.blockingLayer id:{id} x:{x} y{y}")
             elif layer_name == "stairsLayer":
                 data = layer_info["data"]
                 h = layer_info["height"]
                 w = layer_info["width"]
-                _map.map_width_box = w
-                _map.map_height_box = h
+                _map["map_width_box"] = w
+                _map["map_height_box"] = h
 
                 for x in range(w):
                     for y in range(h):
                         id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.stairsLayer[y*w + x] = element_property
+                        _map["stairsLayer"][y*w + x] = element_property
                         print(f"_map.stairsLayer id:{id} x:{x} y{y}")
             elif layer_name == "climbingLayer":
                 data = layer_info["data"]
                 h = layer_info["height"]
                 w = layer_info["width"]
-                _map.map_width_box = w
-                _map.map_height_box = h
+                _map["map_width_box"] = w
+                _map["map_height_box"] = h
 
                 for x in range(w):
                     for y in range(h):
                         id = data[y*w + x]
                         element_property = em_map_element_property.em_map_map if id != 0 else em_map_element_property.em_map_empty
-                        _map.climbingLayer[y*w + x] = element_property
+                        _map["climbingLayer"][y*w + x] = element_property
                         print(f"_map.climbingLayer id:{id} x:{x} y{y}")
 
     return _map

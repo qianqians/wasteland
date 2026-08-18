@@ -126,7 +126,7 @@ class player_data(save, player):
         
         self.scene_data.scene_name = scene_name
         self.scene_data.scene_line = scene_line
-        self.scene_data.postion = scene_spawn_point.out_position
+        self.scene_data.postion = scene_spawn_point["out_position"]
         
         await self.__into_scene__(rsp, scene_name, scene_line)
         rsp.rsp()
