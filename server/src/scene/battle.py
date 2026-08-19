@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
 from threading import Timer
+import bisect
 from ..engine.engine import *
 from ..engine.battle_ntf_client_svr import *
+from ..config import *
 from .player_data import *
 from .scene import *
 
@@ -69,7 +71,52 @@ class battle:
                 return False
         return True
 
+    def __sort_battle_entity__(self) -> list[battle_entity]:
+        l:list[battle_entity] = []
+        for d in self.self_info.battle_team:
+            bisect.insort(l, d, key=lambda p: p.speed)
+        for d in self.enemy_info.battle_team:
+            bisect.insort(l, d, key=lambda p: p.speed)
+        return l
+
+    def __get_target__(self, target:str) -> battle_entity:
+        for t in self.self_info.battle_team:
+            if t.entity_id == target: return t
+        for t in self.enemy_info.battle_team:
+            if t.entity_id == target: return t
+        return None
+
+    def __use_skill__(self, e:battle_entity, skill_id:int, target:str):
+        skc:skill_config = None
+        tg:list[battle_entity] = []
+        if target != "": tg:list[battle_entity] = [self.__get_target__(target)]
+        for skillc in configs.skill_list:
+            if skillc["id"] == skill_id:
+                skc = skillc
+                team:list[battle_entity] = []
+                if skillc["skill_type"] == em_skill_type.em_skill_attack: team = self.enemy_info.battle_team
+                elif skillc["skill_type"] == em_skill_type.em_skill_revive: team = self.self_info.battle_team
+                num = skc["attack_range"]-len(tg)
+                if num > 0: tg.extend(random.choices(team, k=num))
+                break
+        for t in tg:
+            if skillc["skill_type"] == em_skill_type.em_skill_attack:
+                t.abonus.hp -= skillc["attack"]
+            elif skillc["skill_type"] == em_skill_type.em_skill_revive:
+                t.abonus.hp += skillc["attack"]
+
+    def __battle__(self, sort_entity:list[battle_entity]):
+        for e in sort_entity:
+            skill_id = -1
+            target = ""
+            if e.entity_id in self.auto_battle_info:
+                skill_id = self.auto_battle_info[e.entity_id]
+            elif e.entity_id in self.round_battle_info:
+                (target, skill_id) = self.round_battle_info[e.entity_id]
+            self.__use_skill__(e, skill_id, target)
+
     def battle_one_round(self):
+        self.__battle__(self.__sort_battle_entity__())
         result = self.__check_battle_end__()
         if result:
             if result == em_victory_team.em_victory_team_enemy:

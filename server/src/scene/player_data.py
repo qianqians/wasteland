@@ -75,10 +75,23 @@ class player_data(save, player):
         return self.store()
 
     def battle_info(self) -> battle_info:
-        from .battle_entity import battle_entity
-        battle_team = [battle_entity(self.player_id, self.player_nick_name, self.appearance, self.attribute_data.info(), self.skill_data.skills.values())]
+        entity = battle_entity()
+        entity.entity_id = self.player_id
+        entity.nick_name = self.player_nick_name
+        entity.appearance = self.appearance
+        entity.speed = self.attribute_data.speed
+        entity.abonus = self.attribute_data.info()
+        entity.skills = self.skill_data.skills.values()
+        battle_team = [entity]
         for b in self.bb_data.curr_bb:
-            battle_team.append(battle_entity(b.attribute.entity_id, b.nick_name, b.appearance, b.attribute.info(), b.skills.values()))
+            e = battle_entity()
+            e.entity_id = b.attribute.entity_id
+            e.nick_name = b.nick_name
+            e.appearance = b.appearance
+            e.speed = b.attribute.speed
+            e.abonus = b.attribute.info()
+            e.skills = b.skills.values()
+            battle_team.append(e)
         info = battle_info()
         info.wait_bbs = self.bb_data.wait_info()
         info.items = self.bag_data.bag.values()
@@ -96,7 +109,6 @@ class player_data(save, player):
         enemy = self.scene.players.get(enemy_id)
         if enemy: 
             self.battle_handle = battle(self.scene, self, enemy, self.battle_info(), enemy.battle_info(), self.battle_module)
-            return
         else: 
             enemy = self.scene.mobs.get(enemy_id)
             self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)

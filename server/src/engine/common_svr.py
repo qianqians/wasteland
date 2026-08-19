@@ -545,6 +545,8 @@ class battle_entity(object):
         self.entity_id:str = ""
         self.nick_name:str = ""
         self.appearance:str = ""
+        self.speed:int = 0
+        self.is_live:bool = False
         self.abonus:attribute = None
         self.skills:list[skill_info] = []
 
@@ -556,6 +558,8 @@ def battle_entity_to_protcol(_struct:battle_entity):
     _protocol["entity_id"] = _struct.entity_id
     _protocol["nick_name"] = _struct.nick_name
     _protocol["appearance"] = _struct.appearance
+    _protocol["speed"] = _struct.speed
+    _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if _struct.skills:
         _array_skills = []
@@ -573,6 +577,10 @@ def protcol_to_battle_entity(_protocol:dict):
             _struct.nick_name = val
         elif key == "appearance":
             _struct.appearance = val
+        elif key == "speed":
+            _struct.speed = val
+        elif key == "is_live":
+            _struct.is_live = val
         elif key == "abonus":
             _struct.abonus = protcol_to_attribute(val)
         elif key == "skills":

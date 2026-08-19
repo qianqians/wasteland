@@ -658,6 +658,8 @@ export class battle_entity {
      public entity_id:string = ""
      public nick_name:string = ""
      public appearance:string = ""
+     public speed:number = 0
+     public is_live:boolean = false
      public abonus:attribute = null
      public skills:Array<skill_info> = null
 }
@@ -667,6 +669,8 @@ export function battle_entity_to_protcol(_struct:battle_entity) {
     _protocol["entity_id"] = _struct.entity_id
     _protocol["nick_name"] = _struct.nick_name
     _protocol["appearance"] = _struct.appearance
+    _protocol["speed"] = _struct.speed
+    _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
         _array_skills = []
@@ -690,6 +694,12 @@ export function protcol_to_battle_entity(_protocol:any) {
         }
         else if (key == "appearance") {
             _struct.appearance = val;
+        }
+        else if (key == "speed") {
+            _struct.speed = val;
+        }
+        else if (key == "is_live") {
+            _struct.is_live = val;
         }
         else if (key == "abonus") {
             _struct.abonus = protcol_to_attribute(val);

@@ -20,6 +20,7 @@ class attribute_data:
             "mp": self.mp,
             "max_hp": self.max_hp,
             "max_mp": self.max_mp,
+            "speed": self.speed,
             "attack": self.attack,
             "defense": self.defense,
         }

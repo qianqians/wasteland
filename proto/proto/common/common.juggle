@@ -149,6 +149,8 @@ struct battle_entity {
     string entity_id;
     string nick_name;
     string appearance;
+    int32 speed;
+    bool is_live;
     attribute abonus;
     skill_info[] skills;
 }
