@@ -26,6 +26,10 @@ class battle:
 
         self.auto_battle_info:dict[str, int] = {}
         self.round_battle_info:dict[str, tuple[str, int]] = {}
+        self.__not_action__:dict[str, int] = {}
+
+        self.__timer_round__ = Timer(29.99, self.__battle_one_round_timer__)
+        self.__timer_round__.start()
 
     def __ntf_battle_info__(self):
         if self.self_caller is not None: self.self_caller.start_battle(self.self_info, self.enemy_info)
@@ -62,7 +66,7 @@ class battle:
             return True
         return False
 
-    def check_complete_round(self) -> bool:
+    def __check_complete_round__(self) -> bool:
         for d in self.self_info.battle_team:
             if not self.__check_entity_complete_setting__(d.entity_id):
                 return False
@@ -115,7 +119,10 @@ class battle:
                 (target, skill_id) = self.round_battle_info[e.entity_id]
             self.__use_skill__(e, skill_id, target)
 
-    def battle_one_round(self):
+    def __battle_one_round__(self):
+        if self.__check_complete_round__():
+            return
+        self.__timer_round__.cancel()
         self.__battle__(self.__sort_battle_entity__())
         result = self.__check_battle_end__()
         if result:
@@ -129,13 +136,47 @@ class battle:
             self.round_battle_info.clear()
             if self.self_caller is not None: self.self_caller.battle_continue()
             if self.enemy_caller is not None: self.enemy_caller.battle_continue()
-            if self.check_complete_round():
-                Timer(3.99, self.battle_one_round).start()
+            if self.__check_complete_round__():
+                Timer(3.99, self.__battle_one_round__).start()
+
+    def __check_no_action_auto_battle__(self, entity_id:str):
+        action = self.__not_action__.get(entity_id, default=0) + 1
+        self.__not_action__[entity_id] = action
+        if action >= 3:
+            self.auto_battle_info[entity_id] = AutoAttackSkillId
+
+    def __battle_one_round_timer__(self):
+        for d in self.self_info.battle_team:
+            if not self.__check_entity_complete_setting__(d.entity_id):
+                self.round_battle_info[d.entity_id] = ("", AutoAttackSkillId)
+                self.__check_no_action_auto_battle__(d.entity_id)
+        for d in self.enemy_info.battle_team:
+            if not self.__check_entity_complete_setting__(d.entity_id):
+                self.round_battle_info[d.entity_id] = ("", AutoAttackSkillId)
+                self.__check_no_action_auto_battle__(d.entity_id)
+        self.__battle__(self.__sort_battle_entity__())
+        result = self.__check_battle_end__()
+        if result:
+            if result == em_victory_team.em_victory_team_enemy:
+                if self.self_caller is not None: self.self_caller.battle_failed()
+                if self.enemy_caller is not None: self.enemy_caller.battle_victory()
+            elif result == em_victory_team.em_victory_team_self:
+                if self.self_caller is not None: self.self_caller.battle_victory()
+                if self.enemy_caller is not None: self.enemy_caller.battle_failed()
+        else:
+            self.round_battle_info.clear()
+            if self.self_caller is not None: self.self_caller.battle_continue()
+            if self.enemy_caller is not None: self.enemy_caller.battle_continue()
+            if self.__check_complete_round__():
+                Timer(3.99, self.__battle_one_round__).start()
+        
+        self.__timer_round__ = Timer(29.99, self.__battle_one_round_timer__)
+        self.__timer_round__.start()
 
     def on_auto_battle(self, entity_id:str, skill_id:int):
         self.auto_battle_info[entity_id] = skill_id
 
     def on_use_skill(self, entity_id:str, skill_id: int, target:str):
         self.round_battle_info[entity_id] = (target, skill_id)
-        if self.check_complete_round():
-            Timer(3.99, self.battle_one_round).start()
+        if self.__check_complete_round__():
+            Timer(3.99, self.__battle_one_round__).start()
