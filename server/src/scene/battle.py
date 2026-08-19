@@ -137,7 +137,8 @@ class battle:
             if self.self_caller is not None: self.self_caller.battle_continue()
             if self.enemy_caller is not None: self.enemy_caller.battle_continue()
             if self.__check_complete_round__():
-                Timer(3.99, self.__battle_one_round__).start()
+                self.__battle_update_timer__ = Timer(3.99, self.__battle_one_round__)
+                self.__battle_update_timer__.start()
 
     def __check_no_action_auto_battle__(self, entity_id:str):
         action = self.__not_action__.get(entity_id, default=0) + 1
@@ -146,6 +147,7 @@ class battle:
             self.auto_battle_info[entity_id] = AutoAttackSkillId
 
     def __battle_one_round_timer__(self):
+        self.__battle_update_timer__.cancel()
         for d in self.self_info.battle_team:
             if not self.__check_entity_complete_setting__(d.entity_id):
                 self.round_battle_info[d.entity_id] = ("", AutoAttackSkillId)
@@ -168,7 +170,8 @@ class battle:
             if self.self_caller is not None: self.self_caller.battle_continue()
             if self.enemy_caller is not None: self.enemy_caller.battle_continue()
             if self.__check_complete_round__():
-                Timer(3.99, self.__battle_one_round__).start()
+                self.__battle_update_timer__ = Timer(3.99, self.__battle_one_round__)
+                self.__battle_update_timer__.start()
         
         self.__timer_round__ = Timer(29.99, self.__battle_one_round_timer__)
         self.__timer_round__.start()
@@ -179,4 +182,5 @@ class battle:
     def on_use_skill(self, entity_id:str, skill_id: int, target:str):
         self.round_battle_info[entity_id] = (target, skill_id)
         if self.__check_complete_round__():
-            Timer(3.99, self.__battle_one_round__).start()
+            self.__battle_update_timer__ = Timer(3.99, self.__battle_one_round__)
+            self.__battle_update_timer__.start()
