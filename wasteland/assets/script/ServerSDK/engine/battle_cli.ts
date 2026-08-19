@@ -94,8 +94,9 @@ export class battle_caller {
         return new battle_auto_battle_cb(_cb_uuid, this.entity);
     }
 
-    public  use_skill(skill_id:number, target:string) {
+    public  use_skill(entity_id:string, skill_id:number, target:string) {
         let _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe:any[] = []
+        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.push(entity_id);
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.push(skill_id);
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.push(target);
         let _cb_uuid = this.entity.call_hub_request("use_skill", encode(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe));

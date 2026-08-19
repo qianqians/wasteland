@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
+from threading import Timer
 from ..engine.engine import *
 from ..engine.battle_ntf_client_svr import *
 from .player_data import *
@@ -21,11 +22,8 @@ class battle:
         self.enemy_info = enemy_info
         self.__ntf_battle_info__()
 
-        #self.battle_module = battle_module
-        #self.battle_module.on_auto_battle.append(lambda rsp, skill_id: self.on_auto_battle(rsp, skill_id))
-        #self.battle_module.on_use_skill.append(lambda rsp, skill_id, target: self.on_use_skill(rsp, skill_id, target))
-
         self.auto_battle_info:dict[str, int] = {}
+        self.round_battle_info:dict[str, tuple[str, int]] = {}
 
     def __ntf_battle_info__(self):
         if self.self_caller is not None: self.self_caller.start_battle(self.self_info, self.enemy_info)
@@ -55,8 +53,42 @@ class battle:
             return em_victory_team.em_victory_team_self
         return em_victory_team.em_victory_battle_keep_going
 
+    def __check_entity_complete_setting__(self, entity_id:str) -> bool:
+        if entity_id in self.auto_battle_info:
+            return True
+        if entity_id in self.round_battle_info:
+            return True
+        return False
+
+    def check_complete_round(self) -> bool:
+        for d in self.self_info.battle_team:
+            if not self.__check_entity_complete_setting__(d.entity_id):
+                return False
+        for d in self.enemy_info.battle_team:
+            if not self.__check_entity_complete_setting__(d.entity_id):
+                return False
+        return True
+
+    def battle_one_round(self):
+        result = self.__check_battle_end__()
+        if result:
+            if result == em_victory_team.em_victory_team_enemy:
+                if self.self_caller is not None: self.self_caller.battle_failed()
+                if self.enemy_caller is not None: self.enemy_caller.battle_victory()
+            elif result == em_victory_team.em_victory_team_self:
+                if self.self_caller is not None: self.self_caller.battle_victory()
+                if self.enemy_caller is not None: self.enemy_caller.battle_failed()
+        else:
+            self.round_battle_info.clear()
+            if self.self_caller is not None: self.self_caller.battle_continue()
+            if self.enemy_caller is not None: self.enemy_caller.battle_continue()
+            if self.check_complete_round():
+                Timer(3.99, self.battle_one_round).start()
+
     def on_auto_battle(self, entity_id:str, skill_id:int):
         self.auto_battle_info[entity_id] = skill_id
 
-    def on_use_skill(self, rsp:battle_use_skill_rsp, skill_id: int, target:str):
-        pass
+    def on_use_skill(self, entity_id:str, skill_id: int, target:str):
+        self.round_battle_info[entity_id] = (target, skill_id)
+        if self.check_complete_round():
+            Timer(3.99, self.battle_one_round).start()

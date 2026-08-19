@@ -46,10 +46,16 @@ export class battle_ntf_client_module {
     public entity:engine.player|engine.subentity|engine.receiver;
     public on_start_battle:((s:engine.session, self_side:common.battle_info, enemy:common.battle_info) => void)[] = [];
     public on_use_skill:((s:engine.session, caster_entity_id:string, hits:Array<harm>) => void)[] = [];
+    public on_battle_victory:((s:engine.session, ) => void)[] = [];
+    public on_battle_failed:((s:engine.session, ) => void)[] = [];
+    public on_battle_continue:((s:engine.session, ) => void)[] = [];
     public constructor(entity:engine.player|engine.subentity|engine.receiver) {
         this.entity = entity;
         this.entity.reg_hub_notify_callback("start_battle", this.start_battle);
         this.entity.reg_hub_notify_callback("use_skill", this.use_skill);
+        this.entity.reg_hub_notify_callback("battle_victory", this.battle_victory);
+        this.entity.reg_hub_notify_callback("battle_failed", this.battle_failed);
+        this.entity.reg_hub_notify_callback("battle_continue", this.battle_continue);
     }
 
     public start_battle(hub_name:string, bin:Uint8Array) {
@@ -72,6 +78,30 @@ export class battle_ntf_client_module {
         let s = new engine.session(hub_name)
         for (let fn of this.on_use_skill) {
             fn(s, _caster_entity_id, _hits);
+        }
+    }
+
+    public battle_victory(hub_name:string, bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let s = new engine.session(hub_name)
+        for (let fn of this.on_battle_victory) {
+            fn(s, );
+        }
+    }
+
+    public battle_failed(hub_name:string, bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let s = new engine.session(hub_name)
+        for (let fn of this.on_battle_failed) {
+            fn(s, );
+        }
+    }
+
+    public battle_continue(hub_name:string, bin:Uint8Array) {
+        let inArray = decode(bin) as any;
+        let s = new engine.session(hub_name)
+        for (let fn of this.on_battle_continue) {
+            fn(s, );
         }
     }
 

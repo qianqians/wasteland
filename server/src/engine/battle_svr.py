@@ -68,7 +68,7 @@ class battle_module(object):
         self.entity.reg_client_notify_callback("start_battle", self.start_battle)
         self.on_auto_battle:list[Callable[[battle_auto_battle_rsp, str, int], None]] = []
         self.entity.reg_client_request_callback("auto_battle", self.auto_battle)
-        self.on_use_skill:list[Callable[[battle_use_skill_rsp, int, str], None]] = []
+        self.on_use_skill:list[Callable[[battle_use_skill_rsp, str, int, str], None]] = []
         self.entity.reg_client_request_callback("use_skill", self.use_skill)
 
     def start_battle(self, gate_name:str, bin:bytes):
@@ -88,11 +88,12 @@ class battle_module(object):
 
     def use_skill(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)
-        _skill_id = inArray[0]
-        _target = inArray[1]
+        _entity_id = inArray[0]
+        _skill_id = inArray[1]
+        _target = inArray[2]
         rsp = battle_use_skill_rsp(gate_name, conn_id, msg_cb_id, self.entity)
         for fn in self.on_use_skill:
-            fn(rsp, _skill_id, _target)
+            fn(rsp, _entity_id, _skill_id, _target)
 
 
 

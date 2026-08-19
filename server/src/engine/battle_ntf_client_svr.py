@@ -59,5 +59,17 @@ class battle_ntf_client_caller(object):
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(_list_3b80b646_eaae_3eb3_b5db_41773fbe433a)
         self.entity.call_client_mutilcast("use_skill", dumps(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe))
 
+    def battle_victory(self):
+        _argv_5388fb35_f021_358e_992c_9d18e0f4cfc5 = []
+        self.entity.call_client_mutilcast("battle_victory", dumps(_argv_5388fb35_f021_358e_992c_9d18e0f4cfc5))
+
+    def battle_failed(self):
+        _argv_3a3297ef_3cc5_3ec2_85f5_32b109e00b66 = []
+        self.entity.call_client_mutilcast("battle_failed", dumps(_argv_3a3297ef_3cc5_3ec2_85f5_32b109e00b66))
+
+    def battle_continue(self):
+        _argv_029f0550_6dad_3479_82ba_2e7085411cc5 = []
+        self.entity.call_client_mutilcast("battle_continue", dumps(_argv_029f0550_6dad_3479_82ba_2e7085411cc5))
+
 
 

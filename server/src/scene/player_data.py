@@ -37,6 +37,7 @@ class player_data(save, player):
         self.battle_module = battle_module(self)
         self.battle_module.on_start_battle.append(lambda _, enemy_id : self.start_battle(enemy_id))
         self.battle_module.on_auto_battle.append(lambda rsp, entity_id, skill_id: self.on_auto_battle(rsp, entity_id, skill_id))
+        self.battle_module.on_use_skill.append(lambda rsp, entity_id, skill_id, target: self.on_use_skill(rsp, entity_id, skill_id, target))
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
@@ -103,6 +104,10 @@ class player_data(save, player):
     def on_auto_battle(self, rsp:battle_auto_battle_rsp, entity_id:str, skill_id:int):
         self.battle_handle.on_auto_battle(entity_id, skill_id)
         rsp.rsp()
+
+    def on_use_skill(self, rsp:battle_use_skill_rsp, entity_id:str, skill_id: int, target:str):
+        self.battle_handle.on_use_skill(entity_id, skill_id, target)
+        rsp.rsp(self.battle_info())
         
     def begin_move(self, vertical_dir:direction, pos:position):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)
