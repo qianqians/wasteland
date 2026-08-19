@@ -36,6 +36,7 @@ class player_data(save, player):
 
         self.battle_module = battle_module(self)
         self.battle_module.on_start_battle.append(lambda _, enemy_id : self.start_battle(enemy_id))
+        self.battle_module.on_auto_battle.append(lambda rsp, entity_id, skill_id: self.on_auto_battle(rsp, entity_id, skill_id))
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
@@ -76,7 +77,7 @@ class player_data(save, player):
         from .battle_entity import battle_entity
         battle_team = [battle_entity(self.player_id, self.player_nick_name, self.appearance, self.attribute_data.info(), self.skill_data.skills.values())]
         for b in self.bb_data.curr_bb:
-            battle_team.append(b.attribute.entity_id, b.nick_name, b.appearance, b.attribute.info(), b.skills.values())
+            battle_team.append(battle_entity(b.attribute.entity_id, b.nick_name, b.appearance, b.attribute.info(), b.skills.values()))
         info = battle_info()
         info.wait_bbs = self.bb_data.wait_info()
         info.items = self.bag_data.bag.values()
@@ -98,6 +99,10 @@ class player_data(save, player):
         else: 
             enemy = self.scene.mobs.get(enemy_id)
             self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)
+
+    def on_auto_battle(self, rsp:battle_auto_battle_rsp, entity_id:str, skill_id:int):
+        self.battle_handle.on_auto_battle(entity_id, skill_id)
+        rsp.rsp()
         
     def begin_move(self, vertical_dir:direction, pos:position):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)

@@ -11,7 +11,7 @@ class em_victory_team(Enum):
     em_victory_team_enemy = -1
 
 class battle:
-    def __init__(self, _scene:scene, self_handle:player_data, enemy_handle:player_data, self_info:battle_info, enemy_info:battle_info, battle_module:battle_module):
+    def __init__(self, _scene:scene, self_handle:player_data, enemy_handle:player_data, self_info:battle_info, enemy_info:battle_info):
         self.scene = _scene
 
         if self_handle is not None: self.self_caller = battle_ntf_client_caller(self_handle)
@@ -21,9 +21,11 @@ class battle:
         self.enemy_info = enemy_info
         self.__ntf_battle_info__()
 
-        self.battle_module = battle_module
-        self.battle_module.on_auto_battle.append(lambda rsp, skill_id: self.on_auto_battle(rsp, skill_id))
-        self.battle_module.on_use_skill.append(lambda rsp, skill_id, target: self.on_use_skill(rsp, skill_id, target))
+        #self.battle_module = battle_module
+        #self.battle_module.on_auto_battle.append(lambda rsp, skill_id: self.on_auto_battle(rsp, skill_id))
+        #self.battle_module.on_use_skill.append(lambda rsp, skill_id, target: self.on_use_skill(rsp, skill_id, target))
+
+        self.auto_battle_info:dict[str, int] = {}
 
     def __ntf_battle_info__(self):
         if self.self_caller is not None: self.self_caller.start_battle(self.self_info, self.enemy_info)
@@ -51,11 +53,10 @@ class battle:
                 break
         if is_failed:
             return em_victory_team.em_victory_team_self
-
         return em_victory_team.em_victory_battle_keep_going
 
-    def on_auto_battle(self, rsp:battle_auto_battle_rsp, skill_id:int):
-        pass
+    def on_auto_battle(self, entity_id:str, skill_id:int):
+        self.auto_battle_info[entity_id] = skill_id
 
     def on_use_skill(self, rsp:battle_use_skill_rsp, skill_id: int, target:str):
         pass
