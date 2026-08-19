@@ -30,5 +30,7 @@ def attribute_create() -> attribute_data:
         "mp": 100,
         "max_hp": 100,
         "max_mp": 100,
+        "speed": 32,
+        "attack": 20,
         "defense": 10,
     })

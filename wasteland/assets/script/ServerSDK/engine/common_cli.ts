@@ -54,8 +54,10 @@ export enum em_task_state {
 
 // this struct code is codegen by geese codegen for ts
 export class attribute {
-     public add_hp:number = 0
-     public add_mp:number = 0
+     public hp:number = 0
+     public mp:number = 0
+     public max_hp:number = 0
+     public max_mp:number = 0
      public attack:number = 0
      public defense:number = 0
      public matk:number = 0
@@ -64,8 +66,10 @@ export class attribute {
 
 export function attribute_to_protcol(_struct:attribute) {
     let _protocol:any = {}
-    _protocol["add_hp"] = _struct.add_hp
-    _protocol["add_mp"] = _struct.add_mp
+    _protocol["hp"] = _struct.hp
+    _protocol["mp"] = _struct.mp
+    _protocol["max_hp"] = _struct.max_hp
+    _protocol["max_mp"] = _struct.max_mp
     _protocol["attack"] = _struct.attack
     _protocol["defense"] = _struct.defense
     _protocol["matk"] = _struct.matk
@@ -77,11 +81,17 @@ export function protcol_to_attribute(_protocol:any) {
     let _struct = new attribute()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "add_hp") {
-            _struct.add_hp = val;
+        if (key == "hp") {
+            _struct.hp = val;
         }
-        else if (key == "add_mp") {
-            _struct.add_mp = val;
+        else if (key == "mp") {
+            _struct.mp = val;
+        }
+        else if (key == "max_hp") {
+            _struct.max_hp = val;
+        }
+        else if (key == "max_mp") {
+            _struct.max_mp = val;
         }
         else if (key == "attack") {
             _struct.attack = val;
@@ -502,7 +512,7 @@ export class player_info {
      public gfs:Array<gongfa> = null
      public curr_gf:gongfa = null
      public equips:Array<equip_info> = null
-     public bbs:Array<bb> = null
+     public wait_bbs:Array<bb> = null
      public curr_bb:Array<bb> = null
      public items:Array<item> = null
      public tasks:Array<task_info> = null
@@ -534,12 +544,12 @@ export function player_info_to_protcol(_struct:player_info) {
         }
         _protocol["equips"] = _array_equips
     }
-    if (_struct.bbs) {
-        _array_bbs = []
-        for (let v_ of _struct.bbs) {
-            _array_bbs.push(bb_to_protcol(v_))
+    if (_struct.wait_bbs) {
+        _array_wait_bbs = []
+        for (let v_ of _struct.wait_bbs) {
+            _array_wait_bbs.push(bb_to_protcol(v_))
         }
-        _protocol["bbs"] = _array_bbs
+        _protocol["wait_bbs"] = _array_wait_bbs
     }
     if (_struct.curr_bb) {
         _array_curr_bb = []
@@ -603,10 +613,10 @@ export function protcol_to_player_info(_protocol:any) {
                 _struct.equips.push(protcol_to_equip_info(v_));
             }
         }
-        else if (key == "bbs") {
-            _struct.bbs = []
+        else if (key == "wait_bbs") {
+            _struct.wait_bbs = []
             for (let v_ of val) {
-                _struct.bbs.push(protcol_to_bb(v_));
+                _struct.wait_bbs.push(protcol_to_bb(v_));
             }
         }
         else if (key == "curr_bb") {
@@ -644,47 +654,81 @@ export function protcol_to_player_info(_protocol:any) {
 
 }
 
-export class battle_info {
-     public player_id:string = ""
-     public player_nick_name:string = ""
-     public player_appearance:number = 0
+export class battle_entity {
+     public entity_id:string = ""
+     public nick_name:string = ""
+     public appearance:string = ""
      public abonus:attribute = null
-     public curr_gf:gongfa = null
-     public equips:Array<equip_info> = null
-     public bbs:Array<bb> = null
-     public curr_bb:Array<bb> = null
-     public items:Array<item> = null
+     public skills:Array<skill_info> = null
+}
+
+export function battle_entity_to_protcol(_struct:battle_entity) {
+    let _protocol:any = {}
+    _protocol["entity_id"] = _struct.entity_id
+    _protocol["nick_name"] = _struct.nick_name
+    _protocol["appearance"] = _struct.appearance
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
+    if (_struct.skills) {
+        _array_skills = []
+        for (let v_ of _struct.skills) {
+            _array_skills.push(skill_info_to_protcol(v_))
+        }
+        _protocol["skills"] = _array_skills
+    }
+    return _protocol;
+}
+
+export function protcol_to_battle_entity(_protocol:any) {
+    let _struct = new battle_entity()
+    for (let key in _protocol) {
+        let val = _protocol[key];
+        if (key == "entity_id") {
+            _struct.entity_id = val;
+        }
+        else if (key == "nick_name") {
+            _struct.nick_name = val;
+        }
+        else if (key == "appearance") {
+            _struct.appearance = val;
+        }
+        else if (key == "abonus") {
+            _struct.abonus = protcol_to_attribute(val);
+        }
+        else if (key == "skills") {
+            _struct.skills = []
+            for (let v_ of val) {
+                _struct.skills.push(protcol_to_skill_info(v_));
+            }
+        }
+    }
+    return _struct;
+
+}
+
+export class battle_info {
      public gender:number = 0
+     public wait_bbs:Array<bb> = null
+     public battle_team:Array<battle_entity> = null
+     public items:Array<item> = null
      public scene:string = ""
 }
 
 export function battle_info_to_protcol(_struct:battle_info) {
     let _protocol:any = {}
-    _protocol["player_id"] = _struct.player_id
-    _protocol["player_nick_name"] = _struct.player_nick_name
-    _protocol["player_appearance"] = _struct.player_appearance
-    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
-    _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
-    if (_struct.equips) {
-        _array_equips = []
-        for (let v_ of _struct.equips) {
-            _array_equips.push(equip_info_to_protcol(v_))
+    _protocol["gender"] = _struct.gender
+    if (_struct.wait_bbs) {
+        _array_wait_bbs = []
+        for (let v_ of _struct.wait_bbs) {
+            _array_wait_bbs.push(bb_to_protcol(v_))
         }
-        _protocol["equips"] = _array_equips
+        _protocol["wait_bbs"] = _array_wait_bbs
     }
-    if (_struct.bbs) {
-        _array_bbs = []
-        for (let v_ of _struct.bbs) {
-            _array_bbs.push(bb_to_protcol(v_))
+    if (_struct.battle_team) {
+        _array_battle_team = []
+        for (let v_ of _struct.battle_team) {
+            _array_battle_team.push(battle_entity_to_protcol(v_))
         }
-        _protocol["bbs"] = _array_bbs
-    }
-    if (_struct.curr_bb) {
-        _array_curr_bb = []
-        for (let v_ of _struct.curr_bb) {
-            _array_curr_bb.push(bb_to_protcol(v_))
-        }
-        _protocol["curr_bb"] = _array_curr_bb
+        _protocol["battle_team"] = _array_battle_team
     }
     if (_struct.items) {
         _array_items = []
@@ -693,7 +737,6 @@ export function battle_info_to_protcol(_struct:battle_info) {
         }
         _protocol["items"] = _array_items
     }
-    _protocol["gender"] = _struct.gender
     _protocol["scene"] = _struct.scene
     return _protocol;
 }
@@ -702,37 +745,19 @@ export function protcol_to_battle_info(_protocol:any) {
     let _struct = new battle_info()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "player_id") {
-            _struct.player_id = val;
+        if (key == "gender") {
+            _struct.gender = val;
         }
-        else if (key == "player_nick_name") {
-            _struct.player_nick_name = val;
-        }
-        else if (key == "player_appearance") {
-            _struct.player_appearance = val;
-        }
-        else if (key == "abonus") {
-            _struct.abonus = protcol_to_attribute(val);
-        }
-        else if (key == "curr_gf") {
-            _struct.curr_gf = protcol_to_gongfa(val);
-        }
-        else if (key == "equips") {
-            _struct.equips = []
+        else if (key == "wait_bbs") {
+            _struct.wait_bbs = []
             for (let v_ of val) {
-                _struct.equips.push(protcol_to_equip_info(v_));
+                _struct.wait_bbs.push(protcol_to_bb(v_));
             }
         }
-        else if (key == "bbs") {
-            _struct.bbs = []
+        else if (key == "battle_team") {
+            _struct.battle_team = []
             for (let v_ of val) {
-                _struct.bbs.push(protcol_to_bb(v_));
-            }
-        }
-        else if (key == "curr_bb") {
-            _struct.curr_bb = []
-            for (let v_ of val) {
-                _struct.curr_bb.push(protcol_to_bb(v_));
+                _struct.battle_team.push(protcol_to_battle_entity(v_));
             }
         }
         else if (key == "items") {
@@ -740,9 +765,6 @@ export function protcol_to_battle_info(_protocol:any) {
             for (let v_ of val) {
                 _struct.items.push(protcol_to_item(v_));
             }
-        }
-        else if (key == "gender") {
-            _struct.gender = val;
         }
         else if (key == "scene") {
             _struct.scene = val;

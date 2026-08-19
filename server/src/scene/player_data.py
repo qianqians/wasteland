@@ -72,18 +72,18 @@ class player_data(save, player):
     def client_info(self) -> dict:
         return self.store()
 
-    def battle_info(self) -> dict:
+    def battle_info(self) -> battle_info:
         from .battle_entity import battle_entity
         battle_team = [battle_entity(self.player_id, self.player_nick_name, self.appearance, self.attribute_data.info(), self.skill_data.skills.values())]
         for b in self.bb_data.curr_bb:
             battle_team.append(b.attribute.entity_id, b.nick_name, b.appearance, b.attribute.info(), b.skills.values())
-        return {
-            "wait_bbs": self.bb_data.wait_info(),
-            "items": self.bag_data.bag.values(),
-            "gender": self.gender,
-            "scene": self.scene.scene_name,
-            "battle_team": battle_team,
-        }
+        info = battle_info()
+        info.wait_bbs = self.bb_data.wait_info()
+        info.items = self.bag_data.bag.values()
+        info.gender = self.gender
+        info.scene = self.scene.scene_name
+        info.battle_team = battle_team
+        return info
     
     def entry_scene(self, _scene:any):
         from .scene import scene

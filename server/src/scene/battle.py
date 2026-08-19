@@ -5,6 +5,11 @@ from ..engine.battle_ntf_client_svr import *
 from .player_data import *
 from .scene import *
 
+class em_victory_team(Enum):
+    em_victory_battle_keep_going = 0
+    em_victory_team_self = 1
+    em_victory_team_enemy = -1
+
 class battle:
     def __init__(self, _scene:scene, self_handle:player_data, enemy_handle:player_data, self_info:battle_info, enemy_info:battle_info, battle_module:battle_module):
         self.scene = _scene
@@ -31,7 +36,23 @@ class battle:
     # 战斗未结束返回 0
     #
     def __check_battle_end__(self) -> int:
-        pass
+        is_failed = True
+        for d in self.self_info.battle_team:
+            if d.abonus.hp > 0:
+                is_failed = False
+                break
+        if is_failed:
+            return em_victory_team.em_victory_team_enemy
+
+        is_failed = True
+        for d in self.enemy_info.battle_team:
+            if d.abonus.hp > 0:
+                is_failed = False
+                break
+        if is_failed:
+            return em_victory_team.em_victory_team_self
+
+        return em_victory_team.em_victory_battle_keep_going
 
     def on_auto_battle(self, rsp:battle_auto_battle_rsp, skill_id:int):
         pass

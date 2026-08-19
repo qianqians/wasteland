@@ -35,8 +35,10 @@ enum em_equip_type {
 }
 
 struct attribute {
-    int32 add_hp;
-    int32 add_mp;
+    int32 hp;
+    int32 mp;
+    int32 max_hp;
+    int32 max_mp;
     int32 attack;
     int32 defense;
     int32 matk;
@@ -133,7 +135,7 @@ struct player_info {
     gongfa[] gfs;            // 玩家修炼过的功法
     gongfa curr_gf;          // 玩家当前使用的功法
     equip_info[] equips;     // 玩家穿戴的装备
-    bb[] bbs;                // 玩家携带的宠物
+    bb[] wait_bbs;                // 玩家携带的宠物
     bb[] curr_bb;            // 当前出战宠物
     item[] items;            // 玩家背包 
     task_info[] tasks;       // 领取的任务
@@ -143,16 +145,18 @@ struct player_info {
 	position pos;            // 玩家位置
 }
 
+struct battle_entity {
+    string entity_id;
+    string nick_name;
+    string appearance;
+    attribute abonus;
+    skill_info[] skills;
+}
+
 struct battle_info {
-    string player_id;
-    string player_nick_name; // 玩家昵称
-    int32 player_appearance; // 玩家外观
-    attribute abonus;        // 玩家基础属性
-    gongfa curr_gf;          // 玩家当前使用的功法
-    equip_info[] equips;     // 玩家穿戴的装备
-    bb[] bbs;                // 玩家携带的宠物
-    bb[] curr_bb;            // 当前出战宠物
-    item[] items;            // 玩家背包 
-    int32 gender;            // 玩家性别
-	string scene;            // 玩家所在战斗场景
+    int32 gender;                // 玩家性别
+    bb[] wait_bbs;               // 玩家携带的宠物
+    battle_entity[] battle_team; // 出战单位
+    item[] items;                // 玩家背包 
+	string scene;                // 玩家所在战斗场景
 }
