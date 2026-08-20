@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="19" nextobjectid="26">
  <tileset firstgid="1" source="map_ice.tsx"/>
- <imagelayer id="2" name="bg" offsetx="2000" offsety="0" parallaxx="0.2" repeatx="1">
-  <image source="bg.jpg" width="2048" height="2048"/>
- </imagelayer>
  <layer id="8" name="mid" width="60" height="20" offsetx="-200" offsety="0" parallaxx="0.8">
   <data encoding="csv">
 62,63,64,0,0,0,0,0,0,0,0,0,0,0,0,0,82,83,84,85,86,87,88,0,0,10,11,12,13,14,15,16,0,0,0,0,0,0,0,0,0,2147483760,2147483759,2147483758,2147483757,2147483756,2147483755,0,0,0,0,0,0,1073741834,1073741835,1073741836,1073741837,1073741838,1073741839,1073741840,

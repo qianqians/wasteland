@@ -85,7 +85,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "32EIkX4uZPia+byT9AL9um"
+    "fileId": "969BNFTY9Jw4MIB04P5xmU"
   },
   {
     "__type__": "sp.Skeleton",
@@ -114,7 +114,7 @@
       "__expectedType__": "sp.SkeletonData"
     },
     "defaultSkin": "default",
-    "defaultAnimation": "<None>",
+    "defaultAnimation": "",
     "_premultipliedAlpha": true,
     "_timeScale": 1,
     "_preCacheMode": 0,
@@ -130,7 +130,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "efPBrZtm9EPpVmB51mPo96"
+    "fileId": "55Q6JGdAFLy6xpqyX2yPVf"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -140,7 +140,7 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "e744HgHJ1Ll7F7tBJqiw/R",
+    "fileId": "b0LXVLEotBrJdbywFBCfGF",
     "targetOverrides": null
   }
 ]

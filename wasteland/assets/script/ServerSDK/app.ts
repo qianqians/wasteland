@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, CCInteger } from 'cc';
+import { _decorator, Component, Node, CCInteger, director } from 'cc';
 const { ccclass, property } = _decorator;
 import * as engine from './engine/engine'
 import * as login from './engine/login_cli'
@@ -83,6 +83,8 @@ export class new_driver extends Component {
         this._app.on_conn = () => {
             engine.app.instance.login("1234567890qwerdsa", {"em_platform":this.platform})
         };
+
+        director.addPersistRootNode(this.node);
     }
 
     update(deltaTime: number) {

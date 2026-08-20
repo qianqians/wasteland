@@ -2,12 +2,12 @@
   "ver": "1.1.50",
   "importer": "prefab",
   "imported": true,
-  "uuid": "b25119fb-1a83-400f-814f-0fece851cb5d",
+  "uuid": "bc8f5f90-12f6-42d9-bc46-e75426a44404",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "protagonist_female"
+    "syncNodeName": "skyland"
   }
 }
