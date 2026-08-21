@@ -1,0 +1,35 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "全部文件 (*)",
+    "fileStates": {
+        "H:/【work】/浅浅的游戏UI界面设计原型/tiledMap/天空之陆/map_ice.tsx": {
+            "scaleInDock": 1
+        },
+        "H:/【work】/浅浅的游戏UI界面设计原型/tiledMap/天空之陆/map_skyland.tmx": {
+            "scale": 0.31133663366336634,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1819.573859119097,
+                "y": 1023.0084274129431
+            }
+        }
+    },
+    "last.imagePath": "H:/【work】/浅浅的游戏UI界面设计原型/tiledMap/钟乳洞穴/images",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 32,
+    "openFiles": [
+    ],
+    "project": "stalactiteCave.tiled-project",
+    "recentFiles": [
+        "H:/【work】/浅浅的游戏UI界面设计原型/tiledMap/天空之陆/map_skyland.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}
