@@ -1,0 +1,25 @@
+[package]
+name = "render"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bytemuck = { version = "1.14", features = ["derive"] }
+cgmath = "0.18"
+wgpu = "22.1"
+log = "0.4"
+config = { path = "../config" }
+shader_framework = { path = "../shader_framework", optional = true }
+
+[dev-dependencies]
+naga = { version = "22.1", features = ["wgsl-in"] }
+
+[features]
+default = []
+profiling = []
+instancing = []
+lod = []
+hi-z-occlusion = []
+particles = []
+render-graph = []
+use-shader-framework = ["dep:shader_framework"]

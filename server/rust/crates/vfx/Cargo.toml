@@ -1,0 +1,8 @@
+[package]
+name = "vfx"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wgpu = "22.1"
+bytemuck = { version = "1.14", features = ["derive"] }

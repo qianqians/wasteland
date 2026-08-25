@@ -1,0 +1,55 @@
+[package]
+name = "game_runtime"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "geese_game"
+crate-type = ["rlib", "cdylib"]
+
+[[bin]]
+name = "geese_game"
+path = "src/main.rs"
+
+[features]
+default = []
+python-scripting = []
+python-runtime = ["pyo3", "py_engine"]
+render-graph = ["render/render-graph"]
+
+[dependencies]
+winit = "0.30"
+wgpu = "22.1"
+cgmath = "0.18"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+env_logger = "0.11"
+log = "0.4"
+tokio = { version = "1.41.1", features = ["rt", "net", "sync", "macros"] }
+bytemuck = "1.16"
+pollster = "0.3"
+
+render = { path = "../render", features = ["instancing"] }
+scene = { path = "../scene", features = ["physics"] }
+camera = { path = "../camera" }
+physics = { path = "../physics", features = ["scene-builder"] }
+gameplay_physics = { path = "../gameplay_physics" }
+input = { path = "../input" }
+asset = { path = "../asset" }
+math = { path = "../math" }
+config = { path = "../config" }
+avatar = { path = "../avatar" }
+
+# Feature-gated (python-runtime)
+pyo3 = { version = "0.26.0", features = ["extension-module"], optional = true }
+py_engine = { path = "../py_engine", optional = true }
+
+[target.'cfg(target_os = "android")'.dependencies]
+winit = { version = "0.30", features = ["android-native-activity"] }
+android_logger = "0.14"
+
+[package.metadata.android]
+package_name = "com.geese.game"
+label = "Geese Game"
+sdk_version = 24
+target_sdk_version = 34

@@ -1,0 +1,25 @@
+[package]
+name = "asset"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+gltf = {version = "1.4.1", features = ["extras", "names"]}
+log = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.3.3", features = ["v4"] }
+walkdir = "2"
+tokio = { version = "1", features = ["rt", "sync"] }
+vfs = { path = "../vfs", optional = true }
+notify = { version = "7", optional = true }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"], optional = true }
+
+[features]
+default = []
+hot-reload = ["notify"]
+vfs-integration = ["vfs"]
+cooking = ["image"]
+
+[dev-dependencies]
+tempfile = "3"

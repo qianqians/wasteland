@@ -1,0 +1,11 @@
+[package]
+name = "health"
+version = "0.1.0"
+edition = "2024"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tracing = "0.1.37"
+axum = "0.7.9"
+tokio = { version = "1.41.1", features = ["full"] }
