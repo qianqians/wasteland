@@ -80,7 +80,7 @@ class LoginCharacterCallback(player):
             if zone_info_str is not None and zone_info_str != "":
                 zone_info = json.loads(zone_info_str)
                 argv =  {"player_id":player_id}
-                forward_client_query_service(f"{zone_info["zone"]}_{zone_info["line"]}", self.GateName, gate_host, self.ConnID, argv)
+                forward_client_query_service(f"{zone_info['zone']}_{zone_info['line']}", self.GateName, gate_host, self.ConnID, argv)
             else:
                 rsp.err(error_code.undefined_player_id)
                 return

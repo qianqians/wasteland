@@ -55,7 +55,7 @@ class LoginEventHandle(login_event_handle):
 
             err = response.get("error")
             if err != None:
-                error = f"steam check errorcode:{err.get("errorcode")} errordesc:{err.get("errordesc")}"
+                error = f"steam check errorcode:{err.get('errorcode')} errordesc:{err.get('errordesc')}"
                 break
 
             params = response.get("params")

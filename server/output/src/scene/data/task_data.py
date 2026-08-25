@@ -56,17 +56,17 @@ class task_data:
             return
         
         if self.player_data.level < tconf["unlock_level"]:
-            app().error(f"player_id:{self.user_id} {self.player_data.level} unlock_level{tconf["unlock_level"]} id={talk_id}")
+            app().error(f"player_id:{self.user_id} {self.player_data.level} unlock_level{tconf['unlock_level']} id={talk_id}")
             rsp.err(error_code.unlock_level_not_completed)
             return
         
         if tconf["need_talk"] not in self.talk:
-            app().error(f"player_id:{self.user_id} need_talk={tconf["need_talk"]}, talk_list={self.talk}, id={talk_id}")
+            app().error(f"player_id:{self.user_id} need_talk={tconf['need_talk']}, talk_list={self.talk}, id={talk_id}")
             rsp.err(error_code.unlock_talk_task)
             return
         
         if not self.player_data.scene.have_npc(tconf["talk_npc"]):
-            app().error(f"player_id:{self.user_id} talk_npc={tconf["talk_npc"]} not in scene, id={talk_id}")
+            app().error(f"player_id:{self.user_id} talk_npc={tconf['talk_npc']} not in scene, id={talk_id}")
             rsp.err(error_code.talk_npc_not_scene)
             return
         
@@ -96,7 +96,7 @@ class task_data:
             app().error(f"player_id:{self.user_id} task config not found, id={task_id}")
             return
         if tconf["complete_type"] == 2 and tconf["complete_talk"] not in self.talk:
-            app().error(f"player_id:{self.user_id} task not completed talk:{tconf["complete_talk"]}, id={task_id}")
+            app().error(f"player_id:{self.user_id} task not completed talk:{tconf['complete_talk']}, id={task_id}")
             return
         
         task_info.status = em_task_state.completed

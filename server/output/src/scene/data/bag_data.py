@@ -55,21 +55,6 @@ class bag_data:
         
         pkg_item:list[item] = [i for i in items if i != None]
         self.caller.drop(task_id, pkg_item, [i for i in self.bag.values() if i != None])
-        
-    def use_item(self, item_id:str, rsp:battle_use_item_rsp, attr_data:attribute_data):
-        for _, i in self.bag.items():
-            if i.item_id == item_id:
-                i.item_count -= 1
-                if i.item_count <= 0:
-                    del self.bag[i.item_id]
-                    
-                item_c = get_item_config(i.item_type)
-                attr_data.hp += item_c["hp"]
-                attr_data.mp += item_c["mp"]
-                
-                rsp.rsp(i)
-                return
-        rsp.err(error_code.no_this_item)
 
 def bag_create() -> bag_data:
     return bag_data({})

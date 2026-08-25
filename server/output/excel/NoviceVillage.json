@@ -1,0 +1,8 @@
+{
+    "wasteland": {
+        "area": "wasteland",
+        "novice_village": "wasteland_novice_village",
+        "postion_x": "[1.5,5.6]",
+        "postion_y": 10
+    }
+}
