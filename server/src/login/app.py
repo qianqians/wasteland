@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 import sys
 from ..engine.engine import *
+from ..engine import login_svr
 from .character import *
 import google_sdk
+import steam_sdk
 
 class LoginErrorCallback(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
@@ -37,8 +39,8 @@ class LoginEventHandle(login_event_handle):
             return await self.__get_guid_handle__.gen()
         else:
             return uuid_obj["GUID"]
-        
-    async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
+
+    async def __login_google__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
         response = await google_sdk.verify_google_play_player(self.AppID, self.Secret, sdk_uuid)
         if response == None:
@@ -52,14 +54,77 @@ class LoginEventHandle(login_event_handle):
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
+
+    async def __login_steam__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
+        response = await steam_sdk.code2Session(self.AppID, self.Secret, sdk_uuid)
+        error = None
+        steamid = None
+        while True:
+            if response == None:
+                error = "network error"
+                break
+
+            response = response.get("response")
+            if response == None:
+                error = "invalid steam ticket"
+                break
+
+            err = response.get("error")
+            if err != None:
+                error = f"steam check errorcode:{err.get('errorcode')} errordesc:{err.get('errordesc')}"
+                break
+
+            params = response.get("params")
+            if params == None:
+                error = "invalid steam ISteamUserAuth"
+                break
+
+            result = params.get("result")
+            if result != "OK":
+                error = "steam ISteamUserAuth failed"
+                break
+
+            vacbanned = params.get("vacbanned")
+            if vacbanned:
+                error = "player is be vacbanned"
+                break
+
+            publisherbanned = params.get("publisherbanned")
+            if publisherbanned:
+                error = "player is be publisherbanned"
+                break
+            
+            steamid = params.get("steamid")
+            if steamid == None:
+                error = "steamid is none"
+            
+            break
+
+        if error != None:
+            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
+            _p.create_main_remote_entity()
+            return
+
+        accound_id = await self.__get_client_account_id__(steamid)
+        _character = LoginCharacterCallback(self, 
+            accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
+        await _character.init()
+        app().player_mgr.add_player(_character)
+        _character.create_main_remote_entity()
+        
+    async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool, platform :login_svr.em_platform):
+        if platform == login_svr.em_platform.EPlatformGoogle:
+            self.__login_google__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
+        elif platform == login_svr.em_platform.EPlatformSteam:
+            self.__login_steam__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
                 
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_login!")
-        self.__login__(new_gate_name, new_conn_id, sdk_uuid, False)
+        self.__login__(new_gate_name, new_conn_id, sdk_uuid, False, argvs["em_platform"])
     
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
-        self.__login__(new_gate_name, new_conn_id, sdk_uuid, True)
+        self.__login__(new_gate_name, new_conn_id, sdk_uuid, True, argvs["em_platform"])
     
 def main(cfg_file:str):
     _app = app()

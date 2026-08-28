@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, CCInteger, director } from 'cc';
+import { _decorator, Component, Node, CCInteger, director, sys, native } from 'cc';
 const { ccclass, property } = _decorator;
 import * as engine from './engine/engine'
 import * as login from './engine/login_cli'
@@ -77,11 +77,28 @@ export class new_driver extends Component {
     platform = login.em_platform.EPlatformGoogle;
 
     start() {
+        (window as any).onGooglePlayAuthResult = (success: boolean, result: string) => {
+            if (success) {
+                console.log('[GooglePlay] 获取 AuthCode 成功:', result);
+                this.sendAuthCodeToGameServer(result);
+            } else {
+                console.error('[GooglePlay] 鉴权失败:', result);
+            }
+        };
+
         this._app = new engine.app();
         this._app.build(new ClientEventHandle());
         this._app.connect_websocket(new WSContext(), "ws://127.0.0.1:8100");
         this._app.on_conn = () => {
-            engine.app.instance.login("1234567890qwerdsa", {"em_platform":this.platform})
+            if (sys.isNative && sys.os === sys.OS.ANDROID) {
+                native.reflection.callStaticMethod(
+                    'com/cocos/game/AppActivity',
+                    'requestServerSideAccess',
+                    '()V'
+                );
+            } else {
+                console.warn('当前不是 Android 原生平台，跳过 Google Play 登录');
+            }
         };
 
         director.addPersistRootNode(this.node);
@@ -89,5 +106,9 @@ export class new_driver extends Component {
 
     update(deltaTime: number) {
         this._app.poll();
+    }
+
+    private sendAuthCodeToGameServer(authCode: string) {
+         engine.app.instance.login(authCode, {"em_platform":this.platform})
     }
 }
