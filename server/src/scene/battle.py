@@ -93,7 +93,7 @@ class battle:
     def __use_skill__(self, e:battle_entity, skill_id:int, target:str):
         skc:skill_config = None
         tg:list[battle_entity] = []
-        if target != "": 
+        if target != None and target != "": 
             tg = [self.__get_target__(target)]
         for skillc in configs.skill_list:
             if skillc["id"] == skill_id:
