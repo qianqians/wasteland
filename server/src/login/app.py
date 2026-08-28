@@ -1,8 +1,8 @@
 # -*- coding: UTF-8 -*-
 import sys
 from ..engine.engine import *
-from .steam_sdk import *
 from .character import *
+import google_sdk
 
 class LoginErrorCallback(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
@@ -40,56 +40,13 @@ class LoginEventHandle(login_event_handle):
         
     async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
-        response = await code2Session(self.AppID, self.Secret, sdk_uuid)
-        error = None
-        steamid = None
-        while True:
-            if response == None:
-                error = "network error"
-                break
-
-            response = response.get("response")
-            if response == None:
-                error = "invalid steam ticket"
-                break
-
-            err = response.get("error")
-            if err != None:
-                error = f"steam check errorcode:{err.get('errorcode')} errordesc:{err.get('errordesc')}"
-                break
-
-            params = response.get("params")
-            if params == None:
-                error = "invalid steam ISteamUserAuth"
-                break
-
-            result = params.get("result")
-            if result != "OK":
-                error = "steam ISteamUserAuth failed"
-                break
-
-            vacbanned = params.get("vacbanned")
-            if vacbanned:
-                error = "player is be vacbanned"
-                break
-
-            publisherbanned = params.get("publisherbanned")
-            if publisherbanned:
-                error = "player is be publisherbanned"
-                break
-            
-            steamid = params.get("steamid")
-            if steamid == None:
-                error = "steamid is none"
-            
-            break
-
-        if error != None:
-            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, error)
+        response = await google_sdk.verify_google_play_player(self.AppID, self.Secret, sdk_uuid)
+        if response == None:
+            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
             return
-        
-        accound_id = await self.__get_client_account_id__(steamid)
+
+        accound_id = await self.__get_client_account_id__(response["player_id"])
         _character = LoginCharacterCallback(self, 
             accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
         await _character.init()
@@ -107,7 +64,7 @@ class LoginEventHandle(login_event_handle):
 def main(cfg_file:str):
     _app = app()
     _app.build(cfg_file)
-    _app.build_login_service(LoginEventHandle("xxxxxxx", "xxxxxxx", "wasteland", "account"))
+    _app.build_login_service(LoginEventHandle("89726211606-14i9eofkndg6bmkm5s0jud47lv4r862c.apps.googleusercontent.com", "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", "wasteland", "account"))
     _app.register_service("login")
     _app.run()
     

@@ -8,3 +8,4 @@ maturin==1.9.0
 multidict==6.6.3
 propcache==0.3.2
 yarl==1.20.1
+requests==2.34.2

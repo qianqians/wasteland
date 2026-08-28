@@ -98,16 +98,19 @@ class battle:
             if skillc["id"] == skill_id:
                 skc = skillc
                 team:list[battle_entity] = []
-                if skillc["skill_type"] == em_skill_type.em_skill_attack: team = self.enemy_info.battle_team
-                elif skillc["skill_type"] == em_skill_type.em_skill_revive: team = self.self_info.battle_team
+                if skillc["skill_type"] == em_skill_type.em_skill_attack: 
+                    team = self.enemy_info.battle_team
+                elif skillc["skill_type"] == em_skill_type.em_skill_revive: 
+                    team = self.self_info.battle_team
                 num = skc["attack_range"]-len(tg)
-                if num > 0: tg.extend(random.choices(team, k=num))
+                if num > 0: 
+                    tg.extend(random.choices(team, k=num))
                 break
         for t in tg:
-            if skillc["skill_type"] == em_skill_type.em_skill_attack:
-                t.abonus.hp -= skillc["attack"]
-            elif skillc["skill_type"] == em_skill_type.em_skill_revive:
-                t.abonus.hp += skillc["attack"]
+            if skc["skill_type"] == em_skill_type.em_skill_attack:
+                t.abonus.hp -= skc["attack"]
+            elif skc["skill_type"] == em_skill_type.em_skill_revive:
+                t.abonus.hp += skc["attack"]
 
     def __battle__(self, sort_entity:list[battle_entity]):
         for e in sort_entity:
