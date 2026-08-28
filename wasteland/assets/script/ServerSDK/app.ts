@@ -100,6 +100,7 @@ export class new_driver extends Component {
                 console.warn('当前不是 Android 原生平台，跳过 Google Play 登录');
             }
         };
+        //this._app.register()
 
         director.addPersistRootNode(this.node);
     }
@@ -109,6 +110,6 @@ export class new_driver extends Component {
     }
 
     private sendAuthCodeToGameServer(authCode: string) {
-         engine.app.instance.login(authCode, {"em_platform":this.platform})
+        engine.app.instance.login(authCode, {"em_platform":this.platform})
     }
 }
