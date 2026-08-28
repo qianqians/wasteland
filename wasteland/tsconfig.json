@@ -4,6 +4,7 @@
 
   /* Add your custom configuration here. */
   "compilerOptions": {
+    "moduleResolution": "bundler",
     "strict": false,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
