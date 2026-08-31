@@ -56,6 +56,24 @@ class em_task_state(Enum):
     completed = 4
 
 
+class em_player_appearance(Enum):
+    em_player_appearance_female_0 = 0
+    em_player_appearance_female_1 = 1
+    em_player_appearance_female_2 = 2
+    em_player_appearance_female_3 = 3
+    em_player_appearance_female_4 = 4
+    em_player_appearance_male_0 = 5
+    em_player_appearance_male_1 = 6
+    em_player_appearance_male_2 = 7
+    em_player_appearance_male_3 = 8
+    em_player_appearance_male_4 = 9
+
+
+class em_role_gender(Enum):
+    em_role_gender_female = 0
+    em_role_gender_male = 1
+
+
 #this struct code is codegen by geese codegen for python
 class attribute(object):
     def __init__(self):
@@ -430,7 +448,7 @@ class player_info(object):
         self.account_id:str = ""
         self.player_id:str = ""
         self.player_nick_name:str = ""
-        self.player_appearance:int = 0
+        self.player_appearance:em_player_appearance = 0
         self.abonus:attribute = None
         self.gfs:list[gongfa] = []
         self.curr_gf:gongfa = None
@@ -439,7 +457,7 @@ class player_info(object):
         self.curr_bb:list[bb] = []
         self.items:list[item] = []
         self.tasks:list[task_info] = []
-        self.gender:int = 0
+        self.gender:em_role_gender = 0
         self.scene:str = ""
         self.line:int = 0
         self.pos:position = None
@@ -591,7 +609,7 @@ def protcol_to_battle_entity(_protocol:dict):
 
 class battle_info(object):
     def __init__(self):
-        self.gender:int = 0
+        self.gender:em_role_gender = 0
         self.wait_bbs:list[bb] = []
         self.battle_team:list[battle_entity] = []
         self.items:list[item] = []

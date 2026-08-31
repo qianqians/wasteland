@@ -71,7 +71,7 @@ class login_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_create_character:list[Callable[[login_create_character_rsp, str, int, str], None]] = []
+        self.on_create_character:list[Callable[[login_create_character_rsp, str, em_role_gender, em_player_appearance, str], None]] = []
         self.entity.reg_client_request_callback("create_character", self.create_character)
         self.on_select_character:list[Callable[[login_select_character_rsp, str], None]] = []
         self.entity.reg_client_request_callback("select_character", self.select_character)
@@ -80,10 +80,11 @@ class login_module(object):
         inArray = loads(bin)
         _player_nick_name = inArray[0]
         _gender = inArray[1]
-        _scene = inArray[2]
+        _appearance = inArray[2]
+        _scene = inArray[3]
         rsp = login_create_character_rsp(gate_name, conn_id, msg_cb_id, self.entity)
         for fn in self.on_create_character:
-            fn(rsp, _player_nick_name, _gender, _scene)
+            fn(rsp, _player_nick_name, _gender, _appearance, _scene)
 
     def select_character(self, gate_name:str, conn_id:str, msg_cb_id:int, bin:bytes):
         inArray = loads(bin)

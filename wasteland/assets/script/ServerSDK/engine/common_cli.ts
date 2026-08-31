@@ -52,6 +52,24 @@ export enum em_task_state {
     completed = 4,
 }
 
+export enum em_player_appearance {
+    em_player_appearance_female_0 = 0,
+    em_player_appearance_female_1 = 1,
+    em_player_appearance_female_2 = 2,
+    em_player_appearance_female_3 = 3,
+    em_player_appearance_female_4 = 4,
+    em_player_appearance_male_0 = 5,
+    em_player_appearance_male_1 = 6,
+    em_player_appearance_male_2 = 7,
+    em_player_appearance_male_3 = 8,
+    em_player_appearance_male_4 = 9,
+}
+
+export enum em_role_gender {
+    em_role_gender_female = 0,
+    em_role_gender_male = 1,
+}
+
 // this struct code is codegen by geese codegen for ts
 export class attribute {
      public hp:number = 0
@@ -507,7 +525,7 @@ export class player_info {
      public account_id:string = ""
      public player_id:string = ""
      public player_nick_name:string = ""
-     public player_appearance:number = 0
+     public player_appearance:em_player_appearance = em_player_appearance.em_player_appearance_female_0
      public abonus:attribute = null
      public gfs:Array<gongfa> = null
      public curr_gf:gongfa = null
@@ -516,7 +534,7 @@ export class player_info {
      public curr_bb:Array<bb> = null
      public items:Array<item> = null
      public tasks:Array<task_info> = null
-     public gender:number = 0
+     public gender:em_role_gender = em_role_gender.em_role_gender_female
      public scene:string = ""
      public line:number = 0
      public pos:position = null
@@ -716,7 +734,7 @@ export function protcol_to_battle_entity(_protocol:any) {
 }
 
 export class battle_info {
-     public gender:number = 0
+     public gender:em_role_gender = em_role_gender.em_role_gender_female
      public wait_bbs:Array<bb> = null
      public battle_team:Array<battle_entity> = null
      public items:Array<item> = null

@@ -9,13 +9,13 @@ async def __get_object_one_callback_set_future__(future:asyncio.Future, data:dic
     future.set_result(data)
 
 class LoginCharacterCallback(player):
-    def __init__(self, handle:login_event_handle, accound_id:str, entity_id:str, gate_name:str, conn_id:str, is_replace: bool):
+    def __init__(self, handle:login_event_handle, player_id:str, entity_id:str, gate_name:str, conn_id:str, is_replace: bool):
         player.__init__("login", "LoginCharacterCallback", entity_id, gate_name, conn_id, False)
         
         self.handle = handle
         self.is_replace = is_replace
         
-        self.AccountID = accound_id
+        self.PlayerID = player_id
         self.DBproxy = app().dbproxy_mgr.get_dbproxy()
         
         self.GateName = gate_name
@@ -52,13 +52,14 @@ class LoginCharacterCallback(player):
     def on_migrate_to_other_hub(self, migrate_hub:str):
         pass
     
-    def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:int, area:str):
+    def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:em_role_gender, appearance:em_player_appearance, area:str):
         line = random.randint(1, const.WorldLineCount)
         gate_host = app().ctx.gate_host(self.GateName)
         argv = {
-            "account_id": self.AccountID,
+            "player_id": self.PlayerID,
             "player_nick_name": player_nick_name,
-            "gender":gender
+            "gender": gender,
+            "appearance": appearance,
         }
         forward_client_query_service(f"{area}_{line}", self.GateName, gate_host, self.ConnID, argv)
         rsp.rsp()
@@ -84,7 +85,7 @@ class LoginCharacterCallback(player):
             else:
                 rsp.err(error_code.undefined_player_id)
                 return
-        rsp.rsp()
+        rsp.rsp(self.Character[0])
         
     def __on_select_character__(self, rsp:login_select_character_rsp, player_id:str):
         app().run_coroutine_async(self.__select_character_callback__(rsp, player_id))

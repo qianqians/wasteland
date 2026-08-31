@@ -2,6 +2,7 @@ import { _decorator, Component, Node, CCInteger, director, sys, native } from 'c
 const { ccclass, property } = _decorator;
 import * as engine from './engine/engine'
 import * as login from './engine/login_cli'
+import { LoginCallback } from '../Login/LoginCallback'
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
@@ -100,7 +101,9 @@ export class new_driver extends Component {
                 console.warn('当前不是 Android 原生平台，跳过 Google Play 登录');
             }
         };
-        //this._app.register()
+        this._app.register("LoginCharacterCallback", (entity_id: string, description: object) => {
+            return LoginCallback.Creator(entity_id, this.node, description);
+        });
 
         director.addPersistRootNode(this.node);
     }

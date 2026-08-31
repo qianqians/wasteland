@@ -112,7 +112,7 @@
     Spirit resist  抗性
     K                    灵力段数    
 
-    (hp/defense)*(attack* (K/(defense + K)))
+    (hp/defense)*(attack/(defense + attack))
 
     K = 300
     attack = attack * (K/(defense + K))

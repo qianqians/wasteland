@@ -58,7 +58,7 @@ export class BundleManager
         return loadingBundle;
     }
 
-    public LoadAssetFromBundle<T extends Asset>(bundleRes:string, assetsRes:string, assetType:any) : Promise<T> {
+    public LoadAssetFromBundle2<T extends Asset>(bundleRes:string, assetsRes:string, assetType:any) : Promise<T> {
         const cacheKey = `${bundleRes}/${assetsRes}/${assetType?.name ?? 'Asset'}`;
 
         // 命中已加载缓存，立即同步返回
@@ -116,8 +116,8 @@ export class BundleManager
         }
     }
 
-    public LoadAssetsFromBundle(bundleRes:string, assetsRes:string) : Promise<Asset> {   
-        return this.LoadAssetFromBundle<Asset>(bundleRes, assetsRes, Asset);
+    public LoadAssetFromBundle(bundleRes:string, assetsRes:string) : Promise<Asset> {   
+        return this.LoadAssetFromBundle2<Asset>(bundleRes, assetsRes, Asset);
     }
 
     public LoadAssetsFromUrl(url:string, _ext:string) : Promise<Asset> {

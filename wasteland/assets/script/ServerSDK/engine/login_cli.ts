@@ -87,10 +87,11 @@ export class login_caller {
         this.entity = entity;
     }
 
-    public  create_character(player_nick_name:string, gender:number, scene:string) {
+    public  create_character(player_nick_name:string, gender:common.em_role_gender, appearance:common.em_player_appearance, scene:string) {
         let _argv_b09e2393_3876_3f7c_be40_cdd789a21e87:any[] = []
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(player_nick_name);
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(gender);
+        _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(appearance);
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(scene);
         let _cb_uuid = this.entity.call_hub_request("create_character", encode(_argv_b09e2393_3876_3f7c_be40_cdd789a21e87));
         return new login_create_character_cb(_cb_uuid, this.entity);
