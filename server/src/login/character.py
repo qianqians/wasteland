@@ -73,7 +73,7 @@ class LoginCharacterCallback(player):
                 self.GateName, 
                 self.ConnID, 
                 self.is_replace, 
-                "其他位置登录!")
+                "Login at other terminal device!")
         else:
             gate_host = app().ctx.gate_host(self.GateName)
             zone_info_str = await app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(player_id))

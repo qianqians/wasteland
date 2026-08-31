@@ -2,7 +2,7 @@
   "ver": "1.0.27",
   "importer": "image",
   "imported": true,
-  "uuid": "892d4e99-0cd2-4fcd-abaf-8f5333f2f348",
+  "uuid": "916b802d-3455-47ed-83c2-8ed9ccc87473",
   "files": [
     ".jpg",
     ".json"
@@ -10,14 +10,14 @@
   "subMetas": {
     "6c48a": {
       "importer": "texture",
-      "uuid": "892d4e99-0cd2-4fcd-abaf-8f5333f2f348@6c48a",
-      "displayName": "bg",
+      "uuid": "916b802d-3455-47ed-83c2-8ed9ccc87473@6c48a",
+      "displayName": "skyland_bg",
       "id": "6c48a",
       "name": "texture",
       "userData": {
-        "wrapModeS": "repeat",
-        "wrapModeT": "repeat",
-        "imageUuidOrDatabaseUri": "892d4e99-0cd2-4fcd-abaf-8f5333f2f348",
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "916b802d-3455-47ed-83c2-8ed9ccc87473",
         "isUuid": true,
         "visible": false,
         "minfilter": "linear",
@@ -34,8 +34,8 @@
     },
     "f9941": {
       "importer": "sprite-frame",
-      "uuid": "892d4e99-0cd2-4fcd-abaf-8f5333f2f348@f9941",
-      "displayName": "bg",
+      "uuid": "916b802d-3455-47ed-83c2-8ed9ccc87473@f9941",
+      "displayName": "skyland_bg",
       "id": "f9941",
       "name": "spriteFrame",
       "userData": {
@@ -53,7 +53,7 @@
         "borderBottom": 0,
         "borderLeft": 0,
         "borderRight": 0,
-        "packable": false,
+        "packable": true,
         "pixelsToUnit": 100,
         "pivotX": 0.5,
         "pivotY": 0.5,
@@ -113,7 +113,7 @@
           ]
         },
         "isUuid": true,
-        "imageUuidOrDatabaseUri": "892d4e99-0cd2-4fcd-abaf-8f5333f2f348@6c48a",
+        "imageUuidOrDatabaseUri": "916b802d-3455-47ed-83c2-8ed9ccc87473@6c48a",
         "atlasUuid": "",
         "trimType": "auto"
       },
@@ -129,9 +129,6 @@
     "type": "sprite-frame",
     "fixAlphaTransparencyArtifacts": false,
     "hasAlpha": false,
-    "redirect": "892d4e99-0cd2-4fcd-abaf-8f5333f2f348@6c48a",
-    "compressSettings": {
-      "useCompressTexture": true
-    }
+    "redirect": "916b802d-3455-47ed-83c2-8ed9ccc87473@6c48a"
   }
 }
