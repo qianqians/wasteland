@@ -224,5 +224,8 @@
       }
     },
     "globalConfigKey": "defaultConfig"
+  },
+  "macroConfig": {
+    "BATCHER2D_MEM_INCREMENT": 1024
   }
 }
