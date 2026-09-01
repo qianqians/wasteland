@@ -1,8 +1,9 @@
-import { _decorator, Component, Node, CCInteger, director, sys, native } from 'cc';
+import { _decorator, Component, Node, CCInteger, director, sys, native, Prefab, instantiate } from 'cc';
 const { ccclass, property } = _decorator;
 import * as engine from './engine/engine'
 import * as login from './engine/login_cli'
 import { LoginCallback } from '../Login/LoginCallback'
+import { BundleManager } from '../tools/BundleManager/BundleManager';
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
@@ -101,8 +102,9 @@ export class new_driver extends Component {
                 console.warn('当前不是 Android 原生平台，跳过 Google Play 登录');
             }
         };
-        this._app.register("LoginCharacterCallback", (entity_id: string, description: object) => {
-            return LoginCallback.Creator(entity_id, this.node, description);
+        this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
+            let create_character = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
+            return LoginCallback.Creator(entity_id, instantiate(create_character), description);
         });
 
         director.addPersistRootNode(this.node);
