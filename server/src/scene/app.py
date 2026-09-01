@@ -27,15 +27,15 @@ def main(cfg_file:str):
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())
 
-    _scene_service1 = scene_service("wasteland", 1)
-    _scene_service2 = scene_service("wasteland", 2)
-    _app.service_mgr.reg_service(_scene_service1)
-    _app.service_mgr.reg_service(_scene_service2)
+    _scene_map_skyland_1 = scene_service("map_skyland", 1)
+    _scene_map_skyland_2 = scene_service("map_skyland", 2)
+    _app.service_mgr.reg_service(_scene_map_skyland_1)
+    _app.service_mgr.reg_service(_scene_map_skyland_2)
 
     _app.register_migrate("player_data", lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
         migrate_player(main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
     
-    _app.run(lambda: [s.update() for s in (_scene_service1, _scene_service2)])
+    _app.run(lambda: [s.update() for s in (_scene_map_skyland_1, _scene_map_skyland_2)])
     
 if __name__ == '__main__':
     main(sys.argv[1])

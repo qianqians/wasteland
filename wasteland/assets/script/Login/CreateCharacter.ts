@@ -48,14 +48,14 @@ export class CreateCharacter {
                     this.appearance = em_player_appearance.em_player_appearance_female_0 + i;
                     this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
 
-                    this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_Female_{i+1}/spriteFrame`, SpriteFrame);
+                    this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_Female_${i+1}/spriteFrame`, SpriteFrame);
                 }
                 else {                    
                     this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
                     this.appearance = em_player_appearance.em_player_appearance_male_0 + i;
                     this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
 
-                    this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_male_{i+1}/spriteFrame`, SpriteFrame);
+                    this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_male_${i+1}/spriteFrame`, SpriteFrame);
                 }
             });
         }
@@ -98,11 +98,11 @@ export class CreateCharacter {
                     console.log(`CreateCharacter login _err:${_err}`) 
                 } 
             ).timeout(1000, () => {
-                console.log(`CreateCharacter login timeout!`) 
+                console.log("CreateCharacter login timeout!") 
             });
         });
 
-        this.InitGender(this.gender);
+        this.InitGender(em_role_gender.em_role_gender_male);
     }
 
     public async InitGender(_gender: em_role_gender) {
@@ -120,7 +120,7 @@ export class CreateCharacter {
             this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
             this.appearance = em_player_appearance.em_player_appearance_female_0;
             this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
-            this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_Female_1/spriteFrame`, SpriteFrame);
+            this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_Female_1/spriteFrame", SpriteFrame);
         }
         else if (this.gender == em_role_gender.em_role_gender_male) {
             this.sprite_avatar[0].spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_male_1_head/spriteFrame", SpriteFrame);
@@ -132,7 +132,7 @@ export class CreateCharacter {
             this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
             this.appearance = em_player_appearance.em_player_appearance_male_0;
             this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
-            this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_male_1/spriteFrame`, SpriteFrame);
+            this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_male_1/spriteFrame", SpriteFrame);
         }
     }
 }
