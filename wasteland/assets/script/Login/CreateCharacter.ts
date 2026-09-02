@@ -93,6 +93,8 @@ export class CreateCharacter {
                 (info) => {
                     node.destroy();
                     console.log(`CreateCharacter login success:${info}`) 
+
+                    
                 }, 
                 (_err) => { 
                     console.log(`CreateCharacter login _err:${_err}`) 

@@ -273,7 +273,7 @@ export function gongfa_bonus_to_protcol(_struct:gongfa_bonus) {
     let _protocol:any = {}
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
-        _array_skills = []
+        let _array_skills = []
         for (let v_ of _struct.skills) {
             _array_skills.push(skill_info_to_protcol(v_))
         }
@@ -350,7 +350,7 @@ export function task_progress_info_to_protcol(_struct:task_progress_info) {
     _protocol["total"] = _struct.total
     _protocol["progress"] = _struct.progress
     if (_struct.watch_task) {
-        _array_watch_task = []
+        let _array_watch_task = []
         for (let v_ of _struct.watch_task) {
             _array_watch_task.push(v_)
         }
@@ -395,7 +395,7 @@ export function task_info_to_protcol(_struct:task_info) {
     _protocol["task_id"] = _struct.task_id
     _protocol["status"] = _struct.status
     if (_struct.progress) {
-        _array_progress = []
+        let _array_progress = []
         for (let v_ of _struct.progress) {
             _array_progress.push(task_progress_info_to_protcol(v_))
         }
@@ -472,14 +472,14 @@ export function bb_to_protcol(_struct:bb) {
     _protocol["level"] = _struct.level
     _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
     if (_struct.skills) {
-        _array_skills = []
+        let _array_skills = []
         for (let v_ of _struct.skills) {
             _array_skills.push(skill_info_to_protcol(v_))
         }
         _protocol["skills"] = _array_skills
     }
     if (_struct.equips) {
-        _array_equips = []
+        let _array_equips = []
         for (let v_ of _struct.equips) {
             _array_equips.push(equip_info_to_protcol(v_))
         }
@@ -548,7 +548,7 @@ export function player_info_to_protcol(_struct:player_info) {
     _protocol["player_appearance"] = _struct.player_appearance
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.gfs) {
-        _array_gfs = []
+        let _array_gfs = []
         for (let v_ of _struct.gfs) {
             _array_gfs.push(gongfa_to_protcol(v_))
         }
@@ -556,35 +556,35 @@ export function player_info_to_protcol(_struct:player_info) {
     }
     _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
     if (_struct.equips) {
-        _array_equips = []
+        let _array_equips = []
         for (let v_ of _struct.equips) {
             _array_equips.push(equip_info_to_protcol(v_))
         }
         _protocol["equips"] = _array_equips
     }
     if (_struct.wait_bbs) {
-        _array_wait_bbs = []
+        let _array_wait_bbs = []
         for (let v_ of _struct.wait_bbs) {
             _array_wait_bbs.push(bb_to_protcol(v_))
         }
         _protocol["wait_bbs"] = _array_wait_bbs
     }
     if (_struct.curr_bb) {
-        _array_curr_bb = []
+        let _array_curr_bb = []
         for (let v_ of _struct.curr_bb) {
             _array_curr_bb.push(bb_to_protcol(v_))
         }
         _protocol["curr_bb"] = _array_curr_bb
     }
     if (_struct.items) {
-        _array_items = []
+        let _array_items = []
         for (let v_ of _struct.items) {
             _array_items.push(item_to_protcol(v_))
         }
         _protocol["items"] = _array_items
     }
     if (_struct.tasks) {
-        _array_tasks = []
+        let _array_tasks = []
         for (let v_ of _struct.tasks) {
             _array_tasks.push(task_info_to_protcol(v_))
         }
@@ -691,7 +691,7 @@ export function battle_entity_to_protcol(_struct:battle_entity) {
     _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
-        _array_skills = []
+        let _array_skills = []
         for (let v_ of _struct.skills) {
             _array_skills.push(skill_info_to_protcol(v_))
         }
@@ -745,21 +745,21 @@ export function battle_info_to_protcol(_struct:battle_info) {
     let _protocol:any = {}
     _protocol["gender"] = _struct.gender
     if (_struct.wait_bbs) {
-        _array_wait_bbs = []
+        let _array_wait_bbs = []
         for (let v_ of _struct.wait_bbs) {
             _array_wait_bbs.push(bb_to_protcol(v_))
         }
         _protocol["wait_bbs"] = _array_wait_bbs
     }
     if (_struct.battle_team) {
-        _array_battle_team = []
+        let _array_battle_team = []
         for (let v_ of _struct.battle_team) {
             _array_battle_team.push(battle_entity_to_protcol(v_))
         }
         _protocol["battle_team"] = _array_battle_team
     }
     if (_struct.items) {
-        _array_items = []
+        let _array_items = []
         for (let v_ of _struct.items) {
             _array_items.push(item_to_protcol(v_))
         }
