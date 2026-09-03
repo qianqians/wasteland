@@ -22,7 +22,7 @@
           },
           "miniGame": {
             "fallbackOptions": {
-              "isRemote": false,
+              "isRemote": true,
               "compressionType": "merge_dep"
             },
             "configMode": "fallback"

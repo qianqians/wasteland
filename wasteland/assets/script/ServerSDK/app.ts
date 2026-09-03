@@ -98,7 +98,7 @@ export class new_driver extends Component {
 
         this._app = new engine.app();
         this._app.build(new ClientEventHandle());
-        this._app.connect_websocket(new WSContext(), "wss://wasteland.ucat.games:8100");
+        this._app.connect_websocket(new WSContext(), "wss://www.ucat.games:8100");
         this._app.on_conn = () => {
             if (sys.isNative && sys.os === sys.OS.ANDROID) {
                 native.reflection.callStaticMethod(
