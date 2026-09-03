@@ -74,13 +74,6 @@ export class UserPlatformInfo
 {
     /** 登录平台账户名称 */
     public nickName:string;
-    /** 登录平台头像地址 */
-    public avatarUrl:string;
-
-    constructor ()
-    {
-        
-    }
 }
 
 export interface SdkInterface 

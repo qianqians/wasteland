@@ -11,7 +11,7 @@ export default class WxSdk implements SdkInterface
     private costom:any;
 
     public nick_name:string;
-    public avatar_url:string;
+    //public avatar_url:string;
 
     private wxUserInfo(_callBack:(code:string) => void, login_res: WechatMinigame.LoginSuccessCallbackResult) 
     {
@@ -52,7 +52,7 @@ export default class WxSdk implements SdkInterface
                 await _callBack(_code);
                 
                 this.nick_name = replaceName(result.userInfo.nickName).slice(0, 5);
-                this.avatar_url = result.userInfo.avatarUrl;
+                //this.avatar_url = result.userInfo.avatarUrl;
             },
             fail: (res) =>
             {
@@ -212,7 +212,7 @@ export default class WxSdk implements SdkInterface
     {
         let userInfo:UserPlatformInfo = new UserPlatformInfo();
         userInfo.nickName=this.nick_name;
-        userInfo.avatarUrl=this.avatar_url;
+        //userInfo.avatarUrl=this.avatar_url;
         return userInfo;
     }
 }
