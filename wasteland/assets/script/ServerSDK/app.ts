@@ -4,6 +4,7 @@ import * as engine from './engine/engine'
 import * as login from './engine/login_cli'
 import { LoginCallback } from '../Login/LoginCallback'
 import { BundleManager } from '../tools/BundleManager/BundleManager';
+import { SdkInterface, SetPlatform } from '../SDK/SdkInterface';
 
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
@@ -78,15 +79,30 @@ export class new_driver extends Component {
     @property({ type: CCInteger, tooltip: "Platform Type" })
     platform = login.em_platform.EPlatformGoogle;
 
+    private _SDK:SdkInterface;
+
     start() {
-        (window as any).onGooglePlayAuthResult = (success: boolean, result: string) => {
-            if (success) {
-                console.log('[GooglePlay] 获取 AuthCode 成功:', result);
-                this.sendAuthCodeToGameServer(result);
-            } else {
-                console.error('[GooglePlay] 鉴权失败:', result);
-            }
-        };
+        if (this.platform == login.em_platform.EPlatformGoogle) {
+            (window as any).onGooglePlayAuthResult = (success: boolean, result: string) => {
+                if (success) {
+                    console.log('[GooglePlay] 获取 AuthCode 成功:', result);
+                    this.sendAuthCodeToGameServer(result);
+                } else {
+                    console.error('[GooglePlay] 鉴权失败:', result);
+                }
+            };
+        }
+        else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
+            this._SDK = SetPlatform(this.platform);
+            this._SDK.login((code:string) => {
+                if (code) {
+                    console.log("WxSdk login success!");
+                    this.sendAuthCodeToGameServer(code);
+                } else {
+                    console.error("WxSdk login failed!");
+                }
+            });
+        }
 
         this._app = new engine.app();
         this._app.build(new ClientEventHandle());

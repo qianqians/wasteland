@@ -16,5 +16,8 @@
       "es2015", 
       "es2017"
     ],
+    "types": [
+      "minigame-api-typings" // 如果你是用 npm 安装的声明库
+    ]
   }
 }

@@ -4,6 +4,7 @@ enum em_platform {
   EPlatformGoogle = 1;
   EPlatformIphone = 2;
   EPlatformSteam = 3;
+  EPlatformWXMiniGame = 4;
 }
 
 entity_service login {

@@ -91,10 +91,10 @@ export class CreateCharacter {
         this.enter_game.node.on(NodeEventType.TOUCH_END, () => {
             login.create_character(this.nick_name.string, this.gender, this.appearance, this.area).callBack(
                 (info) => {
+                    
+
                     node.destroy();
                     console.log(`CreateCharacter login success:${info}`) 
-
-                    
                 }, 
                 (_err) => { 
                     console.log(`CreateCharacter login _err:${_err}`) 

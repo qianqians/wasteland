@@ -11,6 +11,7 @@ class em_platform(Enum):
     EPlatformGoogle = 1
     EPlatformIphone = 2
     EPlatformSteam = 3
+    EPlatformWXMiniGame = 4
 
 
 #this struct code is codegen by geese codegen for python
