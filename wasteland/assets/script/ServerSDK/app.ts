@@ -94,14 +94,6 @@ export class new_driver extends Component {
         }
         else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
             this._SDK = SetPlatform(this.platform);
-            this._SDK.login((code:string) => {
-                if (code) {
-                    console.log("WxSdk login success!");
-                    this.sendAuthCodeToGameServer(code);
-                } else {
-                    console.error("WxSdk login failed!");
-                }
-            });
         }
 
         this._app = new engine.app();
@@ -114,10 +106,13 @@ export class new_driver extends Component {
                     'requestServerSideAccess',
                     '()V'
                 );
-            } else {
-                console.warn('当前不是 Android 原生平台，跳过 Google Play 登录');
+            } else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
+                this._SDK.login((code:string) => {
+                    console.log(`WxSdk login success! Code: ${code}`);
+                    this.sendAuthCodeToGameServer(code);
+                });
             }
-        };
+        }
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             let create_character = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
             return LoginCallback.Creator(entity_id, instantiate(create_character), description);
