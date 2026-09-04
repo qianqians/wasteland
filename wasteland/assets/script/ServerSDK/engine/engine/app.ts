@@ -52,11 +52,10 @@ export class app {
 
     public build(handle:client_event_handle) {
         this.client_event_handle = handle;
-        setInterval(this.heartbeats.bind(this), 3000);
         return this;
     }
 
-    private heartbeats() {
+    public heartbeats() {
         if (this.ctx) {
             this.ctx.heartbeats();
         }

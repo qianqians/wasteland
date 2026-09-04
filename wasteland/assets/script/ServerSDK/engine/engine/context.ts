@@ -32,7 +32,7 @@ export abstract class context {
 
     protected recv(data:Uint8Array) : void {
         let u8data = new Uint8Array(data);
-            
+        
         let new_data:Uint8Array|null = new Uint8Array(this.offset + u8data.byteLength);
         if (this.data !== null){
             new_data.set(this.data);
@@ -45,6 +45,7 @@ export abstract class context {
             if ( (len + 4) > new_data.length ){
                 break;
             }
+            console.log("recv data len:", len, " new_data len:", new_data.length);
 
             var str_bytes = new_data.subarray(4, (len + 4));
             let recvFun = TBufferedTransport.receiver((trans,  seqid) => {
@@ -208,6 +209,7 @@ export abstract class context {
                 this.conn_id = ev.conn_id.conn_id;
                 if (app.app.instance.on_conn) {
                     app.app.instance.on_conn.call(null);
+                    setInterval(app.app.instance.heartbeats.bind(app.app.instance), 3000);
                 }
             }
         }

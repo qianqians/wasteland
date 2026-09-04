@@ -1,12 +1,12 @@
 # -*- coding: UTF-8 -*-
 import sys
 
-from login import wx_sdk
 from ..engine.engine import *
 from ..engine import login_svr
 from .character import *
-import google_sdk
-import steam_sdk
+from . import google_sdk
+from . import steam_sdk
+from . import wx_sdk
 
 class LoginErrorCallback(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
@@ -26,12 +26,9 @@ class LoginErrorCallback(player):
         pass
     
 class LoginEventHandle(login_event_handle):
-    def __init__(self, appid:str, secret:str, db:str, collection:str):
+    def __init__(self, db:str, collection:str):
         super().__init__(db, collection)
         
-        self.AppID = appid
-        self.Secret = secret
-
         self.__get_guid_handle__ = get_guid("wasteland", "account_uuid")
 
     async def __get_client_account_id__(self, sdk_uuid:str) -> str:
@@ -44,7 +41,7 @@ class LoginEventHandle(login_event_handle):
 
     async def __login_wx__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
-        response = await wx_sdk.code2Session(self.AppID, self.Secret, sdk_uuid)
+        response = await wx_sdk.code2Session("wx51eede0c2706005d", "f6b0ea872639b949a103fc16639d7101", sdk_uuid)
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
@@ -64,7 +61,7 @@ class LoginEventHandle(login_event_handle):
 
     async def __login_google__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
-        response = await google_sdk.verify_google_play_player(self.AppID, self.Secret, sdk_uuid)
+        response = await google_sdk.verify_google_play_player("89726211606-14i9eofkndg6bmkm5s0jud47lv4r862c.apps.googleusercontent.com", "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", sdk_uuid)
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
@@ -153,7 +150,7 @@ class LoginEventHandle(login_event_handle):
 def main(cfg_file:str):
     _app = app()
     _app.build(cfg_file)
-    _app.build_login_service(LoginEventHandle("89726211606-14i9eofkndg6bmkm5s0jud47lv4r862c.apps.googleusercontent.com", "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", "wasteland", "account"))
+    _app.build_login_service(LoginEventHandle("wasteland", "account"))
     _app.register_service("login")
     _app.run()
     

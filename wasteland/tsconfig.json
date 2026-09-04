@@ -8,6 +8,7 @@
     "strict": false,
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
     "lib": [
       "es6",
       "dom",

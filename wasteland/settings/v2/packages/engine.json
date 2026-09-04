@@ -9,19 +9,19 @@
             "_value": true
           },
           "gfx-webgl": {
-            "_value": false
+            "_value": true
           },
           "gfx-webgl2": {
-            "_value": false
+            "_value": true
           },
           "gfx-webgpu": {
             "_value": true
           },
           "animation": {
-            "_value": true
+            "_value": false
           },
           "skeletal-animation": {
-            "_value": true
+            "_value": false
           },
           "3d": {
             "_value": false
@@ -122,16 +122,16 @@
             "_value": true
           },
           "video": {
-            "_value": true
+            "_value": false
           },
           "webview": {
-            "_value": true
+            "_value": false
           },
           "tween": {
             "_value": true
           },
           "websocket": {
-            "_value": false
+            "_value": true
           },
           "websocket-server": {
             "_value": false
@@ -196,10 +196,11 @@
         "includeModules": [
           "2d",
           "affine-transform",
-          "animation",
           "audio",
           "base",
           "custom-pipeline",
+          "gfx-webgl",
+          "gfx-webgl2",
           "gfx-webgpu",
           "graphics",
           "intersection-2d",
@@ -208,14 +209,12 @@
           "physics-2d-builtin",
           "profiler",
           "rich-text",
-          "skeletal-animation",
           "sorting-2d",
           "spine-3.8",
           "tiled-map",
           "tween",
           "ui",
-          "video",
-          "webview"
+          "websocket"
         ],
         "noDeprecatedFeatures": {
           "value": false,

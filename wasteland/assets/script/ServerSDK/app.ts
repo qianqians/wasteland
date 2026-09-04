@@ -6,6 +6,15 @@ import { LoginCallback } from '../Login/LoginCallback'
 import { BundleManager } from '../tools/BundleManager/BundleManager';
 import { SdkInterface, SetPlatform } from '../SDK/SdkInterface';
 
+import buffer from 'buffer';
+const { Buffer } = buffer;
+if (typeof window !== 'undefined') {
+    (window as any).Buffer = Buffer;
+}
+if (typeof globalThis !== 'undefined') {
+    (globalThis as any).Buffer = Buffer;
+}
+
 class ClientEventHandle extends engine.client_event_handle {
     public on_kick_off(prompt_info:string) {
         console.log(prompt_info);
@@ -28,13 +37,13 @@ class WSChannel extends engine.channel {
         console.log("WSChannel connect begin! wsHost:", wsHost);
         this.client = new WebSocket(wsHost);
         this.client.onopen = (evt) => {
-            console.log("WSChannel connect complete! msg:", evt.type);
+            console.log("WSChannel connect complete! msg:", evt?.type);
         }
         this.client.onclose = (evt) => {
-            console.log("WSChannel onclose! msg:", evt.type);
+            console.log("WSChannel onclose! msg:", evt?.type);
         };
         this.client.onerror = (evt) => {
-            console.log("WSChannel onerror! msg:", evt.type);
+            console.log("WSChannel onerror! msg:", evt?.type);
         };
         console.log("WSChannel connect end!");
         return true;
@@ -49,6 +58,7 @@ class WSChannel extends engine.channel {
     public on_recv(recv:(data:Uint8Array) => void) {
         if (this.client) {
             this.client.onmessage = (evt) =>{ 
+                console.log("WSChannel onmessage! msg:", evt.data);
                 if (Buffer.isBuffer(evt.data)) {
                     recv(new Uint8Array(evt.data));
                 }
@@ -58,7 +68,7 @@ class WSChannel extends engine.channel {
                 else if (evt.data instanceof ArrayBuffer) {
                     recv(new Uint8Array(evt.data));
                 }
-           };
+            };
         }
     }
 }
@@ -77,7 +87,7 @@ export class new_driver extends Component {
     private _app: engine.app;
 
     @property({ type: CCInteger, tooltip: "Platform Type" })
-    platform = login.em_platform.EPlatformGoogle;
+    platform = login.em_platform.EPlatformWXMiniGame;
 
     private _SDK:SdkInterface;
 
