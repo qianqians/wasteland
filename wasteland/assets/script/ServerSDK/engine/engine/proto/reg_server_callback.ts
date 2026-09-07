@@ -18,7 +18,7 @@ export class reg_server_callback {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("reg_server_callback");
         if (this.name != null) {
-            output.writeFieldBegin("name", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("name", 11, 1);
             output.writeString(this.name);
             output.writeFieldEnd();
         }
@@ -33,12 +33,12 @@ export class reg_server_callback {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.name = value_1;
                     }

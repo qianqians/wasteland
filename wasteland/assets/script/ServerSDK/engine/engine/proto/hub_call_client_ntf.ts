@@ -29,17 +29,17 @@ export class hub_call_client_ntf {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("hub_call_client_ntf");
         if (this.conn_id != null) {
-            output.writeFieldBegin("conn_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("conn_id", 11, 1);
             output.writeString(this.conn_id);
             output.writeFieldEnd();
         }
         if (this.entity_id != null) {
-            output.writeFieldBegin("entity_id", thrift.Thrift.Type.STRING, 2);
+            output.writeFieldBegin("entity_id", 11, 2);
             output.writeString(this.entity_id);
             output.writeFieldEnd();
         }
         if (this.message != null) {
-            output.writeFieldBegin("message", thrift.Thrift.Type.STRUCT, 3);
+            output.writeFieldBegin("message", 12, 3);
             this.message.write(output);
             output.writeFieldEnd();
         }
@@ -54,12 +54,12 @@ export class hub_call_client_ntf {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.conn_id = value_1;
                     }
@@ -68,7 +68,7 @@ export class hub_call_client_ntf {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_2: string = input.readString();
                         _args.entity_id = value_2;
                     }
@@ -77,7 +77,7 @@ export class hub_call_client_ntf {
                     }
                     break;
                 case 3:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         const value_3: __ROOT_NAMESPACE__.msg = __ROOT_NAMESPACE__.msg.read(input);
                         _args.message = value_3;
                     }

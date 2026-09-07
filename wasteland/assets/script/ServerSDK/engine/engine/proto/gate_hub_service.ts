@@ -191,87 +191,87 @@ export class gate_hub_service {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("gate_hub_service");
         if (this.reg_server != null) {
-            output.writeFieldBegin("reg_server", thrift.Thrift.Type.STRUCT, 1);
+            output.writeFieldBegin("reg_server", 12, 1);
             this.reg_server.write(output);
             output.writeFieldEnd();
         }
         if (this.reg_server_callback != null) {
-            output.writeFieldBegin("reg_server_callback", thrift.Thrift.Type.STRUCT, 2);
+            output.writeFieldBegin("reg_server_callback", 12, 2);
             this.reg_server_callback.write(output);
             output.writeFieldEnd();
         }
         if (this.create_remote_entity != null) {
-            output.writeFieldBegin("create_remote_entity", thrift.Thrift.Type.STRUCT, 3);
+            output.writeFieldBegin("create_remote_entity", 12, 3);
             this.create_remote_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.delete_remote_entity != null) {
-            output.writeFieldBegin("delete_remote_entity", thrift.Thrift.Type.STRUCT, 4);
+            output.writeFieldBegin("delete_remote_entity", 12, 4);
             this.delete_remote_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.refresh_entity != null) {
-            output.writeFieldBegin("refresh_entity", thrift.Thrift.Type.STRUCT, 5);
+            output.writeFieldBegin("refresh_entity", 12, 5);
             this.refresh_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.call_rpc != null) {
-            output.writeFieldBegin("call_rpc", thrift.Thrift.Type.STRUCT, 6);
+            output.writeFieldBegin("call_rpc", 12, 6);
             this.call_rpc.write(output);
             output.writeFieldEnd();
         }
         if (this.call_rsp != null) {
-            output.writeFieldBegin("call_rsp", thrift.Thrift.Type.STRUCT, 7);
+            output.writeFieldBegin("call_rsp", 12, 7);
             this.call_rsp.write(output);
             output.writeFieldEnd();
         }
         if (this.call_err != null) {
-            output.writeFieldBegin("call_err", thrift.Thrift.Type.STRUCT, 8);
+            output.writeFieldBegin("call_err", 12, 8);
             this.call_err.write(output);
             output.writeFieldEnd();
         }
         if (this.call_ntf != null) {
-            output.writeFieldBegin("call_ntf", thrift.Thrift.Type.STRUCT, 9);
+            output.writeFieldBegin("call_ntf", 12, 9);
             this.call_ntf.write(output);
             output.writeFieldEnd();
         }
         if (this.call_global != null) {
-            output.writeFieldBegin("call_global", thrift.Thrift.Type.STRUCT, 10);
+            output.writeFieldBegin("call_global", 12, 10);
             this.call_global.write(output);
             output.writeFieldEnd();
         }
         if (this.kick_off != null) {
-            output.writeFieldBegin("kick_off", thrift.Thrift.Type.STRUCT, 11);
+            output.writeFieldBegin("kick_off", 12, 11);
             this.kick_off.write(output);
             output.writeFieldEnd();
         }
         if (this.kick_off_complete != null) {
-            output.writeFieldBegin("kick_off_complete", thrift.Thrift.Type.STRUCT, 12);
+            output.writeFieldBegin("kick_off_complete", 12, 12);
             this.kick_off_complete.write(output);
             output.writeFieldEnd();
         }
         if (this.transfer != null) {
-            output.writeFieldBegin("transfer", thrift.Thrift.Type.STRUCT, 13);
+            output.writeFieldBegin("transfer", 12, 13);
             this.transfer.write(output);
             output.writeFieldEnd();
         }
         if (this.transfer_complete != null) {
-            output.writeFieldBegin("transfer_complete", thrift.Thrift.Type.STRUCT, 14);
+            output.writeFieldBegin("transfer_complete", 12, 14);
             this.transfer_complete.write(output);
             output.writeFieldEnd();
         }
         if (this.wait_migrate_entity != null) {
-            output.writeFieldBegin("wait_migrate_entity", thrift.Thrift.Type.STRUCT, 15);
+            output.writeFieldBegin("wait_migrate_entity", 12, 15);
             this.wait_migrate_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.migrate_entity_complete != null) {
-            output.writeFieldBegin("migrate_entity_complete", thrift.Thrift.Type.STRUCT, 16);
+            output.writeFieldBegin("migrate_entity_complete", 12, 16);
             this.migrate_entity_complete.write(output);
             output.writeFieldEnd();
         }
         if (this.client_remove_remote_entity != null) {
-            output.writeFieldBegin("client_remove_remote_entity", thrift.Thrift.Type.STRUCT, 17);
+            output.writeFieldBegin("client_remove_remote_entity", 12, 17);
             this.client_remove_remote_entity.write(output);
             output.writeFieldEnd();
         }
@@ -287,12 +287,15 @@ export class gate_hub_service {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
+                break;
+            }
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_1: __ROOT_NAMESPACE__.reg_server = __ROOT_NAMESPACE__.reg_server.read(input);
                         _returnValue = gate_hub_service.fromReg_server(value_1);
@@ -302,7 +305,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_2: __ROOT_NAMESPACE__.reg_server_callback = __ROOT_NAMESPACE__.reg_server_callback.read(input);
                         _returnValue = gate_hub_service.fromReg_server_callback(value_2);
@@ -312,7 +315,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 3:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_3: hub_call_client_create_remote_entity.hub_call_client_create_remote_entity = hub_call_client_create_remote_entity.hub_call_client_create_remote_entity.read(input);
                         _returnValue = gate_hub_service.fromCreate_remote_entity(value_3);
@@ -322,7 +325,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 4:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_4: hub_call_client_delete_remote_entity.hub_call_client_delete_remote_entity = hub_call_client_delete_remote_entity.hub_call_client_delete_remote_entity.read(input);
                         _returnValue = gate_hub_service.fromDelete_remote_entity(value_4);
@@ -332,7 +335,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 5:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_5: hub_call_client_refresh_entity.hub_call_client_refresh_entity = hub_call_client_refresh_entity.hub_call_client_refresh_entity.read(input);
                         _returnValue = gate_hub_service.fromRefresh_entity(value_5);
@@ -342,7 +345,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 6:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_6: hub_call_client_rpc.hub_call_client_rpc = hub_call_client_rpc.hub_call_client_rpc.read(input);
                         _returnValue = gate_hub_service.fromCall_rpc(value_6);
@@ -352,7 +355,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 7:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_7: hub_call_client_rsp.hub_call_client_rsp = hub_call_client_rsp.hub_call_client_rsp.read(input);
                         _returnValue = gate_hub_service.fromCall_rsp(value_7);
@@ -362,7 +365,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 8:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_8: hub_call_client_err.hub_call_client_err = hub_call_client_err.hub_call_client_err.read(input);
                         _returnValue = gate_hub_service.fromCall_err(value_8);
@@ -372,7 +375,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 9:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_9: hub_call_client_ntf.hub_call_client_ntf = hub_call_client_ntf.hub_call_client_ntf.read(input);
                         _returnValue = gate_hub_service.fromCall_ntf(value_9);
@@ -382,7 +385,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 10:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_10: hub_call_client_global.hub_call_client_global = hub_call_client_global.hub_call_client_global.read(input);
                         _returnValue = gate_hub_service.fromCall_global(value_10);
@@ -392,7 +395,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 11:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_11: hub_call_kick_off_client.hub_call_kick_off_client = hub_call_kick_off_client.hub_call_kick_off_client.read(input);
                         _returnValue = gate_hub_service.fromKick_off(value_11);
@@ -402,7 +405,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 12:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_12: hub_call_kick_off_client_complete.hub_call_kick_off_client_complete = hub_call_kick_off_client_complete.hub_call_kick_off_client_complete.read(input);
                         _returnValue = gate_hub_service.fromKick_off_complete(value_12);
@@ -412,7 +415,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 13:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_13: hub_call_transfer_client.hub_call_transfer_client = hub_call_transfer_client.hub_call_transfer_client.read(input);
                         _returnValue = gate_hub_service.fromTransfer(value_13);
@@ -422,7 +425,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 14:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_14: hub_call_transfer_entity_complete.hub_call_transfer_entity_complete = hub_call_transfer_entity_complete.hub_call_transfer_entity_complete.read(input);
                         _returnValue = gate_hub_service.fromTransfer_complete(value_14);
@@ -432,7 +435,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 15:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_15: hub_call_wait_migrate_entity.hub_call_wait_migrate_entity = hub_call_wait_migrate_entity.hub_call_wait_migrate_entity.read(input);
                         _returnValue = gate_hub_service.fromWait_migrate_entity(value_15);
@@ -442,7 +445,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 16:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_16: hub_call_migrate_entity_complete.hub_call_migrate_entity_complete = hub_call_migrate_entity_complete.hub_call_migrate_entity_complete.read(input);
                         _returnValue = gate_hub_service.fromMigrate_entity_complete(value_16);
@@ -452,7 +455,7 @@ export class gate_hub_service {
                     }
                     break;
                 case 17:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_17: hub_call_client_remove_remote_entity.hub_call_client_remove_remote_entity = hub_call_client_remove_remote_entity.hub_call_client_remove_remote_entity.read(input);
                         _returnValue = gate_hub_service.fromClient_remove_remote_entity(value_17);

@@ -102,42 +102,42 @@ export class gate_client_service {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("gate_client_service");
         if (this.login != null) {
-            output.writeFieldBegin("login", thrift.Thrift.Type.STRUCT, 1);
+            output.writeFieldBegin("login", 12, 1);
             this.login.write(output);
             output.writeFieldEnd();
         }
         if (this.reconnect != null) {
-            output.writeFieldBegin("reconnect", thrift.Thrift.Type.STRUCT, 2);
+            output.writeFieldBegin("reconnect", 12, 2);
             this.reconnect.write(output);
             output.writeFieldEnd();
         }
         if (this.request_hub_service != null) {
-            output.writeFieldBegin("request_hub_service", thrift.Thrift.Type.STRUCT, 3);
+            output.writeFieldBegin("request_hub_service", 12, 3);
             this.request_hub_service.write(output);
             output.writeFieldEnd();
         }
         if (this.call_rpc != null) {
-            output.writeFieldBegin("call_rpc", thrift.Thrift.Type.STRUCT, 4);
+            output.writeFieldBegin("call_rpc", 12, 4);
             this.call_rpc.write(output);
             output.writeFieldEnd();
         }
         if (this.call_rsp != null) {
-            output.writeFieldBegin("call_rsp", thrift.Thrift.Type.STRUCT, 5);
+            output.writeFieldBegin("call_rsp", 12, 5);
             this.call_rsp.write(output);
             output.writeFieldEnd();
         }
         if (this.call_err != null) {
-            output.writeFieldBegin("call_err", thrift.Thrift.Type.STRUCT, 6);
+            output.writeFieldBegin("call_err", 12, 6);
             this.call_err.write(output);
             output.writeFieldEnd();
         }
         if (this.call_ntf != null) {
-            output.writeFieldBegin("call_ntf", thrift.Thrift.Type.STRUCT, 7);
+            output.writeFieldBegin("call_ntf", 12, 7);
             this.call_ntf.write(output);
             output.writeFieldEnd();
         }
         if (this.heartbeats != null) {
-            output.writeFieldBegin("heartbeats", thrift.Thrift.Type.STRUCT, 8);
+            output.writeFieldBegin("heartbeats", 12, 8);
             this.heartbeats.write(output);
             output.writeFieldEnd();
         }
@@ -153,12 +153,15 @@ export class gate_client_service {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
+                break;
+            }
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_1: client_request_hub_login.client_request_hub_login = client_request_hub_login.client_request_hub_login.read(input);
                         _returnValue = gate_client_service.fromLogin(value_1);
@@ -168,7 +171,7 @@ export class gate_client_service {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_2: client_request_hub_reconnect.client_request_hub_reconnect = client_request_hub_reconnect.client_request_hub_reconnect.read(input);
                         _returnValue = gate_client_service.fromReconnect(value_2);
@@ -178,7 +181,7 @@ export class gate_client_service {
                     }
                     break;
                 case 3:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_3: client_request_hub_service.client_request_hub_service = client_request_hub_service.client_request_hub_service.read(input);
                         _returnValue = gate_client_service.fromRequest_hub_service(value_3);
@@ -188,7 +191,7 @@ export class gate_client_service {
                     }
                     break;
                 case 4:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_4: client_call_hub_rpc.client_call_hub_rpc = client_call_hub_rpc.client_call_hub_rpc.read(input);
                         _returnValue = gate_client_service.fromCall_rpc(value_4);
@@ -198,7 +201,7 @@ export class gate_client_service {
                     }
                     break;
                 case 5:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_5: client_call_hub_rsp.client_call_hub_rsp = client_call_hub_rsp.client_call_hub_rsp.read(input);
                         _returnValue = gate_client_service.fromCall_rsp(value_5);
@@ -208,7 +211,7 @@ export class gate_client_service {
                     }
                     break;
                 case 6:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_6: client_call_hub_err.client_call_hub_err = client_call_hub_err.client_call_hub_err.read(input);
                         _returnValue = gate_client_service.fromCall_err(value_6);
@@ -218,7 +221,7 @@ export class gate_client_service {
                     }
                     break;
                 case 7:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_7: client_call_hub_ntf.client_call_hub_ntf = client_call_hub_ntf.client_call_hub_ntf.read(input);
                         _returnValue = gate_client_service.fromCall_ntf(value_7);
@@ -228,7 +231,7 @@ export class gate_client_service {
                     }
                     break;
                 case 8:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_8: client_call_gate_heartbeats.client_call_gate_heartbeats = client_call_gate_heartbeats.client_call_gate_heartbeats.read(input);
                         _returnValue = gate_client_service.fromHeartbeats(value_8);

@@ -19,7 +19,7 @@ export class hub_call_client_global {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("hub_call_client_global");
         if (this.message != null) {
-            output.writeFieldBegin("message", thrift.Thrift.Type.STRUCT, 1);
+            output.writeFieldBegin("message", 12, 1);
             this.message.write(output);
             output.writeFieldEnd();
         }
@@ -34,12 +34,12 @@ export class hub_call_client_global {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         const value_1: __ROOT_NAMESPACE__.msg = __ROOT_NAMESPACE__.msg.read(input);
                         _args.message = value_1;
                     }

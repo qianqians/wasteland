@@ -24,7 +24,7 @@ export class gate_call_heartbeats {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("gate_call_heartbeats");
         if (this.timetmp != null) {
-            output.writeFieldBegin("timetmp", thrift.Thrift.Type.I64, 1);
+            output.writeFieldBegin("timetmp", 10, 1);
             output.writeI64(this.timetmp);
             output.writeFieldEnd();
         }
@@ -39,12 +39,12 @@ export class gate_call_heartbeats {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.I64) {
+                    if (fieldType as any === 10) {
                         const value_1: Int64 = input.readI64();
                         _args.timetmp = value_1;
                     }

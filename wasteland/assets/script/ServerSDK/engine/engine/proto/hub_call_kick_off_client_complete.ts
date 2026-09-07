@@ -18,7 +18,7 @@ export class hub_call_kick_off_client_complete {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("hub_call_kick_off_client_complete");
         if (this.conn_id != null) {
-            output.writeFieldBegin("conn_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("conn_id", 11, 1);
             output.writeString(this.conn_id);
             output.writeFieldEnd();
         }
@@ -33,12 +33,12 @@ export class hub_call_kick_off_client_complete {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.conn_id = value_1;
                     }

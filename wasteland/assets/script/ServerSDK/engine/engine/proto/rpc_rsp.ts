@@ -34,17 +34,17 @@ export class rpc_rsp {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("rpc_rsp");
         if (this.entity_id != null) {
-            output.writeFieldBegin("entity_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("entity_id", 11, 1);
             output.writeString(this.entity_id);
             output.writeFieldEnd();
         }
         if (this.msg_cb_id != null) {
-            output.writeFieldBegin("msg_cb_id", thrift.Thrift.Type.I64, 2);
+            output.writeFieldBegin("msg_cb_id", 10, 2);
             output.writeI64(this.msg_cb_id);
             output.writeFieldEnd();
         }
         if (this.argvs != null) {
-            output.writeFieldBegin("argvs", thrift.Thrift.Type.STRING, 3);
+            output.writeFieldBegin("argvs", 11, 3);
             output.writeBinary(this.argvs);
             output.writeFieldEnd();
         }
@@ -59,12 +59,12 @@ export class rpc_rsp {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.entity_id = value_1;
                     }
@@ -73,7 +73,7 @@ export class rpc_rsp {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.I64) {
+                    if (fieldType as any === 10) {
                         const value_2: Int64 = input.readI64();
                         _args.msg_cb_id = value_2;
                     }
@@ -82,7 +82,7 @@ export class rpc_rsp {
                     }
                     break;
                 case 3:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_3: Buffer = input.readBinary();
                         _args.argvs = value_3;
                     }

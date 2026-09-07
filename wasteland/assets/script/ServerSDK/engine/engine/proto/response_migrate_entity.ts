@@ -18,7 +18,7 @@ export class response_migrate_entity {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("response_migrate_entity");
         if (this.entity_id != null) {
-            output.writeFieldBegin("entity_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("entity_id", 11, 1);
             output.writeString(this.entity_id);
             output.writeFieldEnd();
         }
@@ -33,12 +33,12 @@ export class response_migrate_entity {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.entity_id = value_1;
                     }

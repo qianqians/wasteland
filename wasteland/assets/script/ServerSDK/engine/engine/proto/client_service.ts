@@ -142,62 +142,62 @@ export class client_service {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("client_service");
         if (this.create_remote_entity != null) {
-            output.writeFieldBegin("create_remote_entity", thrift.Thrift.Type.STRUCT, 1);
+            output.writeFieldBegin("create_remote_entity", 12, 1);
             this.create_remote_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.delete_remote_entity != null) {
-            output.writeFieldBegin("delete_remote_entity", thrift.Thrift.Type.STRUCT, 2);
+            output.writeFieldBegin("delete_remote_entity", 12, 2);
             this.delete_remote_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.refresh_entity != null) {
-            output.writeFieldBegin("refresh_entity", thrift.Thrift.Type.STRUCT, 3);
+            output.writeFieldBegin("refresh_entity", 12, 3);
             this.refresh_entity.write(output);
             output.writeFieldEnd();
         }
         if (this.conn_id != null) {
-            output.writeFieldBegin("conn_id", thrift.Thrift.Type.STRUCT, 4);
+            output.writeFieldBegin("conn_id", 12, 4);
             this.conn_id.write(output);
             output.writeFieldEnd();
         }
         if (this.kick_off != null) {
-            output.writeFieldBegin("kick_off", thrift.Thrift.Type.STRUCT, 5);
+            output.writeFieldBegin("kick_off", 12, 5);
             this.kick_off.write(output);
             output.writeFieldEnd();
         }
         if (this.transfer_complete != null) {
-            output.writeFieldBegin("transfer_complete", thrift.Thrift.Type.STRUCT, 6);
+            output.writeFieldBegin("transfer_complete", 12, 6);
             this.transfer_complete.write(output);
             output.writeFieldEnd();
         }
         if (this.call_rpc != null) {
-            output.writeFieldBegin("call_rpc", thrift.Thrift.Type.STRUCT, 7);
+            output.writeFieldBegin("call_rpc", 12, 7);
             this.call_rpc.write(output);
             output.writeFieldEnd();
         }
         if (this.call_rsp != null) {
-            output.writeFieldBegin("call_rsp", thrift.Thrift.Type.STRUCT, 8);
+            output.writeFieldBegin("call_rsp", 12, 8);
             this.call_rsp.write(output);
             output.writeFieldEnd();
         }
         if (this.call_err != null) {
-            output.writeFieldBegin("call_err", thrift.Thrift.Type.STRUCT, 9);
+            output.writeFieldBegin("call_err", 12, 9);
             this.call_err.write(output);
             output.writeFieldEnd();
         }
         if (this.call_ntf != null) {
-            output.writeFieldBegin("call_ntf", thrift.Thrift.Type.STRUCT, 10);
+            output.writeFieldBegin("call_ntf", 12, 10);
             this.call_ntf.write(output);
             output.writeFieldEnd();
         }
         if (this.call_global != null) {
-            output.writeFieldBegin("call_global", thrift.Thrift.Type.STRUCT, 11);
+            output.writeFieldBegin("call_global", 12, 11);
             this.call_global.write(output);
             output.writeFieldEnd();
         }
         if (this.heartbeats != null) {
-            output.writeFieldBegin("heartbeats", thrift.Thrift.Type.STRUCT, 12);
+            output.writeFieldBegin("heartbeats", 12, 12);
             this.heartbeats.write(output);
             output.writeFieldEnd();
         }
@@ -213,12 +213,18 @@ export class client_service {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
+                console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}`);
                 break;
             }
+            if (fieldType as any === 0) {
+                console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}`);
+                break;
+            }
+            console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}`);
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_1: create_remote_entity.create_remote_entity = create_remote_entity.create_remote_entity.read(input);
                         _returnValue = client_service.fromCreate_remote_entity(value_1);
@@ -228,7 +234,7 @@ export class client_service {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_2: delete_remote_entity.delete_remote_entity = delete_remote_entity.delete_remote_entity.read(input);
                         _returnValue = client_service.fromDelete_remote_entity(value_2);
@@ -238,7 +244,7 @@ export class client_service {
                     }
                     break;
                 case 3:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_3: refresh_entity.refresh_entity = refresh_entity.refresh_entity.read(input);
                         _returnValue = client_service.fromRefresh_entity(value_3);
@@ -248,7 +254,9 @@ export class client_service {
                     }
                     break;
                 case 4:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    console.log(`fieldType: ${fieldType}, switch fieldId: ${fieldId}`);
+                    if (fieldType as any === 12) {
+                        console.log(`fieldType: ${fieldType}, switch fieldId: ${fieldId}, read ntf_conn_id`);
                         _fieldsSet++;
                         const value_4: ntf_conn_id.ntf_conn_id = ntf_conn_id.ntf_conn_id.read(input);
                         _returnValue = client_service.fromConn_id(value_4);
@@ -258,7 +266,7 @@ export class client_service {
                     }
                     break;
                 case 5:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_5: kick_off.kick_off = kick_off.kick_off.read(input);
                         _returnValue = client_service.fromKick_off(value_5);
@@ -268,7 +276,7 @@ export class client_service {
                     }
                     break;
                 case 6:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_6: transfer_complete.transfer_complete = transfer_complete.transfer_complete.read(input);
                         _returnValue = client_service.fromTransfer_complete(value_6);
@@ -278,7 +286,7 @@ export class client_service {
                     }
                     break;
                 case 7:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_7: call_rpc.call_rpc = call_rpc.call_rpc.read(input);
                         _returnValue = client_service.fromCall_rpc(value_7);
@@ -288,7 +296,7 @@ export class client_service {
                     }
                     break;
                 case 8:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_8: call_rsp.call_rsp = call_rsp.call_rsp.read(input);
                         _returnValue = client_service.fromCall_rsp(value_8);
@@ -298,7 +306,7 @@ export class client_service {
                     }
                     break;
                 case 9:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_9: call_err.call_err = call_err.call_err.read(input);
                         _returnValue = client_service.fromCall_err(value_9);
@@ -308,7 +316,7 @@ export class client_service {
                     }
                     break;
                 case 10:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_10: call_ntf.call_ntf = call_ntf.call_ntf.read(input);
                         _returnValue = client_service.fromCall_ntf(value_10);
@@ -318,7 +326,7 @@ export class client_service {
                     }
                     break;
                 case 11:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_11: call_global.call_global = call_global.call_global.read(input);
                         _returnValue = client_service.fromCall_global(value_11);
@@ -328,7 +336,7 @@ export class client_service {
                     }
                     break;
                 case 12:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         _fieldsSet++;
                         const value_12: gate_call_heartbeats.gate_call_heartbeats = gate_call_heartbeats.gate_call_heartbeats.read(input);
                         _returnValue = client_service.fromHeartbeats(value_12);
@@ -338,6 +346,7 @@ export class client_service {
                     }
                     break;
                 default: {
+                    console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}, default case`);
                     input.skip(fieldType);
                 }
             }

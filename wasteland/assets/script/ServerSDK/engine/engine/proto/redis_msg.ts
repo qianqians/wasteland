@@ -23,12 +23,12 @@ export class redis_msg {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("redis_msg");
         if (this.server_name != null) {
-            output.writeFieldBegin("server_name", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("server_name", 11, 1);
             output.writeString(this.server_name);
             output.writeFieldEnd();
         }
         if (this.msg != null) {
-            output.writeFieldBegin("msg", thrift.Thrift.Type.STRING, 2);
+            output.writeFieldBegin("msg", 11, 2);
             output.writeBinary(this.msg);
             output.writeFieldEnd();
         }
@@ -43,12 +43,12 @@ export class redis_msg {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.server_name = value_1;
                     }
@@ -57,7 +57,7 @@ export class redis_msg {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_2: Buffer = input.readBinary();
                         _args.msg = value_2;
                     }

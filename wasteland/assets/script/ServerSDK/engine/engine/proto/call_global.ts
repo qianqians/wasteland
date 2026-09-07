@@ -24,12 +24,12 @@ export class call_global {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("call_global");
         if (this.hub_name != null) {
-            output.writeFieldBegin("hub_name", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("hub_name", 11, 1);
             output.writeString(this.hub_name);
             output.writeFieldEnd();
         }
         if (this.message != null) {
-            output.writeFieldBegin("message", thrift.Thrift.Type.STRUCT, 2);
+            output.writeFieldBegin("message", 12, 2);
             this.message.write(output);
             output.writeFieldEnd();
         }
@@ -44,12 +44,12 @@ export class call_global {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.hub_name = value_1;
                     }
@@ -58,7 +58,7 @@ export class call_global {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         const value_2: __ROOT_NAMESPACE__.msg = __ROOT_NAMESPACE__.msg.read(input);
                         _args.message = value_2;
                     }

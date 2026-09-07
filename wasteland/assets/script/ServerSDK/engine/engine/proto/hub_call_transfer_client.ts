@@ -38,27 +38,27 @@ export class hub_call_transfer_client {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("hub_call_transfer_client");
         if (this.conn_id != null) {
-            output.writeFieldBegin("conn_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("conn_id", 11, 1);
             output.writeString(this.conn_id);
             output.writeFieldEnd();
         }
         if (this.prompt_info != null) {
-            output.writeFieldBegin("prompt_info", thrift.Thrift.Type.STRING, 2);
+            output.writeFieldBegin("prompt_info", 11, 2);
             output.writeString(this.prompt_info);
             output.writeFieldEnd();
         }
         if (this.new_gate != null) {
-            output.writeFieldBegin("new_gate", thrift.Thrift.Type.STRING, 3);
+            output.writeFieldBegin("new_gate", 11, 3);
             output.writeString(this.new_gate);
             output.writeFieldEnd();
         }
         if (this.new_conn_id != null) {
-            output.writeFieldBegin("new_conn_id", thrift.Thrift.Type.STRING, 4);
+            output.writeFieldBegin("new_conn_id", 11, 4);
             output.writeString(this.new_conn_id);
             output.writeFieldEnd();
         }
         if (this.is_reconnect != null) {
-            output.writeFieldBegin("is_reconnect", thrift.Thrift.Type.BOOL, 5);
+            output.writeFieldBegin("is_reconnect", 2, 5);
             output.writeBool(this.is_reconnect);
             output.writeFieldEnd();
         }
@@ -73,12 +73,12 @@ export class hub_call_transfer_client {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.conn_id = value_1;
                     }
@@ -87,7 +87,7 @@ export class hub_call_transfer_client {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_2: string = input.readString();
                         _args.prompt_info = value_2;
                     }
@@ -96,7 +96,7 @@ export class hub_call_transfer_client {
                     }
                     break;
                 case 3:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_3: string = input.readString();
                         _args.new_gate = value_3;
                     }
@@ -105,7 +105,7 @@ export class hub_call_transfer_client {
                     }
                     break;
                 case 4:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_4: string = input.readString();
                         _args.new_conn_id = value_4;
                     }
@@ -114,7 +114,7 @@ export class hub_call_transfer_client {
                     }
                     break;
                 case 5:
-                    if (fieldType === thrift.Thrift.Type.BOOL) {
+                    if (fieldType  as any === 2) {
                         const value_5: boolean = input.readBool();
                         _args.is_reconnect = value_5;
                     }

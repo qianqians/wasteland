@@ -19,7 +19,7 @@ export class client_call_hub_err {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("client_call_hub_err");
         if (this.err != null) {
-            output.writeFieldBegin("err", thrift.Thrift.Type.STRUCT, 1);
+            output.writeFieldBegin("err", 12, 1);
             this.err.write(output);
             output.writeFieldEnd();
         }
@@ -34,12 +34,12 @@ export class client_call_hub_err {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         const value_1: __ROOT_NAMESPACE__.rpc_err = __ROOT_NAMESPACE__.rpc_err.read(input);
                         _args.err = value_1;
                     }

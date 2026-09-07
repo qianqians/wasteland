@@ -23,12 +23,12 @@ export class reg_server {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("reg_server");
         if (this.name != null) {
-            output.writeFieldBegin("name", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("name", 11, 1);
             output.writeString(this.name);
             output.writeFieldEnd();
         }
         if (this.type != null) {
-            output.writeFieldBegin("type", thrift.Thrift.Type.STRING, 2);
+            output.writeFieldBegin("type", 11, 2);
             output.writeString(this.type);
             output.writeFieldEnd();
         }
@@ -43,12 +43,12 @@ export class reg_server {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.name = value_1;
                     }
@@ -57,7 +57,7 @@ export class reg_server {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_2: string = input.readString();
                         _args.type = value_2;
                     }

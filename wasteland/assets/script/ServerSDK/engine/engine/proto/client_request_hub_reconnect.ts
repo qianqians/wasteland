@@ -23,12 +23,12 @@ export class client_request_hub_reconnect {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("client_request_hub_reconnect");
         if (this.account_id != null) {
-            output.writeFieldBegin("account_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("account_id", 11, 1);
             output.writeString(this.account_id);
             output.writeFieldEnd();
         }
         if (this.argvs != null) {
-            output.writeFieldBegin("argvs", thrift.Thrift.Type.STRING, 2);
+            output.writeFieldBegin("argvs", 11, 2);
             output.writeBinary(this.argvs);
             output.writeFieldEnd();
         }
@@ -43,12 +43,12 @@ export class client_request_hub_reconnect {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.account_id = value_1;
                     }
@@ -57,7 +57,7 @@ export class client_request_hub_reconnect {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_2: Buffer = input.readBinary();
                         _args.argvs = value_2;
                     }

@@ -24,12 +24,12 @@ export class hub_call_client_rsp {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("hub_call_client_rsp");
         if (this.conn_id != null) {
-            output.writeFieldBegin("conn_id", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("conn_id", 11, 1);
             output.writeString(this.conn_id);
             output.writeFieldEnd();
         }
         if (this.rsp != null) {
-            output.writeFieldBegin("rsp", thrift.Thrift.Type.STRUCT, 2);
+            output.writeFieldBegin("rsp", 12, 2);
             this.rsp.write(output);
             output.writeFieldEnd();
         }
@@ -44,12 +44,12 @@ export class hub_call_client_rsp {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.conn_id = value_1;
                     }
@@ -58,7 +58,7 @@ export class hub_call_client_rsp {
                     }
                     break;
                 case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                    if (fieldType as any === 12) {
                         const value_2: __ROOT_NAMESPACE__.rpc_rsp = __ROOT_NAMESPACE__.rpc_rsp.read(input);
                         _args.rsp = value_2;
                     }

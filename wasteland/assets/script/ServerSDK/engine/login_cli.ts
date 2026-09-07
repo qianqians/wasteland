@@ -3,12 +3,10 @@ import { encode, decode } from "./engine/@msgpack/msgpack";
 import * as common from "./common_cli";
 // this enum code is codegen by geese codegen for ts
 
-export enum em_platform {
-    EPlatformGoogle = 1,
-    EPlatformIphone = 2,
-    EPlatformSteam = 3,
-    EPlatformWXMiniGame = 4,
-}
+export const EPlatformGoogle = 1;
+export const EPlatformIphone = 2;
+export const EPlatformSteam = 3;
+export const EPlatformWXMiniGame = 4;
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript

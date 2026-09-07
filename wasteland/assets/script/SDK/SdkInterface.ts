@@ -129,11 +129,11 @@ export interface SdkInterface
 
 }
 
-export function SetPlatform(_sdkType: login.em_platform) : SdkInterface
+export function SetPlatform(_sdkType: number) : SdkInterface
 {
     switch (_sdkType) 
     {
-        case login.em_platform.EPlatformWXMiniGame:
+        case login.EPlatformWXMiniGame:
             return new WxSdk();
         default:
             return null;

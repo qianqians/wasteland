@@ -18,7 +18,7 @@ export class kick_off {
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("kick_off");
         if (this.prompt_info != null) {
-            output.writeFieldBegin("prompt_info", thrift.Thrift.Type.STRING, 1);
+            output.writeFieldBegin("prompt_info", 11, 1);
             output.writeString(this.prompt_info);
             output.writeFieldEnd();
         }
@@ -33,12 +33,12 @@ export class kick_off {
             const ret: thrift.TField = input.readFieldBegin();
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
+            if (fieldType as any === 0) {
                 break;
             }
             switch (fieldId) {
                 case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
+                    if (fieldType as any === 11) {
                         const value_1: string = input.readString();
                         _args.prompt_info = value_1;
                     }

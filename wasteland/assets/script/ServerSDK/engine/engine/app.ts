@@ -147,8 +147,6 @@ export class app {
             if (this.ctx) {
                 this.ctx.poll_conn_msg(this.__conn_handle__);
             }
-
-            setTimeout(this.poll.bind(this), 16);
         }
     }
 

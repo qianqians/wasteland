@@ -74,6 +74,10 @@ class WSChannel extends engine.channel {
 }
    
 class WSContext extends engine.context {
+    public constructor() {
+        super();
+    }
+
     public ConnectWebSocket(wsHost:string) : engine.channel {
         this.ch = new WSChannel();
         this.ch.connect(wsHost);
@@ -87,12 +91,15 @@ export class new_driver extends Component {
     private _app: engine.app;
 
     @property({ type: CCInteger, tooltip: "Platform Type" })
-    platform = login.em_platform.EPlatformWXMiniGame;
+    platform = login.EPlatformWXMiniGame;
 
     private _SDK:SdkInterface;
 
     start() {
-        if (this.platform == login.em_platform.EPlatformGoogle) {
+        console.log(`new_driver start! platform:${this.platform} == EPlatformWXMiniGame:${login.EPlatformWXMiniGame}`);
+
+        this.platform = login.EPlatformWXMiniGame;
+        if (this.platform == login.EPlatformGoogle) {
             (window as any).onGooglePlayAuthResult = (success: boolean, result: string) => {
                 if (success) {
                     console.log('[GooglePlay] 获取 AuthCode 成功:', result);
@@ -102,7 +109,7 @@ export class new_driver extends Component {
                 }
             };
         }
-        else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
+        else if (this.platform == login.EPlatformWXMiniGame) {
             this._SDK = SetPlatform(this.platform);
         }
 
@@ -110,13 +117,15 @@ export class new_driver extends Component {
         this._app.build(new ClientEventHandle());
         this._app.connect_websocket(new WSContext(), "wss://www.ucat.games:8100");
         this._app.on_conn = () => {
+            console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.EPlatformWXMiniGame}`);
             if (sys.isNative && sys.os === sys.OS.ANDROID) {
                 native.reflection.callStaticMethod(
                     'com/cocos/game/AppActivity',
                     'requestServerSideAccess',
                     '()V'
                 );
-            } else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
+            } else if (this.platform == login.EPlatformWXMiniGame) {
+                console.log("WxSdk login begin!");
                 this._SDK.login((code:string) => {
                     console.log(`WxSdk login success! Code: ${code}`);
                     this.sendAuthCodeToGameServer(code);
@@ -129,6 +138,8 @@ export class new_driver extends Component {
         });
 
         director.addPersistRootNode(this.node);
+
+        console.log(`new_driver end! platform:${this.platform} == EPlatformWXMiniGame:${login.EPlatformWXMiniGame}`);
     }
 
     update(deltaTime: number) {

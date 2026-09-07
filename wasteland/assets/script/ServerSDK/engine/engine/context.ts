@@ -51,6 +51,7 @@ export abstract class context {
             let recvFun = TBufferedTransport.receiver((trans,  seqid) => {
                 let input = new TCompactProtocol(trans);
                 let ev = proto.client_service.read(input);
+                console.log("recv data ev:", ev);
                 this.evs.push(ev);
             }, 0);
             recvFun(Buffer.from(str_bytes));
@@ -202,10 +203,13 @@ export abstract class context {
         let ev = this.evs.pop();
         if (!ev) {
             return false;
-        }
+        } 
+        console.log("poll_conn_msg ev:", ev);
 
         if (ev.conn_id) {
+            console.log("poll_conn_msg ev.conn_id:", ev.conn_id);
             if (ev.conn_id.conn_id) {
+                console.log("poll_conn_msg ev.conn_id.conn_id:", ev.conn_id.conn_id);
                 this.conn_id = ev.conn_id.conn_id;
                 if (app.app.instance.on_conn) {
                     app.app.instance.on_conn.call(null);
