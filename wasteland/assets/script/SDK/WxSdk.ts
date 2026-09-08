@@ -19,7 +19,7 @@ export default class WxSdk implements SdkInterface
         let wxSize = wx.getWindowInfo();
         let btn = wx.createUserInfoButton({
             type: 'text',
-            text: '点击登录',
+            text: '进入游戏',
             style: {
                 left: wxSize.screenWidth / 2 - 100,
                 top: wxSize.screenHeight / 2 + 60,
