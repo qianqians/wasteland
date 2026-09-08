@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "buffer": "^6.0.3",
-    "minigame-api-typings": "^3.8.7",
-    "miniprogram-api-typings": "^3.12.2",
+    "minigame-api-typings": "^3.8.21",
+    "miniprogram-api-typings": "^5.2.3",
     "steamworks.js": "^0.4.0",
     "thrift": "^0.21.0",
     "util": "^0.12.5"

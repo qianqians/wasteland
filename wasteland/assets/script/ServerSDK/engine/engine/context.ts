@@ -45,13 +45,11 @@ export abstract class context {
             if ( (len + 4) > new_data.length ){
                 break;
             }
-            console.log("recv data len:", len, " new_data len:", new_data.length);
 
             var str_bytes = new_data.subarray(4, (len + 4));
             let recvFun = TBufferedTransport.receiver((trans,  seqid) => {
                 let input = new TCompactProtocol(trans);
                 let ev = proto.client_service.read(input);
-                console.log("recv data ev:", ev);
                 this.evs.push(ev);
             }, 0);
             recvFun(Buffer.from(str_bytes));
@@ -204,12 +202,9 @@ export abstract class context {
         if (!ev) {
             return false;
         } 
-        console.log("poll_conn_msg ev:", ev);
 
         if (ev.conn_id) {
-            console.log("poll_conn_msg ev.conn_id:", ev.conn_id);
             if (ev.conn_id.conn_id) {
-                console.log("poll_conn_msg ev.conn_id.conn_id:", ev.conn_id.conn_id);
                 this.conn_id = ev.conn_id.conn_id;
                 if (app.app.instance.on_conn) {
                     app.app.instance.on_conn.call(null);
@@ -217,8 +212,7 @@ export abstract class context {
                 }
             }
         }
-        else if (ev.heartbeats) {
-            console.log("heartbeats ev:", ev);
+        else if (ev.heartbeats) {;
         }
         else if (ev.create_remote_entity) {
             let event = ev.create_remote_entity;

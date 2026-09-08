@@ -13,7 +13,7 @@ export default class WxSdk implements SdkInterface
     public nick_name:string;
     //public avatar_url:string;
 
-    private wxUserInfo(_callBack:(code:string) => void, login_res: WechatMinigame.LoginSuccessCallbackResult) 
+    private wxUserInfo(_callBack:(code:string) => void, _code:string) 
     {
 
         let wxSize = wx.getWindowInfo();
@@ -38,35 +38,67 @@ export default class WxSdk implements SdkInterface
 
         btn.onTap((res) => {
             console.log("createUserInfoButton:" + JSON.stringify(res));
-            this.get_user_info_login(_callBack, login_res.code)
+            this.get_user_info_login(_callBack, _code)
             btn.destroy();
         });
     }
 
     private get_user_info_login(_callBack: (code: string) => void, _code: string)
     {
-        wx.getUserInfo({
-            withCredentials: false,
-            success: async (result) =>
-            { 
-                await _callBack(_code);
-                
-                this.nick_name = replaceName(result.userInfo.nickName).slice(0, 5);
-                //this.avatar_url = result.userInfo.avatarUrl;
-            },
-            fail: (res) =>
-            {
-                console.log("fail:" + JSON.stringify(res));
-            },
-            complete: (res) =>
-            {
-                console.log("complete:" + JSON.stringify(res));
+        wx.getSetting({
+            success: (res) => {
+                if (res.authSetting['scope.userInfo']) {
+                    wx.getUserInfo({
+                        withCredentials: false,
+                        success: async (result) =>
+                        { 
+                            await _callBack(_code);
+                            this.nick_name = replaceName(result.userInfo.nickName).slice(0, 5);
+                        },
+                        fail: (res) =>
+                        {
+                            console.log("fail:" + JSON.stringify(res));
+                        },
+                        complete: (res) =>
+                        {
+                            console.log("complete:" + JSON.stringify(res));
+                        }
+                    });
+                } else {
+                    this.wxUserInfo(_callBack, _code);
+                }
             }
         });
     }
 
     init()
     {
+        wx.onNeedPrivacyAuthorization((resolve:any) =>
+        {
+            console.log("privacy authorization:",);
+
+            wx.showModal({
+                title: '隐私保护',
+                content: '为了提供游戏服务，需要获取你的微信昵称等信息，请阅读并同意隐私保护指引。',
+                confirmText: '同意',
+                cancelText: '拒绝',
+
+                success: (res) =>
+                {
+                    if (res.confirm)
+                    {
+                        console.log("privacy agree");
+                        resolve({event: 'agree'});
+                    }
+                    else
+                    {
+                        console.log("privacy disagree");
+                        resolve({event: 'disagree'});
+                    }
+                }
+            });
+        });
+
         wx.showShareMenu({
             withShareTicket:true ,
             menus:["shareAppMessage" , "shareTimeline"]
@@ -107,30 +139,7 @@ export default class WxSdk implements SdkInterface
             success: (login_res) =>
             {
                 console.log("login success:" + JSON.stringify(login_res));
-                wx.getPrivacySetting({
-                    complete: (res) =>
-                    {
-                        console.log("authSetting complete:", JSON.stringify(res));
-                    },
-                    fail: (res) =>
-                    {
-                        console.log("authSetting fail:", JSON.stringify(res));
-                        this.wxUserInfo(_callBack, login_res);
-                    },
-                    success: (res) =>
-                    {
-                        console.log("authSetting:", JSON.stringify(res));
-                        if (!res.needAuthorization)
-                        {
-                            this.get_user_info_login(_callBack, login_res.code);
-                        }
-                        else
-                        {
-                            console.log("authSetting RequirePrivacyAuthorize:", JSON.stringify(res));
-                            this.wxUserInfo(_callBack, login_res);
-                        }
-                    }
-                });
+                this.get_user_info_login(_callBack, login_res.code);
             }
         });
     }

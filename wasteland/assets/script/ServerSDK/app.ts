@@ -58,7 +58,6 @@ class WSChannel extends engine.channel {
     public on_recv(recv:(data:Uint8Array) => void) {
         if (this.client) {
             this.client.onmessage = (evt) =>{ 
-                console.log("WSChannel onmessage! msg:", evt.data);
                 if (Buffer.isBuffer(evt.data)) {
                     recv(new Uint8Array(evt.data));
                 }

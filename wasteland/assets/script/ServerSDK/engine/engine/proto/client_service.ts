@@ -214,14 +214,11 @@ export class client_service {
             const fieldType: thrift.Thrift.Type = ret.ftype;
             const fieldId: number = ret.fid;
             if (fieldType as any === 0) {
-                console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}`);
                 break;
             }
             if (fieldType as any === 0) {
-                console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}`);
                 break;
             }
-            console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}`);
             switch (fieldId) {
                 case 1:
                     if (fieldType as any === 12) {
@@ -254,9 +251,7 @@ export class client_service {
                     }
                     break;
                 case 4:
-                    console.log(`fieldType: ${fieldType}, switch fieldId: ${fieldId}`);
                     if (fieldType as any === 12) {
-                        console.log(`fieldType: ${fieldType}, switch fieldId: ${fieldId}, read ntf_conn_id`);
                         _fieldsSet++;
                         const value_4: ntf_conn_id.ntf_conn_id = ntf_conn_id.ntf_conn_id.read(input);
                         _returnValue = client_service.fromConn_id(value_4);
@@ -346,7 +341,6 @@ export class client_service {
                     }
                     break;
                 default: {
-                    console.log(`fieldType: ${fieldType}, fieldId: ${fieldId}, default case`);
                     input.skip(fieldType);
                 }
             }
