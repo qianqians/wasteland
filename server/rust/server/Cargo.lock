@@ -72,15 +72,6 @@ version = "0.1.0"
 
 [[package]]
 name = "approx"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3f2a05fd1bd10b2527e20a2cd32d8873d115b8b39fe219ee25f42a8aca6ba278"
-dependencies = [
- "num-traits",
-]
-
-[[package]]
-name = "approx"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cab112f0a86d568ea0e627cc1d6be74a1e9cd55214684db5561995f6dad897c6"
@@ -116,14 +107,6 @@ name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
-
-[[package]]
-name = "avatar"
-version = "0.1.0"
-dependencies = [
- "cgmath",
- "log 0.4.27",
-]
 
 [[package]]
 name = "axum"
@@ -319,16 +302,6 @@ name = "cfg-if"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9555578bc9e57714c812a1f84e4fc5b4d21fcb063490c624de019f7464c91268"
-
-[[package]]
-name = "cgmath"
-version = "0.18.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1a98d30140e3296250832bbaaff83b27dcd6fa3cc70fb6f1f3e5c9c0023b5317"
-dependencies = [
- "approx 0.4.0",
- "num-traits",
-]
 
 [[package]]
 name = "chrono"
@@ -959,16 +932,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gameplay_physics"
-version = "0.1.0"
-dependencies = [
- "avatar",
- "cgmath",
- "log 0.4.27",
- "physics",
-]
-
-[[package]]
 name = "gate"
 version = "0.1.0"
 dependencies = [
@@ -1002,7 +965,6 @@ dependencies = [
  "dbproxy",
  "gate",
  "health",
- "hub",
  "local_ip",
  "log 0.1.0",
  "physics",
@@ -1158,7 +1120,7 @@ version = "0.30.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19fc433e8437a212d1b6f1e68c7824af3aed907da60afa994e7f542d18d12aa9"
 dependencies = [
- "approx 0.5.1",
+ "approx",
  "libm",
 ]
 
@@ -1180,7 +1142,7 @@ version = "0.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "375b4fa374a343fef990a18a6e0413d54bd990c6d7b8c7ada2d3c884275edea3"
 dependencies = [
- "approx 0.5.1",
+ "approx",
  "glam 0.30.10",
  "nalgebra",
  "num-traits",
@@ -1441,40 +1403,6 @@ name = "httpdate"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df3b46402a9d5adb4c86a0cf463f42e19994e3ee891101b1841f30a545cb49a9"
-
-[[package]]
-name = "hub"
-version = "0.1.0"
-dependencies = [
- "aoi",
- "async-trait",
- "close_handle",
- "config",
- "consul",
- "consulrs",
- "gameplay_physics",
- "health",
- "local_ip",
- "log 0.1.0",
- "navmesh",
- "net",
- "physics",
- "proto",
- "pyo3",
- "pyo3-async-runtimes",
- "queue",
- "rand 0.8.5",
- "redis_service",
- "serde",
- "serde_json",
- "tcp",
- "thrift",
- "time 0.1.0",
- "tokio",
- "tracing",
- "tracing-appender",
- "uuid",
-]
 
 [[package]]
 name = "hyper"
@@ -2113,7 +2041,7 @@ version = "0.34.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df76ea0ff5c7e6b88689085804d6132ded0ddb9de5ca5b8aeb9eeadc0508a70a"
 dependencies = [
- "approx 0.5.1",
+ "approx",
  "glam 0.14.0",
  "glam 0.15.2",
  "glam 0.16.0",
@@ -2167,13 +2095,6 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "tempfile",
-]
-
-[[package]]
-name = "navmesh"
-version = "0.1.0"
-dependencies = [
- "serde",
 ]
 
 [[package]]
@@ -2481,7 +2402,7 @@ version = "0.26.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8598fd0fa548d469b6ca4f9e90b446434fb879c12494a91e41c341d8f0f558d8"
 dependencies = [
- "approx 0.5.1",
+ "approx",
  "arrayvec",
  "bitflags 2.9.1",
  "downcast-rs",
@@ -2660,31 +2581,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pyo3-async-runtimes"
-version = "0.26.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e6ee6d4cb3e8d5b925f5cdb38da183e0ff18122eb2048d4041c9e7034d026e23"
-dependencies = [
- "futures",
- "once_cell",
- "pin-project-lite",
- "pyo3",
- "pyo3-async-runtimes-macros",
- "tokio",
-]
-
-[[package]]
-name = "pyo3-async-runtimes-macros"
-version = "0.26.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c29bc5c673e36a8102d0b9179149c1bb59990d8db4f3ae58bd7dceccab90b951"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.104",
-]
-
-[[package]]
 name = "pyo3-build-config"
 version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2821,7 +2717,7 @@ version = "0.32.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a576251c9dc2d6aff08470b7433096a04019c8b7bea9bbb7087f092c180feaea"
 dependencies = [
- "approx 0.5.1",
+ "approx",
  "arrayvec",
  "bit-vec",
  "bitflags 2.9.1",
@@ -3438,7 +3334,7 @@ version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c99284beb21666094ba2b75bbceda012e610f5479dfcc2d6e2426f53197ffd95"
 dependencies = [
- "approx 0.5.1",
+ "approx",
  "num-complex",
  "num-traits",
  "paste",
