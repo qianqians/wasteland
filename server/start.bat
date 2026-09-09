@@ -1,4 +1,4 @@
-cd ./dependences/windows/consul/
+cd ./output/dependences/windows/consul/
 start consul.exe agent -dev
 
 cd ../redis/
