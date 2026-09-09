@@ -684,7 +684,10 @@ impl TcpListenCallback for ConnProxyManager {
     async fn cb(&mut self, rd: TcpReader, wr: TcpWriter) {
         let _wr_arc: Arc<Mutex<Box<dyn NetWriter + Send + 'static>>> = Arc::new(Mutex::new(Box::new(wr)));
         let _connproxy = Arc::new(Mutex::new(ConnProxy::new(_wr_arc, self.conn_msg_handle.clone())));
-        self.join_list.push(rd.start(Arc::new(Mutex::new(Box::new(ConnProxyReaderCallback::new(_connproxy))))));
+        self.join_list.push(rd.start(
+            Arc::new(Mutex::new(Box::new(ConnProxyReaderCallback::new(_connproxy)))),
+            None,
+        ));
     }
 }
 

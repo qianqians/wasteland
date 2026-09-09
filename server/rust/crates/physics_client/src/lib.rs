@@ -179,7 +179,7 @@ impl PhysicsClient {
         let cb: Arc<Mutex<Box<dyn NetReaderCallback + Send + 'static>>> =
             Arc::new(Mutex::new(Box::new(callback)));
 
-        let reader_join = reader.start(cb);
+        let reader_join = reader.start(cb, None);
 
         Ok(Self {
             writer: Mutex::new(Box::new(writer)),
