@@ -14,10 +14,20 @@ class WXSessionInfo(TypedDict):
     errmsg:str = ""
 
 async def code2Session(appid:str, secret:str, code:str) -> WXSessionInfo:
+    from .app import app
+    import traceback
+
     url = WXSdkUrl.format(appid=appid, secret=secret, code=code)
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            result:WXSessionInfo = await response.json()
-            if result != None:
-                return result
-    return None
+    result = None
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                raw = await response.read()
+                text = raw.decode("utf-8", errors="replace")
+                result = json.loads(text)
+    except Exception as e:
+        app().error("wx code2Session exception type:{} value:{}".format(type(e).__name__, repr(e)))
+        app().error("wx code2Session traceback:{}".format(traceback.format_exc()))
+
+    return result
