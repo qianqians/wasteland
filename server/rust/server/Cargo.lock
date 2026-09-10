@@ -965,7 +965,6 @@ dependencies = [
  "dbproxy",
  "gate",
  "health",
- "local_ip",
  "log 0.1.0",
  "physics",
  "proto",
@@ -1773,26 +1772,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "241eaef5fd12c88705a01fc1066c48c4b36e0dd4377dcdc7ec3942cea7a69956"
 
 [[package]]
-name = "local-ip-address"
-version = "0.5.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "612ed4ea9ce5acfb5d26339302528a5e1e59dfed95e9e11af3c083236ff1d15d"
-dependencies = [
- "libc",
- "neli",
- "thiserror 1.0.69",
- "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "local_ip"
-version = "0.1.0"
-dependencies = [
- "local-ip-address",
- "tracing",
-]
-
-[[package]]
 name = "lock_api"
 version = "0.4.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2095,31 +2074,6 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "tempfile",
-]
-
-[[package]]
-name = "neli"
-version = "0.6.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93062a0dce6da2517ea35f301dfc88184ce18d3601ec786a727a87bf535deca9"
-dependencies = [
- "byteorder",
- "libc",
- "log 0.4.27",
- "neli-proc-macros",
-]
-
-[[package]]
-name = "neli-proc-macros"
-version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0c8034b7fbb6f9455b2a96c19e6edf8dc9fc34c70449938d8ee3b4df363f61fe"
-dependencies = [
- "either",
- "proc-macro2",
- "quote",
- "serde",
- "syn 1.0.109",
 ]
 
 [[package]]

@@ -2,7 +2,6 @@ use std::sync::Arc;
 
 use tokio::sync::Mutex;
 use tokio::task::JoinHandle;
-use uuid::Uuid;
 use consulrs::api::check::common::AgentServiceCheckBuilder;
 use consulrs::api::service::requests::RegisterServiceRequest;
 use pyo3::prelude::*;
@@ -286,8 +285,8 @@ impl HubContext {
                     .check(AgentServiceCheckBuilder::default()
                         .name("health_check")
                         .interval("10s")
-                        .timeout("3s")
-                        .deregister_critical_service_after("20s")
+                        .timeout("15s")
+                        .deregister_critical_service_after("30s")
                         .http(_health_host)
                         .status("passing")
                         .build()
