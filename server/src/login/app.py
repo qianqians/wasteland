@@ -42,6 +42,7 @@ class LoginEventHandle(login_event_handle):
     async def __login_wx__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
         response = await wx_sdk.code2Session("wx51eede0c2706005d", "f6b0ea872639b949a103fc16639d7101", sdk_uuid)
+        app().trace("LoginEventHandle on_login! response:{}".format(response))
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
@@ -58,6 +59,7 @@ class LoginEventHandle(login_event_handle):
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
+        app().trace("LoginEventHandle on_login success!")
 
     async def __login_google__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
