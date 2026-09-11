@@ -1,4 +1,4 @@
-import { Node } from 'cc';
+import { Node, Prefab, instantiate } from 'cc';
 import * as engine from '../ServerSDK/engine/engine' 
 import * as login_cli from '../ServerSDK/engine/login_cli'
 import { CreateCharacter } from './CreateCharacter'
@@ -21,7 +21,7 @@ export class LoginCallback extends engine.player {
         await this._create_character.Init(node, this._login_caller);
     }
 
-    public static async Creator(entity_id: string, node:Node, description: object) {
+    public static async Creator(entity_id: string, create_character:Prefab, description: object) {
         console.log(`LoginCallback:${entity_id}`);
         let impl = new LoginCallback(entity_id)
         let c = description["Characters"] as Array<object>;
@@ -38,7 +38,7 @@ export class LoginCallback extends engine.player {
             });
         }
         else {
-            await impl.create_character(node);
+            await impl.create_character(instantiate(create_character));
         }
         return impl
     }

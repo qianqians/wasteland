@@ -217,21 +217,26 @@ class app(object):
     def run_coroutine_async(self, coro):
         asyncio.run_coroutine_threadsafe(coro, self.__loop__)
     
-    def trace(self, format:str, *argv):
-        self.ctx.log("trace", "app " + format.format(argv))
-        
-    def debug(self, format:str, *argv):
-        self.ctx.log("debug", "app " + format.format(argv))
+    def trace(self, format: str, *argv):
+        message = format.format(*argv) if argv else format
+        self.ctx.log("trace", "app " + message)
 
-    def info(self, format:str, *argv):
-        self.ctx.log("info", "app " + format.format(argv))
+    def debug(self, format: str, *argv):
+        message = format.format(*argv) if argv else format
+        self.ctx.log("debug", "app " + message)
 
-    def warn(self, format:str, *argv):
-        self.ctx.log("warn", "app " + format.format(argv))
+    def info(self, format: str, *argv):
+        message = format.format(*argv) if argv else format
+        self.ctx.log("info", "app " + message)
 
-    def error(self, format:str, *argv):
-        self.ctx.log("error", "app " + format.format(argv))
-        
+    def warn(self, format: str, *argv):
+        message = format.format(*argv) if argv else format
+        self.ctx.log("warn", "app " + message)
+
+    def error(self, format: str, *argv):
+        message = format.format(*argv) if argv else format
+        self.ctx.log("error", "app " + message)
+            
     def close(self):
         self.__is_run__ = False
         if self.ctx is not None:

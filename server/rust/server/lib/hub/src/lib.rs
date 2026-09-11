@@ -2,7 +2,6 @@ use std::sync::Arc;
 
 use tokio::sync::Mutex;
 use tokio::task::JoinHandle;
-use uuid::Uuid;
 use consulrs::api::check::common::AgentServiceCheckBuilder;
 use consulrs::api::service::requests::RegisterServiceRequest;
 use pyo3::prelude::*;
@@ -286,8 +285,8 @@ impl HubContext {
                     .check(AgentServiceCheckBuilder::default()
                         .name("health_check")
                         .interval("10s")
-                        .timeout("3s")
-                        .deregister_critical_service_after("20s")
+                        .timeout("15s")
+                        .deregister_critical_service_after("30s")
                         .http(_health_host)
                         .status("passing")
                         .build()
@@ -311,8 +310,6 @@ impl HubContext {
     }
 
     pub fn set_health_state(slf: PyRefMut<'_, Self>, _status: bool) {
-        trace!("set_health_state begin!");
-
         let _health_handle = slf.health_handle.clone();
         slf._listen_rt.handle().block_on(async move {
             let mut _handle = _health_handle.as_ref().lock().await;

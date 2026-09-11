@@ -40,24 +40,26 @@ class LoginEventHandle(login_event_handle):
             return uuid_obj["GUID"]
 
     async def __login_wx__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
-        app().trace("LoginEventHandle on_login!")
         response = await wx_sdk.code2Session("wx51eede0c2706005d", "f6b0ea872639b949a103fc16639d7101", sdk_uuid)
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
             return
 
-        if response["errcode"] != None:
+        if "errcode" in response and response["errcode"] != 0:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, response["errmsg"])
             _p.create_main_remote_entity()
             return
 
-        player_id = await self.__get_client_account_id__(response["openid"])
-        _character = LoginCharacterCallback(self, 
-            player_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
+        account_id = await self.__get_client_account_id__(response["openid"])
+        app().trace("LoginEventHandle on_login! account_id:{}".format(account_id))
+
+        _character = LoginCharacterCallback(self, account_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
+
+        app().trace("LoginEventHandle on_login success!")
 
     async def __login_google__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
@@ -132,24 +134,35 @@ class LoginEventHandle(login_event_handle):
         _character.create_main_remote_entity()
         
     async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool, platform :login_svr.em_platform):
-        if platform == login_svr.em_platform.EPlatformGoogle:
-            self.__login_google__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
-        elif platform == login_svr.em_platform.EPlatformSteam:
-            self.__login_steam__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
-        elif platform == login_svr.em_platform.EPlatformWXMiniGame:
-            self.__login_wx__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
-                
+        import traceback
+        try:
+            if platform == login_svr.em_platform.EPlatformGoogle:
+                await self.__login_google__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
+            elif platform == login_svr.em_platform.EPlatformSteam:
+                await self.__login_steam__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
+            elif platform == login_svr.em_platform.EPlatformWXMiniGame:
+                await self.__login_wx__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
+        except Exception as e:
+            app().error("LoginEventHandle on_login exception type:{} value:{}".format(type(e).__name__, repr(e)))
+            app().error("LoginEventHandle on_login traceback:{}".format(traceback.format_exc()))
+
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
-        app().trace("LoginEventHandle on_login!")
-        self.__login__(new_gate_name, new_conn_id, sdk_uuid, False, argvs["em_platform"])
+        await self.__login__(new_gate_name, new_conn_id, sdk_uuid, False, login_svr.em_platform(argvs["em_platform"]))
     
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
-        self.__login__(new_gate_name, new_conn_id, sdk_uuid, True, argvs["em_platform"])
+        await self.__login__(new_gate_name, new_conn_id, sdk_uuid, True, login_svr.em_platform(argvs["em_platform"]))
+
+class PlayerEventHandle(player_event_handle):
+    def player_offline(self, _player:player) -> dict:
+        info = _player.full_info()
+        app().redis_proxy.delete("sample:player_info:{}".format(info["accound_id"]))
+        return info
     
 def main(cfg_file:str):
     _app = app()
     _app.build(cfg_file)
+    _app.build_player_service(PlayerEventHandle())
     _app.build_login_service(LoginEventHandle("wasteland", "account"))
     _app.register_service("login")
     _app.run()
