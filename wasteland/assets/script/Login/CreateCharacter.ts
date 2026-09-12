@@ -1,4 +1,4 @@
-import { Node, Prefab, Sprite, SpriteFrame, NodeEventType, Label, Button, RichText } from 'cc';
+import { Node, Prefab, Sprite, SpriteFrame, NodeEventType, Label, RichText } from 'cc';
 import { BundleManager } from '../tools/BundleManager/BundleManager'
 import { em_player_appearance, em_role_gender } from '../ServerSDK/engine/common_cli';
 import * as login_cli from '../ServerSDK/engine/login_cli'
@@ -11,16 +11,20 @@ export class CreateCharacter {
     private selected_activate: SpriteFrame;
     private selected_normal: SpriteFrame;
 
-    private sprite_frame: Sprite[];
-    private sprite_avatar: Sprite[];
+    private sprite_frame: Sprite[] = [];
+    private sprite_avatar: Sprite[] = [];
     private sprite_role: Sprite;
     private nick_name: RichText;
-    private area_list: Label[];
+    private area_list: Node[] = [];
     private gender_select_female: Sprite;
     private gender_select_male: Sprite;
     private enter_game: Sprite;
 
+    public node: Node;
+
     public async Init(node:Node, login:login_cli.login_caller) {
+        this.node = node;
+
         this.sprite_frame.push(node.getChildByPath("role0_sprite_frame").getComponent(Sprite));
         this.sprite_frame.push(node.getChildByPath("role1_sprite_frame").getComponent(Sprite));
         this.sprite_frame.push(node.getChildByPath("role2_sprite_frame").getComponent(Sprite));
@@ -60,27 +64,29 @@ export class CreateCharacter {
             });
         }
 
-        this.area_list.push(node.getChildByPath("selection_region/area0").getComponent(Label));
-        this.area_list.push(node.getChildByPath("selection_region/area1").getComponent(Label));
-        this.area_list.push(node.getChildByPath("selection_region/area2").getComponent(Label));
-        this.area_list.push(node.getChildByPath("selection_region/area3").getComponent(Label));
-        this.area_list.push(node.getChildByPath("selection_region/area4").getComponent(Label));
+        this.area_list.push(node.getChildByPath("selection_region/area0/Label"));
+        this.area_list.push(node.getChildByPath("selection_region/area1/Label"));
+        this.area_list.push(node.getChildByPath("selection_region/area2/Label"));
+        this.area_list.push(node.getChildByPath("selection_region/area3/Label"));
+        this.area_list.push(node.getChildByPath("selection_region/area4/Label"));
 
+        let index = 0;
         for (let n of this.area_list) {
-            n.node.on(NodeEventType.TOUCH_END, () => {
-                this.area = n.string;
+            n.getComponent(Label).string = `新手村${index++}`;
+            n.on(NodeEventType.TOUCH_END, () => {
+                this.area = n.getComponent(Label).string;
             });
         }
 
         this.nick_name = node.getChildByPath("nick_name/text").getComponent(RichText);
 
-        this.gender_select_female = node.getChildByPath("select_female").getComponent(Sprite);
+        this.gender_select_female = node.getChildByPath("UI_Select_Fmale_Normal").getComponent(Sprite);
         this.gender_select_female.node.on(NodeEventType.TOUCH_END, async () => {
             this.gender_select_male.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Male_Normal/spriteFrame", SpriteFrame);
             this.gender_select_female.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Fmale_activate/spriteFrame", SpriteFrame);
             this.InitGender(em_role_gender.em_role_gender_female);
         });
-        this.gender_select_male = node.getChildByPath("select_male").getComponent(Sprite);
+        this.gender_select_male = node.getChildByPath("UI_Select_Male_Normal").getComponent(Sprite);
         this.gender_select_male.node.on(NodeEventType.TOUCH_END, async () => {
             this.gender_select_male.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Male_activate/spriteFrame", SpriteFrame);
             this.gender_select_female.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Fmale_Normal/spriteFrame", SpriteFrame);
@@ -91,8 +97,6 @@ export class CreateCharacter {
         this.enter_game.node.on(NodeEventType.TOUCH_END, () => {
             login.create_character(this.nick_name.string, this.gender, this.appearance, this.area).callBack(
                 (info) => {
-                    
-
                     node.destroy();
                     console.log(`CreateCharacter login success:${info}`) 
                 }, 

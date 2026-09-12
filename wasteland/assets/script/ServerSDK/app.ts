@@ -133,8 +133,10 @@ export class new_driver extends Component {
         }
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
-            let create_character = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
-            return LoginCallback.Creator(entity_id, create_character, description);
+            let createCharacter = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
+            let entity = await LoginCallback.Creator(entity_id, createCharacter, description);
+            entity.CreateCharacter.node.parent = this.node;
+            return entity;
         });
 
         director.addPersistRootNode(this.node);
