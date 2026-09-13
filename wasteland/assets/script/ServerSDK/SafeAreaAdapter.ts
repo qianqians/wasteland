@@ -4,90 +4,152 @@ const { ccclass, property } = _decorator;
 @ccclass('SafeAreaAdapter')
 export class SafeAreaAdapter extends Component {
     public adaptLeft: boolean = true;
-    public adaptRight: boolean = true;
-    public adaptTop: boolean = true;
-    public adaptBottom: boolean = true;
-    public sidePadding: number = 20;
+    public adaptRight: boolean = false;
+    public adaptTop: boolean = false;
+    public adaptBottom: boolean = false;
+    public sidePadding: number = 10;
+
+    private _resizeCallback: any = null;
 
     start() {
         this.applySafeArea();
+        this.registerOrientationListener();
     }
 
-    public applySafeArea() {
-        console.log("SafeAreaAdapter: Applying safe area adaptation...");
+    onEnable() {
+        this.applySafeArea();
+    }
 
-        // 仅在微信小游戏或原生支持安全区的平台上执行
-        if (sys.platform !== sys.Platform.WECHAT_GAME) {
-            console.log("SafeAreaAdapter: Not running on WeChat Mini Game platform, skipping safe area adaptation.");
-            return;
+    onDisable() {
+        this.unregisterOrientationListener();
+    }
+
+    /**
+     * 注册旋转/窗口大小改变监听
+     */
+    private registerOrientationListener() {
+        if (sys.platform === sys.Platform.WECHAT_GAME) {
+            if (wx.onWindowResize) {
+                this._resizeCallback = (res: any) => {
+                    console.log("[SafeAreaAdapter] 收到手机旋转/窗口尺寸变化事件，重新计算安全区...");
+                    // 延迟一帧等待微信 API 更新 safeArea 数据
+                    this.scheduleOnce(() => {
+                        this.applySafeArea();
+                    }, 0.05);
+                };
+                wx.onWindowResize(this._resizeCallback);
+            }
         }
+    }
 
+    /**
+     * 注销监听
+     */
+    private unregisterOrientationListener() {
+        if (sys.platform === sys.Platform.WECHAT_GAME) {
+            const wx = (window as any).wx;
+            if (wx && wx.offWindowResize && this._resizeCallback) {
+                wx.offWindowResize(this._resizeCallback);
+                this._resizeCallback = null;
+            }
+        }
+    }
+
+    /**
+     * 核心计算与适配逻辑
+     */
+    public applySafeArea() {
+        if (sys.platform !== sys.Platform.WECHAT_GAME) return;
+
+        // 统一获取最新的窗口信息
         const sysInfo = wx.getWindowInfo();
+        if (!sysInfo) return;
+
         const safeArea = sysInfo.safeArea;
         const menuButton = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
 
-        // 计算物理/逻辑视口到 Cocos 视图像素的缩放比
-        const frameSize = screen.windowSize; 
+        const screenWidth = sysInfo.screenWidth || sysInfo.windowWidth || 844;
+        const screenHeight = sysInfo.screenHeight || sysInfo.windowHeight || 390;
+
         const visibleSize = view.getVisibleSize();
-        
-        // 横屏通常采用 Fit Height 策略，比例取高度或综合比
-        const scaleX = visibleSize.width / frameSize.width;
-        const scaleY = visibleSize.height / frameSize.height;
+
+        // 逻辑像素转换到 Cocos UI 视口比例
+        const scaleX = visibleSize.width / screenWidth;
+        const scaleY = visibleSize.height / screenHeight;
 
         let widget = this.getComponent(Widget);
         if (!widget) {
             widget = this.addComponent(Widget);
-            console.log("SafeAreaAdapter: Widget component added for safe area adaptation.");
         }
 
-        // 1. 左侧安全区避让（横屏刘海在左侧时）
-        if (this.adaptLeft && safeArea) {
-            const rawLeft = safeArea.left;
-            widget.isAlignLeft = true;
-            widget.left = (rawLeft * scaleX) + this.sidePadding;
-        }
+        // 显式重置标志位，防止互顶和拉伸
+        widget.isAlignLeft = false;
+        widget.isAlignRight = false;
+        widget.isAlignTop = false;
+        widget.isAlignBottom = false;
 
-        // 2. 右侧安全区与微信胶囊避让（横屏刘海在右侧，或者避让右上角胶囊）
-        if (this.adaptRight) {
-            let rawRightDistance = 0;
-            if (safeArea) {
-                rawRightDistance = frameSize.width - safeArea.right;
+        // ================= 1. 左侧避让（计算刘海 + 胶囊位于左侧的情况） =================
+        if (this.adaptLeft) {
+            let rawLeftDistance = 0;
+
+            // 1.1 系统安全区左边界（刘海在左侧）
+            if (safeArea && safeArea.left > 0) {
+                rawLeftDistance = safeArea.left;
             }
 
-            // 如果右上角有胶囊，胶囊距离右屏幕边缘为：frameSize.width - menuButton.left
-            if (menuButton) {
-                const menuRightDistance = frameSize.width - menuButton.left;
-                rawRightDistance = Math.max(rawRightDistance, menuRightDistance);
+            // 1.2 旋转后如果微信胶囊转到了左侧 (menuButton.left < screenWidth / 2)
+            if (menuButton && menuButton.left < screenWidth / 2) {
+                const menuRightDist = menuButton.right; // 胶囊右边界到屏幕左侧的距离
+                rawLeftDistance = Math.max(rawLeftDistance, menuRightDist);
+            }
+
+            // 1.3 模拟器/部分机型保底距离 (低于 30 时给予 47px 刘海保底)
+            //if (rawLeftDistance < 30) {
+            //    rawLeftDistance = 47;
+            //}
+
+            widget.isAlignLeft = true;
+            widget.left = (rawLeftDistance * scaleX) + this.sidePadding;
+        }
+
+        // ================= 2. 右侧避让（计算刘海 + 胶囊位于右侧的情况） =================
+        if (this.adaptRight) {
+            let rawRightDistance = 0;
+
+            // 2.1 系统安全区右边界（刘海在右侧）
+            if (safeArea && safeArea.right < screenWidth) {
+                rawRightDistance = screenWidth - safeArea.right;
+            }
+
+            // 2.2 胶囊在右侧 (menuButton.left >= screenWidth / 2)
+            if (menuButton && menuButton.left >= screenWidth / 2) {
+                const menuLeftDist = screenWidth - menuButton.left;
+                rawRightDistance = Math.max(rawRightDistance, menuLeftDist);
+            }
+
+            // 2.3 保底距离
+            if (rawRightDistance < 30) {
+                rawRightDistance = 47;
             }
 
             widget.isAlignRight = true;
             widget.right = (rawRightDistance * scaleX) + this.sidePadding;
         }
 
-        // 3. 顶部避让（如有需要避开胶囊下边缘）
+        // ================= 3. 顶部避让 =================
         if (this.adaptTop && menuButton) {
             widget.isAlignTop = true;
-            widget.top = (menuButton.bottom * scaleY);
+            widget.top = (menuButton.bottom * scaleY) + 10;
         }
 
-        // 4. 底部手势横条避让
+        // ================= 4. 底部避让 =================
         if (this.adaptBottom && safeArea) {
-            const rawBottomDistance = frameSize.height - safeArea.bottom;
+            const rawBottomDistance = screenHeight - safeArea.bottom;
             widget.isAlignBottom = true;
             widget.bottom = (rawBottomDistance * scaleY);
         }
 
-        // 刷新组件对齐生效
+        // 刷新 Widget 对齐组件
         widget.updateAlignment();
-
-        console.log("SafeAreaAdapter: Applied safe area adaptation with settings:", {
-            adaptLeft: this.adaptLeft,
-            adaptRight: this.adaptRight,
-            adaptTop: this.adaptTop,
-            adaptBottom: this.adaptBottom,
-            sidePadding: this.sidePadding,
-            safeArea: safeArea,
-            menuButton: menuButton
-        });
     }
 }

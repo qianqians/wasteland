@@ -21,7 +21,7 @@ export class LoginCallback extends engine.player {
         await this.CreateCharacter.Init(node, this._login_caller);
     }
 
-    public static async Creator(entity_id: string, createCharacter:Prefab, description: object) {
+    public static async Creator(entity_id: string, createCharacter:Node, description: object) {
         console.log(`LoginCallback:${entity_id}`);
         let impl = new LoginCallback(entity_id)
         let c = description["Characters"] as Array<object>;
@@ -38,7 +38,7 @@ export class LoginCallback extends engine.player {
             });
         }
         else {
-            await impl.create_character(instantiate(createCharacter));
+            await impl.create_character(createCharacter);
         }
         return impl
     }
