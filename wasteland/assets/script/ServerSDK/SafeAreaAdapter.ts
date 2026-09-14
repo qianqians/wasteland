@@ -4,10 +4,10 @@ const { ccclass, property } = _decorator;
 @ccclass('SafeAreaAdapter')
 export class SafeAreaAdapter extends Component {
     public adaptLeft: boolean = true;
-    public adaptRight: boolean = false;
+    public adaptRight: boolean = true;
     public adaptTop: boolean = false;
     public adaptBottom: boolean = false;
-    public sidePadding: number = 10;
+    public sidePadding: number = 8;
 
     private _resizeCallback: any = null;
 
@@ -66,7 +66,7 @@ export class SafeAreaAdapter extends Component {
         if (!sysInfo) return;
 
         const safeArea = sysInfo.safeArea;
-        const menuButton = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
+        const menuButton = wx.getMenuButtonBoundingClientRect();
 
         const screenWidth = sysInfo.screenWidth || sysInfo.windowWidth || 844;
         const screenHeight = sysInfo.screenHeight || sysInfo.windowHeight || 390;
@@ -97,19 +97,16 @@ export class SafeAreaAdapter extends Component {
                 rawLeftDistance = safeArea.left;
             }
 
-            // 1.2 旋转后如果微信胶囊转到了左侧 (menuButton.left < screenWidth / 2)
-            if (menuButton && menuButton.left < screenWidth / 2) {
-                const menuRightDist = menuButton.right; // 胶囊右边界到屏幕左侧的距离
-                rawLeftDistance = Math.max(rawLeftDistance, menuRightDist);
+            if (rawLeftDistance > 0) {
+                // 1.2 旋转后如果微信胶囊转到了左侧 (menuButton.left < screenWidth / 2)
+                if (menuButton && menuButton.left < screenWidth / 2) {
+                    const menuRightDist = menuButton.right; // 胶囊右边界到屏幕左侧的距离
+                    rawLeftDistance = Math.max(rawLeftDistance, menuRightDist);
+                }
+
+                    widget.isAlignLeft = true;
+                    widget.left = (rawLeftDistance * scaleX) + this.sidePadding;
             }
-
-            // 1.3 模拟器/部分机型保底距离 (低于 30 时给予 47px 刘海保底)
-            //if (rawLeftDistance < 30) {
-            //    rawLeftDistance = 47;
-            //}
-
-            widget.isAlignLeft = true;
-            widget.left = (rawLeftDistance * scaleX) + this.sidePadding;
         }
 
         // ================= 2. 右侧避让（计算刘海 + 胶囊位于右侧的情况） =================
@@ -121,19 +118,16 @@ export class SafeAreaAdapter extends Component {
                 rawRightDistance = screenWidth - safeArea.right;
             }
 
-            // 2.2 胶囊在右侧 (menuButton.left >= screenWidth / 2)
-            if (menuButton && menuButton.left >= screenWidth / 2) {
-                const menuLeftDist = screenWidth - menuButton.left;
-                rawRightDistance = Math.max(rawRightDistance, menuLeftDist);
-            }
+            if (rawRightDistance > 0) {
+                // 2.2 胶囊在右侧 (menuButton.left >= screenWidth / 2)
+                if (menuButton && menuButton.left >= screenWidth / 2) {
+                    const menuLeftDist = screenWidth - menuButton.left;
+                    rawRightDistance = Math.max(rawRightDistance, menuLeftDist);
+                }
 
-            // 2.3 保底距离
-            if (rawRightDistance < 30) {
-                rawRightDistance = 47;
+                widget.isAlignRight = true;
+                widget.right = (rawRightDistance * scaleX) + this.sidePadding;
             }
-
-            widget.isAlignRight = true;
-            widget.right = (rawRightDistance * scaleX) + this.sidePadding;
         }
 
         // ================= 3. 顶部避让 =================
