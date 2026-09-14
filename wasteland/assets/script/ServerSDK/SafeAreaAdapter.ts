@@ -4,10 +4,10 @@ const { ccclass, property } = _decorator;
 @ccclass('SafeAreaAdapter')
 export class SafeAreaAdapter extends Component {
     public adaptLeft: boolean = true;
-    public adaptRight: boolean = true;
+    public adaptRight: boolean = false;
     public adaptTop: boolean = false;
     public adaptBottom: boolean = false;
-    public sidePadding: number = 8;
+    public sidePadding: number = 30;
 
     private _resizeCallback: any = null;
 
@@ -96,16 +96,19 @@ export class SafeAreaAdapter extends Component {
             if (safeArea && safeArea.left > 0) {
                 rawLeftDistance = safeArea.left;
             }
-
+           
             if (rawLeftDistance > 0) {
                 // 1.2 旋转后如果微信胶囊转到了左侧 (menuButton.left < screenWidth / 2)
                 if (menuButton && menuButton.left < screenWidth / 2) {
                     const menuRightDist = menuButton.right; // 胶囊右边界到屏幕左侧的距离
                     rawLeftDistance = Math.max(rawLeftDistance, menuRightDist);
-                }
+                } 
+                console.log(`[SafeAreaAdapter] rawLeftDistance: ${rawLeftDistance}, safeArea.left: ${safeArea?.left}, menuButton.left: ${menuButton?.left}, screenWidth: ${screenWidth}`);
 
-                    widget.isAlignLeft = true;
-                    widget.left = (rawLeftDistance * scaleX) + this.sidePadding;
+                widget.isAlignLeft = true;
+                widget.left = rawLeftDistance /*(rawLeftDistance * scaleX)*/ + this.sidePadding;
+
+                console.log(`[SafeAreaAdapter] 左侧避让生效, rawLeftDistance: ${rawLeftDistance}, scaleX: ${scaleX}, sidePadding: ${this.sidePadding}, widget.left: ${widget.left}`);
             }
         }
 

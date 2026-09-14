@@ -22,7 +22,7 @@ export default class WxSdk implements SdkInterface
             text: '进入游戏',
             style: {
                 left: wxSize.screenWidth / 2 - 100,
-                top: wxSize.screenHeight / 2 + 60,
+                top: wxSize.screenHeight / 2 + 120,
                 width: 200,
                 height: 40,
                 lineHeight: 40,

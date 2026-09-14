@@ -64,11 +64,11 @@ export class CreateCharacter {
             });
         }
 
-        this.area_list.push(node.getChildByPath("selection_region/area0/Label"));
-        this.area_list.push(node.getChildByPath("selection_region/area1/Label"));
-        this.area_list.push(node.getChildByPath("selection_region/area2/Label"));
-        this.area_list.push(node.getChildByPath("selection_region/area3/Label"));
-        this.area_list.push(node.getChildByPath("selection_region/area4/Label"));
+        this.area_list.push(node.getChildByPath("selection_region_layout/selection_region/area0/Label"));
+        this.area_list.push(node.getChildByPath("selection_region_layout/selection_region/area1/Label"));
+        this.area_list.push(node.getChildByPath("selection_region_layout/selection_region/area2/Label"));
+        this.area_list.push(node.getChildByPath("selection_region_layout/selection_region/area3/Label"));
+        this.area_list.push(node.getChildByPath("selection_region_layout/selection_region/area4/Label"));
 
         let index = 0;
         for (let n of this.area_list) {
@@ -80,13 +80,13 @@ export class CreateCharacter {
 
         this.nick_name = node.getChildByPath("nick_name/text").getComponent(RichText);
 
-        this.gender_select_female = node.getChildByPath("UI_Select_Fmale_Normal").getComponent(Sprite);
+        this.gender_select_female = node.getChildByPath("selection_region_layout/UI_Select_Fmale_Normal").getComponent(Sprite);
         this.gender_select_female.node.on(NodeEventType.TOUCH_END, async () => {
             this.gender_select_male.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Male_Normal/spriteFrame", SpriteFrame);
             this.gender_select_female.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Fmale_activate/spriteFrame", SpriteFrame);
             this.InitGender(em_role_gender.em_role_gender_female);
         });
-        this.gender_select_male = node.getChildByPath("UI_Select_Male_Normal").getComponent(Sprite);
+        this.gender_select_male = node.getChildByPath("selection_region_layout/UI_Select_Male_Normal").getComponent(Sprite);
         this.gender_select_male.node.on(NodeEventType.TOUCH_END, async () => {
             this.gender_select_male.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Male_activate/spriteFrame", SpriteFrame);
             this.gender_select_female.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_Select_Fmale_Normal/spriteFrame", SpriteFrame);
