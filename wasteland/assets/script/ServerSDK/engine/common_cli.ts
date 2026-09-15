@@ -134,7 +134,7 @@ export class equip_info {
      public desc:string = ""
      public equip_type:em_equip_type = em_equip_type.helmet
      public rarity:em_rarity = em_rarity.common
-     public bonus:attribute = null
+     public abonus:attribute = null
 }
 
 export function equip_info_to_protcol(_struct:equip_info) {
@@ -145,7 +145,7 @@ export function equip_info_to_protcol(_struct:equip_info) {
     _protocol["desc"] = _struct.desc
     _protocol["equip_type"] = _struct.equip_type
     _protocol["rarity"] = _struct.rarity
-    _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     return _protocol;
 }
 
@@ -171,8 +171,8 @@ export function protcol_to_equip_info(_protocol:any) {
         else if (key == "rarity") {
             _struct.rarity = val;
         }
-        else if (key == "bonus") {
-            _struct.bonus = protcol_to_attribute(val);
+        else if (key == "abonus") {
+            _struct.abonus = protcol_to_attribute(val);
         }
     }
     return _struct;
@@ -303,7 +303,7 @@ export class gongfa {
      public gongfa_table_id:number = 0
      public rarity:em_rarity = em_rarity.common
      public gongfa_level:number = 0
-     public bonus:gongfa_bonus = null
+     public abonus:gongfa_bonus = null
 }
 
 export function gongfa_to_protcol(_struct:gongfa) {
@@ -311,7 +311,7 @@ export function gongfa_to_protcol(_struct:gongfa) {
     _protocol["gongfa_table_id"] = _struct.gongfa_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["gongfa_level"] = _struct.gongfa_level
-    _protocol["bonus"] = gongfa_bonus_to_protcol(_struct.bonus)
+    _protocol["abonus"] = gongfa_bonus_to_protcol(_struct.abonus)
     return _protocol;
 }
 
@@ -328,8 +328,8 @@ export function protcol_to_gongfa(_protocol:any) {
         else if (key == "gongfa_level") {
             _struct.gongfa_level = val;
         }
-        else if (key == "bonus") {
-            _struct.bonus = protcol_to_gongfa_bonus(val);
+        else if (key == "abonus") {
+            _struct.abonus = protcol_to_gongfa_bonus(val);
         }
     }
     return _struct;
@@ -460,7 +460,8 @@ export class bb {
      public bb_table_id:number = 0
      public rarity:em_rarity = em_rarity.common
      public level:number = 0
-     public bonus:attribute = null
+     public speed:number = 0
+     public abonus:attribute = null
      public skills:Array<skill_info> = null
      public equips:Array<equip_info> = null
 }
@@ -471,7 +472,8 @@ export function bb_to_protcol(_struct:bb) {
     _protocol["bb_table_id"] = _struct.bb_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["level"] = _struct.level
-    _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
+    _protocol["speed"] = _struct.speed
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
         let _array_skills = []
         for (let v_ of _struct.skills) {
@@ -505,8 +507,11 @@ export function protcol_to_bb(_protocol:any) {
         else if (key == "level") {
             _struct.level = val;
         }
-        else if (key == "bonus") {
-            _struct.bonus = protcol_to_attribute(val);
+        else if (key == "speed") {
+            _struct.speed = val;
+        }
+        else if (key == "abonus") {
+            _struct.abonus = protcol_to_attribute(val);
         }
         else if (key == "skills") {
             _struct.skills = []

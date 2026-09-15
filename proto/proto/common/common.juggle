@@ -67,7 +67,7 @@ struct equip_info {
     string desc;
     em_equip_type equip_type;
     em_rarity rarity;
-    attribute bonus;
+    attribute abonus;
 }
 
 enum direction {
@@ -103,7 +103,7 @@ struct gongfa {
     int32 gongfa_table_id;
     em_rarity rarity;
     int32 gongfa_level;
-    gongfa_bonus bonus;
+    gongfa_bonus abonus;
 }
 
 enum em_task_state {
@@ -137,7 +137,8 @@ struct bb {
     int32 bb_table_id;
     em_rarity rarity;
     int32 level;
-    attribute bonus;
+    int32 speed;
+    attribute abonus;
     skill_info[] skills;
     equip_info[] equips;     // 宠物穿戴的装备
 }

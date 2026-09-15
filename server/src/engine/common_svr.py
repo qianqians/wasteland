@@ -129,7 +129,7 @@ class equip_info(object):
         self.desc:str = ""
         self.equip_type:em_equip_type = 0
         self.rarity:em_rarity = 0
-        self.bonus:attribute = None
+        self.abonus:attribute = None
 
 
 def equip_info_to_protcol(_struct:equip_info):
@@ -142,7 +142,7 @@ def equip_info_to_protcol(_struct:equip_info):
     _protocol["desc"] = _struct.desc
     _protocol["equip_type"] = _struct.equip_type
     _protocol["rarity"] = _struct.rarity
-    _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     return _protocol
 
 def protcol_to_equip_info(_protocol:dict):
@@ -160,8 +160,8 @@ def protcol_to_equip_info(_protocol:dict):
             _struct.equip_type = val
         elif key == "rarity":
             _struct.rarity = val
-        elif key == "bonus":
-            _struct.bonus = protcol_to_attribute(val)
+        elif key == "abonus":
+            _struct.abonus = protcol_to_attribute(val)
     return _struct
 
 class position(object):
@@ -268,7 +268,7 @@ class gongfa(object):
         self.gongfa_table_id:int = 0
         self.rarity:em_rarity = 0
         self.gongfa_level:int = 0
-        self.bonus:gongfa_bonus = None
+        self.abonus:gongfa_bonus = None
 
 
 def gongfa_to_protcol(_struct:gongfa):
@@ -278,7 +278,7 @@ def gongfa_to_protcol(_struct:gongfa):
     _protocol["gongfa_table_id"] = _struct.gongfa_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["gongfa_level"] = _struct.gongfa_level
-    _protocol["bonus"] = gongfa_bonus_to_protcol(_struct.bonus)
+    _protocol["abonus"] = gongfa_bonus_to_protcol(_struct.abonus)
     return _protocol
 
 def protcol_to_gongfa(_protocol:dict):
@@ -290,8 +290,8 @@ def protcol_to_gongfa(_protocol:dict):
             _struct.rarity = val
         elif key == "gongfa_level":
             _struct.gongfa_level = val
-        elif key == "bonus":
-            _struct.bonus = protcol_to_gongfa_bonus(val)
+        elif key == "abonus":
+            _struct.abonus = protcol_to_gongfa_bonus(val)
     return _struct
 
 class task_progress_info(object):
@@ -397,7 +397,8 @@ class bb(object):
         self.bb_table_id:int = 0
         self.rarity:em_rarity = 0
         self.level:int = 0
-        self.bonus:attribute = None
+        self.speed:int = 0
+        self.abonus:attribute = None
         self.skills:list[skill_info] = []
         self.equips:list[equip_info] = []
 
@@ -410,7 +411,8 @@ def bb_to_protcol(_struct:bb):
     _protocol["bb_table_id"] = _struct.bb_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["level"] = _struct.level
-    _protocol["bonus"] = attribute_to_protcol(_struct.bonus)
+    _protocol["speed"] = _struct.speed
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if _struct.skills:
         _array_skills = []
         for v_ in _struct.skills:
@@ -434,8 +436,10 @@ def protcol_to_bb(_protocol:dict):
             _struct.rarity = val
         elif key == "level":
             _struct.level = val
-        elif key == "bonus":
-            _struct.bonus = protcol_to_attribute(val)
+        elif key == "speed":
+            _struct.speed = val
+        elif key == "abonus":
+            _struct.abonus = protcol_to_attribute(val)
         elif key == "skills":
             _struct.skills = []
             for v_ in val:

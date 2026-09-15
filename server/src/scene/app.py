@@ -5,7 +5,6 @@ from ..engine.engine import *
 from .player_data import *
 from .scene import *
 from .scene_service import *
-from ..config.config import *
 from .scene_map_data import *
 
 class PlayerEventHandle(player_event_handle):

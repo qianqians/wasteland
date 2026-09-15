@@ -3,23 +3,22 @@ from __future__ import annotations
 from typing import TypedDict, cast
 from ..engine.common_svr import *
 
+def CreateSkill(skill_id:int, value:float, range:int, cast_mp:int, cd_round:int) -> skill_info:
+    s = skill_info()
+    s.skill_id = skill_id
+    s.value = value
+    s.range = range
+    s.cast_mp = cast_mp
+    s.cd_round = cd_round
+
+
 NoneAction = 0
 
 SkillAttack = 1
-Attack = skill_info()
-Attack.skill_id = SkillAttack
-Attack.value = 1
-Attack.range = 1
-Attack.cast_mp = 0
-Attack.cd_round = 0
+Attack = CreateSkill(SkillAttack, 1, 1, 0, 0)
 
 SkillDefend = 2
-Defend = skill_info()
-Defend.skill_id = SkillDefend
-Defend.value = 1.5
-Defend.range = 1
-Defend.cast_mp = 0
-Defend.cd_round = 0
+Defend = CreateSkill(SkillDefend, 1.5, 1, 0, 0)
 
 Skills = {
     NoneAction: None,
