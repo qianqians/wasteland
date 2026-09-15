@@ -72,7 +72,7 @@ class login_module(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-        self.on_create_character:list[Callable[[login_create_character_rsp, str, em_role_gender, em_player_appearance, str], None]] = []
+        self.on_create_character:list[Callable[[login_create_character_rsp, str, em_role_gender, str, str], None]] = []
         self.entity.reg_client_request_callback("create_character", self.create_character)
         self.on_select_character:list[Callable[[login_select_character_rsp, str], None]] = []
         self.entity.reg_client_request_callback("select_character", self.select_character)

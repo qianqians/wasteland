@@ -19,6 +19,7 @@ enum em_rarity {
   rare = 2;       // 稀有
   epic = 3;       // 史诗
   legendary = 4;  // 传说
+  myth = 5;       // 神话
 }
 
 enum em_equip_type {
@@ -30,8 +31,22 @@ enum em_equip_type {
     weapon = 6;     // 武器
 
     bb_attack = 11;    // 宠物武器
-    bb_defense = 12;   // 宠物防御
-    bb_resist = 13;    // 宠物抗性
+    bb_defense = 12;   // 宠物防具 物理/魔法防御
+    bb_resist = 13;    // 宠物抗性 封印/混乱 抗性
+}
+
+enum em_buff_type {
+    em_seal_action = 1; //封印所有行为
+    em_seal_skill = 2;  //封印使用技能
+    
+    em_confuse_attack_all = 4;    //混乱随机攻击场上成员
+    em_confuse_attack_allies = 8; //混乱随机攻击本方成员
+
+    em_heal_hp = 16; //恢复元气
+    em_heal_mp = 32; //恢复真气
+
+    em_damage_hp = 64; //伤害元气
+    em_damage_mp = 128;//伤害真气
 }
 
 struct attribute {
@@ -73,10 +88,10 @@ struct position {
 
 struct skill_info {
     int32 skill_id;
-    int32 attack;
-    int32 attack_range;
+    float value;
+    int32 range;
+    int32 cast_mp;
     int32 cd_round;
-    float cast_spells;
 }
 
 struct gongfa_bonus {
@@ -96,20 +111,6 @@ enum em_task_state {
     in_progress = 2;
     can_completed = 3;
     completed = 4;
-}
-
-enum em_player_appearance {
-    em_player_appearance_female_0 = 0;
-    em_player_appearance_female_1 = 1;
-    em_player_appearance_female_2 = 2;
-    em_player_appearance_female_3 = 3;
-    em_player_appearance_female_4 = 4;
-    
-    em_player_appearance_male_0 = 5;
-    em_player_appearance_male_1 = 6;
-    em_player_appearance_male_2 = 7;
-    em_player_appearance_male_3 = 8;
-    em_player_appearance_male_4 = 9;
 }
 
 struct task_progress_info {
@@ -132,6 +133,7 @@ struct item {
 }
 
 struct bb {
+    string entity_id;
     int32 bb_table_id;
     em_rarity rarity;
     int32 level;
@@ -149,13 +151,13 @@ struct player_info {
     string account_id;
     string player_id;
     string player_nick_name; // 玩家昵称
-    em_player_appearance player_appearance; // 玩家外观
+    string player_appearance; // 玩家外观
     attribute abonus;        // 玩家基础属性
     gongfa[] gfs;            // 玩家修炼过的功法
     gongfa curr_gf;          // 玩家当前使用的功法
     equip_info[] equips;     // 玩家穿戴的装备
     bb[] wait_bbs;                // 玩家携带的宠物
-    bb[] curr_bb;            // 当前出战宠物
+    bb[] curr_bbs;            // 当前出战宠物
     item[] items;            // 玩家背包 
     task_info[] tasks;       // 领取的任务
     em_role_gender gender;            // 玩家性别
@@ -175,9 +177,11 @@ struct battle_entity {
 }
 
 struct battle_info {
-    em_role_gender gender;                // 玩家性别
-    bb[] wait_bbs;               // 玩家携带的宠物
-    battle_entity[] battle_team; // 出战单位
+    battle_entity battle_team0; // 出战单位0
+    battle_entity battle_team1; // 出战单位1
+    bb curr_bbs0;               // 玩家携带的宠物0
+    bb curr_bbs1;               // 玩家携带的宠物1
+    battle_entity player;
     item[] items;                // 玩家背包 
 	string scene;                // 玩家所在战斗场景
 }

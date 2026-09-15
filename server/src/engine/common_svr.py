@@ -27,6 +27,7 @@ class em_rarity(Enum):
     rare = 2
     epic = 3
     legendary = 4
+    myth = 5
 
 
 class em_equip_type(Enum):
@@ -39,6 +40,17 @@ class em_equip_type(Enum):
     bb_attack = 11
     bb_defense = 12
     bb_resist = 13
+
+
+class em_buff_type(Enum):
+    em_seal_action = 1
+    em_seal_skill = 2
+    em_confuse_attack_all = 4
+    em_confuse_attack_allies = 8
+    em_heal_hp = 16
+    em_heal_mp = 32
+    em_damage_hp = 64
+    em_damage_mp = 128
 
 
 class direction(Enum):
@@ -54,19 +66,6 @@ class em_task_state(Enum):
     in_progress = 2
     can_completed = 3
     completed = 4
-
-
-class em_player_appearance(Enum):
-    em_player_appearance_female_0 = 0
-    em_player_appearance_female_1 = 1
-    em_player_appearance_female_2 = 2
-    em_player_appearance_female_3 = 3
-    em_player_appearance_female_4 = 4
-    em_player_appearance_male_0 = 5
-    em_player_appearance_male_1 = 6
-    em_player_appearance_male_2 = 7
-    em_player_appearance_male_3 = 8
-    em_player_appearance_male_4 = 9
 
 
 class em_role_gender(Enum):
@@ -203,10 +202,10 @@ def protcol_to_position(_protocol:dict):
 class skill_info(object):
     def __init__(self):
         self.skill_id:int = 0
-        self.attack:int = 0
-        self.attack_range:int = 0
+        self.value:float = 0.0
+        self.range:int = 0
+        self.cast_mp:int = 0
         self.cd_round:int = 0
-        self.cast_spells:float = 0.0
 
 
 def skill_info_to_protcol(_struct:skill_info):
@@ -214,10 +213,10 @@ def skill_info_to_protcol(_struct:skill_info):
         return None
     _protocol = {}
     _protocol["skill_id"] = _struct.skill_id
-    _protocol["attack"] = _struct.attack
-    _protocol["attack_range"] = _struct.attack_range
+    _protocol["value"] = _struct.value
+    _protocol["range"] = _struct.range
+    _protocol["cast_mp"] = _struct.cast_mp
     _protocol["cd_round"] = _struct.cd_round
-    _protocol["cast_spells"] = _struct.cast_spells
     return _protocol
 
 def protcol_to_skill_info(_protocol:dict):
@@ -225,14 +224,14 @@ def protcol_to_skill_info(_protocol:dict):
     for (key, val) in _protocol.items():
         if key == "skill_id":
             _struct.skill_id = val
-        elif key == "attack":
-            _struct.attack = val
-        elif key == "attack_range":
-            _struct.attack_range = val
+        elif key == "value":
+            _struct.value = val
+        elif key == "range":
+            _struct.range = val
+        elif key == "cast_mp":
+            _struct.cast_mp = val
         elif key == "cd_round":
             _struct.cd_round = val
-        elif key == "cast_spells":
-            _struct.cast_spells = val
     return _struct
 
 class gongfa_bonus(object):
@@ -394,6 +393,7 @@ def protcol_to_item(_protocol:dict):
 
 class bb(object):
     def __init__(self):
+        self.entity_id:str = ""
         self.bb_table_id:int = 0
         self.rarity:em_rarity = 0
         self.level:int = 0
@@ -406,6 +406,7 @@ def bb_to_protcol(_struct:bb):
     if _struct is None:
         return None
     _protocol = {}
+    _protocol["entity_id"] = _struct.entity_id
     _protocol["bb_table_id"] = _struct.bb_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["level"] = _struct.level
@@ -425,7 +426,9 @@ def bb_to_protcol(_struct:bb):
 def protcol_to_bb(_protocol:dict):
     _struct = bb()
     for (key, val) in _protocol.items():
-        if key == "bb_table_id":
+        if key == "entity_id":
+            _struct.entity_id = val
+        elif key == "bb_table_id":
             _struct.bb_table_id = val
         elif key == "rarity":
             _struct.rarity = val
@@ -448,13 +451,13 @@ class player_info(object):
         self.account_id:str = ""
         self.player_id:str = ""
         self.player_nick_name:str = ""
-        self.player_appearance:em_player_appearance = 0
+        self.player_appearance:str = ""
         self.abonus:attribute = None
         self.gfs:list[gongfa] = []
         self.curr_gf:gongfa = None
         self.equips:list[equip_info] = []
         self.wait_bbs:list[bb] = []
-        self.curr_bb:list[bb] = []
+        self.curr_bbs:list[bb] = []
         self.items:list[item] = []
         self.tasks:list[task_info] = []
         self.gender:em_role_gender = 0
@@ -488,11 +491,11 @@ def player_info_to_protcol(_struct:player_info):
         for v_ in _struct.wait_bbs:
             _array_wait_bbs.append(bb_to_protcol(v_))
         _protocol["wait_bbs"] = _array_wait_bbs
-    if _struct.curr_bb:
-        _array_curr_bb = []
-        for v_ in _struct.curr_bb:
-            _array_curr_bb.append(bb_to_protcol(v_))
-        _protocol["curr_bb"] = _array_curr_bb
+    if _struct.curr_bbs:
+        _array_curr_bbs = []
+        for v_ in _struct.curr_bbs:
+            _array_curr_bbs.append(bb_to_protcol(v_))
+        _protocol["curr_bbs"] = _array_curr_bbs
     if _struct.items:
         _array_items = []
         for v_ in _struct.items:
@@ -536,10 +539,10 @@ def protcol_to_player_info(_protocol:dict):
             _struct.wait_bbs = []
             for v_ in val:
                 _struct.wait_bbs.append(bb_to_protcol(v_))
-        elif key == "curr_bb":
-            _struct.curr_bb = []
+        elif key == "curr_bbs":
+            _struct.curr_bbs = []
             for v_ in val:
-                _struct.curr_bb.append(bb_to_protcol(v_))
+                _struct.curr_bbs.append(bb_to_protcol(v_))
         elif key == "items":
             _struct.items = []
             for v_ in val:
@@ -609,9 +612,11 @@ def protcol_to_battle_entity(_protocol:dict):
 
 class battle_info(object):
     def __init__(self):
-        self.gender:em_role_gender = 0
-        self.wait_bbs:list[bb] = []
-        self.battle_team:list[battle_entity] = []
+        self.battle_team0:battle_entity = None
+        self.battle_team1:battle_entity = None
+        self.curr_bbs0:bb = None
+        self.curr_bbs1:bb = None
+        self.player:battle_entity = None
         self.items:list[item] = []
         self.scene:str = ""
 
@@ -620,17 +625,11 @@ def battle_info_to_protcol(_struct:battle_info):
     if _struct is None:
         return None
     _protocol = {}
-    _protocol["gender"] = _struct.gender
-    if _struct.wait_bbs:
-        _array_wait_bbs = []
-        for v_ in _struct.wait_bbs:
-            _array_wait_bbs.append(bb_to_protcol(v_))
-        _protocol["wait_bbs"] = _array_wait_bbs
-    if _struct.battle_team:
-        _array_battle_team = []
-        for v_ in _struct.battle_team:
-            _array_battle_team.append(battle_entity_to_protcol(v_))
-        _protocol["battle_team"] = _array_battle_team
+    _protocol["battle_team0"] = battle_entity_to_protcol(_struct.battle_team0)
+    _protocol["battle_team1"] = battle_entity_to_protcol(_struct.battle_team1)
+    _protocol["curr_bbs0"] = bb_to_protcol(_struct.curr_bbs0)
+    _protocol["curr_bbs1"] = bb_to_protcol(_struct.curr_bbs1)
+    _protocol["player"] = battle_entity_to_protcol(_struct.player)
     if _struct.items:
         _array_items = []
         for v_ in _struct.items:
@@ -642,16 +641,16 @@ def battle_info_to_protcol(_struct:battle_info):
 def protcol_to_battle_info(_protocol:dict):
     _struct = battle_info()
     for (key, val) in _protocol.items():
-        if key == "gender":
-            _struct.gender = val
-        elif key == "wait_bbs":
-            _struct.wait_bbs = []
-            for v_ in val:
-                _struct.wait_bbs.append(bb_to_protcol(v_))
-        elif key == "battle_team":
-            _struct.battle_team = []
-            for v_ in val:
-                _struct.battle_team.append(battle_entity_to_protcol(v_))
+        if key == "battle_team0":
+            _struct.battle_team0 = protcol_to_battle_entity(val)
+        elif key == "battle_team1":
+            _struct.battle_team1 = protcol_to_battle_entity(val)
+        elif key == "curr_bbs0":
+            _struct.curr_bbs0 = protcol_to_bb(val)
+        elif key == "curr_bbs1":
+            _struct.curr_bbs1 = protcol_to_bb(val)
+        elif key == "player":
+            _struct.player = protcol_to_battle_entity(val)
         elif key == "items":
             _struct.items = []
             for v_ in val:

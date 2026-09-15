@@ -13,16 +13,6 @@ class PlayerEventHandle(player_event_handle):
         return _player.full_info()
     
 def main(cfg_file:str):
-    load_task_config()
-    load_cond_config()
-    load_pkg_config()
-    load_item_config()
-    load_talk_config()
-    load_monster_config()
-    load_skill_config()
-    
-    #load_scene_spawn_point()
-
     _app = app()
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())

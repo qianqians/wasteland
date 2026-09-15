@@ -25,8 +25,8 @@ class attribute_data:
             "defense": self.defense,
         }
     
-def attribute_create() -> attribute_data:
-    return attribute_data({
+def attribute_create(entity_id:str) -> attribute_data:
+    return attribute_data(entity_id, {
         "hp": 100,
         "mp": 100,
         "max_hp": 100,

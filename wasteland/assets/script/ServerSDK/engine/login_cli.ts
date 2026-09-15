@@ -3,10 +3,12 @@ import { encode, decode } from "./engine/@msgpack/msgpack";
 import * as common from "./common_cli";
 // this enum code is codegen by geese codegen for ts
 
-export const EPlatformGoogle = 1;
-export const EPlatformIphone = 2;
-export const EPlatformSteam = 3;
-export const EPlatformWXMiniGame = 4;
+export enum em_platform {
+    EPlatformGoogle = 1,
+    EPlatformIphone = 2,
+    EPlatformSteam = 3,
+    EPlatformWXMiniGame = 4,
+}
 
 // this struct code is codegen by geese codegen for ts
 // this caller code is codegen by geese codegen for typescript
@@ -86,7 +88,7 @@ export class login_caller {
         this.entity = entity;
     }
 
-    public  create_character(player_nick_name:string, gender:common.em_role_gender, appearance:common.em_player_appearance, scene:string) {
+    public  create_character(player_nick_name:string, gender:common.em_role_gender, appearance:string, scene:string) {
         let _argv_b09e2393_3876_3f7c_be40_cdd789a21e87:any[] = []
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(player_nick_name);
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.push(gender);
