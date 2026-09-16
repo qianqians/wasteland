@@ -110,16 +110,12 @@ struct skill_info {
     int32 cd_round;
 }
 
-struct gongfa_bonus {
-    attribute abonus;
-    skill_info[] skills;
-}
-
 struct gongfa {
-    int32 gongfa_table_id;
+    string gongfa_id;
     em_rarity rarity;
     int32 gongfa_level;
-    gongfa_bonus abonus;
+    attribute abonus;
+    skill_info[] skills;
 }
 
 enum em_task_state {

@@ -228,7 +228,6 @@ class skill_info(object):
         self.cast_mp:int = 0
         self.cd_round:int = 0
 
-
 def skill_info_to_protcol(_struct:skill_info):
     if _struct is None:
         return None
@@ -267,16 +266,22 @@ def protcol_to_skill_info(_protocol:dict):
             _struct.cd_round = val
     return _struct
 
-class gongfa_bonus(object):
+class gongfa(object):
     def __init__(self):
+        self.gongfa_id:str = ""
+        self.rarity:em_rarity = 0
+        self.gongfa_level:int = 0
         self.abonus:attribute = None
         self.skills:list[skill_info] = []
 
 
-def gongfa_bonus_to_protcol(_struct:gongfa_bonus):
+def gongfa_to_protcol(_struct:gongfa):
     if _struct is None:
         return None
     _protocol = {}
+    _protocol["gongfa_id"] = _struct.gongfa_id
+    _protocol["rarity"] = _struct.rarity
+    _protocol["gongfa_level"] = _struct.gongfa_level
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if _struct.skills:
         _array_skills = []
@@ -285,46 +290,21 @@ def gongfa_bonus_to_protcol(_struct:gongfa_bonus):
         _protocol["skills"] = _array_skills
     return _protocol
 
-def protcol_to_gongfa_bonus(_protocol:dict):
-    _struct = gongfa_bonus()
-    for (key, val) in _protocol.items():
-        if key == "abonus":
-            _struct.abonus = protcol_to_attribute(val)
-        elif key == "skills":
-            _struct.skills = []
-            for v_ in val:
-                _struct.skills.append(skill_info_to_protcol(v_))
-    return _struct
-
-class gongfa(object):
-    def __init__(self):
-        self.gongfa_table_id:int = 0
-        self.rarity:em_rarity = 0
-        self.gongfa_level:int = 0
-        self.abonus:gongfa_bonus = None
-
-
-def gongfa_to_protcol(_struct:gongfa):
-    if _struct is None:
-        return None
-    _protocol = {}
-    _protocol["gongfa_table_id"] = _struct.gongfa_table_id
-    _protocol["rarity"] = _struct.rarity
-    _protocol["gongfa_level"] = _struct.gongfa_level
-    _protocol["abonus"] = gongfa_bonus_to_protcol(_struct.abonus)
-    return _protocol
-
 def protcol_to_gongfa(_protocol:dict):
     _struct = gongfa()
     for (key, val) in _protocol.items():
-        if key == "gongfa_table_id":
-            _struct.gongfa_table_id = val
+        if key == "gongfa_id":
+            _struct.gongfa_id = val
         elif key == "rarity":
             _struct.rarity = val
         elif key == "gongfa_level":
             _struct.gongfa_level = val
         elif key == "abonus":
-            _struct.abonus = protcol_to_gongfa_bonus(val)
+            _struct.abonus = protcol_to_attribute(val)
+        elif key == "skills":
+            _struct.skills = []
+            for v_ in val:
+                _struct.skills.append(skill_info_to_protcol(v_))
     return _struct
 
 class task_progress_info(object):

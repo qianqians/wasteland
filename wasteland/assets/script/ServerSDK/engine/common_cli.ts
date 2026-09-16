@@ -302,13 +302,19 @@ export function protcol_to_skill_info(_protocol:any) {
 
 }
 
-export class gongfa_bonus {
+export class gongfa {
+     public gongfa_id:string = ""
+     public rarity:em_rarity = em_rarity.common
+     public gongfa_level:number = 0
      public abonus:attribute = null
      public skills:Array<skill_info> = null
 }
 
-export function gongfa_bonus_to_protcol(_struct:gongfa_bonus) {
+export function gongfa_to_protcol(_struct:gongfa) {
     let _protocol:any = {}
+    _protocol["gongfa_id"] = _struct.gongfa_id
+    _protocol["rarity"] = _struct.rarity
+    _protocol["gongfa_level"] = _struct.gongfa_level
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
         let _array_skills = []
@@ -320,46 +326,12 @@ export function gongfa_bonus_to_protcol(_struct:gongfa_bonus) {
     return _protocol;
 }
 
-export function protcol_to_gongfa_bonus(_protocol:any) {
-    let _struct = new gongfa_bonus()
-    for (let key in _protocol) {
-        let val = _protocol[key];
-        if (key == "abonus") {
-            _struct.abonus = protcol_to_attribute(val);
-        }
-        else if (key == "skills") {
-            _struct.skills = []
-            for (let v_ of val) {
-                _struct.skills.push(protcol_to_skill_info(v_));
-            }
-        }
-    }
-    return _struct;
-
-}
-
-export class gongfa {
-     public gongfa_table_id:number = 0
-     public rarity:em_rarity = em_rarity.common
-     public gongfa_level:number = 0
-     public abonus:gongfa_bonus = null
-}
-
-export function gongfa_to_protcol(_struct:gongfa) {
-    let _protocol:any = {}
-    _protocol["gongfa_table_id"] = _struct.gongfa_table_id
-    _protocol["rarity"] = _struct.rarity
-    _protocol["gongfa_level"] = _struct.gongfa_level
-    _protocol["abonus"] = gongfa_bonus_to_protcol(_struct.abonus)
-    return _protocol;
-}
-
 export function protcol_to_gongfa(_protocol:any) {
     let _struct = new gongfa()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "gongfa_table_id") {
-            _struct.gongfa_table_id = val;
+        if (key == "gongfa_id") {
+            _struct.gongfa_id = val;
         }
         else if (key == "rarity") {
             _struct.rarity = val;
@@ -368,7 +340,13 @@ export function protcol_to_gongfa(_protocol:any) {
             _struct.gongfa_level = val;
         }
         else if (key == "abonus") {
-            _struct.abonus = protcol_to_gongfa_bonus(val);
+            _struct.abonus = protcol_to_attribute(val);
+        }
+        else if (key == "skills") {
+            _struct.skills = []
+            for (let v_ of val) {
+                _struct.skills.push(protcol_to_skill_info(v_));
+            }
         }
     }
     return _struct;

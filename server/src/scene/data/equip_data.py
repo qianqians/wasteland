@@ -24,6 +24,7 @@ class equip:
         e.equip.equip_type = em_equip_type(data["type"])
         e.equip.abonus.hp = data["add_hp"]
         e.equip.abonus.mp = data["add_mp"]
+        e.equip.abonus.speed = data["add_speed"]
         e.equip.abonus.attack = data["add_attack"]
         e.equip.abonus.defense = data["add_defense"]
         e.equip.abonus.matk = data["add_matk"]
@@ -47,6 +48,7 @@ class equip_data:
     def add_attribute(self):
         add_hp = 0
         add_mp = 0
+        add_speed = 0
         add_attack = 0
         add_defense = 0
         add_matk = 0
@@ -55,12 +57,13 @@ class equip_data:
         for _, equip in self.equips.items():
             add_hp += equip.equip.abonus.hp
             add_mp += equip.equip.abonus.mp
+            add_speed += equip.equip.abonus.speed
             add_attack += equip.equip.abonus.attack
             add_defense += equip.equip.abonus.defense
             add_matk += equip.equip.abonus.matk
             add_resist += equip.equip.abonus.resist
 
-        return (add_hp, add_mp, add_attack, add_defense, add_matk, add_resist)
+        return (add_hp, add_mp, add_speed, add_attack, add_defense, add_matk, add_resist)
     
     def wear(self, equip:equip) -> equip:
         old = None
