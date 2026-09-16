@@ -15,7 +15,7 @@ class partner_data:
             for p in self.wait_partners:
                 if p.entity_id == id: self.curr_partner.append(p)
 
-    def curr_partner(self) -> list[str]:
+    def curr_info(self) -> list[str]:
         curr_partner = []
         for p in self.curr_partner:
             curr_partner.append(p.entity_id)
@@ -26,3 +26,6 @@ class partner_data:
         for p in self.wait_partners:
             wait_partners.append(partner_to_protcol(p))
         return wait_partners
+
+    def info(self) -> dict:
+        return { "wait_partners": self.wait_info(), "curr_partner": self.curr_info() }

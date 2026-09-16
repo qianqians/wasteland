@@ -15,7 +15,7 @@ class bb_data:
             for b in self.wait_bbs:
                 if b.entity_id == id: self.curr_bb.append(b)
 
-    def curr_bb(self) -> list[str]:
+    def curr_info(self) -> list[str]:
         curr_bb = []
         for b in self.curr_bb:
             curr_bb.append(b.entity_id)
@@ -26,3 +26,6 @@ class bb_data:
         for b in self.wait_bbs:
             wait_bbs.append(bb_to_protcol(b))
         return wait_bbs
+
+    def info(self) -> dict:
+        return { "wait_bbs": self.wait_info(), "curr_bb": self.curr_info() }

@@ -34,6 +34,7 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
 
     player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
     app().player_mgr.add_player(player)
+    player.create_main_remote_entity()
     
     scene_name = player.scene_data.scene_name
     scene_line = _service.line

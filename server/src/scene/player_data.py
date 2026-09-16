@@ -16,11 +16,11 @@ from .data.bag_data import *
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
-    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, user_id:str, info:dict):
+    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
         save.__init__(self)
-        player.__init__(self, service_name, "player_data", user_id, player_gate_name, player_conn_id, False)
+        player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
 
-        self.user_id = user_id
+        self.user_id = player_id
 
         self.player_caller = player_ntf_client_caller(self)
         self.scene_caller = scene_ntf_client_caller(self)
@@ -47,9 +47,6 @@ class player_data(save, player):
         self.attribute_data = attribute_data(self.user_id, info["attribute_data"])
         self.bag_data = bag_data(self.user_id, info["bag_data"], self.player_caller)
         
-        from .data.skill_data import skill_data
-        self.skill_data = skill_data(self.user_id, info["skill_data"])
-
         from .data.task_data import task_data
         self.task_data = task_data(self.user_id, info["task_data"], 
                                    self.player_module, self.player_caller, 
@@ -176,16 +173,18 @@ class player_data(save, player):
     @abstractmethod
     def store(self) -> dict:
         return { 
-            "player_id": self.player_id, 
+            "player_id": self.user_id, 
             "account_id": self.account_id,
             "player_nick_name": self.player_nick_name,
             "gender": self.gender,
-            "level": self.level,
             "attribute_data": self.attribute_data.info(),
             "equip_data": self.equip_data.info(), 
             "scene_data": self.scene_data.info(),
             "task_data": self.task_data.info(), 
             "bag_data": self.bag_data.info(),
+            "bb_data": self.bb_data.info(),
+            "partner_data": self.partner_data.info(),
+            "gf_data": self.gf_data.info(),
         }
     
     @staticmethod
@@ -194,19 +193,14 @@ class player_data(save, player):
         _attribute_data = attribute_create()
         _bag_data = bag_create()
         
-        from .data.skill_data import skill_create
-        _skill_date = skill_create()
-        
-        from .data.task_data import task_create
-        _task_data = task_create()
+        #from .data.task_data import task_create
+        #_task_data = task_create()
 
         return { 
             "player_id":str(uuid.uuid4()),
             "level": 1,
             "attribute_data": _attribute_data.info(), 
             "bag_data": _bag_data.info(),
-            "task_data": _task_data.info(),
-            "skill_date": _skill_date.info(),
         }
 
 def migrate_player(player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
