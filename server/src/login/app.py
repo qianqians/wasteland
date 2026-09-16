@@ -40,7 +40,7 @@ class LoginEventHandle(login_event_handle):
             return uuid_obj["GUID"]
 
     async def __login_wx__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
-        response = await wx_sdk.code2Session("wx51eede0c2706005d", "f6b0ea872639b949a103fc16639d7101", sdk_uuid)
+        response = await wx_sdk.code2Session("xxxxxxxx", "xxxxxxxxxxxxxxxxx", sdk_uuid)
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
@@ -63,7 +63,7 @@ class LoginEventHandle(login_event_handle):
 
     async def __login_google__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
-        response = await google_sdk.verify_google_play_player("89726211606-14i9eofkndg6bmkm5s0jud47lv4r862c.apps.googleusercontent.com", "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", sdk_uuid)
+        response = await google_sdk.verify_google_play_player("xxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxx", sdk_uuid)
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
