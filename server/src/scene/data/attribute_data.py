@@ -1,17 +1,22 @@
 # -*- coding: UTF-8 -*-
 from __future__ import annotations
+from ...engine.common_svr import *
 
 class attribute_data:
     def __init__(self, entity_id:str, data:dict):
         self.entity_id = entity_id
-        
-        self.hp = data["hp"]
-        self.mp = data["mp"]
-        self.max_hp = data["max_hp"]
-        self.max_mp = data["max_mp"]
-        self.speed = data["speed"]
-        self.attack = data["attack"]
-        self.defense = data["defense"]
+
+        self.abonus = attribute()
+        self.abonus.hp = data["hp"]
+        self.abonus.mp = data["mp"]
+        self.abonus.max_hp = data["max_hp"]
+        self.abonus.max_mp = data["max_mp"]
+        self.abonus.speed = data["speed"]
+        self.abonus.attack = data["attack"]
+        self.abonus.defense = data["defense"]
+        self.abonus.matk = data["matk"]
+        self.abonus.resist = data["resist"]
+        self.abonus.tmp_defense = 0
 
     def info(self) -> dict:
         return {
@@ -34,4 +39,6 @@ def attribute_create(entity_id:str) -> attribute_data:
         "speed": 32,
         "attack": 20,
         "defense": 10,
+        "matk": 20,
+        "resist": 10,
     })
