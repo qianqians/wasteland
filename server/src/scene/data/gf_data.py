@@ -11,14 +11,7 @@ class gf_data:
             _gongfa.gongfa_id = gf["gongfa_id"]
             _gongfa.gongfa_level = gf["gongfa_level"]
             _gongfa.rarity = gf["rarity"]
-            _gongfa.abonus = attribute()
-            _gongfa.abonus.hp = gf["hp"]
-            _gongfa.abonus.mp = gf["mp"]
-            _gongfa.abonus.speed = gf["speed"]
-            _gongfa.abonus.attack = gf["attack"]
-            _gongfa.abonus.defense = gf["defense"]
-            _gongfa.abonus.matk = gf["matk"]
-            _gongfa.abonus.resist = gf["resist"]
+            _gongfa.abonus = protcol_to_attribute(gf["abonus"])
             _gongfa.skills = []
             for s in gf["skills"]:
                 _gongfa.skills.append(protcol_to_skill_info(s))
@@ -27,10 +20,31 @@ class gf_data:
                 self.curr_gf = _gongfa
 
     def curr_gf_info(self) -> dict:
-        return self.curr_gf.info
+        skills = []
+        for s in self.curr_gf.skills:
+            skills.append(skill_info_to_protcol(s))
+        abonus = attribute_to_protcol(self.curr_gf.abonus)
+        return {
+            "gongfa_id": self.curr_gf.gongfa_id,
+            "gongfa_level": self.curr_gf.gongfa_level,
+            "rarity": self.curr_gf.rarity,
+            "abonus": abonus,
+            "skills": skills,
+        }
 
     def info(self) -> list[dict]:
-        data = []
+        data:list[dict] = []
         for d in self.gfs:
-            data.append(d.info())
+            skills = []
+            for s in d.skills:
+                skills.append(skill_info_to_protcol(s))
+            abonus = attribute_to_protcol(d.abonus)
+            _d = {
+                "gongfa_id": d.gongfa_id,
+                "gongfa_level": d.gongfa_level,
+                "rarity": d.rarity,
+                "abonus": abonus,
+                "skills": skills,
+            }
+            data.append(_d)
         return data
