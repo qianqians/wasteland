@@ -47,6 +47,8 @@ export enum em_buff_type {
     em_heal_mp = 32,
     em_damage_hp = 64,
     em_damage_mp = 128,
+    em_defense_value = 256,
+    em_defense_ratio = 512,
 }
 
 export enum direction {
@@ -55,6 +57,13 @@ export enum direction {
     down = 2,
     left = 4,
     right = 8,
+}
+
+export enum skill_type {
+    skill_change_abonus_attack = 1,
+    skill_change_abonus_magic = 2,
+    skill_add_buffer = 3,
+    skill_dispel_buffer = 4,
 }
 
 export enum em_task_state {
@@ -77,6 +86,7 @@ export class attribute {
      public max_mp:number = 0
      public attack:number = 0
      public defense:number = 0
+     public tmp_defense:number = 0
      public matk:number = 0
      public resist:number = 0
 }
@@ -89,6 +99,7 @@ export function attribute_to_protcol(_struct:attribute) {
     _protocol["max_mp"] = _struct.max_mp
     _protocol["attack"] = _struct.attack
     _protocol["defense"] = _struct.defense
+    _protocol["tmp_defense"] = _struct.tmp_defense
     _protocol["matk"] = _struct.matk
     _protocol["resist"] = _struct.resist
     return _protocol;
@@ -115,6 +126,9 @@ export function protcol_to_attribute(_protocol:any) {
         }
         else if (key == "defense") {
             _struct.defense = val;
+        }
+        else if (key == "tmp_defense") {
+            _struct.tmp_defense = val;
         }
         else if (key == "matk") {
             _struct.matk = val;
@@ -223,7 +237,11 @@ export function protcol_to_position(_protocol:any) {
 
 export class skill_info {
      public skill_id:number = 0
-     public value:number = 0.0
+     public _type:skill_type = skill_type.skill_change_abonus_attack
+     public target_enemy:boolean = false
+     public value0:number = 0.0
+     public value1:number = 0.0
+     public ratio:number = 0.0
      public range:number = 0
      public cast_mp:number = 0
      public cd_round:number = 0
@@ -232,7 +250,11 @@ export class skill_info {
 export function skill_info_to_protcol(_struct:skill_info) {
     let _protocol:any = {}
     _protocol["skill_id"] = _struct.skill_id
-    _protocol["value"] = _struct.value
+    _protocol["_type"] = _struct._type
+    _protocol["target_enemy"] = _struct.target_enemy
+    _protocol["value0"] = _struct.value0
+    _protocol["value1"] = _struct.value1
+    _protocol["ratio"] = _struct.ratio
     _protocol["range"] = _struct.range
     _protocol["cast_mp"] = _struct.cast_mp
     _protocol["cd_round"] = _struct.cd_round
@@ -246,8 +268,20 @@ export function protcol_to_skill_info(_protocol:any) {
         if (key == "skill_id") {
             _struct.skill_id = val;
         }
-        else if (key == "value") {
-            _struct.value = val;
+        else if (key == "_type") {
+            _struct._type = val;
+        }
+        else if (key == "target_enemy") {
+            _struct.target_enemy = val;
+        }
+        else if (key == "value0") {
+            _struct.value0 = val;
+        }
+        else if (key == "value1") {
+            _struct.value1 = val;
+        }
+        else if (key == "ratio") {
+            _struct.ratio = val;
         }
         else if (key == "range") {
             _struct.range = val;
@@ -686,6 +720,7 @@ export class battle_entity {
      public nick_name:string = ""
      public appearance:string = ""
      public speed:number = 0
+     public level:number = 0
      public is_live:boolean = false
      public abonus:attribute = null
      public skills:Array<skill_info> = null
@@ -697,6 +732,7 @@ export function battle_entity_to_protcol(_struct:battle_entity) {
     _protocol["nick_name"] = _struct.nick_name
     _protocol["appearance"] = _struct.appearance
     _protocol["speed"] = _struct.speed
+    _protocol["level"] = _struct.level
     _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
@@ -724,6 +760,9 @@ export function protcol_to_battle_entity(_protocol:any) {
         }
         else if (key == "speed") {
             _struct.speed = val;
+        }
+        else if (key == "level") {
+            _struct.level = val;
         }
         else if (key == "is_live") {
             _struct.is_live = val;

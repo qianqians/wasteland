@@ -47,6 +47,9 @@ enum em_buff_type {
 
     em_damage_hp = 64; //伤害元气
     em_damage_mp = 128;//伤害真气
+
+    em_defense_value = 256; //添加固定数值防御
+    em_defense_ratio = 512; //添加防御数值系数
 }
 
 struct attribute {
@@ -56,6 +59,7 @@ struct attribute {
     int32 max_mp;
     int32 attack;
     int32 defense;
+    int32 tmp_defense;
     int32 matk;
     int32 resist;
 }
@@ -86,9 +90,20 @@ struct position {
     int32 dir;
 }
 
+enum skill_type {
+    skill_change_abonus_attack = 1; //物理攻击 
+    skill_change_abonus_magic = 2;  //魔法攻击
+    skill_add_buffer = 3;
+    skill_dispel_buffer = 4;
+}
+
 struct skill_info {
     int32 skill_id;
-    float value;
+    skill_type _type;
+    bool target_enemy;   
+    float value0;
+    float value1;
+    float ratio;
     int32 range;
     int32 cast_mp;
     int32 cd_round;
@@ -172,6 +187,7 @@ struct battle_entity {
     string nick_name;
     string appearance;
     int32 speed;
+    int32 level;
     bool is_live;
     attribute abonus;
     skill_info[] skills;

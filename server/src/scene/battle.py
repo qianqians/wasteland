@@ -10,6 +10,8 @@ from .scene import *
 from ..config.skill_config import *
 from .battle_impl.action import *
 from .battle_impl.buff_data import *
+from .battle_impl.effect import *
+from ..config.buff_config import *
 
 class em_victory_team(Enum):
     em_victory_battle_keep_going = 0
@@ -87,12 +89,10 @@ class battle:
                 return False
         return True
 
-    def __sort_battle_entity__(self) -> list[ActionEntity]:
-        l:list[ActionEntity] = []
-        for d in self.__battle_team__(self.self_info):
-            bisect.insort(l, d, key=lambda p: p.speed)
-        for d in self.__battle_team__(self.enemy_info):
-            bisect.insort(l, d, key=lambda p: p.speed)
+    def __sort_battle_entity__(self) -> list[Action]:
+        l:list[Action] = []
+        for d in self.round_battle_info:
+            bisect.insort(l, d, key=lambda p: p["entity"].speed)
         return l
 
     def __get_target__(self, target:str) -> ActionEntity:
@@ -111,16 +111,61 @@ class battle:
             if t.entity_id == entity_id:
                 self.round_battle_info.append(action(entity=t, skill_id=skill_id, target=target))
                 return
-        
-    def __battle__(self):
+
+    def __check_self_or_enemy__(self, _target:ActionEntity) -> list[ActionEntity]:
+        l = self.__battle_team__(self.self_info)
+        for t in l:
+            if t.entity_id == _target.entity_id:
+                return l
+        return self.__battle_team__(self.enemy_info)
+
+    def __action_skill__(self, skill_id:int, _entity:ActionEntity, _target:ActionEntity):
+        skill = Skills[skill_id]
+        if _entity.abonus.mp < skill.cast_mp:
+            return
+        _entity.abonus.mp -= skill.cast_mp
+
+        target:list[ActionEntity] = [_target]
+        target_list:list[ActionEntity] = self.__check_self_or_enemy__(_target).remove(_target)
+        for _ in range(skill.range - 1):
+            t = random.choice(target_list)
+            target.append(t)
+            target_list.remove(t)
+        if skill._type == skill_type.skill_change_abonus_attack:
+            for t in target:
+                damage(_entity.abonus.attack+skill.ratio*_entity.level+skill.value0, t)
+                if skill.value1 > 0:
+                    damage_mp(skill.value1, t)
+        elif skill._type == skill_type.skill_change_abonus_magic:
+            for t in target:
+                damage_matk(_entity.abonus.matk+skill.ratio*_entity.level+skill.value0, t)
+                if skill.value1 > 0:
+                    damage_mp(skill.value1, t)
+        elif skill._type == skill_type.skill_add_buffer:
+            for t in target:
+                buffer_id = skill.value0
+                buf = Buffers[buffer_id]
+                tmp_buf = buf.copy()
+                tmp_buf["level"] = _entity.level
+                buf_data = self.buffer_info[t.entity_id]
+                buf_data.add_buff(buf)
+        elif skill._type == skill_type.skill_dispel_buffer:
+            pass
+
+    def __action__(self, _action:Action):
+        self.__action_skill__(_action["skill_id"], _action["entity"], self.__get_target__(_action["target"]))
+
+    def __battle__(self, l:list[Action]):
         for _, b in self.buffer_info.items():
             _target = self.__get_target__(b.entity_id)
             b.check_effect_buff(_target)
 
-        for _action in self.round_battle_info:
+        for _action in l:
             if _action["entity"].abonus.hp <= 0:
                 continue
-            pass
+            buf = self.buffer_info[_action["entity"]]
+            _action = buf.check_action(_action, self.self_info, self.enemy_info)
+            self.__action__(_action)
 
         for _, b in self.buffer_info.items():
             b.check_expired_buff()
@@ -203,8 +248,11 @@ class battle:
         self.auto_battle_info[entity_id] = skill_id
 
     def on_use_skill(self, entity_id:str, skill_id: int, target:str):
-        entity = self.__get_target__(entity_id)
-        self.round_battle_info.append(action(entity=entity, skill_id=skill_id, target=target))
+        if skill_id == SkillDefend:
+            self.__action_skill__(skill_id, self.__get_target__(entity_id))
+        else:
+            entity = self.__get_target__(entity_id)
+            self.round_battle_info.append(action(entity=entity, skill_id=skill_id, target=target))
         if self.__check_complete_round__():
             self.__battle_update_timer__ = Timer(3.99, self.__battle_one_round__)
             self.__battle_update_timer__.start()

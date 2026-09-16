@@ -104,17 +104,11 @@
     mp                 蓝 真气
     attack            攻击力
     defense         防御力
-    K                     攻击段数
     matk               魔攻
     resist              魔抗
-    K                     魔法段数
     Spiritual        灵力
-    Spirit resist  抗性
-    K                    灵力段数    
-
+    Spirit resist  抗性    
     (hp/defense)*(attack/(defense + attack))
-
-    K = 300
     attack = attack * (K/(defense + K))
 6. Buff
     1. 正面buf 

@@ -7,7 +7,9 @@ import action
 
 class buffer(TypedDict):
     type: em_buff_type
-    value: int
+    value: float
+    ratio: float
+    level: int
     rounds: int
 
 class buff_data:
@@ -21,14 +23,18 @@ class buff_data:
     def check_effect_buff(self, data:action.ActionEntity):
         for buff in self.buffers:
             if buff["type"] == em_buff_type.em_heal_hp:
-                data.abonus.hp += buff["value"]
+                data.abonus.hp += buff["value"] + buff["ratio"]*buff["level"]
             elif buff["type"] == em_buff_type.em_heal_mp:
-                data.abonus.mp += buff["value"]
+                data.abonus.mp += buff["value"] + buff["ratio"]*buff["level"]
             elif buff["type"] == em_buff_type.em_damage_hp:
-                data.abonus.hp -= buff["value"]
+                data.abonus.hp -= buff["value"] + buff["ratio"]*buff["level"]
             elif buff["type"] == em_buff_type.em_damage_mp:
-                data.abonus.mp -= buff["value"]
-
+                data.abonus.mp -= buff["value"] + buff["ratio"]*buff["level"]
+            elif buff["type"] == em_buff_type.em_defense_value:
+                data.abonus.tmp_defense = data.abonus.defense + buff["value"] + buff["ratio"]*buff["level"]
+            elif buff["type"] == em_buff_type.em_defense_ratio:
+                data.abonus.tmp_defense = data.abonus.defense * buff["value"] + buff["ratio"]*buff["level"]
+ 
     def check_expired_buff(self):
         buffers:list[buffer] = []
         for buff in self.buffers:
@@ -37,17 +43,17 @@ class buff_data:
                 buffers.append(buff)
         self.buffers = buffers
 
-    def check_action(self, _action:action.action, self_info:battle_info, enemy_info:battle_info) -> action.action:
+    def check_action(self, _action:action.Action, self_info:battle_info, enemy_info:battle_info) -> action.Action:
         for buff in self.buffers:
             if buff["type"] == em_buff_type.em_seal_action:
                 return None
             
             elif self.buffers["type"] == em_buff_type.em_seal_skill:
-                if _action["skill_id"] != SkillAttack and _action["skill_id"] != SkillDefend:
+                if _action["skill_id"] != SkillAttack:
                     _action["skill_id"] = SkillAttack
 
             elif self.buffers["type"] == em_buff_type.em_confuse_attack_all:
-                if _action["skill_id"] != SkillAttack and _action["skill_id"] != SkillDefend:
+                if _action["skill_id"] != SkillAttack:
                     _action["skill_id"] = SkillAttack
 
                 target:list[str] = []
@@ -65,7 +71,7 @@ class buff_data:
                 _action["target"] = random.choice(target)
 
             elif self.buffers["type"] == em_buff_type.em_confuse_attack_allies:
-                if _action["skill_id"] != SkillAttack and _action["skill_id"] != SkillDefend:
+                if _action["skill_id"] != SkillAttack:
                     _action["skill_id"] = SkillAttack
     
                 target:list[str] = []

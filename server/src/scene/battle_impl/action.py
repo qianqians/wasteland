@@ -10,6 +10,7 @@ class ActionEntity(Protocol):
 
         self.entity_id: str = ""
         self.abonus:attribute = None
+        self.level:int = 1
         self.speed:int = 0
 
 class Action(TypedDict):

@@ -51,6 +51,8 @@ class em_buff_type(Enum):
     em_heal_mp = 32
     em_damage_hp = 64
     em_damage_mp = 128
+    em_defense_value = 256
+    em_defense_ratio = 512
 
 
 class direction(Enum):
@@ -59,6 +61,13 @@ class direction(Enum):
     down = 2
     left = 4
     right = 8
+
+
+class skill_type(Enum):
+    skill_change_abonus_attack = 1
+    skill_change_abonus_magic = 2
+    skill_add_buffer = 3
+    skill_dispel_buffer = 4
 
 
 class em_task_state(Enum):
@@ -82,6 +91,7 @@ class attribute(object):
         self.max_mp:int = 0
         self.attack:int = 0
         self.defense:int = 0
+        self.tmp_defense:int = 0
         self.matk:int = 0
         self.resist:int = 0
 
@@ -96,6 +106,7 @@ def attribute_to_protcol(_struct:attribute):
     _protocol["max_mp"] = _struct.max_mp
     _protocol["attack"] = _struct.attack
     _protocol["defense"] = _struct.defense
+    _protocol["tmp_defense"] = _struct.tmp_defense
     _protocol["matk"] = _struct.matk
     _protocol["resist"] = _struct.resist
     return _protocol
@@ -115,6 +126,8 @@ def protcol_to_attribute(_protocol:dict):
             _struct.attack = val
         elif key == "defense":
             _struct.defense = val
+        elif key == "tmp_defense":
+            _struct.tmp_defense = val
         elif key == "matk":
             _struct.matk = val
         elif key == "resist":
@@ -202,7 +215,11 @@ def protcol_to_position(_protocol:dict):
 class skill_info(object):
     def __init__(self):
         self.skill_id:int = 0
-        self.value:float = 0.0
+        self._type:skill_type = 0
+        self.target_enemy:bool = False
+        self.value0:float = 0.0
+        self.value1:float = 0.0
+        self.ratio:float = 0.0
         self.range:int = 0
         self.cast_mp:int = 0
         self.cd_round:int = 0
@@ -213,7 +230,11 @@ def skill_info_to_protcol(_struct:skill_info):
         return None
     _protocol = {}
     _protocol["skill_id"] = _struct.skill_id
-    _protocol["value"] = _struct.value
+    _protocol["_type"] = _struct._type
+    _protocol["target_enemy"] = _struct.target_enemy
+    _protocol["value0"] = _struct.value0
+    _protocol["value1"] = _struct.value1
+    _protocol["ratio"] = _struct.ratio
     _protocol["range"] = _struct.range
     _protocol["cast_mp"] = _struct.cast_mp
     _protocol["cd_round"] = _struct.cd_round
@@ -224,8 +245,16 @@ def protcol_to_skill_info(_protocol:dict):
     for (key, val) in _protocol.items():
         if key == "skill_id":
             _struct.skill_id = val
-        elif key == "value":
-            _struct.value = val
+        elif key == "_type":
+            _struct._type = val
+        elif key == "target_enemy":
+            _struct.target_enemy = val
+        elif key == "value0":
+            _struct.value0 = val
+        elif key == "value1":
+            _struct.value1 = val
+        elif key == "ratio":
+            _struct.ratio = val
         elif key == "range":
             _struct.range = val
         elif key == "cast_mp":
@@ -571,6 +600,7 @@ class battle_entity(object):
         self.nick_name:str = ""
         self.appearance:str = ""
         self.speed:int = 0
+        self.level:int = 0
         self.is_live:bool = False
         self.abonus:attribute = None
         self.skills:list[skill_info] = []
@@ -584,6 +614,7 @@ def battle_entity_to_protcol(_struct:battle_entity):
     _protocol["nick_name"] = _struct.nick_name
     _protocol["appearance"] = _struct.appearance
     _protocol["speed"] = _struct.speed
+    _protocol["level"] = _struct.level
     _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if _struct.skills:
@@ -604,6 +635,8 @@ def protcol_to_battle_entity(_protocol:dict):
             _struct.appearance = val
         elif key == "speed":
             _struct.speed = val
+        elif key == "level":
+            _struct.level = val
         elif key == "is_live":
             _struct.is_live = val
         elif key == "abonus":
