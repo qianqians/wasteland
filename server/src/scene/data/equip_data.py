@@ -17,14 +17,17 @@ class equip:
     
     def create(data:dict) -> equip:
         e = equip()
-        e.equip.id = data["id"]
+        e.equip.equip_id = data["id"]
         e.equip.name = data["name"]
         e.equip.icon = data["icon"]
         e.equip.desc = data["desc"]
         e.equip.equip_type = em_equip_type(data["type"])
-        e.equip.add_hp = data["add_hp"]
-        e.equip.add_mp = data["add_mp"]
-        e.equip.add_defense = data["add_defense"]
+        e.equip.abonus.hp = data["add_hp"]
+        e.equip.abonus.mp = data["add_mp"]
+        e.equip.abonus.attack = data["add_attack"]
+        e.equip.abonus.defense = data["add_defense"]
+        e.equip.abonus.matk = data["add_matk"]
+        e.equip.abonus.resist = data["add_resist"]
         return e
     
     def load(info:equip_info):
@@ -44,15 +47,20 @@ class equip_data:
     def add_attribute(self):
         add_hp = 0
         add_mp = 0
+        add_attack = 0
         add_defense = 0
+        add_matk = 0
+        add_resist = 0
 
-        for type, equip in self.equips.items():
-            if type != em_equip_type.weapon and type!= em_equip_type.shooting:
-                add_hp += equip.add_hp
-                add_mp += equip.add_mp
-                add_defense += equip.add_defense
+        for _, equip in self.equips.items():
+            add_hp += equip.equip.abonus.hp
+            add_mp += equip.equip.abonus.mp
+            add_attack += equip.equip.abonus.attack
+            add_defense += equip.equip.abonus.defense
+            add_matk += equip.equip.abonus.matk
+            add_resist += equip.equip.abonus.resist
 
-        return (add_hp, add_mp, add_defense)
+        return (add_hp, add_mp, add_attack, add_defense, add_matk, add_resist)
     
     def wear(self, equip:equip) -> equip:
         old = None
