@@ -8,8 +8,8 @@ from ...engine.scene_ntf_client_svr import *
 from .attribute_data import *
 
 class bag_data:
-    def __init__(self, entity_id:str, info:dict, caller:player_ntf_client_caller):
-        self.entity_id = entity_id
+    def __init__(self, user_id:str, info:dict, caller:player_ntf_client_caller):
+        self.user_id = user_id
         
         self.bag:dict[str, item] = {}
         for _, item in info.items():

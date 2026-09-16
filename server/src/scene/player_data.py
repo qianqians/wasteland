@@ -16,11 +16,11 @@ from .data.bag_data import *
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
-    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
+    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, user_id:str, info:dict):
         save.__init__(self)
-        player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
+        player.__init__(self, service_name, "player_data", user_id, player_gate_name, player_conn_id, False)
 
-        self.player_id = player_id
+        self.user_id = user_id
 
         self.player_caller = player_ntf_client_caller(self)
         self.scene_caller = scene_ntf_client_caller(self)
@@ -44,25 +44,28 @@ class player_data(save, player):
         self.gender = info["gender"]
         self.appearance = info["appearance"]
 
-        self.attribute_data = attribute_data(self.player_id, info["attribute_data"])
-        self.bag_data = bag_data(self.player_id, info["bag_data"], self.player_caller)
+        self.attribute_data = attribute_data(self.user_id, info["attribute_data"])
+        self.bag_data = bag_data(self.user_id, info["bag_data"], self.player_caller)
         
         from .data.skill_data import skill_data
-        self.skill_data = skill_data(self.player_id, self.battle_module, info["skill_data"])
+        self.skill_data = skill_data(self.user_id, info["skill_data"])
 
         from .data.task_data import task_data
-        self.task_data = task_data(self.player_id, info["task_data"], 
+        self.task_data = task_data(self.user_id, info["task_data"], 
                                    self.player_module, self.player_caller, 
                                    self.skill_data, self.bag_data, self)
 
         from .data.gf_data import gf_data
-        self.gf_data = gf_data()
+        self.gf_data = gf_data(self.user_id, info["gf_data"])
 
         from .data.bb_data import bb_data
-        self.bb_data = bb_data()
+        self.bb_data = bb_data(self.user_id, info["bb_data"])
+
+        from .data.partner_data import partner_data
+        self.partner_data = partner_data(self.user_id, info["partner_data"])
         
-        self.equip_data = equip_data(self.player_id, info["equip_data"])
-        self.scene_data = scene_data(self.player_id, info["scene_data"])
+        self.equip_data = equip_data(self.user_id, info["equip_data"])
+        self.scene_data = scene_data(self.user_id, self.scene_caller, info["scene_data"])
 
     def full_info(self) -> dict:
         return self.store()
@@ -75,7 +78,7 @@ class player_data(save, player):
 
     def battle_info(self) -> battle_info:
         entity = battle_entity()
-        entity.entity_id = self.player_id
+        entity.entity_id = self.user_id
         entity.nick_name = self.player_nick_name
         entity.appearance = self.appearance
         entity.speed = self.attribute_data.speed
@@ -83,9 +86,31 @@ class player_data(save, player):
         entity.skills = self.skill_data.skills.values()
         entity.level = self.gf_data.curr_gf.gongfa_level
 
-        
+        partner0 = self.partner_data.curr_partner[0]
+        battle_team0 = battle_entity()
+        battle_team0.entity_id = partner0.entity_id
+        battle_team0.nick_name = partner0.partner_table_id
+        battle_team0.appearance = partner0.partner_table_id
+        battle_team0.speed = partner0.abonus.speed
+        battle_team0.abonus = partner0.abonus
+        battle_team0.skills = partner0.curr_gf.skills
+        battle_team0.level = partner0.curr_gf.gongfa_level
+
+        partner1 = self.partner_data.curr_partner[1]
+        battle_team1 = battle_entity()
+        battle_team1.entity_id = partner1.entity_id
+        battle_team1.nick_name = partner1.partner_table_id
+        battle_team1.appearance = partner1.partner_table_id
+        battle_team1.speed = partner1.abonus.speed
+        battle_team1.abonus = partner1.abonus
+        battle_team1.skills = partner1.curr_gf.skills
+        battle_team1.level = partner1.curr_gf.gongfa_level
         
         info = battle_info()
+        info.battle_team0 = battle_team0
+        info.battle_team1 = battle_team1
+        info.curr_bbs0 = self.bb_data.curr_bb[0]
+        info.curr_bbs1 = self.bb_data.curr_bb[1]
         info.player = entity
         info.items = self.bag_data.bag.values()
         info.scene = self.scene.scene_name

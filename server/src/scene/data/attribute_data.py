@@ -3,19 +3,10 @@ from __future__ import annotations
 from ...engine.common_svr import *
 
 class attribute_data:
-    def __init__(self, entity_id:str, data:dict):
-        self.entity_id = entity_id
+    def __init__(self, user_id:str, data:dict):
+        self.entity_id = user_id
 
-        self.abonus = attribute()
-        self.abonus.hp = data["hp"]
-        self.abonus.mp = data["mp"]
-        self.abonus.max_hp = data["max_hp"]
-        self.abonus.max_mp = data["max_mp"]
-        self.abonus.speed = data["speed"]
-        self.abonus.attack = data["attack"]
-        self.abonus.defense = data["defense"]
-        self.abonus.matk = data["matk"]
-        self.abonus.resist = data["resist"]
+        self.abonus = protcol_to_attribute(data)
         self.abonus.tmp_defense = 0
 
     def info(self) -> dict:
@@ -32,8 +23,8 @@ class attribute_data:
             "resist": self.abonus.resist,
         }
     
-def attribute_create(entity_id:str) -> attribute_data:
-    return attribute_data(entity_id, {
+def attribute_create(user_id:str) -> attribute_data:
+    return attribute_data(user_id, {
         "hp": 100,
         "mp": 100,
         "max_hp": 100,

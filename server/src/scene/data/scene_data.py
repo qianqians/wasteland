@@ -20,6 +20,7 @@ class scene_postion(TypedDict):
 class scene_data:
     def __init__(self, user_id:str, scene_caller:scene_ntf_client_caller, info:dict):
         self.user_id = user_id
+        
         self.speed = 24
         self.climbing_speed = 16
         self.jump_speed = 32
