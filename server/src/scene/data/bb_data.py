@@ -11,7 +11,7 @@ class bb_data:
         self.curr_bb:list[bb] = []
         for id in curr_bb:
             for b in self.curr_bb:
-                if b.attribute.entity_id == id: self.curr_bb.append(b)
+                if b.entity_id == id: self.curr_bb.append(b)
 
     def battle_bb(self) -> list[dict]:
         curr_bb = []
