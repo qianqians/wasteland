@@ -144,6 +144,7 @@ struct task_info {
 }
 
 struct item {
+    string item_id;
     int32 item_type;
     int32 item_count;
 }

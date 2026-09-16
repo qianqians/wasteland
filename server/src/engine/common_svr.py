@@ -403,6 +403,7 @@ def protcol_to_task_info(_protocol:dict):
 
 class item(object):
     def __init__(self):
+        self.item_id:str = ""
         self.item_type:int = 0
         self.item_count:int = 0
 
@@ -411,6 +412,7 @@ def item_to_protcol(_struct:item):
     if _struct is None:
         return None
     _protocol = {}
+    _protocol["item_id"] = _struct.item_id
     _protocol["item_type"] = _struct.item_type
     _protocol["item_count"] = _struct.item_count
     return _protocol
@@ -418,7 +420,9 @@ def item_to_protcol(_struct:item):
 def protcol_to_item(_protocol:dict):
     _struct = item()
     for (key, val) in _protocol.items():
-        if key == "item_type":
+        if key == "item_id":
+            _struct.item_id = val
+        elif key == "item_type":
             _struct.item_type = val
         elif key == "item_count":
             _struct.item_count = val

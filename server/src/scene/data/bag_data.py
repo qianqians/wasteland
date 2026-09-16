@@ -5,12 +5,11 @@ from ...engine.player_ntf_client_svr import *
 from ...engine.common_svr import *
 from ...engine.battle_svr import *
 from ...engine.scene_ntf_client_svr import *
-from ...config.config import *
 from .attribute_data import *
 
 class bag_data:
-    def __init__(self, user_id:str, info:dict, caller:player_ntf_client_caller):
-        self.user_id = user_id
+    def __init__(self, entity_id:str, info:dict, caller:player_ntf_client_caller):
+        self.entity_id = entity_id
         
         self.bag:dict[str, item] = {}
         for _, item in info.items():
@@ -41,20 +40,20 @@ class bag_data:
         
         return item1
     
-    def drop(self, task_id:int, pkg_id:int):
-        pkg = get_pkg_config(pkg_id)
-        if pkg == None:
-            app().error(f"bag drop pkg config not found, id={pkg_id}")
-            return
+    #def drop(self, task_id:int, pkg_id:int):
+    #    pkg = get_pkg_config(pkg_id)
+    #    if pkg == None:
+    #        app().error(f"bag drop pkg config not found, id={pkg_id}")
+    #        return
         
-        items:list[item] = []
-        items.append(self.__drop_item__(pkg["item1_id"], pkg["item1_num"]))
-        items.append(self.__drop_item__(pkg["item2_id"], pkg["item2_num"]))
-        items.append(self.__drop_item__(pkg["item3_id"], pkg["item3_num"]))
-        items.append(self.__drop_item__(pkg["item4_id"], pkg["item4_num"]))
+    #    items:list[item] = []
+    #    items.append(self.__drop_item__(pkg["item1_id"], pkg["item1_num"]))
+    #    items.append(self.__drop_item__(pkg["item2_id"], pkg["item2_num"]))
+    #    items.append(self.__drop_item__(pkg["item3_id"], pkg["item3_num"]))
+    #    items.append(self.__drop_item__(pkg["item4_id"], pkg["item4_num"]))
         
-        pkg_item:list[item] = [i for i in items if i != None]
-        self.caller.drop(task_id, pkg_item, [i for i in self.bag.values() if i != None])
+    #    pkg_item:list[item] = [i for i in items if i != None]
+    #    self.caller.drop(task_id, pkg_item, [i for i in self.bag.values() if i != None])
 
 def bag_create() -> bag_data:
     return bag_data({})

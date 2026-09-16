@@ -468,12 +468,14 @@ export function protcol_to_task_info(_protocol:any) {
 }
 
 export class item {
+     public item_id:string = ""
      public item_type:number = 0
      public item_count:number = 0
 }
 
 export function item_to_protcol(_struct:item) {
     let _protocol:any = {}
+    _protocol["item_id"] = _struct.item_id
     _protocol["item_type"] = _struct.item_type
     _protocol["item_count"] = _struct.item_count
     return _protocol;
@@ -483,7 +485,10 @@ export function protcol_to_item(_protocol:any) {
     let _struct = new item()
     for (let key in _protocol) {
         let val = _protocol[key];
-        if (key == "item_type") {
+        if (key == "item_id") {
+            _struct.item_id = val;
+        }
+        else if (key == "item_type") {
             _struct.item_type = val;
         }
         else if (key == "item_count") {

@@ -21,13 +21,15 @@ class attribute_data:
     def info(self) -> dict:
         return {
             "id": self.entity_id,
-            "hp": self.hp,
-            "mp": self.mp,
-            "max_hp": self.max_hp,
-            "max_mp": self.max_mp,
-            "speed": self.speed,
-            "attack": self.attack,
-            "defense": self.defense,
+            "hp": self.abonus.hp,
+            "mp": self.abonus.mp,
+            "max_hp": self.abonus.max_hp,
+            "max_mp": self.abonus.max_mp,
+            "speed": self.abonus.speed,
+            "attack": self.abonus.attack,
+            "defense": self.abonus.defense,
+            "matk": self.abonus.matk,
+            "resist": self.abonus.resist,
         }
     
 def attribute_create(entity_id:str) -> attribute_data:
