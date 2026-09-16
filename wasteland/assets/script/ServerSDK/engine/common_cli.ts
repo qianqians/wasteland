@@ -84,6 +84,7 @@ export class attribute {
      public mp:number = 0
      public max_hp:number = 0
      public max_mp:number = 0
+     public speed:number = 0
      public attack:number = 0
      public defense:number = 0
      public tmp_defense:number = 0
@@ -97,6 +98,7 @@ export function attribute_to_protcol(_struct:attribute) {
     _protocol["mp"] = _struct.mp
     _protocol["max_hp"] = _struct.max_hp
     _protocol["max_mp"] = _struct.max_mp
+    _protocol["speed"] = _struct.speed
     _protocol["attack"] = _struct.attack
     _protocol["defense"] = _struct.defense
     _protocol["tmp_defense"] = _struct.tmp_defense
@@ -120,6 +122,9 @@ export function protcol_to_attribute(_protocol:any) {
         }
         else if (key == "max_mp") {
             _struct.max_mp = val;
+        }
+        else if (key == "speed") {
+            _struct.speed = val;
         }
         else if (key == "attack") {
             _struct.attack = val;
@@ -494,7 +499,6 @@ export class bb {
      public bb_table_id:number = 0
      public rarity:em_rarity = em_rarity.common
      public level:number = 0
-     public speed:number = 0
      public abonus:attribute = null
      public skills:Array<skill_info> = null
      public equips:Array<equip_info> = null
@@ -506,7 +510,6 @@ export function bb_to_protcol(_struct:bb) {
     _protocol["bb_table_id"] = _struct.bb_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["level"] = _struct.level
-    _protocol["speed"] = _struct.speed
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
         let _array_skills = []
@@ -541,9 +544,6 @@ export function protcol_to_bb(_protocol:any) {
         else if (key == "level") {
             _struct.level = val;
         }
-        else if (key == "speed") {
-            _struct.speed = val;
-        }
         else if (key == "abonus") {
             _struct.abonus = protcol_to_attribute(val);
         }
@@ -564,6 +564,48 @@ export function protcol_to_bb(_protocol:any) {
 
 }
 
+export class partner {
+     public entity_id:string = ""
+     public partner_table_id:number = 0
+     public rarity:em_rarity = em_rarity.common
+     public curr_gf:gongfa = null
+     public abonus:attribute = null
+}
+
+export function partner_to_protcol(_struct:partner) {
+    let _protocol:any = {}
+    _protocol["entity_id"] = _struct.entity_id
+    _protocol["partner_table_id"] = _struct.partner_table_id
+    _protocol["rarity"] = _struct.rarity
+    _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
+    return _protocol;
+}
+
+export function protcol_to_partner(_protocol:any) {
+    let _struct = new partner()
+    for (let key in _protocol) {
+        let val = _protocol[key];
+        if (key == "entity_id") {
+            _struct.entity_id = val;
+        }
+        else if (key == "partner_table_id") {
+            _struct.partner_table_id = val;
+        }
+        else if (key == "rarity") {
+            _struct.rarity = val;
+        }
+        else if (key == "curr_gf") {
+            _struct.curr_gf = protcol_to_gongfa(val);
+        }
+        else if (key == "abonus") {
+            _struct.abonus = protcol_to_attribute(val);
+        }
+    }
+    return _struct;
+
+}
+
 export class player_info {
      public account_id:string = ""
      public player_id:string = ""
@@ -575,6 +617,8 @@ export class player_info {
      public equips:Array<equip_info> = null
      public wait_bbs:Array<bb> = null
      public curr_bbs:Array<bb> = null
+     public wait_partner:Array<partner> = null
+     public curr_partner:Array<partner> = null
      public items:Array<item> = null
      public tasks:Array<task_info> = null
      public gender:em_role_gender = em_role_gender.em_role_gender_female
@@ -618,6 +662,20 @@ export function player_info_to_protcol(_struct:player_info) {
             _array_curr_bbs.push(bb_to_protcol(v_))
         }
         _protocol["curr_bbs"] = _array_curr_bbs
+    }
+    if (_struct.wait_partner) {
+        let _array_wait_partner = []
+        for (let v_ of _struct.wait_partner) {
+            _array_wait_partner.push(partner_to_protcol(v_))
+        }
+        _protocol["wait_partner"] = _array_wait_partner
+    }
+    if (_struct.curr_partner) {
+        let _array_curr_partner = []
+        for (let v_ of _struct.curr_partner) {
+            _array_curr_partner.push(partner_to_protcol(v_))
+        }
+        _protocol["curr_partner"] = _array_curr_partner
     }
     if (_struct.items) {
         let _array_items = []
@@ -686,6 +744,18 @@ export function protcol_to_player_info(_protocol:any) {
                 _struct.curr_bbs.push(protcol_to_bb(v_));
             }
         }
+        else if (key == "wait_partner") {
+            _struct.wait_partner = []
+            for (let v_ of val) {
+                _struct.wait_partner.push(protcol_to_partner(v_));
+            }
+        }
+        else if (key == "curr_partner") {
+            _struct.curr_partner = []
+            for (let v_ of val) {
+                _struct.curr_partner.push(protcol_to_partner(v_));
+            }
+        }
         else if (key == "items") {
             _struct.items = []
             for (let v_ of val) {
@@ -721,7 +791,6 @@ export class battle_entity {
      public appearance:string = ""
      public speed:number = 0
      public level:number = 0
-     public is_live:boolean = false
      public abonus:attribute = null
      public skills:Array<skill_info> = null
 }
@@ -733,7 +802,6 @@ export function battle_entity_to_protcol(_struct:battle_entity) {
     _protocol["appearance"] = _struct.appearance
     _protocol["speed"] = _struct.speed
     _protocol["level"] = _struct.level
-    _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if (_struct.skills) {
         let _array_skills = []
@@ -763,9 +831,6 @@ export function protcol_to_battle_entity(_protocol:any) {
         }
         else if (key == "level") {
             _struct.level = val;
-        }
-        else if (key == "is_live") {
-            _struct.is_live = val;
         }
         else if (key == "abonus") {
             _struct.abonus = protcol_to_attribute(val);

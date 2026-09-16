@@ -57,6 +57,7 @@ struct attribute {
     int32 mp;
     int32 max_hp;
     int32 max_mp;
+    int32 speed;
     int32 attack;
     int32 defense;
     int32 tmp_defense;
@@ -152,10 +153,17 @@ struct bb {
     int32 bb_table_id;
     em_rarity rarity;
     int32 level;
-    int32 speed;
     attribute abonus;
     skill_info[] skills;
     equip_info[] equips;     // 宠物穿戴的装备
+}
+
+struct partner {
+    string entity_id;
+    int32 partner_table_id;
+    em_rarity rarity;
+    gongfa curr_gf;
+    attribute abonus;
 }
 
 enum em_role_gender {
@@ -167,16 +175,18 @@ struct player_info {
     string account_id;
     string player_id;
     string player_nick_name; // 玩家昵称
-    string player_appearance; // 玩家外观
+    string player_appearance;// 玩家外观
     attribute abonus;        // 玩家基础属性
     gongfa[] gfs;            // 玩家修炼过的功法
     gongfa curr_gf;          // 玩家当前使用的功法
     equip_info[] equips;     // 玩家穿戴的装备
-    bb[] wait_bbs;                // 玩家携带的宠物
-    bb[] curr_bbs;            // 当前出战宠物
+    bb[] wait_bbs;           // 玩家携带的宠物
+    bb[] curr_bbs;           // 当前出战宠物
+    partner[] wait_partner;  // 加入玩家团队的伙伴
+    partner[] curr_partner;  // 当前出战的伙伴
     item[] items;            // 玩家背包 
     task_info[] tasks;       // 领取的任务
-    em_role_gender gender;            // 玩家性别
+    em_role_gender gender;   // 玩家性别
 	string scene;            // 玩家所在场景
     int32 line;              // 玩家所在世界线
 	position pos;            // 玩家位置
@@ -188,7 +198,6 @@ struct battle_entity {
     string appearance;
     int32 speed;
     int32 level;
-    bool is_live;
     attribute abonus;
     skill_info[] skills;
 }

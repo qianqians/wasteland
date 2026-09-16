@@ -1,16 +1,11 @@
 # -*- coding: UTF-8 -*-
-
-class gf:
-    def __init__(self):
-        pass
-
-    def info(self) -> dict:
-        pass
+from ...engine.common_svr import *
 
 class gf_data:
-    def __init__(self):
-        self.curr_gf = gf()
-        self.gfs:list[gf] = []
+    def __init__(self, entity_id:str, data:dict):
+        self.entity_id = entity_id
+
+        self.curr_gf = gongfa()
 
     def curr_gf_info(self) -> dict:
         return self.curr_gf.info

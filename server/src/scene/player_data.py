@@ -41,7 +41,6 @@ class player_data(save, player):
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
-        self.level = info["level"]
         self.gender = info["gender"]
         self.appearance = info["appearance"]
 
@@ -82,22 +81,14 @@ class player_data(save, player):
         entity.speed = self.attribute_data.speed
         entity.abonus = self.attribute_data.info()
         entity.skills = self.skill_data.skills.values()
-        battle_team = [entity]
-        for b in self.bb_data.curr_bb:
-            e = battle_entity()
-            e.entity_id = b.attribute.entity_id
-            e.nick_name = b.nick_name
-            e.appearance = b.appearance
-            e.speed = b.attribute.speed
-            e.abonus = b.attribute.info()
-            e.skills = b.skills.values()
-            battle_team.append(e)
+        entity.level = self.gf_data.curr_gf.gongfa_level
+
+        
+        
         info = battle_info()
-        info.wait_bbs = self.bb_data.wait_info()
+        info.player = entity
         info.items = self.bag_data.bag.values()
-        info.gender = self.gender
         info.scene = self.scene.scene_name
-        info.battle_team = battle_team
         return info
     
     def entry_scene(self, _scene:any):
@@ -111,7 +102,8 @@ class player_data(save, player):
             self.battle_handle = battle(self.scene, self, enemy, self.battle_info(), enemy.battle_info(), self.battle_module)
         else: 
             enemy = self.scene.mobs.get(enemy_id)
-            self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)
+            if enemy:
+                self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)
 
     def on_auto_battle(self, rsp:battle_auto_battle_rsp, entity_id:str, skill_id:int):
         self.battle_handle.on_auto_battle(entity_id, skill_id)

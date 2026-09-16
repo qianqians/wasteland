@@ -89,6 +89,7 @@ class attribute(object):
         self.mp:int = 0
         self.max_hp:int = 0
         self.max_mp:int = 0
+        self.speed:int = 0
         self.attack:int = 0
         self.defense:int = 0
         self.tmp_defense:int = 0
@@ -104,6 +105,7 @@ def attribute_to_protcol(_struct:attribute):
     _protocol["mp"] = _struct.mp
     _protocol["max_hp"] = _struct.max_hp
     _protocol["max_mp"] = _struct.max_mp
+    _protocol["speed"] = _struct.speed
     _protocol["attack"] = _struct.attack
     _protocol["defense"] = _struct.defense
     _protocol["tmp_defense"] = _struct.tmp_defense
@@ -122,6 +124,8 @@ def protcol_to_attribute(_protocol:dict):
             _struct.max_hp = val
         elif key == "max_mp":
             _struct.max_mp = val
+        elif key == "speed":
+            _struct.speed = val
         elif key == "attack":
             _struct.attack = val
         elif key == "defense":
@@ -426,7 +430,6 @@ class bb(object):
         self.bb_table_id:int = 0
         self.rarity:em_rarity = 0
         self.level:int = 0
-        self.speed:int = 0
         self.abonus:attribute = None
         self.skills:list[skill_info] = []
         self.equips:list[equip_info] = []
@@ -440,7 +443,6 @@ def bb_to_protcol(_struct:bb):
     _protocol["bb_table_id"] = _struct.bb_table_id
     _protocol["rarity"] = _struct.rarity
     _protocol["level"] = _struct.level
-    _protocol["speed"] = _struct.speed
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if _struct.skills:
         _array_skills = []
@@ -465,8 +467,6 @@ def protcol_to_bb(_protocol:dict):
             _struct.rarity = val
         elif key == "level":
             _struct.level = val
-        elif key == "speed":
-            _struct.speed = val
         elif key == "abonus":
             _struct.abonus = protcol_to_attribute(val)
         elif key == "skills":
@@ -477,6 +477,41 @@ def protcol_to_bb(_protocol:dict):
             _struct.equips = []
             for v_ in val:
                 _struct.equips.append(equip_info_to_protcol(v_))
+    return _struct
+
+class partner(object):
+    def __init__(self):
+        self.entity_id:str = ""
+        self.partner_table_id:int = 0
+        self.rarity:em_rarity = 0
+        self.curr_gf:gongfa = None
+        self.abonus:attribute = None
+
+
+def partner_to_protcol(_struct:partner):
+    if _struct is None:
+        return None
+    _protocol = {}
+    _protocol["entity_id"] = _struct.entity_id
+    _protocol["partner_table_id"] = _struct.partner_table_id
+    _protocol["rarity"] = _struct.rarity
+    _protocol["curr_gf"] = gongfa_to_protcol(_struct.curr_gf)
+    _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
+    return _protocol
+
+def protcol_to_partner(_protocol:dict):
+    _struct = partner()
+    for (key, val) in _protocol.items():
+        if key == "entity_id":
+            _struct.entity_id = val
+        elif key == "partner_table_id":
+            _struct.partner_table_id = val
+        elif key == "rarity":
+            _struct.rarity = val
+        elif key == "curr_gf":
+            _struct.curr_gf = protcol_to_gongfa(val)
+        elif key == "abonus":
+            _struct.abonus = protcol_to_attribute(val)
     return _struct
 
 class player_info(object):
@@ -491,6 +526,8 @@ class player_info(object):
         self.equips:list[equip_info] = []
         self.wait_bbs:list[bb] = []
         self.curr_bbs:list[bb] = []
+        self.wait_partner:list[partner] = []
+        self.curr_partner:list[partner] = []
         self.items:list[item] = []
         self.tasks:list[task_info] = []
         self.gender:em_role_gender = 0
@@ -529,6 +566,16 @@ def player_info_to_protcol(_struct:player_info):
         for v_ in _struct.curr_bbs:
             _array_curr_bbs.append(bb_to_protcol(v_))
         _protocol["curr_bbs"] = _array_curr_bbs
+    if _struct.wait_partner:
+        _array_wait_partner = []
+        for v_ in _struct.wait_partner:
+            _array_wait_partner.append(partner_to_protcol(v_))
+        _protocol["wait_partner"] = _array_wait_partner
+    if _struct.curr_partner:
+        _array_curr_partner = []
+        for v_ in _struct.curr_partner:
+            _array_curr_partner.append(partner_to_protcol(v_))
+        _protocol["curr_partner"] = _array_curr_partner
     if _struct.items:
         _array_items = []
         for v_ in _struct.items:
@@ -576,6 +623,14 @@ def protcol_to_player_info(_protocol:dict):
             _struct.curr_bbs = []
             for v_ in val:
                 _struct.curr_bbs.append(bb_to_protcol(v_))
+        elif key == "wait_partner":
+            _struct.wait_partner = []
+            for v_ in val:
+                _struct.wait_partner.append(partner_to_protcol(v_))
+        elif key == "curr_partner":
+            _struct.curr_partner = []
+            for v_ in val:
+                _struct.curr_partner.append(partner_to_protcol(v_))
         elif key == "items":
             _struct.items = []
             for v_ in val:
@@ -601,7 +656,6 @@ class battle_entity(object):
         self.appearance:str = ""
         self.speed:int = 0
         self.level:int = 0
-        self.is_live:bool = False
         self.abonus:attribute = None
         self.skills:list[skill_info] = []
 
@@ -615,7 +669,6 @@ def battle_entity_to_protcol(_struct:battle_entity):
     _protocol["appearance"] = _struct.appearance
     _protocol["speed"] = _struct.speed
     _protocol["level"] = _struct.level
-    _protocol["is_live"] = _struct.is_live
     _protocol["abonus"] = attribute_to_protcol(_struct.abonus)
     if _struct.skills:
         _array_skills = []
@@ -637,8 +690,6 @@ def protcol_to_battle_entity(_protocol:dict):
             _struct.speed = val
         elif key == "level":
             _struct.level = val
-        elif key == "is_live":
-            _struct.is_live = val
         elif key == "abonus":
             _struct.abonus = protcol_to_attribute(val)
         elif key == "skills":
