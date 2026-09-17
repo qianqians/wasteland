@@ -1,11 +1,12 @@
 import { Node, Prefab, Sprite, SpriteFrame, NodeEventType, Label, RichText } from 'cc';
 import { BundleManager } from '../tools/BundleManager/BundleManager'
-import { em_player_appearance, em_role_gender } from '../ServerSDK/engine/common_cli';
+import { em_role_gender } from '../ServerSDK/engine/common_cli';
 import * as login_cli from '../ServerSDK/engine/login_cli'
 
 export class CreateCharacter {
     private gender: em_role_gender = em_role_gender.em_role_gender_female;
-    private appearance : em_player_appearance = em_player_appearance.em_player_appearance_female_1;
+    private appearance : string = "";
+    private select_avatar: number = 0;
     private area: string = "";
 
     private selected_activate: SpriteFrame;
@@ -42,22 +43,22 @@ export class CreateCharacter {
         for (let sp of this.sprite_frame) {
             sp.spriteFrame = this.selected_normal;
         }
-        this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
+        this.sprite_frame[0].spriteFrame = this.selected_activate;
         this.sprite_role = node.getChildByPath("role_sprite").getComponent(Sprite);
 
         for (let i = 0; i < this.sprite_avatar.length; i++) {
             this.sprite_avatar[i].node.on(NodeEventType.TOUCH_END, async () => {
                 if (this.gender == em_role_gender.em_role_gender_female) {
-                    this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
-                    this.appearance = em_player_appearance.em_player_appearance_female_0 + i;
-                    this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
+                    this.sprite_frame[this.select_avatar].spriteFrame = this.selected_normal;
+                    this.select_avatar = i;
+                    this.sprite_frame[i].spriteFrame = this.selected_activate;
 
                     this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_Female_${i+1}/spriteFrame`, SpriteFrame);
                 }
                 else {                    
-                    this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
-                    this.appearance = em_player_appearance.em_player_appearance_male_0 + i;
-                    this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
+                    this.sprite_frame[this.select_avatar].spriteFrame = this.selected_normal;
+                    this.select_avatar = i;
+                    this.sprite_frame[i].spriteFrame = this.selected_activate;
 
                     this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_male_${i+1}/spriteFrame`, SpriteFrame);
                 }
@@ -123,9 +124,9 @@ export class CreateCharacter {
             this.sprite_avatar[3].spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_Female_4_head/spriteFrame", SpriteFrame);
             this.sprite_avatar[4].spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_Female_5_head/spriteFrame", SpriteFrame);
 
-            this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
-            this.appearance = em_player_appearance.em_player_appearance_female_0;
-            this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
+            this.sprite_frame[this.select_avatar].spriteFrame = this.selected_normal;
+            this.select_avatar = 0;
+            this.sprite_frame[this.select_avatar].spriteFrame = this.selected_activate;
             this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_Female_1/spriteFrame", SpriteFrame);
         }
         else if (this.gender == em_role_gender.em_role_gender_male) {
@@ -135,9 +136,9 @@ export class CreateCharacter {
             this.sprite_avatar[3].spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_male_4_head/spriteFrame", SpriteFrame);
             this.sprite_avatar[4].spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_male_5_head/spriteFrame", SpriteFrame);
             
-            this.sprite_frame[this.appearance%5].spriteFrame = this.selected_normal;
-            this.appearance = em_player_appearance.em_player_appearance_male_0;
-            this.sprite_frame[this.appearance%5].spriteFrame = this.selected_activate;
+            this.sprite_frame[this.select_avatar].spriteFrame = this.selected_normal;
+            this.select_avatar = 0;
+            this.sprite_frame[this.select_avatar].spriteFrame = this.selected_activate;
             this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", "UI_characters_male_1/spriteFrame", SpriteFrame);
         }
     }

@@ -140,7 +140,7 @@ export class BundleManager
         });
     }
 
-    public PreLoadBundleDir(_bundle:string,_res:string,_callBack?:((bundleName:string,progress:number)=>void)|null, _complete?:(()=>void)|null) {
+    public PreLoadBundleDir(_bundle:string,_res:string, _callBack?:((bundleName:string,progress:number)=>void)|null, _complete?:(()=>void)|null) {
         return new Promise<void>(async (resolve, reject) => {
             try {
                 let bundle = await this.loadBundle(_bundle);

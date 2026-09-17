@@ -264,7 +264,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "LoadingProgressBar",
+    "_name": "Progress",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -338,7 +338,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -800,
+      "x": -790,
       "y": 0,
       "z": 0
     },
@@ -501,7 +501,7 @@
       "__id__": 9
     },
     "_mode": 0,
-    "_totalLength": 1600,
+    "_totalLength": 1580,
     "_progress": 0,
     "_reverse": false,
     "_id": "c4HA9bc19FnLl5oyp0Cmr6"

@@ -88,6 +88,7 @@ class WSContext extends engine.context {
 @ccclass('new_driver')
 export class new_driver extends Component {
     private _app: engine.app;
+    private _curr_node: Node;
 
     @property({ type: CCInteger, tooltip: "Platform Type" })
     platform: login.em_platform = login.em_platform.EPlatformWXMiniGame;
@@ -130,21 +131,33 @@ export class new_driver extends Component {
                 });
             }
         }
+
+        
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
             let createCharacter = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
             let createCharacterNode = instantiate(createCharacter);
-            createCharacterNode.parent = this.node;
+            this.updateLastNode(createCharacterNode);
             let entity = await LoginCallback.Creator(entity_id, createCharacterNode, description);
             return entity;
         });
         this._app.register("player_data", async (entity_id: string, description: object) => {
             console.log(`into game`)
+            //this.updateLastNode();
         });
 
         director.addPersistRootNode(this.node);
 
         console.log(`new_driver end! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
+    }
+
+    private updateLastNode(node:Node) {
+        if (this._curr_node) {
+            this._curr_node.destroy();
+            this._curr_node = null;
+        }
+        this._curr_node = node;
+        this._curr_node.parent = this.node;
     }
 
     update(deltaTime: number) {
