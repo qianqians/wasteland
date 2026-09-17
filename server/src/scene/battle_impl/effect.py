@@ -4,12 +4,12 @@ from .action import *
 from .buff_data import *
 
 def damage(attack:int, target:ActionEntity) -> int:
-    a = (target.abonus.hp/target.abonus.defense)*(attack/(target.abonus.defense+attack))
+    a = (target.abonus.hp/(target.abonus.defense/attack))*(attack/(target.abonus.defense+attack))
     target.abonus.hp -= a
     return target.abonus.hp
 
 def damage_matk(matk:int, target:ActionEntity) -> int:
-    a = (target.abonus.hp/target.abonus.resist)*(matk/(target.abonus.resist+matk))
+    a = (target.abonus.hp/(target.abonus.resist/matk))*(matk/(target.abonus.resist+matk))
     target.abonus.hp -= a
     return target.abonus.hp
 
