@@ -5,6 +5,7 @@ import * as login from './engine/login_cli'
 import { LoginCallback } from '../Login/LoginCallback'
 import { BundleManager } from '../tools/BundleManager/BundleManager';
 import { SdkInterface, SetPlatform } from '../SDK/SdkInterface';
+import { Loading } from '../Loading/Loading';
 
 import buffer from 'buffer';
 const { Buffer } = buffer;
@@ -115,23 +116,27 @@ export class new_driver extends Component {
         this._app = new engine.app();
         this._app.build(new ClientEventHandle());
         this._app.connect_websocket(new WSContext(), "wss://www.ucat.games:8100");
-        this._app.on_conn = () => {
-            console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
-            if (sys.isNative && sys.os === sys.OS.ANDROID) {
-                native.reflection.callStaticMethod(
-                    'com/cocos/game/AppActivity',
-                    'requestServerSideAccess',
-                    '()V'
-                );
-            } else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
-                console.log("WxSdk login begin!");
-                this._SDK.login((code:string) => {
-                    console.log(`WxSdk login success! Code: ${code}`);
-                    this.sendAuthCodeToGameServer(code);
-                });
-            }
+        this._app.on_conn = async () => {
+            let loadPage = this.node.getChildByPath("login");
+            let loading = new Loading();
+            loading.OnLoadingDone = () => {
+                console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
+                if (sys.isNative && sys.os === sys.OS.ANDROID) {
+                    native.reflection.callStaticMethod(
+                        'com/cocos/game/AppActivity',
+                        'requestServerSideAccess',
+                        '()V'
+                    );
+                } else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
+                    console.log("WxSdk login begin!");
+                    this._SDK.login((code:string) => {
+                        console.log(`WxSdk login success! Code: ${code}`);
+                        this.sendAuthCodeToGameServer(code);
+                    });
+                }
+            };
+            await loading.StartLoading(loadPage, "Progress", ["create_character", "role", "map_skyland", "map_stalactite_cave"]);
         }
-
         
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
