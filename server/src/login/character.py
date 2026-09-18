@@ -52,7 +52,7 @@ class LoginCharacterCallback(player):
     def on_migrate_to_other_hub(self, migrate_hub:str):
         pass
     
-    def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:em_role_gender, appearance:em_player_appearance, area:str):
+    def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:em_role_gender, appearance:str, area:str):
         line = random.randint(1, const.WorldLineCount)
         gate_host = app().ctx.gate_host(self.GateName)
         argv = {

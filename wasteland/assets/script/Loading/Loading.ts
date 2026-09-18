@@ -16,10 +16,13 @@ export class Loading {
         let wait = []
         for(let b of loadList) {
             wait.push(BundleManager.Instance.PreLoadBundleDir(b, "", null, ()=>{
-                p += 0.1;
+                p += 1.0/loadList.length;
                 handle(p);
             }));
         }
         await Promise.all(wait);
+        
+        progressBar.active = false;
+        this.OnLoadingDone();
     }
 }
