@@ -141,9 +141,8 @@ export class new_driver extends Component {
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
             let createCharacter = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
-            let createCharacterNode = instantiate(createCharacter);
-            this.updateLastNode(createCharacterNode);
-            let entity = await LoginCallback.Creator(entity_id, createCharacterNode, description);
+            let entity = await LoginCallback.Creator(entity_id, createCharacter, description);
+            this.updateLastNode(entity.CreateCharacterNode);
             return entity;
         });
         this._app.register("player_data", async (entity_id: string, description: object) => {

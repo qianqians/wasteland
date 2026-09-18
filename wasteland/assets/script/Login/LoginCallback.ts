@@ -6,6 +6,7 @@ import { CreateCharacter } from './CreateCharacter'
 export class LoginCallback extends engine.player {
     private _login_caller: login_cli.login_caller;
     public CreateCharacter: CreateCharacter;
+    public CreateCharacterNode: Node;
 
     public constructor(entity_id: string) {
         super("LoginCallback", entity_id)
@@ -17,11 +18,12 @@ export class LoginCallback extends engine.player {
     }
 
     public async create_character(node:Node) {
+        this.CreateCharacterNode = node;
         this.CreateCharacter = new CreateCharacter();
         await this.CreateCharacter.Init(node, this._login_caller);
     }
 
-    public static async Creator(entity_id: string, createCharacter:Node, description: object) {
+    public static async Creator(entity_id: string, createCharacterPrefab:Prefab, description: object) {
         console.log(`LoginCallback:${entity_id}`);
         let impl = new LoginCallback(entity_id)
         let c = description["Characters"] as Array<object>;
@@ -38,7 +40,8 @@ export class LoginCallback extends engine.player {
             });
         }
         else {
-            await impl.create_character(createCharacter);
+            let createCharacterNode = instantiate(createCharacterPrefab);
+            await impl.create_character(createCharacterNode);
         }
         return impl
     }
