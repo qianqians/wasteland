@@ -9,12 +9,13 @@ async def __get_object_one_callback_set_future__(future:asyncio.Future, data:dic
     future.set_result(data)
 
 class LoginCharacterCallback(player):
-    def __init__(self, handle:login_event_handle, account_id:str, entity_id:str, gate_name:str, conn_id:str, is_replace: bool):
-        player.__init__(self, "login", "LoginCharacterCallback", entity_id, gate_name, conn_id, False)
+    def __init__(self, handle:login_event_handle, account_id:str, player_id:str, gate_name:str, conn_id:str, is_replace: bool):
+        player.__init__(self, "login", "LoginCharacterCallback", player_id, gate_name, conn_id, False)
         
         self.handle = handle
         self.is_replace = is_replace
-        
+
+        self.user_id = player_id
         self.AccountID = account_id
         self.DBproxy = app().dbproxy_mgr.get_dbproxy()
         
@@ -56,7 +57,7 @@ class LoginCharacterCallback(player):
         line = random.randint(1, const.WorldLineCount)
         gate_host = app().ctx.gate_host(self.GateName)
         argv = {
-            "player_id": self.PlayerID,
+            "player_id": self.user_id,
             "player_nick_name": player_nick_name,
             "gender": gender,
             "appearance": appearance,
