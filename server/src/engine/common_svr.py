@@ -228,6 +228,7 @@ class skill_info(object):
         self.cast_mp:int = 0
         self.cd_round:int = 0
 
+
 def skill_info_to_protcol(_struct:skill_info):
     if _struct is None:
         return None

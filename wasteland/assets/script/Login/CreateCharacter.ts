@@ -7,7 +7,7 @@ export class CreateCharacter {
     private gender: em_role_gender = em_role_gender.em_role_gender_female;
     private appearance : string = "";
     private select_avatar: number = 0;
-    private area: string = "";
+    private area: string = "map_skyland";
 
     private selected_activate: SpriteFrame;
     private selected_normal: SpriteFrame;
@@ -75,7 +75,7 @@ export class CreateCharacter {
         for (let n of this.area_list) {
             n.getComponent(Label).string = `新手村${index++}`;
             n.on(NodeEventType.TOUCH_END, () => {
-                this.area = n.getComponent(Label).string;
+                this.area = "map_skyland"; //n.getComponent(Label).string;
             });
         }
 
@@ -97,9 +97,9 @@ export class CreateCharacter {
         this.enter_game = node.getChildByPath("enter_game").getComponent(Sprite);
         this.enter_game.node.on(NodeEventType.TOUCH_END, () => {
             login.create_character(this.nick_name.string, this.gender, this.appearance, this.area).callBack(
-                (info) => {
+                () => {
                     node.destroy();
-                    console.log(`CreateCharacter login success:${info}`) 
+                    console.log(`CreateCharacter login success!`) 
                 }, 
                 (_err) => { 
                     console.log(`CreateCharacter login _err:${_err}`) 

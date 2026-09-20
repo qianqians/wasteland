@@ -86,7 +86,7 @@ class LoginCharacterCallback(player):
             else:
                 rsp.err(error_code.undefined_player_id)
                 return
-        rsp.rsp(self.Character[0])
+        rsp.rsp()
         
     def __on_select_character__(self, rsp:login_select_character_rsp, player_id:str):
         app().run_coroutine_async(self.__select_character_callback__(rsp, player_id))

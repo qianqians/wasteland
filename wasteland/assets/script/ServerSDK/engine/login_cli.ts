@@ -14,7 +14,7 @@ export enum em_platform {
 // this caller code is codegen by geese codegen for typescript
 export class login_create_character_cb {
     public entity:engine.subentity|engine.player;
-    public cb:((player:common.player_info) => void)|null = null;
+    public cb:(() => void)|null = null;
     public err:((errCode:number) => void)|null = null;
     public rsp:engine.callback;
     public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
@@ -26,8 +26,7 @@ export class login_create_character_cb {
 
     private on_rsp(bin:Uint8Array) {
         let inArray = decode(bin) as any;
-        let _player = common.protcol_to_player_info(inArray[0]);
-        if (this.cb) this.cb.call(null, _player);
+        if (this.cb) this.cb.call(null, );
 
     }
 
@@ -38,7 +37,7 @@ export class login_create_character_cb {
 
     }
 
-    public callBack(_cb:(player:common.player_info) => void, _err:(errCode:number) => void) {
+    public callBack(_cb:() => void, _err:(errCode:number) => void) {
         this.cb = _cb;
         this.err = _err;
         this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
@@ -49,7 +48,7 @@ export class login_create_character_cb {
 
 export class login_select_character_cb {
     public entity:engine.subentity|engine.player;
-    public cb:((player:common.player_info) => void)|null = null;
+    public cb:(() => void)|null = null;
     public err:((errCode:number) => void)|null = null;
     public rsp:engine.callback;
     public constructor(_cb_uuid:number, _entity:engine.subentity|engine.player) {
@@ -61,8 +60,7 @@ export class login_select_character_cb {
 
     private on_rsp(bin:Uint8Array) {
         let inArray = decode(bin) as any;
-        let _player = common.protcol_to_player_info(inArray[0]);
-        if (this.cb) this.cb.call(null, _player);
+        if (this.cb) this.cb.call(null, );
 
     }
 
@@ -73,7 +71,7 @@ export class login_select_character_cb {
 
     }
 
-    public callBack(_cb:(player:common.player_info) => void, _err:(errCode:number) => void) {
+    public callBack(_cb:() => void, _err:(errCode:number) => void) {
         this.cb = _cb;
         this.err = _err;
         this.rsp.callback(this.on_rsp.bind(this), this.on_err.bind(this));
