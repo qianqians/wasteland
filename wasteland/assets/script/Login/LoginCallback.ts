@@ -31,8 +31,8 @@ export class LoginCallback extends engine.player {
         let c = description["Characters"] as Array<object>;
         if (c.length > 0) {
             impl._login_caller.select_character(c[0]["player_id"]).callBack(
-                async (info) => { 
-                    console.log(`LoginCallback login success:${info}`) 
+                async () => { 
+                    console.log(`LoginCallback login success!`) 
                     await loading.StartLoading(loadPage, "Progress", ["role", "map_skyland", "map_stalactite_cave"]);
                         
                 },
