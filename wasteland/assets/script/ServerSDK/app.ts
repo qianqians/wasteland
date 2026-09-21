@@ -3,7 +3,6 @@ const { ccclass, property } = _decorator;
 import * as engine from './engine/engine'
 import * as login from './engine/login_cli'
 import { LoginCallback } from '../Login/LoginCallback'
-import { BundleManager } from '../tools/BundleManager/BundleManager';
 import { SdkInterface, SetPlatform } from '../SDK/SdkInterface';
 import { Loading } from '../Loading/Loading';
 
@@ -90,6 +89,8 @@ class WSContext extends engine.context {
 export class new_driver extends Component {
     private _app: engine.app;
     private _curr_node: Node;
+    private _loading: Loading;
+    private _loadPage: Node;
 
     @property({ type: CCInteger, tooltip: "Platform Type" })
     platform: login.em_platform = login.em_platform.EPlatformWXMiniGame;
@@ -117,9 +118,9 @@ export class new_driver extends Component {
         this._app.build(new ClientEventHandle());
         this._app.connect_websocket(new WSContext(), "wss://www.ucat.games:8100");
         this._app.on_conn = async () => {
-            let loadPage = this.node.getChildByPath("login");
-            let loading = new Loading();
-            loading.OnLoadingDone = () => {
+            this._loadPage = this.node.getChildByPath("login");
+            this._loading = new Loading();
+            this._loading.OnLoadingDone = () => {
                 console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
                 if (sys.isNative && sys.os === sys.OS.ANDROID) {
                     native.reflection.callStaticMethod(
@@ -135,13 +136,11 @@ export class new_driver extends Component {
                     });
                 }
             };
-            await loading.StartLoading(loadPage, "Progress", ["create_character", "role", "map_skyland", "map_stalactite_cave"]);
         }
         
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
-            let createCharacter = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
-            let entity = await LoginCallback.Creator(entity_id, createCharacter, description);
+            let entity = await LoginCallback.Creator(entity_id, this._loading, this._loadPage, description);
             this.updateLastNode(entity.CreateCharacterNode);
             return entity;
         });
