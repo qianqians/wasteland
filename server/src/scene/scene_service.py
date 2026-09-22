@@ -106,7 +106,6 @@ class scene_service(service):
         }
         return novice_village
 
-    @abstractmethod
     def on_migrate(self, _entity:entity|player):
         if _entity.entity_type == "player_data":
             _player_data:player_data = _entity
@@ -114,14 +113,11 @@ class scene_service(service):
             _scene.entry_scene(_player_data)
             _player_data.entry_scene(_scene)
 
-    @abstractmethod
     def hub_query_service_entity(self, queryer_hub_name:str):
         pass
     
-    @abstractmethod
     def client_query_service_entity(self, queryer_gate_name:str, queryer_client_conn_id:str, queryer_client_info:dict):
         app().run_coroutine_async(load_or_create_player(self, queryer_gate_name, queryer_client_conn_id, queryer_client_info))
 
-    @abstractmethod
     def client_query_service_entity_ext(self, info:list[(str, str, dict)]):
         pass
