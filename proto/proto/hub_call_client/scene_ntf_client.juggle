@@ -1,6 +1,6 @@
 import common
 
 mutil_service scene_ntf_client {
-    move ntf(position pos);
+    move ntf(position_info pos);
     entity_refresh ntf(bin info);
 }

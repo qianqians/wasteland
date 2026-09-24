@@ -13,9 +13,9 @@ class scene_ntf_client_caller(object):
     def __init__(self, entity:player|entity):
         self.entity = entity
 
-    def move(self, pos:position):
+    def move(self, pos:position_info):
         _argv_33efb72e_9227_32af_a058_169be114a277 = []
-        _argv_33efb72e_9227_32af_a058_169be114a277.append(position_to_protcol(pos))
+        _argv_33efb72e_9227_32af_a058_169be114a277.append(position_info_to_protcol(pos))
         self.entity.call_client_mutilcast("move", dumps(_argv_33efb72e_9227_32af_a058_169be114a277))
 
     def entity_refresh(self, info:bytes):

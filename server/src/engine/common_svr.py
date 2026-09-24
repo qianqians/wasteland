@@ -181,7 +181,7 @@ def protcol_to_equip_info(_protocol:dict):
             _struct.abonus = protcol_to_attribute(val)
     return _struct
 
-class position(object):
+class position_info(object):
     def __init__(self):
         self.x:int = 0
         self.y:int = 0
@@ -190,7 +190,7 @@ class position(object):
         self.dir:int = 0
 
 
-def position_to_protcol(_struct:position):
+def position_info_to_protcol(_struct:position_info):
     if _struct is None:
         return None
     _protocol = {}
@@ -201,8 +201,8 @@ def position_to_protcol(_struct:position):
     _protocol["dir"] = _struct.dir
     return _protocol
 
-def protcol_to_position(_protocol:dict):
-    _struct = position()
+def protcol_to_position_info(_protocol:dict):
+    _struct = position_info()
     for (key, val) in _protocol.items():
         if key == "x":
             _struct.x = val
@@ -518,7 +518,7 @@ class player_info(object):
         self.gender:em_role_gender = 0
         self.scene:str = ""
         self.line:int = 0
-        self.pos:position = None
+        self.pos:position_info = None
 
 
 def player_info_to_protcol(_struct:player_info):
@@ -574,7 +574,7 @@ def player_info_to_protcol(_struct:player_info):
     _protocol["gender"] = _struct.gender
     _protocol["scene"] = _struct.scene
     _protocol["line"] = _struct.line
-    _protocol["pos"] = position_to_protcol(_struct.pos)
+    _protocol["pos"] = position_info_to_protcol(_struct.pos)
     return _protocol
 
 def protcol_to_player_info(_protocol:dict):
@@ -631,7 +631,7 @@ def protcol_to_player_info(_protocol:dict):
         elif key == "line":
             _struct.line = val
         elif key == "pos":
-            _struct.pos = protcol_to_position(val)
+            _struct.pos = protcol_to_position_info(val)
     return _struct
 
 class battle_entity(object):

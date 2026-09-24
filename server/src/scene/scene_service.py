@@ -69,7 +69,7 @@ class scene_service(service):
         for _scene in self.scenes.values():
             _scene.update()
 
-    def get_novice_village(self, scene_name:str) -> dict:
+    def get_novice_village(self, scene_name:str) -> scene_postion:
         _scene = self.scenes[scene_name]
         pos:postion = _scene.spawn_point
         novice_village:scene_postion = {

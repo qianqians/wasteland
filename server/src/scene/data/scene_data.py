@@ -10,7 +10,7 @@ from ...helper import const
 from ..scene_map_data import scene_map as scene_map_data
 
 class scene_data:
-    def __init__(self, user_id:str, scene_caller:scene_ntf_client_caller, info:dict):
+    def __init__(self, user_id:str, scene_caller:scene_ntf_client_caller, info:scene_postion):
         self.user_id = user_id
         
         self.speed = 24
@@ -21,7 +21,9 @@ class scene_data:
         
         self.scene_name:str = info["scene_name"]
         self.scene_line:int = info["scene_line"]
-        self.postion:position = protcol_to_position(info["postion"])
+        self.postion:position_info = position_info()
+        self.postion.x = info["pos"]["x"]
+        self.postion.y = info["pos"]["y"]
 
         self.scene_caller:scene_ntf_client_caller = scene_caller
         self.update_timestamp:float = time.time()
@@ -158,5 +160,8 @@ class scene_data:
         return (False, None)
 
     def info(self) -> dict:
-        return { "scene_name": self.scene_name, "scene_line": self.scene_line, 
-            "postion": position_to_protcol(self.postion) }
+        return { 
+            "scene_name": self.scene_name, 
+            "scene_line": self.scene_line, 
+            "postion": position_info_to_protcol(self.postion) 
+        }

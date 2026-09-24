@@ -135,8 +135,8 @@ class player_data(save, player):
         self.battle_handle.on_use_skill(entity_id, skill_id, target)
         rsp.rsp(self.battle_info())
         
-    def begin_move(self, vertical_dir:direction, pos:position):
-        (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir, pos)
+    def begin_move(self, vertical_dir:direction, pos:position_info):
+        (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir)
         if is_spawn:
             app().run_coroutine_async(self.__into_scene__(spawn_scene_name, self.scene_data.scene_line))
         

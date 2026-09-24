@@ -83,7 +83,7 @@ enum direction {
 	right = 8;
 }
 
-struct position {
+struct position_info {
     int32 x;
     int32 y;
     int32 x_speed;
@@ -186,7 +186,7 @@ struct player_info {
     em_role_gender gender;   // 玩家性别
 	string scene;            // 玩家所在场景
     int32 line;              // 玩家所在世界线
-	position pos;            // 玩家位置
+	position_info pos;       // 玩家位置
 }
 
 struct battle_entity {

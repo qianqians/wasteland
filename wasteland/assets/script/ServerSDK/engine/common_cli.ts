@@ -198,7 +198,7 @@ export function protcol_to_equip_info(_protocol:any) {
 
 }
 
-export class position {
+export class position_info {
      public x:number = 0
      public y:number = 0
      public x_speed:number = 0
@@ -206,7 +206,7 @@ export class position {
      public dir:number = 0
 }
 
-export function position_to_protcol(_struct:position) {
+export function position_info_to_protcol(_struct:position_info) {
     let _protocol:any = {}
     _protocol["x"] = _struct.x
     _protocol["y"] = _struct.y
@@ -216,8 +216,8 @@ export function position_to_protcol(_struct:position) {
     return _protocol;
 }
 
-export function protcol_to_position(_protocol:any) {
-    let _struct = new position()
+export function protcol_to_position_info(_protocol:any) {
+    let _struct = new position_info()
     for (let key in _protocol) {
         let val = _protocol[key];
         if (key == "x") {
@@ -607,7 +607,7 @@ export class player_info {
      public gender:em_role_gender = em_role_gender.em_role_gender_female
      public scene:string = ""
      public line:number = 0
-     public pos:position = null
+     public pos:position_info = null
 }
 
 export function player_info_to_protcol(_struct:player_info) {
@@ -677,7 +677,7 @@ export function player_info_to_protcol(_struct:player_info) {
     _protocol["gender"] = _struct.gender
     _protocol["scene"] = _struct.scene
     _protocol["line"] = _struct.line
-    _protocol["pos"] = position_to_protcol(_struct.pos)
+    _protocol["pos"] = position_info_to_protcol(_struct.pos)
     return _protocol;
 }
 
@@ -761,7 +761,7 @@ export function protcol_to_player_info(_protocol:any) {
             _struct.line = val;
         }
         else if (key == "pos") {
-            _struct.pos = protcol_to_position(val);
+            _struct.pos = protcol_to_position_info(val);
         }
     }
     return _struct;
