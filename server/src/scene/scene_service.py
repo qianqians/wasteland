@@ -63,13 +63,17 @@ class scene_service(service):
         self.line = scene_line
 
         self.scenes:dict[str, scene] = {}
-        with open('../../excel/Area.json') as f:
+
+        
+        '''with open('../../excel/Area.json') as f:
             data = json.load(f)
             for s in data.value():
                 if s["area"] != area: continue    
                 load_scene_map(s["scene"])
                 self.scenes[s["scene"]] = scene(area, s["scene"], scene_line)
-        
+        '''
+
+        '''
         self.novice_village:scene_novice_village = None
         with open('../../excel/NoviceVillage.json') as f:
             data = json.load(f)
@@ -86,6 +90,7 @@ class scene_service(service):
                     "scene_name": novice_village["novice_village"],
                     "pos": pos
                 }
+        '''
 
     def update(self):
         for _scene in self.scenes.values():

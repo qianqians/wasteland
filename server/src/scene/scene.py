@@ -20,12 +20,14 @@ class scene:
         self.players:dict[str, player_data] = {}
 
         self.npcs:dict[str, npc] = {}
+        '''
         with open('../../excel/NPC.json') as f:
             data = json.load(f)
             for s in data.value():
                 if s["scene"] != self.scene_name:
                     continue
                 self.npcs[s["id"]] = npc(f"{self.scene_name}_{scene_line}", s["id"], str(uuid.uuid4()))
+        '''
 
         self.mobs:dict[str, mob] = {}
                 
@@ -46,10 +48,10 @@ class scene:
         self.group.join((player.client_gate_name, player.client_conn_id))
         self.group.create_remote_player(player)
 
-        self.players[player.player_id] = player
+        self.players[player.user_id] = player
         
     def leave_scene(self, player:player_data):
-        self.players.pop(player.player_id)
+        self.players.pop(player.user_id)
 
         self.group.remove_player(player)
         self.group.leave((player.client_gate_name, player.client_conn_id))

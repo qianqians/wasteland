@@ -4,7 +4,7 @@ from ...engine.common_svr import *
 
 class equip:
     def __init__(self):
-        pass
+        self.equip:equip_info = None
 
     def data(self) -> equip_info:
         return self.equip
@@ -16,7 +16,9 @@ class equip:
         return self.equip.equip_type
     
     def create(data:dict) -> equip:
-        return protcol_to_equip_info(data)
+        e = equip()
+        e.equip = protcol_to_equip_info(data)
+        return e
     
     def load(info:equip_info):
         e = equip()

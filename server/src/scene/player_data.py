@@ -155,7 +155,7 @@ class player_data(save, player):
         await self.start_migrate_entity_initiative(migrate_hub)
         
     async def into_scene(self, rsp:player_into_scene_rsp, scene_name:str, scene_line:int):
-        scene_spawn_point = get_scene_spawn_point(scene_name, self.scene_data.postion)
+        scene_spawn_point = get_scene_spawn_point(self.scene_data.scene_name, self.scene_data.postion)
         if scene_spawn_point == None:
             rsp.err(error_code.not_in_spawn_point)
             return
@@ -192,9 +192,6 @@ class player_data(save, player):
     def create() -> dict:
         _attribute_data = attribute_create()
         _bag_data = bag_create()
-        
-        #from .data.task_data import task_create
-        #_task_data = task_create()
 
         return { 
             "player_id":str(uuid.uuid4()),
