@@ -3,6 +3,7 @@ from __future__ import annotations
 import uuid
 from ..engine.engine import *
 from ..engine.common_svr import *
+from ..config.scene_config import *
 from .scene_map_data import scene_map, get_scene_map
 from .player_data import player_data
 from .npc import npc
@@ -18,6 +19,9 @@ class scene:
         
         self.group = group()
         self.players:dict[str, player_data] = {}
+
+        self.novice_village:list[scene_novice_village] = []
+        self.spawn_point:postion = None
 
         self.npcs:dict[str, npc] = {}
         '''

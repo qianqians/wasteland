@@ -4,18 +4,10 @@ from typing import TypedDict
 from ...engine.common_svr import *
 from ...engine.scene_ntf_client_svr import *
 from ...engine.scene_svr import *
+from ...config.scene_config import *
 from ..scene_map_data import *
 from ...helper import const
 from ..scene_map_data import scene_map as scene_map_data
-
-class postion_data(TypedDict):
-    x:int = 0
-    y:int = 0
-    
-class scene_postion(TypedDict):
-    scene_name:str
-    scene_line:int
-    pos:postion_data
 
 class scene_data:
     def __init__(self, user_id:str, scene_caller:scene_ntf_client_caller, info:dict):

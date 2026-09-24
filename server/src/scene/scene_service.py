@@ -25,7 +25,7 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
         info["gender"] = client_info["gender"]
            
     if "scene_data" not in info:
-        novice_village = _service.get_novice_village()
+        novice_village = _service.get_novice_village("map_skyland")
         if novice_village == None:
             app().error(f"Novice village not found for player={player_id} client_info={client_info}")
             return
@@ -55,49 +55,25 @@ class scene_service(service):
         self.line = scene_line
 
         self.scenes:dict[str, scene] = {}
-        
-        
-        '''
-        with open('../../excel/Area.json') as f:
-            data = json.load(f)
-            for s in data.value():
-                if s["area"] != area: continue    
-                load_scene_map(s["scene"])
-                self.scenes[s["scene"]] = scene(area, s["scene"], scene_line)
-        '''
+        for s in SceneInfos:
+            if s["area"] != area: continue  
+            scene_name = s["scene_name"]  
+            load_scene_map(scene_name)
 
-        '''
-        self.novice_village:scene_novice_village = None
-        with open('../../excel/NoviceVillage.json') as f:
-            data = json.load(f)
-            if area in data:
-                novice_village = data[area]
-                pos_x = json.loads(novice_village["postion_x"])
-                pos_y = int(novice_village["postion_y"])
-                pos:novice_village_postion = {
-                    "x_1": pos_x[0],
-                    "x_2": pos_x[1],
-                    "y": pos_y
-                }
-                self.novice_village = {
-                    "scene_name": novice_village["novice_village"],
-                    "pos": pos
-                }
-        '''
+            _scene = scene(area, scene_name, scene_line)
+            _scene.novice_village = s["novice_villages"]
+            _scene.spawn_point = s["spawn_point"]
+            self.scenes[scene_name] = _scene
 
     def update(self):
         for _scene in self.scenes.values():
             _scene.update()
 
-    def get_novice_village(self) -> dict:
-        x = self.novice_village["pos"]["x"]
-        random_x = random.randint(0, 16) + x
-        pos:postion_data = {
-            "x": random_x,
-            "y": self.novice_village["pos"]["y"],
-        }
+    def get_novice_village(self, scene_name:str) -> dict:
+        _scene = self.scenes[scene_name]
+        pos:postion = _scene.spawn_point
         novice_village:scene_postion = {
-            "scene_name": self.novice_village["scene_name"],
+            "scene_name": scene_name,
             "scene_line": self.line,
             "pos": pos,
         }
