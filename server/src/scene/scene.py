@@ -31,17 +31,17 @@ class scene:
 
         self.mobs:dict[str, mob] = {}
                 
-        self.updates:list[Callable[[], None]] = []
-        self.add_update(lambda : [p.scene_data.update(self.scene_map_data) for p in self.players.values()])
+        self.__updates__:list[Callable[[], None]] = []
+        self.__add_update__(lambda : [p.scene_data.update(self.scene_map_data) for p in self.players.values()])
 
-    def add_update(self, update:Callable[[], None]):
-        self.updates.append(update)
+    def __add_update__(self, update:Callable[[], None]):
+        self.__updates__.append(update)
 
     def update(self):
         if len(self.players) <= 0:
             return
 
-        for call in self.updates:
+        for call in self.__updates__:
             call()
 
     def entry_scene(self, player:player_data):

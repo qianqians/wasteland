@@ -2,6 +2,7 @@
 from __future__ import annotations
 from ..engine.engine import *
 from ..helper import const
+from ..config.scene_config import *
 from .data.attribute_data import *
 from .data.equip_data import *
 from .data.scene_data import *
@@ -47,15 +48,6 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
     else:
         app().error(f"scene:{scene_name}_{scene_line} not found!")
 
-class novice_village_postion(TypedDict):
-    x_1: int
-    x_2: int
-    y: int
-
-class scene_novice_village(TypedDict):
-    scene_name:str
-    pos:novice_village_postion
-
 class scene_service(service):
     def __init__(self, area:str, scene_line:int):
         super().__init__(f"{area}_{scene_line}")
@@ -63,9 +55,10 @@ class scene_service(service):
         self.line = scene_line
 
         self.scenes:dict[str, scene] = {}
-
         
-        '''with open('../../excel/Area.json') as f:
+        
+        '''
+        with open('../../excel/Area.json') as f:
             data = json.load(f)
             for s in data.value():
                 if s["area"] != area: continue    
@@ -97,9 +90,8 @@ class scene_service(service):
             _scene.update()
 
     def get_novice_village(self) -> dict:
-        x_1 = self.novice_village["pos"]["x_1"]
-        x_2 = self.novice_village["pos"]["x_2"]
-        random_x = random.random() * (x_2 - x_1) + x_1
+        x = self.novice_village["pos"]["x"]
+        random_x = random.randint(0, 16) + x
         pos:postion_data = {
             "x": random_x,
             "y": self.novice_village["pos"]["y"],
