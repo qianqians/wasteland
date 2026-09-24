@@ -67,5 +67,5 @@ class equip_data:
             info[type] = equip.info()
         return info
     
-def equip_create(gender:int) -> equip_data:
-    return equip_data({})
+#def equip_create(gender:int) -> equip_data:
+#    return equip_data({})
