@@ -23,4 +23,70 @@ class SceneInfo(TypedDict):
     novice_villages:list[scene_novice_village] = []
     spawn_point:postion = None
 
-SceneInfos:list[SceneInfo] = []
+map_skyland:SceneInfo = {
+    "area": "yunmeng_marsh",
+    "scene_name": "map_skyland",
+    "novice_villages": [
+        {
+            "local_pos": {
+                "x": 16,
+                "y": 64
+            },
+            "next_scene_name": "stalactiteCave",
+            "pos": {
+                "x": 64,
+                "y": 64
+            }
+        },
+        {
+            "local_pos": {
+                "x": 512,
+                "y": 64
+            },
+            "next_scene_name": "stalactiteCave",
+            "pos": {
+                "x": 512,
+                "y": 64
+            }
+        }
+    ],
+    "spawn_point": {
+        "x": 128,
+        "y": 64
+    }
+}
+
+stalactiteCave:SceneInfo = {
+    "area": "yunmeng_marsh",
+    "scene_name": "stalactiteCave",
+    "novice_villages": [
+        {
+            "local_pos": {
+                "x": 64,
+                "y": 64
+            },
+            "next_scene_name": "map_skyland",
+            "pos": {
+                "x": 16,
+                "y": 64
+            }
+        },
+        {
+            "local_pos": {
+                "x": 512,
+                "y": 64
+            },
+            "next_scene_name": "map_skyland",
+            "pos": {
+                "x": 512,
+                "y": 64
+            }
+        }
+    ],
+    "spawn_point": None
+}
+
+SceneInfos:list[SceneInfo] = [
+    map_skyland,
+    stalactiteCave
+]

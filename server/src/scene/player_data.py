@@ -170,7 +170,6 @@ class player_data(save, player):
     def refresh(self):
         self.scene_caller.entity_refresh(dumps(self.client_info()))
 
-    @abstractmethod
     def store(self) -> dict:
         return { 
             "player_id": self.user_id, 
@@ -187,8 +186,6 @@ class player_data(save, player):
             "gf_data": self.gf_data.info(),
         }
     
-    @staticmethod
-    @abstractmethod
     def create() -> dict:
         _attribute_data = attribute_create()
         _bag_data = bag_create()
