@@ -33,8 +33,8 @@ export class LoginCallback extends engine.player {
             impl._login_caller.select_character(c[0]["player_id"]).callBack(
                 async () => { 
                     console.log(`LoginCallback login success!`) 
-                    await loading.StartLoading(loadPage, "Progress", ["role", "map_skyland", "map_stalactite_cave"]);
-                        
+                    await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
+                        [["role", true], ["map_skyland", true], ["map_stalactite_cave", true]]));                      
                 },
                 (_err) => { 
                     console.log(`LoginCallback login _err:${_err}`) 
@@ -44,7 +44,8 @@ export class LoginCallback extends engine.player {
             });
         }
         else {
-            await loading.StartLoading(loadPage, "Progress", ["create_character", "role", "map_skyland", "map_stalactite_cave"]);
+            await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
+                [["role", true], ["map_skyland", true], ["map_stalactite_cave", true], ["create_character", true]]));
             let createCharacterPrefab = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
             let createCharacterNode = instantiate(createCharacterPrefab);
             await impl.create_character(createCharacterNode);

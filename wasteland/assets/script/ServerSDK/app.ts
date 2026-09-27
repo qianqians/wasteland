@@ -120,21 +120,24 @@ export class new_driver extends Component {
         this._app.on_conn = async () => {
             this._loadPage = this.node.getChildByPath("login");
             this._loading = new Loading();
+
+            console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
+            if (sys.isNative && sys.os === sys.OS.ANDROID) {
+                native.reflection.callStaticMethod(
+                    'com/cocos/game/AppActivity',
+                    'requestServerSideAccess',
+                    '()V'
+                );
+            } else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
+                console.log("WxSdk login begin!");
+                this._SDK.login((code:string) => {
+                    console.log(`WxSdk login success! Code: ${code}`);
+                    this.sendAuthCodeToGameServer(code);
+                });
+            }
+
             this._loading.OnLoadingDone = () => {
-                console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
-                if (sys.isNative && sys.os === sys.OS.ANDROID) {
-                    native.reflection.callStaticMethod(
-                        'com/cocos/game/AppActivity',
-                        'requestServerSideAccess',
-                        '()V'
-                    );
-                } else if (this.platform == login.em_platform.EPlatformWXMiniGame) {
-                    console.log("WxSdk login begin!");
-                    this._SDK.login((code:string) => {
-                        console.log(`WxSdk login success! Code: ${code}`);
-                        this.sendAuthCodeToGameServer(code);
-                    });
-                }
+                
             };
         }
         

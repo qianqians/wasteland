@@ -140,6 +140,63 @@ export class BundleManager
         });
     }
 
+    public LoadBundleDir(_bundle:string,_res:string, _callBack?:((bundleName:string,progress:number)=>void)|null, _complete?:(()=>void)|null) {
+        return new Promise<void>(async (resolve, reject) => {
+            try {
+                let bundle = await this.loadBundle(_bundle);
+                let info = bundle.getDirWithPath(_res);
+                if (info && info.length > 0) {
+                    let n = 0;
+                    for (let t of info) {
+                        let uuid = t.uuid;
+                        let cachedAsset = assetManager.assets.get(uuid)
+                        if (cachedAsset && isValid(cachedAsset)) {
+                            n++;
+                        }
+                    }
+                    if (n == info.length) {
+                        if (_callBack) {
+                            await Sleep(333);
+                            _callBack(_bundle, 100);
+                        }
+                        if(_complete) {
+                            _complete();
+                        }
+                        resolve();
+                        return;
+                    }
+                }
+
+                bundle.loadDir(_res, null, (finished, total, item) => {
+                    if (_callBack) {
+                        const progress = total > 0 ? Math.floor(finished / total * 100) : 100;
+                        _callBack(_bundle, progress);
+                    }
+                }, (err, data) => {
+                    if (err) {
+                        console.warn("预下载 ",bundle,"/",_res," 错误 ",err);
+                        reject(err);
+                    }
+                    else {
+                        try {
+                            if(_complete) {
+                                _complete();
+                            }
+                            resolve();
+                        }
+                        catch (completeErr) {
+                            reject(completeErr);
+                        }
+                    }
+                });
+            }
+            catch (err) {
+                console.warn("预下载 ",_bundle,"/",_res," 错误 ",err);
+                reject(err);
+            }
+        })
+    }
+
     public PreLoadBundleDir(_bundle:string,_res:string, _callBack?:((bundleName:string,progress:number)=>void)|null, _complete?:(()=>void)|null) {
         return new Promise<void>(async (resolve, reject) => {
             try {

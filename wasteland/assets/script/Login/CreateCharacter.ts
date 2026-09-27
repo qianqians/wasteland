@@ -109,7 +109,7 @@ export class CreateCharacter {
             });
         });
 
-        this.InitGender(em_role_gender.em_role_gender_male);
+        this.InitGender(em_role_gender.em_role_gender_female);
     }
 
     public async InitGender(_gender: em_role_gender) {
