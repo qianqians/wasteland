@@ -6,9 +6,9 @@ from ..engine.common_svr import *
 
 class scene_map_spawn_point(TypedDict):
     in_scene_name:str
-    in_position:position
+    in_position:position_info
     out_scene_name:str
-    out_position:position
+    out_position:position_info
 
 class em_map_element_property(Enum):
     em_map_empty = 0

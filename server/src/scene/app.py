@@ -22,7 +22,7 @@ def main(cfg_file:str):
     _app.register_migrate("player_data", lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs : 
         migrate_player(main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))
     
-    _app.run(lambda: [s.update() for s in (_scene_yunmeng_marsh_1)])
+    _app.run(_scene_yunmeng_marsh_1.update)
     
 if __name__ == '__main__':
     main(sys.argv[1])

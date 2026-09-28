@@ -90,6 +90,7 @@ class scene_service(service):
         pass
     
     def client_query_service_entity(self, queryer_gate_name:str, queryer_client_conn_id:str, queryer_client_info:dict):
+        app().info(f"client_query_service_entity begin! gate_name:{queryer_gate_name} client_conn_id:{queryer_client_conn_id}")
         app().run_coroutine_async(load_or_create_player(self, queryer_gate_name, queryer_client_conn_id, queryer_client_info))
 
     def client_query_service_entity_ext(self, info:list[(str, str, dict)]):

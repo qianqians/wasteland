@@ -40,6 +40,7 @@ def __handle_poll_db_msg_thread__(_app:app):
     _app.poll_db_msg_thread()
 
 def __handle_poll_coroutine_thread__(_app:app):
+    asyncio.set_event_loop(_app.__loop__)
     _app.poll_coroutine_thread()
 
 def singleton(cls):
@@ -60,7 +61,6 @@ class app(object):
         self.__conn_handle__:conn_msg_handle = None
         self.__entity_create_method__:dict[str, Callable[[bool, str, str, dict]]] = {}
         self.__entity_migrate_method__:dict[str, Callable[[str, str, str,list[str], list[str], dict], entity|player]] = {}
-        self.__loop__ = None
         self.__conn_pump__ = None
         self.__db_pump__ = None
         self.__physics_tick__:Callable[[float], None] = None
@@ -265,7 +265,6 @@ class app(object):
                 time.sleep(0.033 - tick)
 
     def poll_coroutine_thread(self):
-        asyncio.set_event_loop(self.__loop__)
         self.__loop__.run_forever()
 
     def poll(self, update:Callable[[], None] = None):

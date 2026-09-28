@@ -54,16 +54,22 @@ class LoginCharacterCallback(player):
         pass
     
     def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:em_role_gender, appearance:str, novice_village:str):
-        line = random.randint(1, const.WorldLineCount)
-        gate_host = app().ctx.gate_host(self.GateName)
-        argv = {
-            "player_id": self.user_id,
-            "player_nick_name": player_nick_name,
-            "gender": gender,
-            "appearance": appearance,
-            "novice_village": novice_village,
-        }
-        forward_client_query_service(f"yunmeng_marsh_{line}", self.GateName, gate_host, self.ConnID, argv)
+        try:
+            line = 1 #random.randint(1, const.WorldLineCount)
+            gate_host = app().ctx.gate_host(self.GateName)
+            argv = {
+                "player_id": self.user_id,
+                "player_nick_name": player_nick_name,
+                "gender": gender,
+                "appearance": appearance,
+                "novice_village": novice_village,
+            }
+            coro = forward_client_query_service(f"yunmeng_marsh_{line}", self.GateName, gate_host, self.ConnID, argv)
+            app().run_coroutine_async(coro)
+
+        except Exception as e:
+            import traceback
+            app().error(f"__on_create_character__ EXCEPTION: {e}-{traceback.format_exc()}")
         rsp.rsp()
         
     async def __select_character_callback__(self, rsp:login_select_character_rsp, player_id:str):
@@ -83,7 +89,8 @@ class LoginCharacterCallback(player):
             if zone_info_str is not None and zone_info_str != "":
                 zone_info = json.loads(zone_info_str)
                 argv =  {"player_id":player_id}
-                forward_client_query_service(f"{zone_info['zone']}_{zone_info['line']}", self.GateName, gate_host, self.ConnID, argv)
+                await forward_client_query_service(
+                    f"{zone_info['zone']}_{zone_info['line']}", self.GateName, gate_host, self.ConnID, argv)
             else:
                 rsp.err(error_code.undefined_player_id)
                 return
