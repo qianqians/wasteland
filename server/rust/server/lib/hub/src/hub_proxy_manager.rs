@@ -59,6 +59,7 @@ pub async fn entry_direct_hub_server(
         _hub_name.clone(), 
         _hub_host, 
         _conn_msg_handle.clone(), 
+        _conn_mgr.clone(),
         _close.clone()).await
     {
         let _hubproxy = Arc::new(Mutex::new(HubProxy::new(_wr_arc)));
@@ -123,6 +124,7 @@ pub async fn entry_hub_service(
                 service.id.clone(), 
                 format!("{}:{}", service.addr, service.port), 
                 _conn_msg_handle.clone(), 
+                _conn_mgr.clone(),
                 _close.clone()).await
             {
                 let _hubproxy = Arc::new(Mutex::new(HubProxy::new(_wr_arc)));

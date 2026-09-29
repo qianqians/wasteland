@@ -230,6 +230,7 @@ impl HubServer {
                 _gate_name.clone(), 
                 gate_host, 
                 self.conn_msg_handle.clone(), 
+                self.conn_mgr.clone(),
                 self.close.clone()).await 
             {
                 let _wr_arc_clone = wr.clone();
