@@ -39,6 +39,8 @@ class player(ABC, base_entity):
 
         app().player_mgr.add_player(self)
 
+        app().trace("player __init__ end!")
+
     @abstractmethod
     def full_info(self) -> dict:
         pass

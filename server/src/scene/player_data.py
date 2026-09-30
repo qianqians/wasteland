@@ -17,8 +17,11 @@ from .data.bag_data import *
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
     def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
+        app().trace("player_data __init__ save begin!")
         save.__init__(self)
+        app().trace("player_data __init__ player begin!")
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
+        app().trace("player_data __init__ save&player end!")
 
         self.user_id = player_id
 
@@ -37,11 +40,15 @@ class player_data(save, player):
         self.battle_module.on_start_battle.append(lambda _, enemy_id : self.start_battle(enemy_id))
         self.battle_module.on_auto_battle.append(lambda rsp, entity_id, skill_id: self.on_auto_battle(rsp, entity_id, skill_id))
         self.battle_module.on_use_skill.append(lambda rsp, entity_id, skill_id, target: self.on_use_skill(rsp, entity_id, skill_id, target))
+        
+        app().trace("player_data __init__ player_module scene_module battle_module")
 
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
         self.gender = info["gender"]
         self.appearance = info["appearance"]
+
+        app().trace("player_data __init__ account_id player_nick_name gender appearance")
 
         self.attribute_data = attribute_data(self.user_id, info["attribute_data"])
         self.bag_data = bag_data(self.user_id, info["bag_data"], self.player_caller)
@@ -60,7 +67,9 @@ class player_data(save, player):
         self.partner_data = partner_data(self.user_id, info.get("partner_data", {}))
         
         self.equip_data = equip_data(self.user_id, info.get("equip_data", {}))
-        self.scene_data = scene_data(self.user_id, self.scene_caller, info.get("scene_data", {}))
+        self.scene_data = scene_data(self.user_id, info.get("scene_data", {}), self.scene_caller)
+        
+        app().trace("player_data __init__ data")
 
     def full_info(self) -> dict:
         return self.store()
@@ -184,9 +193,9 @@ class player_data(save, player):
             "gf_data": self.gf_data.info(),
         }
 
-    def create() -> dict:
-        _attribute_data = attribute_create()
-        _bag_data = bag_create()
+    def create(player_id:str) -> dict:
+        _attribute_data = attribute_create(player_id)
+        _bag_data = bag_create(player_id)
 
         return { 
             "player_id":str(uuid.uuid4()),

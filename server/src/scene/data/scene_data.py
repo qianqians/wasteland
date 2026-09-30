@@ -10,7 +10,7 @@ from ...helper import const
 from ..scene_map_data import scene_map as scene_map_data
 
 class scene_data:
-    def __init__(self, user_id:str, scene_caller:scene_ntf_client_caller, info:scene_postion):
+    def __init__(self, user_id:str, info:scene_postion, scene_caller:scene_ntf_client_caller):
         self.user_id = user_id
         
         self.speed = 24

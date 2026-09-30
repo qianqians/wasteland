@@ -8,7 +8,7 @@ from ...engine.scene_ntf_client_svr import *
 from .attribute_data import *
 
 class bag_data:
-    def __init__(self, user_id:str, info:dict, caller:player_ntf_client_caller):
+    def __init__(self, user_id:str, info:dict):
         self.user_id = user_id
         
         self.bag:dict[str, item] = {}
@@ -16,7 +16,7 @@ class bag_data:
             i = protcol_to_item(item)
             self.bag[i.item_id] = i
             
-        self.caller = caller
+        #self.caller = caller
 
     def info(self) -> dict:
         return { id: item_to_protcol(item) for id, item in self.bag.items() }
@@ -55,5 +55,5 @@ class bag_data:
     #    pkg_item:list[item] = [i for i in items if i != None]
     #    self.caller.drop(task_id, pkg_item, [i for i in self.bag.values() if i != None])
 
-def bag_create() -> bag_data:
-    return bag_data({})
+def bag_create(user_id:str) -> bag_data:
+    return bag_data(user_id, {})

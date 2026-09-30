@@ -14,10 +14,9 @@ from .scene import *
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
     try:
         player_id = client_info.get("player_id", str(uuid.uuid4()))
-        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data", player_data.create,
+        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data", lambda:player_data.create(player_id),
             lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, client_info, data)))
-        await app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), 
-            json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
+        app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
     except Exception as e:
         app().error(f"load_or_create_player Exception:{e}")
 
@@ -30,7 +29,9 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
         info["gender"] = client_info["gender"]
            
     if "scene_data" not in info:
+        app().trace("init scene_data novice_village begin!")
         novice_village = _service.get_novice_village(client_info["novice_village"])
+        app().trace(f"init scene_data novice_village:{novice_village} end!")
         if novice_village == None:
             app().error(f"Novice village not found for player={player_id} client_info={client_info}")
             return
@@ -38,10 +39,13 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
     #if "equip_data" not in info:
     #    info["equip_data"] = equip_create(client_info["gender"])
 
+    app().trace("create_player begin!")
     player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
+    app().trace("create_player add_player!")
     app().player_mgr.add_player(player)
+    app().trace("create_player create_main_remote_entity begin!")
     player.create_main_remote_entity()
-    app().trace("create_player create_main_remote_entity!")
+    app().trace("create_player create_main_remote_entity end!")
     
     scene_name = player.scene_data.scene_name
     scene_line = _service.line
