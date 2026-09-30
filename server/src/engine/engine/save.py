@@ -58,7 +58,7 @@ class save(ABC, base_dbproxy_handle):
             __dbproxy__.create_object(db, collection, data, 
                 lambda result : save.__creator_entity_callback__(result, db, collection, data))
             
-    async def load_or_create_entity(query:dict, db:str, collection:str, callback:Callable[[dict], None]):
+    async def load_or_create_entity(query:dict, db:str, collection:str, creator:Callable[[], dict], callback:Callable[[dict], None]):
         from .app import app
         while True:
             try:
@@ -67,7 +67,7 @@ class save(ABC, base_dbproxy_handle):
                 data = await __dbproxy__.get_object_one(db, collection, query)
                 app().trace(f"save load_or_create_entity begin! data:{data}")
                 if data == None:
-                    data = save.create()
+                    data = creator()
                     __dbproxy__.create_object(db, collection, data, 
                         lambda result : save.__creator_entity_callback__(result, db, collection, data))
                 callback(data)
@@ -75,11 +75,6 @@ class save(ABC, base_dbproxy_handle):
                 break
             except Exception as err:
                 app().error(f"save load_or_create_entity exception err:{err}")
-
-    @staticmethod
-    @abstractmethod
-    def create() -> dict:
-        pass
 
     @abstractmethod
     def store(self) -> dict:

@@ -14,7 +14,7 @@ from .scene import *
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
     try:
         player_id = client_info.get("player_id", str(uuid.uuid4()))
-        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data",
+        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data", player_data.create,
             lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, client_info, data)))
         await app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), 
             json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
