@@ -1,12 +1,12 @@
 from threading import Timer
 from collections.abc import Callable
-from enum import Enum
+from enum import *
 from .engine import *
 from .engine.msgpack import *
 
 # this enum code is codegen by geese codegen for python
 
-class error_code(Enum):
+class error_code(IntFlag):
     success = 0
     cannot_claimed = 1
     cannot_completed = 2
@@ -22,7 +22,7 @@ class error_code(Enum):
     not_in_spawn_point = 12
 
 
-class em_rarity(Enum):
+class em_rarity(IntFlag):
     common = 1
     rare = 2
     epic = 3
@@ -30,7 +30,7 @@ class em_rarity(Enum):
     myth = 5
 
 
-class em_equip_type(Enum):
+class em_equip_type(IntFlag):
     helmet = 1
     jacket = 2
     trousers = 3
@@ -42,7 +42,7 @@ class em_equip_type(Enum):
     bb_resist = 13
 
 
-class em_buff_type(Enum):
+class em_buff_type(IntFlag):
     em_seal_action = 1
     em_seal_skill = 2
     em_confuse_attack_all = 4
@@ -55,7 +55,7 @@ class em_buff_type(Enum):
     em_defense_ratio = 512
 
 
-class direction(Enum):
+class direction(IntFlag):
     none = 0
     up = 1
     down = 2
@@ -63,21 +63,21 @@ class direction(Enum):
     right = 8
 
 
-class skill_type(Enum):
+class skill_type(IntFlag):
     skill_change_abonus_attack = 1
     skill_change_abonus_magic = 2
     skill_add_buffer = 3
     skill_dispel_buffer = 4
 
 
-class em_task_state(Enum):
+class em_task_state(IntFlag):
     can_claimed = 1
     in_progress = 2
     can_completed = 3
     completed = 4
 
 
-class em_role_gender(Enum):
+class em_role_gender(IntFlag):
     em_role_gender_female = 0
     em_role_gender_male = 1
 

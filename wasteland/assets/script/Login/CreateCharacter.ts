@@ -5,7 +5,7 @@ import * as login_cli from '../ServerSDK/engine/login_cli'
 
 export class CreateCharacter {
     private gender: em_role_gender = em_role_gender.em_role_gender_female;
-    private appearance : string = "";
+    private appearance : string = "female0";
     private select_avatar: number = 0;
     private area: string = "map_skyland";
 
@@ -54,6 +54,7 @@ export class CreateCharacter {
                     this.sprite_frame[i].spriteFrame = this.selected_activate;
 
                     this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_Female_${i+1}/spriteFrame`, SpriteFrame);
+                    this.appearance = `female${i}`
                 }
                 else {                    
                     this.sprite_frame[this.select_avatar].spriteFrame = this.selected_normal;
@@ -61,6 +62,7 @@ export class CreateCharacter {
                     this.sprite_frame[i].spriteFrame = this.selected_activate;
 
                     this.sprite_role.spriteFrame = await BundleManager.Instance.LoadAssetFromBundle2<SpriteFrame>("create_character", `UI_characters_male_${i+1}/spriteFrame`, SpriteFrame);
+                    this.appearance = `male${i}`
                 }
             });
         }

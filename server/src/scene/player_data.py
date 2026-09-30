@@ -18,7 +18,7 @@ from .data.bag_data import *
 class player_data(save, player):
     def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
         app().trace("player_data __init__ save begin!")
-        save.__init__(self)
+        save.__init__(self, player_id)
         app().trace("player_data __init__ player begin!")
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
         app().trace("player_data __init__ save&player end!")
@@ -43,31 +43,37 @@ class player_data(save, player):
         
         app().trace("player_data __init__ player_module scene_module battle_module")
 
+        app().trace(f"player_data __init__ info:{info}")
         self.account_id = info["account_id"]
         self.player_nick_name = info["player_nick_name"]
         self.gender = info["gender"]
         self.appearance = info["appearance"]
-
         app().trace("player_data __init__ account_id player_nick_name gender appearance")
 
         self.attribute_data = attribute_data(self.user_id, info["attribute_data"])
-        self.bag_data = bag_data(self.user_id, info["bag_data"], self.player_caller)
+        self.bag_data = bag_data(self.user_id, info["bag_data"])
+        app().trace("player_data __init__ attribute_data bag_data!")
         
         from .data.task_data import task_data
-        self.task_data = task_data(self.user_id, info.get("task_data", {}), 
-            self.player_module, self.player_caller, self.skill_data, self.bag_data, self)
+        self.task_data = task_data(self.user_id, info.get("task_data", {}))
+        app().trace("player_data __init__ task_data!")
 
         from .data.gf_data import gf_data
         self.gf_data = gf_data(self.user_id, info.get("gf_data", {}))
+        app().trace("player_data __init__ gf_data!")
 
         from .data.bb_data import bb_data
         self.bb_data = bb_data(self.user_id, info.get("bb_data", {}))
+        app().trace("player_data __init__ bb_data!")
 
         from .data.partner_data import partner_data
         self.partner_data = partner_data(self.user_id, info.get("partner_data", {}))
+        app().trace("player_data __init__ partner_data!")
         
         self.equip_data = equip_data(self.user_id, info.get("equip_data", {}))
+        app().trace("player_data __init__ equip_data!")
         self.scene_data = scene_data(self.user_id, info.get("scene_data", {}), self.scene_caller)
+        app().trace("player_data __init__ scene_data!")
         
         app().trace("player_data __init__ data")
 

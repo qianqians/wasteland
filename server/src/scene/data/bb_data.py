@@ -7,8 +7,9 @@ class bb_data:
         self.user_id = user_id
 
         self.wait_bbs:list[bb] = []
-        for info in data["wait_bbs"]:
-            self.wait_bbs.append(protcol_to_bb(info))
+        if "wait_bbs" in data:
+            for info in data["wait_bbs"]:
+                self.wait_bbs.append(protcol_to_bb(info))
 
         self.curr_bb:list[bb] = []
         if "curr_bb" in data:

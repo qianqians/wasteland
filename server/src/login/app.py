@@ -35,9 +35,9 @@ class LoginEventHandle(login_event_handle):
         app().trace("LoginEventHandle __get_client_account_id__!")
         uuid_obj = await self.__get_dbproxy__().get_object_one(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid})
         if not uuid_obj:
-            return await self.__get_guid_handle__.gen()
+            return str(await self.__get_guid_handle__.gen())
         else:
-            return uuid_obj["GUID"]
+            return str(uuid_obj["GUID"])
 
     async def __login_wx__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         response = await wx_sdk.code2Session("xxxxxxxx", "xxxxxxxxxxxxxxxxx", sdk_uuid)
@@ -54,7 +54,7 @@ class LoginEventHandle(login_event_handle):
         account_id = await self.__get_client_account_id__(response["openid"])
         app().trace("LoginEventHandle on_login! account_id:{}".format(account_id))
 
-        _character = LoginCharacterCallback(self, account_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
+        _character = LoginCharacterCallback(self, account_id, new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
@@ -70,8 +70,7 @@ class LoginEventHandle(login_event_handle):
             return
 
         player_id = await self.__get_client_account_id__(response["player_id"])
-        _character = LoginCharacterCallback(self, 
-            player_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
+        _character = LoginCharacterCallback(self, player_id, new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
@@ -127,8 +126,7 @@ class LoginEventHandle(login_event_handle):
             return
 
         accound_id = await self.__get_client_account_id__(steamid)
-        _character = LoginCharacterCallback(self, 
-            accound_id, str(uuid.uuid4()), new_gate_name, new_conn_id, is_replace)
+        _character = LoginCharacterCallback(self, accound_id, new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()

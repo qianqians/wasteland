@@ -7,8 +7,9 @@ class partner_data:
         self.user_id = user_id
 
         self.wait_partners:list[partner] = []
-        for info in data["wait_partners"]:
-            self.wait_partners.append(protcol_to_partner(info))
+        if "wait_partners" in data:
+            for info in data["wait_partners"]:
+                self.wait_partners.append(protcol_to_partner(info))
 
         self.curr_partner:list[partner] = []
         if "curr_partner" in data:

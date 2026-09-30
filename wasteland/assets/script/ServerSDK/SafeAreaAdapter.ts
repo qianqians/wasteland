@@ -7,7 +7,7 @@ export class SafeAreaAdapter extends Component {
     public adaptRight: boolean = false;
     public adaptTop: boolean = false;
     public adaptBottom: boolean = false;
-    public sidePadding: number = 30;
+    public sidePadding: number = 45;
 
     private _resizeCallback: any = null;
 

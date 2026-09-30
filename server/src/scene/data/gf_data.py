@@ -5,23 +5,28 @@ class gf_data:
     def __init__(self, user_id:str, data:dict):
         self.user_id = user_id
 
+        curr_gf_id = None
+        if "curr_gf" in data:
+            curr_gf_id = data["curr_gf"]
+
         self.gfs:list[gongfa] = []
-        for gf in data["gfs"]:
-            _gongfa = gongfa()
-            _gongfa.gongfa_id = gf["gongfa_id"]
-            _gongfa.gongfa_level = gf["gongfa_level"]
-            _gongfa.rarity = gf["rarity"]
-            _gongfa.abonus = protcol_to_attribute(gf["abonus"])
-            _gongfa.skills = []
-        
-            for s in gf["skills"]:
-                _gongfa.skills.append(protcol_to_skill_info(s))
-            self.gfs.append(_gongfa)
+        if "gfs" in data:
+            for gf in data["gfs"]:
+                _gongfa = gongfa()
+                _gongfa.gongfa_id = gf["gongfa_id"]
+                _gongfa.gongfa_level = gf["gongfa_level"]
+                _gongfa.rarity = gf["rarity"]
+                _gongfa.abonus = protcol_to_attribute(gf["abonus"])
+                _gongfa.skills = []
+            
+                for s in gf["skills"]:
+                    _gongfa.skills.append(protcol_to_skill_info(s))
+                self.gfs.append(_gongfa)
 
-            if "curr_gf" in data:
-                if data["curr_gf"] == _gongfa.gongfa_id:
+                if curr_gf_id == _gongfa.gongfa_id:
                     self.curr_gf = _gongfa
-
+            
+                
     def curr_gf_info(self) -> dict:
         skills = []
         for s in self.curr_gf.skills:
