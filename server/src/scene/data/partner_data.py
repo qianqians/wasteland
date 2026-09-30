@@ -11,9 +11,10 @@ class partner_data:
             self.wait_partners.append(protcol_to_partner(info))
 
         self.curr_partner:list[partner] = []
-        for id in data["curr_partner"]:
-            for p in self.wait_partners:
-                if p.entity_id == id: self.curr_partner.append(p)
+        if "curr_partner" in data:
+            for id in data["curr_partner"]:
+                for p in self.wait_partners:
+                    if p.entity_id == id: self.curr_partner.append(p)
 
     def curr_info(self) -> list[str]:
         curr_partner = []

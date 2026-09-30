@@ -51,42 +51,34 @@ class save(ABC, base_dbproxy_handle):
         if not result:
             self.__updata_object_callback__(result)
 
-    def __creator_entity_callback__(self, result:bool, data):
+    def __creator_entity_callback__(result:bool, db:str, collection:str, data:dict):
+        from .app import app
         if not result:
-            self.__random_new_dbproxy__()
-            result = self.__get_dbproxy__().create_object(self.__db__, self.__collection__, data, 
-                lambda result : self.__creator_entity_callback__(result))
-            if not result:
-                self.__random_new_dbproxy__()
-                self.__creator_entity_callback__(result)
-
-    async def load_or_create_entity(query:dict, callback:Callable[[dict], None]):
+            __dbproxy__ = app().dbproxy_mgr.get_dbproxy()
+            __dbproxy__.create_object(db, collection, data, 
+                lambda result : save.__creator_entity_callback__(result, db, collection, data))
+            
+    async def load_or_create_entity(query:dict, db:str, collection:str, callback:Callable[[dict], None]):
+        from .app import app
         while True:
             try:
-                _new_obj = save()
-                data = await _new_obj.__get_dbproxy__().get_object_one(_new_obj.__db__, _new_obj.__collection__, query)
+                app().trace("save load_or_create_entity begin! _new_obj")
+                __dbproxy__ = app().dbproxy_mgr.get_dbproxy()
+                data = await __dbproxy__.get_object_one(db, collection, query)
+                app().trace(f"save load_or_create_entity begin! data:{data}")
                 if data == None:
                     data = save.create()
-                    _new_obj.__query__ = query
-                    result = _new_obj.__get_dbproxy__().create_object(_new_obj.__db__, _new_obj.__collection__, data, 
-                        lambda result : _new_obj.__creator_entity_callback__(result))
-                    if not result:
-                        _new_obj.__creator_entity_callback__(result)
+                    __dbproxy__.create_object(db, collection, data, 
+                        lambda result : save.__creator_entity_callback__(result, db, collection, data))
                 callback(data)
+                app().trace("save load_or_create_entity end!")
+                break
             except Exception as err:
-                from .app import app
-                app().error("save load_or_create_entity exception dbproxy:{} __db__:{} __collection__:{}".format(
-                    _new_obj.__dbproxy__, _new_obj.__db__, _new_obj.__collection__))
-                _new_obj.__random_new_dbproxy__()
+                app().error(f"save load_or_create_entity exception err:{err}")
 
     @staticmethod
     @abstractmethod
     def create() -> dict:
-        pass
-
-    @staticmethod
-    @abstractmethod
-    def load(self, data:dict) -> save:
         pass
 
     @abstractmethod

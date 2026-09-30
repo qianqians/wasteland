@@ -28,8 +28,7 @@ class player_data(save, player):
         
         self.player_module = player_module(self)
         self.player_module.on_into_scene.append(
-            lambda rsp, scene_name, scene_line : 
-                app().run_coroutine_async(self.into_scene(rsp, scene_name, scene_line)))
+            lambda rsp, scene_name, scene_line : app().run_coroutine_async(self.into_scene(rsp, scene_name, scene_line)))
                 
         self.scene_module = scene_module(self)
         self.scene_module.on_move.append(lambda _, vertical_dir, pos: self.begin_move(vertical_dir, pos))
@@ -48,21 +47,20 @@ class player_data(save, player):
         self.bag_data = bag_data(self.user_id, info["bag_data"], self.player_caller)
         
         from .data.task_data import task_data
-        self.task_data = task_data(self.user_id, info["task_data"], 
-                                   self.player_module, self.player_caller, 
-                                   self.skill_data, self.bag_data, self)
+        self.task_data = task_data(self.user_id, info.get("task_data", {}), 
+            self.player_module, self.player_caller, self.skill_data, self.bag_data, self)
 
         from .data.gf_data import gf_data
-        self.gf_data = gf_data(self.user_id, info["gf_data"])
+        self.gf_data = gf_data(self.user_id, info.get("gf_data", {}))
 
         from .data.bb_data import bb_data
-        self.bb_data = bb_data(self.user_id, info["bb_data"])
+        self.bb_data = bb_data(self.user_id, info.get("bb_data", {}))
 
         from .data.partner_data import partner_data
-        self.partner_data = partner_data(self.user_id, info["partner_data"])
+        self.partner_data = partner_data(self.user_id, info.get("partner_data", {}))
         
-        self.equip_data = equip_data(self.user_id, info["equip_data"])
-        self.scene_data = scene_data(self.user_id, self.scene_caller, info["scene_data"])
+        self.equip_data = equip_data(self.user_id, info.get("equip_data", {}))
+        self.scene_data = scene_data(self.user_id, self.scene_caller, info.get("scene_data", {}))
 
     def full_info(self) -> dict:
         return self.store()
@@ -185,7 +183,7 @@ class player_data(save, player):
             "partner_data": self.partner_data.info(),
             "gf_data": self.gf_data.info(),
         }
-    
+
     def create() -> dict:
         _attribute_data = attribute_create()
         _bag_data = bag_create()

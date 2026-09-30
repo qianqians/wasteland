@@ -12,13 +12,18 @@ from .scene_map_data import *
 from .scene import *
 
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
-    player_id = client_info.get("player_id", str(uuid.uuid4()))
-    await player_data.load_or_create_entity({"player_id":player_id}, 
-        lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, client_info, data)))
-    await app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), 
-        json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
+    try:
+        player_id = client_info.get("player_id", str(uuid.uuid4()))
+        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data",
+            lambda data: app().run_coroutine_async(create_player(_service, gate_name, conn_id, player_id, client_info, data)))
+        await app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), 
+            json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
+    except Exception as e:
+        app().error(f"load_or_create_player Exception:{e}")
 
 async def create_player(_service:scene_service, gate_name:str, conn_id:str, player_id:str, client_info:dict, info:dict):
+    app().trace(f"create_player gate_name:{gate_name}, conn_id:{conn_id}, player_id:{player_id}")
+
     if "account_id" in client_info:
         info["account_id"] = client_info["account_id"]
         info["player_nick_name"] = client_info["player_nick_name"]
@@ -36,6 +41,7 @@ async def create_player(_service:scene_service, gate_name:str, conn_id:str, play
     player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
     app().player_mgr.add_player(player)
     player.create_main_remote_entity()
+    app().trace("create_player create_main_remote_entity!")
     
     scene_name = player.scene_data.scene_name
     scene_line = _service.line

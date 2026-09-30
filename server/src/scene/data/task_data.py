@@ -15,6 +15,5 @@ def is_cross_day_simple(timestamp):
     return date1 != date2
 
 class task_data:
-    def __init__(self, user_id:str, info:dict, 
-                 module:player_module, caller:player_ntf_client_caller, bag_data:bag_data, player_data:player_data):
+    def __init__(self, user_id:str, info:dict, module:player_module, caller:player_ntf_client_caller, bag_data:bag_data, player_data:player_data):
         self.user_id = user_id

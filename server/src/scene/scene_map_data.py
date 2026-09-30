@@ -34,7 +34,7 @@ def __map_primitive_data__(scene_name:str) -> scene_map:
     _map:scene_map = scene_map()
     _map["spawn_point"] = []
 
-    with open(f"./map/{scene_name}.tmj") as fjson:
+    with open(f"./src/scene/map/{scene_name}.tmj") as fjson:
         map_info_table = json.load(fjson)
 
         _map_size = map_info_table["width"] * map_info_table["height"]

@@ -13,11 +13,14 @@ class gf_data:
             _gongfa.rarity = gf["rarity"]
             _gongfa.abonus = protcol_to_attribute(gf["abonus"])
             _gongfa.skills = []
+        
             for s in gf["skills"]:
                 _gongfa.skills.append(protcol_to_skill_info(s))
             self.gfs.append(_gongfa)
-            if data["curr_gf"] == _gongfa.gongfa_id:
-                self.curr_gf = _gongfa
+
+            if "curr_gf" in data:
+                if data["curr_gf"] == _gongfa.gongfa_id:
+                    self.curr_gf = _gongfa
 
     def curr_gf_info(self) -> dict:
         skills = []

@@ -11,9 +11,10 @@ class bb_data:
             self.wait_bbs.append(protcol_to_bb(info))
 
         self.curr_bb:list[bb] = []
-        for id in data["curr_bb"]:
-            for b in self.wait_bbs:
-                if b.entity_id == id: self.curr_bb.append(b)
+        if "curr_bb" in data:
+            for id in data["curr_bb"]:
+                for b in self.wait_bbs:
+                    if b.entity_id == id: self.curr_bb.append(b)
 
     def curr_info(self) -> list[str]:
         curr_bb = []
