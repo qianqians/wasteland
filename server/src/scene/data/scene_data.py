@@ -131,6 +131,8 @@ class scene_data:
         return False
 
     def __ntf_move__(self):
+        if self.postion.dir == direction.none:
+            return
         self.scene_caller.move(self.postion)
 
     def __clear_postion__(self):

@@ -76,13 +76,20 @@ class LoginCharacterCallback(player):
         gate_info_str = await app().redis_proxy.get(const.PlayerGateInfoKey.format(player_id))
         if gate_info_str is not None and gate_info_str != "":
             gate_info = json.loads(gate_info_str)
-            self.handle.__replace_client__(
-                gate_info["gate"], 
-                gate_info["conn_id"], 
-                self.GateName, 
-                self.ConnID, 
-                self.is_replace, 
-                "Login at other terminal device!")
+            old_gate_name = gate_info.get("gate_name") or gate_info.get("gate") or ""
+            old_conn_id = gate_info.get("conn_id") or ""
+            if old_gate_name and old_conn_id:
+                self.handle.__replace_client__(
+                    old_gate_name, 
+                    old_conn_id, 
+                    self.GateName, 
+                    self.ConnID, 
+                    self.AccountID, # sdk_uuid
+                    {},           # argvs
+                    self.is_replace, 
+                    "Login at other terminal device!")
+            else:
+                app().warn(f"__select_character_callback__ invalid gate_info: {gate_info}")
         else:
             gate_host = app().ctx.gate_host(self.GateName)
             zone_info_str = await app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(player_id))

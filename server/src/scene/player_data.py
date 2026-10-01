@@ -202,7 +202,7 @@ class player_data(save, player):
 
         return { 
             "account_id": account_id,
-            "player_id":str(uuid.uuid4()),
+            "player_id": player_id,
             "level": 1,
             "attribute_data": _attribute_data.info(), 
             "bag_data": _bag_data.info(),

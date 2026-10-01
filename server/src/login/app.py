@@ -28,14 +28,16 @@ class LoginErrorCallback(player):
 class LoginEventHandle(login_event_handle):
     def __init__(self, db:str, collection:str):
         super().__init__(db, collection)
-        
         self.__get_guid_handle__ = get_guid("wasteland", "account_uuid")
 
     async def __get_client_account_id__(self, sdk_uuid:str) -> str:
         app().trace("LoginEventHandle __get_client_account_id__!")
         uuid_obj = await self.__get_dbproxy__().get_object_one(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid})
         if not uuid_obj:
-            return str(await self.__get_guid_handle__.gen())
+            account_id = str(await self.__get_guid_handle__.gen())
+            self.__get_dbproxy__().create_object(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid, "GUID":account_id},
+                lambda: app().trace(f"LoginEventHandle.__get_client_account_id__ account_id:{account_id} sdk_uuid:{sdk_uuid}"))
+            return account_id
         else:
             return str(uuid_obj["GUID"])
 
