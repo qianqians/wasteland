@@ -17,12 +17,9 @@ from .data.bag_data import *
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
     def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
-        app().trace("player_data __init__ save begin!")
         save.__init__(self, player_id)
-        app().trace("player_data __init__ player begin!")
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
-        app().trace("player_data __init__ save&player end!")
-
+        
         self.user_id = player_id
 
         self.player_caller = player_ntf_client_caller(self)
@@ -199,11 +196,12 @@ class player_data(save, player):
             "gf_data": self.gf_data.info(),
         }
 
-    def create(player_id:str) -> dict:
+    def create(account_id:str, player_id:str) -> dict:
         _attribute_data = attribute_create(player_id)
         _bag_data = bag_create(player_id)
 
         return { 
+            "account_id": account_id,
             "player_id":str(uuid.uuid4()),
             "level": 1,
             "attribute_data": _attribute_data.info(), 
