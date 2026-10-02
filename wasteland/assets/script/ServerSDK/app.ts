@@ -54,10 +54,10 @@ class WSChannel extends engine.channel {
             this.client.send(data);
         }
     }
-    
+
     public on_recv(recv:(data:Uint8Array) => void) {
         if (this.client) {
-            this.client.onmessage = (evt) =>{ 
+            this.client.onmessage = (evt) =>{
                 if (Buffer.isBuffer(evt.data)) {
                     recv(new Uint8Array(evt.data));
                 }
@@ -71,7 +71,7 @@ class WSChannel extends engine.channel {
         }
     }
 }
-   
+
 class WSContext extends engine.context {
     public constructor() {
         super();
@@ -137,10 +137,10 @@ export class new_driver extends Component {
             }
 
             this._loading.OnLoadingDone = () => {
-                
+
             };
         }
-        
+
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
             let entity = await LoginCallback.Creator(entity_id, this._loading, this._loadPage, description);
@@ -162,8 +162,10 @@ export class new_driver extends Component {
             this._curr_node.destroy();
             this._curr_node = null;
         }
-        this._curr_node = node;
-        this._curr_node.parent = this.node;
+        if (node != null) {
+            this._curr_node = node;
+            this._curr_node.parent = this.node;
+        }
     }
 
     update(deltaTime: number) {

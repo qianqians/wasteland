@@ -12,19 +12,16 @@ class LoginErrorCallback(player):
     def __init__(self, entity_id: str, gate_name: str, conn_id: str, prompt:str):
         player.__init__(self, "login", "LoginErrorCallback", entity_id, gate_name, conn_id, False)
         self.Prompt = prompt
-        
+
     def full_info(self) -> dict:
         return {"Prompt":self.Prompt}
 
     def hub_info(self) -> dict:
         return {}
-    
+
     def client_info(self) -> dict:
         return self.full_info()
-    
-    def on_migrate_to_other_hub(self, migrate_hub:str):
-        pass
-    
+
 class LoginEventHandle(login_event_handle):
     def __init__(self, db:str, collection:str):
         super().__init__(db, collection)
@@ -36,49 +33,55 @@ class LoginEventHandle(login_event_handle):
         if not uuid_obj:
             account_id = str(await self.__get_guid_handle__.gen())
             self.__get_dbproxy__().create_object(self.__db__, self.__collection__, {"SDK_UUID":sdk_uuid, "GUID":account_id},
-                lambda: app().trace(f"LoginEventHandle.__get_client_account_id__ account_id:{account_id} sdk_uuid:{sdk_uuid}"))
+                lambda result: app().trace(f"LoginEventHandle.__get_client_account_id__ result:{result} account_id:{account_id} sdk_uuid:{sdk_uuid}"))
             return account_id
         else:
             return str(uuid_obj["GUID"])
 
     async def __login_wx__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
-        response = await wx_sdk.code2Session("xxxxxxxx", "xxxxxxxxxxxxxxxxx", sdk_uuid)
-        if response == None:
-            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
+        try:
+            response = await wx_sdk.code2Session("xxxxxxxx", "xxxxxxxxxxxxxxxxx", sdk_uuid)
+            if response == None:
+                _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
+                _p.create_main_remote_entity()
+                return
+
+            if "errcode" in response and response["errcode"] != 0:
+                _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, response["errmsg"])
+                _p.create_main_remote_entity()
+                return
+
+            account_id = await self.__get_client_account_id__(response["openid"])
+            app().trace(f"LoginEventHandle on_login! account_id:{account_id}")
+
+            _character = LoginCharacterCallback(self, account_id, new_gate_name, new_conn_id, is_replace)
+            await _character.init()
+            app().trace("LoginEventHandle player_mgr.add_player begin!")
+            app().player_mgr.add_player(_character)
+            app().trace("LoginEventHandle create_main_remote_entity begin!")
+            _character.create_main_remote_entity()
+            app().trace("LoginEventHandle on_login success!")
+        except Exception as e:
+            app().trace(f"LoginEventHandle on_login faild! {e}")
+            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, str(e))
             _p.create_main_remote_entity()
-            return
-
-        if "errcode" in response and response["errcode"] != 0:
-            _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, response["errmsg"])
-            _p.create_main_remote_entity()
-            return
-
-        account_id = await self.__get_client_account_id__(response["openid"])
-        app().trace("LoginEventHandle on_login! account_id:{}".format(account_id))
-
-        _character = LoginCharacterCallback(self, account_id, new_gate_name, new_conn_id, is_replace)
-        await _character.init()
-        app().player_mgr.add_player(_character)
-        _character.create_main_remote_entity()
-
-        app().trace("LoginEventHandle on_login success!")
 
     async def __login_google__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
         app().trace("LoginEventHandle on_login!")
-        response = await google_sdk.verify_google_play_player("xxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxx", sdk_uuid)
+        response = google_sdk.verify_google_play_player("xxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxx", sdk_uuid)
         if response == None:
             _p = LoginErrorCallback(str(uuid.uuid4()), new_gate_name, new_conn_id, "network error")
             _p.create_main_remote_entity()
             return
 
-        player_id = await self.__get_client_account_id__(response["player_id"])
+        player_id = await self.__get_client_account_id__(str(response["player_id"]))
         _character = LoginCharacterCallback(self, player_id, new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
 
     async def __login_steam__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool):
-        response = await steam_sdk.code2Session(self.AppID, self.Secret, sdk_uuid)
+        response = await steam_sdk.code2Session("xxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxx", sdk_uuid)
         error = None
         steamid = None
         while True:
@@ -115,11 +118,11 @@ class LoginEventHandle(login_event_handle):
             if publisherbanned:
                 error = "player is be publisherbanned"
                 break
-            
+
             steamid = params.get("steamid")
             if steamid == None:
                 error = "steamid is none"
-            
+
             break
 
         if error != None:
@@ -127,12 +130,12 @@ class LoginEventHandle(login_event_handle):
             _p.create_main_remote_entity()
             return
 
-        accound_id = await self.__get_client_account_id__(steamid)
+        accound_id = await self.__get_client_account_id__(str(steamid))
         _character = LoginCharacterCallback(self, accound_id, new_gate_name, new_conn_id, is_replace)
         await _character.init()
         app().player_mgr.add_player(_character)
         _character.create_main_remote_entity()
-        
+
     async def __login__(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, is_replace: bool, platform :login_svr.em_platform):
         import traceback
         try:
@@ -142,13 +145,13 @@ class LoginEventHandle(login_event_handle):
                 await self.__login_steam__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
             elif platform == login_svr.em_platform.EPlatformWXMiniGame:
                 await self.__login_wx__(new_gate_name, new_conn_id, sdk_uuid, is_replace)
-        except Exception as e:
-            app().error("LoginEventHandle on_login exception type:{} value:{}".format(type(e).__name__, repr(e)))
-            app().error("LoginEventHandle on_login traceback:{}".format(traceback.format_exc()))
+        except Exception as e: # noqa: BLE001
+            app().error(f"LoginEventHandle on_login exception type:{type(e).__name__} value:{e}")
+            app().error(f"LoginEventHandle on_login traceback:{traceback.format_exc()}")
 
     async def on_login(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         await self.__login__(new_gate_name, new_conn_id, sdk_uuid, False, login_svr.em_platform(argvs["em_platform"]))
-    
+
     async def on_reconnect(self, new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
         app().trace("LoginEventHandle on_reconnect!")
         await self.__login__(new_gate_name, new_conn_id, sdk_uuid, True, login_svr.em_platform(argvs["em_platform"]))
@@ -158,7 +161,7 @@ class PlayerEventHandle(player_event_handle):
         info = _player.full_info()
         app().redis_proxy.delete("sample:player_info:{}".format(info["accound_id"]))
         return info
-    
+
 def main(cfg_file:str):
     _app = app()
     _app.build(cfg_file)
@@ -166,6 +169,6 @@ def main(cfg_file:str):
     _app.build_login_service(LoginEventHandle("wasteland", "account"))
     _app.register_service("login")
     _app.run()
-    
+
 if __name__ == '__main__':
     main(sys.argv[1])

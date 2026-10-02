@@ -48,7 +48,7 @@ def verify_google_play_player(client_id:str, secret:str, server_auth_code: str):
 
     access_token = token_data.get("access_token")
 
-    player_data = get_player_profile(access_token)
+    player_data = get_player_profile(str(access_token))
     if not player_data:
         from .app import app
         app().error("Failed to retrieve Google Play player profile")

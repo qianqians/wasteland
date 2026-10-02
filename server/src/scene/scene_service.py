@@ -13,10 +13,9 @@ from .scene import *
 
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
     try:
-        account_id = client_info["account_id"]
         player_id = client_info.get("player_id", str(uuid.uuid4()))
-        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data", 
-            lambda:player_data.create(account_id, player_id),
+        await player_data.load_or_create_entity({"player_id":player_id}, "wasteland", "player_data",
+            lambda:player_data.create(client_info["account_id"], player_id),
             lambda data: create_player(_service, gate_name, conn_id, player_id, client_info, data))
         app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
     except Exception as e:
@@ -30,7 +29,7 @@ def create_player(_service:scene_service, gate_name:str, conn_id:str, player_id:
             info["player_nick_name"] = client_info["player_nick_name"]
             info["gender"] = client_info["gender"]
             info["appearance"] = client_info["appearance"]
-            
+
         if "scene_data" not in info:
             app().trace("init scene_data novice_village begin!")
             novice_village = _service.get_novice_village(client_info["novice_village"])
@@ -64,8 +63,8 @@ class scene_service(service):
 
         self.scenes:dict[str, scene] = {}
         for s in SceneInfos:
-            if s["area"] != area: continue  
-            scene_name = s["scene_name"]  
+            if s["area"] != area: continue
+            scene_name = s["scene_name"]
             load_scene_map(scene_name)
 
             _scene = scene(area, scene_name, scene_line)
@@ -96,7 +95,7 @@ class scene_service(service):
 
     def hub_query_service_entity(self, queryer_hub_name:str):
         pass
-    
+
     def client_query_service_entity(self, queryer_gate_name:str, queryer_client_conn_id:str, queryer_client_info:dict):
         app().info(f"client_query_service_entity begin! gate_name:{queryer_gate_name} client_conn_id:{queryer_client_conn_id}")
         app().run_coroutine_async(load_or_create_player(self, queryer_gate_name, queryer_client_conn_id, queryer_client_info))
