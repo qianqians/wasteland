@@ -1,5 +1,5 @@
 import { Node, Prefab, instantiate } from 'cc';
-import * as engine from '../ServerSDK/engine/engine' 
+import * as engine from '../ServerSDK/engine/engine'
 import * as login_cli from '../ServerSDK/engine/login_cli'
 import { BundleManager } from '../tools/BundleManager/BundleManager';
 import { CreateCharacter } from './CreateCharacter'
@@ -14,7 +14,7 @@ export class LoginCallback extends engine.player {
         super("LoginCallback", entity_id)
         this._login_caller = new login_cli.login_caller(this);
     }
-    
+
     public update_player(argvs: object) {
         console.log(`LoginCallback:${this.EntityID} update_player!`);
     }
@@ -31,16 +31,16 @@ export class LoginCallback extends engine.player {
         let c = description["Characters"] as Array<object>;
         if (c.length > 0) {
             impl._login_caller.select_character(c[0]["player_id"]).callBack(
-                async () => { 
-                    console.log(`LoginCallback login success!`) 
-                    await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
-                        [["role", true], ["map_skyland", true], ["map_stalactite_cave", true]]));                      
-                },
-                (_err) => { 
-                    console.log(`LoginCallback login _err:${_err}`) 
-                } 
-            ).timeout(1000, () => { 
-                console.log(`LoginCallback login timeout!`) 
+              async () => {
+                  try {
+                      console.log(`LoginCallback login success!`)
+                      await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
+                          [["role", true], ["map_skyland", true], ["map_stalactite_cave", true]]));
+                  } catch (e) {
+                      console.log(`LoginCallback login _err:${e}`)
+                  }
+            }).timeout(1000, () => {
+                console.log(`LoginCallback login timeout!`)
             });
         }
         else {

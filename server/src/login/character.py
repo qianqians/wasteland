@@ -84,7 +84,7 @@ class LoginCharacterCallback(player):
 
     async def __select_character_callback__(self, rsp:login_select_character_rsp, player_id:str):
         try:
-            gate_info_str = await app().redis_proxy.get(const.PlayerGateInfoKey.format(player_id))
+            gate_info_str = app().redis_proxy.get(const.PlayerGateInfoKey.format(player_id))
             if gate_info_str is not None and gate_info_str != "":
                 gate_info = json.loads(gate_info_str)
                 old_gate_name = gate_info.get("gate_name") or gate_info.get("gate") or ""
@@ -101,13 +101,15 @@ class LoginCharacterCallback(player):
                         "Login at other terminal device!")
                 else:
                     app().warn(f"__select_character_callback__ invalid gate_info: {gate_info}")
+                app().trace(f"__select_character_callback__ gate_info:{gate_info} {self.GateName} {self.ConnID}")
             else:
                 gate_host = app().ctx.gate_host(self.GateName)
-                zone_info_str = await app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(player_id))
+                zone_info_str = app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(player_id))
                 if zone_info_str is not None and zone_info_str != "":
                     zone_info = json.loads(zone_info_str)
                     argv =  { "player_id":player_id }
                     await forward_client_query_service(f"{zone_info['zone']}_{zone_info['line']}", self.GateName, gate_host, self.ConnID, argv)
+                    app().trace(f"__select_character_callback__ {zone_info['zone']}_{zone_info['line']} {self.GateName} {gate_host} {self.ConnID} {argv}")
                 else:
                     rsp.err(error_code.undefined_player_id)
                     return
