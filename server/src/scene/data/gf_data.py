@@ -5,6 +5,7 @@ class gf_data:
     def __init__(self, user_id:str, data:dict):
         self.user_id = user_id
 
+        self.curr_gf = None
         curr_gf_id = None
         if "curr_gf" in data:
             curr_gf_id = data["curr_gf"]

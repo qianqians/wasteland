@@ -16,11 +16,12 @@ from .data.bag_data import *
 
 @SaveDBDescribe("wasteland", "player_data")
 class player_data(save, player):
-    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
+    def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, query:dict, info:dict):
         save.__init__(self, player_id)
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
 
         self.user_id = player_id
+        self.__query__ = query
 
         self.player_caller = player_ntf_client_caller(self)
         self.scene_caller = scene_ntf_client_caller(self)
@@ -214,7 +215,7 @@ class player_data(save, player):
         }
 
     def set_online(self):
-        app().redis_proxy.set(const.PlayerIsOnlineKey.format(self.user_id), True, ex=3)
+        app().redis_proxy.set(const.PlayerIsOnlineKey.format(self.user_id), str(True), ex=3)
 
 def migrate_player(player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
     app().trace(f"migrate_player info:{info}")

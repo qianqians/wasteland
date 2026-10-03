@@ -34,7 +34,7 @@ class npc_accept_task_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_300a447a_63f4_3f9b_8d00_4f2be030e6f1 = [self.uuid_7e4c31a0_313b_3c28_9f20_cd1f7d3055d0]
+        _argv_300a447a_63f4_3f9b_8d00_4f2be030e6f1 = []
         _argv_300a447a_63f4_3f9b_8d00_4f2be030e6f1.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_300a447a_63f4_3f9b_8d00_4f2be030e6f1))
 
@@ -63,7 +63,7 @@ class npc_complete_task_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_24f1bbd4_24d5_33cf_82be_64a44d300cd8 = [self.uuid_6507b0c9_b813_3f14_b6c0_7438f86d2762]
+        _argv_24f1bbd4_24d5_33cf_82be_64a44d300cd8 = []
         _argv_24f1bbd4_24d5_33cf_82be_64a44d300cd8.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_24f1bbd4_24d5_33cf_82be_64a44d300cd8))
 
@@ -92,7 +92,7 @@ class npc_purchase_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b = [self.uuid_7568d2b1_b06e_3717_b134_86c92cb59185]
+        _argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b = []
         _argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_e0c7fe5d_7700_3643_ac3f_27cfc058984b))
 

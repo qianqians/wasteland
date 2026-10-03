@@ -30,7 +30,7 @@ class battle_auto_battle_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_c83b89ec_ce1c_31e7_964d_507d39716743 = [self.uuid_4ff4cfcd_f184_3844_99e8_28d9f69aa96b]
+        _argv_c83b89ec_ce1c_31e7_964d_507d39716743 = []
         _argv_c83b89ec_ce1c_31e7_964d_507d39716743.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_c83b89ec_ce1c_31e7_964d_507d39716743))
 
@@ -56,7 +56,7 @@ class battle_use_skill_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = [self.uuid_871186aa_104b_36ee_939d_9b8b1285e974]
+        _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe = []
         _argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_f54ecac1_af9c_3003_a2f2_ed93134bfdfe))
 

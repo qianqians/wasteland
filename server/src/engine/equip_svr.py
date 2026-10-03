@@ -34,7 +34,7 @@ class equip_wear_equip_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_29899057_23ab_3371_9bff_b3c5a5aec1a2 = [self.uuid_e550cefd_631b_3a7d_8213_26d1a550f222]
+        _argv_29899057_23ab_3371_9bff_b3c5a5aec1a2 = []
         _argv_29899057_23ab_3371_9bff_b3c5a5aec1a2.append(err)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_29899057_23ab_3371_9bff_b3c5a5aec1a2))
 

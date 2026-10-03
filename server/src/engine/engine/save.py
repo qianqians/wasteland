@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 from collections.abc import Callable
 from threading import Timer
 
+from engine.engine.app import app
+
 from .base_dbproxy_handle import base_dbproxy_handle
 from .dbproxy import DBExtensionError
 
@@ -46,7 +48,9 @@ class save(ABC, base_dbproxy_handle):
 
         self.__save_timer__ = None
         data = self.store()
-        result = self.__get_dbproxy__().updata_object(self.__db__, self.__collection__, self.__query__, data, False,
+        from .app import app
+        app().trace(f"save_entity entity_id:{self.entity_id} data:{data}")
+        result = self.__get_dbproxy__().updata_object(self.__db__, self.__collection__, self.__query__, data, True,
             lambda result : self.__updata_object_callback__(result))
         if not result:
             self.__updata_object_callback__(result)

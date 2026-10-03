@@ -37,7 +37,16 @@ class scene:
 
         self.__updates__:list[Callable[[], None]] = []
         self.__add_update__(lambda : [p.scene_data.update(self.scene_map_data) for p in self.players.values()])
-        self.__add_update__(lambda : [p.set_online() for p in self.players.values()])
+
+        self.__try_set_online()
+
+    def __try_set_online(self):
+        for player in self.players.values():
+            player.set_online()
+
+        __t__ = Timer(2.0, self.__try_set_online)
+        __t__.daemon = True
+        __t__.start()
 
     def __add_update__(self, update:Callable[[], None]):
         self.__updates__.append(update)

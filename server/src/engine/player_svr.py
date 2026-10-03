@@ -30,7 +30,7 @@ class player_into_scene_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_85dc3aca_241a_3c31_ae2e_37e652224427 = [self.uuid_d2a34ab1_53a9_3fc5_8118_c37d3db4e32b]
+        _argv_85dc3aca_241a_3c31_ae2e_37e652224427 = []
         _argv_85dc3aca_241a_3c31_ae2e_37e652224427.append(err_code)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_85dc3aca_241a_3c31_ae2e_37e652224427))
 
@@ -55,7 +55,7 @@ class player_talk_npc_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_88591603_b9dc_329d_b620_1069b44d5646 = [self.uuid_a740317b_1ecd_37e9_b3b1_b9b82e1343b6]
+        _argv_88591603_b9dc_329d_b620_1069b44d5646 = []
         _argv_88591603_b9dc_329d_b620_1069b44d5646.append(err_code)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_88591603_b9dc_329d_b620_1069b44d5646))
 

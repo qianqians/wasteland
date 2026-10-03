@@ -116,7 +116,7 @@ class LoginCharacterCallback(player):
                     return
         except Exception as e:
             app().error(f"__select_character_callback__ faild! {e}")
-        app().redis_proxy.set(const.PlayerIsOnlineKey.format(player_id), True)
+        app().redis_proxy.set(const.PlayerIsOnlineKey.format(player_id), str(True), ex=3)
         rsp.rsp()
 
     def __on_select_character__(self, rsp:login_select_character_rsp, player_id:str):

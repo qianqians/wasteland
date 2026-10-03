@@ -37,7 +37,7 @@ class login_create_character_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_b09e2393_3876_3f7c_be40_cdd789a21e87 = [self.uuid_977e3ac4_9de3_32e9_bb31_7ef800a9bf0a]
+        _argv_b09e2393_3876_3f7c_be40_cdd789a21e87 = []
         _argv_b09e2393_3876_3f7c_be40_cdd789a21e87.append(errCode)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_b09e2393_3876_3f7c_be40_cdd789a21e87))
 
@@ -62,7 +62,7 @@ class login_select_character_rsp(session):
             return
         self.is_rsp = True
 
-        _argv_6f89916d_93ec_3d09_b91d_511264985bc0 = [self.uuid_33ff4020_152d_3bc8_9c21_ef181a024292]
+        _argv_6f89916d_93ec_3d09_b91d_511264985bc0 = []
         _argv_6f89916d_93ec_3d09_b91d_511264985bc0.append(errCode)
         self.entity.call_client_response_error(self.source, self.conn_id, self.msg_cb_id, dumps(_argv_6f89916d_93ec_3d09_b91d_511264985bc0))
 
