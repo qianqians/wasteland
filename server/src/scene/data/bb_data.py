@@ -30,4 +30,4 @@ class bb_data:
         return wait_bbs
 
     def info(self) -> dict:
-        return { "wait_bbs": self.wait_info(), "curr_bb": self.curr_info() }
+        return { "user_id": self.user_id, "wait_bbs": self.wait_info(), "curr_bb": self.curr_info() }

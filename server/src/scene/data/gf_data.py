@@ -18,15 +18,15 @@ class gf_data:
                 _gongfa.rarity = gf["rarity"]
                 _gongfa.abonus = protcol_to_attribute(gf["abonus"])
                 _gongfa.skills = []
-            
+
                 for s in gf["skills"]:
                     _gongfa.skills.append(protcol_to_skill_info(s))
                 self.gfs.append(_gongfa)
 
                 if curr_gf_id == _gongfa.gongfa_id:
                     self.curr_gf = _gongfa
-            
-                
+
+
     def curr_gf_info(self) -> dict:
         skills = []
         for s in self.curr_gf.skills:
@@ -40,7 +40,7 @@ class gf_data:
             "skills": skills,
         }
 
-    def info(self) -> list[dict]:
+    def info(self) -> dict:
         data:list[dict] = []
         for d in self.gfs:
             skills = []
@@ -55,4 +55,7 @@ class gf_data:
                 "skills": skills,
             }
             data.append(_d)
-        return data
+        info =  { "user_id": self.user_id, "gfs":data }
+        if self.curr_gf:
+            info["curr_gf"] = self.curr_gf.gongfa_id
+        return info

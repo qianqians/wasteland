@@ -8,18 +8,18 @@ class equip:
 
     def data(self) -> equip_info:
         return self.equip
-    
+
     def info(self) -> dict:
         return equip_info_to_protcol(self.equip)
-    
+
     def type(self) -> em_equip_type:
         return self.equip.equip_type
-    
+
     def create(data:dict) -> equip:
         e = equip()
         e.equip = protcol_to_equip_info(data)
         return e
-    
+
     def load(info:equip_info):
         e = equip()
         e.equip = info
@@ -28,7 +28,7 @@ class equip:
 class equip_data:
     def __init__(self, user_id:str, data:dict):
         self.user_id = user_id
-        
+
         self.equips:dict[em_equip_type, equip] = {}
         for type, info in data.items():
             type = em_equip_type(int(type))
@@ -53,19 +53,19 @@ class equip_data:
             add_resist += equip.equip.abonus.resist
 
         return (add_hp, add_mp, add_speed, add_attack, add_defense, add_matk, add_resist)
-    
+
     def wear(self, equip:equip) -> equip:
         old = None
         if equip.type() in self.equips:
             old = self.equips[equip.type()]
         self.equips[equip.type()] = equip
         return old
-    
+
     def info(self) -> dict:
-        info = {}
+        equip_info = {}
         for type, equip in self.equips.items():
-            info[type] = equip.info()
-        return info
-    
+            equip_info[type] = equip.info()
+        return { "user_id": self.user_id, "equip": equip_info }
+
 #def equip_create(gender:int) -> equip_data:
 #    return equip_data({})

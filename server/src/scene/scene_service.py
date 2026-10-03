@@ -44,7 +44,7 @@ def create_player(_service:scene_service, gate_name:str, conn_id:str, player_id:
         player = player_data(_service.service_name, gate_name, conn_id, player_id, info)
         scene_name = player.scene_data.scene_name
         scene_line = _service.line
-        _scene = _service.scenes.get(f"{scene_name}", None)
+        _scene = _service.scenes.get(scene_name, None)
         if _scene != None:
             _scene.entry_scene(player)
             player.entry_scene(_scene)
@@ -52,6 +52,10 @@ def create_player(_service:scene_service, gate_name:str, conn_id:str, player_id:
             app().redis_proxy.set(const.PlayerZoneLineInfoKey.format(player_id), json.dumps({"zone":_service.area, "line":scene_line}))
         else:
             app().error(f"scene:{scene_name}_{scene_line} not found!")
+
+        if "account_id" in client_info:
+            player.save_entity()
+
     except Exception as e:
         app().error(f"create_player Exception:{e}")
 
@@ -71,6 +75,12 @@ class scene_service(service):
             _scene.novice_village = s["novice_villages"]
             _scene.spawn_point = s["spawn_point"]
             self.scenes[scene_name] = _scene
+
+    def leave_scene(self, player:player_data):
+        for _scene in self.scenes.values():
+            if _scene.scene_name == player.scene_data.scene_name:
+                _scene.leave_scene(player)
+                break
 
     def update(self):
         for _scene in self.scenes.values():

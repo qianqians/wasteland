@@ -84,8 +84,9 @@ class LoginCharacterCallback(player):
 
     async def __select_character_callback__(self, rsp:login_select_character_rsp, player_id:str):
         try:
+            isOnline = app().redis_proxy.get(const.PlayerIsOnlineKey.format(player_id))
             gate_info_str = app().redis_proxy.get(const.PlayerGateInfoKey.format(player_id))
-            if gate_info_str is not None and gate_info_str != "":
+            if isOnline and gate_info_str is not None and gate_info_str != "":
                 gate_info = json.loads(gate_info_str)
                 old_gate_name = gate_info.get("gate_name") or gate_info.get("gate") or ""
                 old_conn_id = gate_info.get("conn_id") or ""
@@ -115,6 +116,7 @@ class LoginCharacterCallback(player):
                     return
         except Exception as e:
             app().error(f"__select_character_callback__ faild! {e}")
+        app().redis_proxy.set(const.PlayerIsOnlineKey.format(player_id), True)
         rsp.rsp()
 
     def __on_select_character__(self, rsp:login_select_character_rsp, player_id:str):

@@ -11,7 +11,7 @@ from ..player_data import *
 def is_cross_day_simple(timestamp):
     date1 = datetime.fromtimestamp(timestamp).date()
     date2 = datetime.now().date()
-    
+
     return date1 != date2
 
 class task_data:
@@ -19,4 +19,4 @@ class task_data:
         self.user_id = user_id
 
     def info(self) -> dict:
-        return {}
+        return { "user_id": self.user_id }

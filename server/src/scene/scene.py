@@ -14,9 +14,9 @@ class scene:
         self.area = area
         self.scene_name = scene_name
         self.scene_line = scene_line
-        
+
         self.scene_map_data:scene_map = get_scene_map(scene_name)
-        
+
         self.group = group()
         self.players:dict[str, player_data] = {}
 
@@ -34,9 +34,10 @@ class scene:
         '''
 
         self.mobs:dict[str, mob] = {}
-                
+
         self.__updates__:list[Callable[[], None]] = []
         self.__add_update__(lambda : [p.scene_data.update(self.scene_map_data) for p in self.players.values()])
+        self.__add_update__(lambda : [p.set_online() for p in self.players.values()])
 
     def __add_update__(self, update:Callable[[], None]):
         self.__updates__.append(update)
@@ -52,9 +53,9 @@ class scene:
         self.group.join(player.entity_id, (player.client_gate_name, player.client_conn_id))
         self.group.create_remote_player(player)
         self.players[player.user_id] = player
-        
+
     def leave_scene(self, player:player_data):
-        self.players.pop(player.user_id)
+        del self.players[player.user_id]
 
         self.group.remove_player(player)
         self.group.leave((player.client_gate_name, player.client_conn_id))

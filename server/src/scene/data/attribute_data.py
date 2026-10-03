@@ -4,14 +4,14 @@ from ...engine.common_svr import *
 
 class attribute_data:
     def __init__(self, user_id:str, data:dict):
-        self.entity_id = user_id
+        self.user_id = user_id
 
         self.abonus = protcol_to_attribute(data)
         self.abonus.tmp_defense = 0
 
     def info(self) -> dict:
         return {
-            "id": self.entity_id,
+            "user_id": self.user_id,
             "hp": self.abonus.hp,
             "mp": self.abonus.mp,
             "max_hp": self.abonus.max_hp,
@@ -22,7 +22,7 @@ class attribute_data:
             "matk": self.abonus.matk,
             "resist": self.abonus.resist,
         }
-    
+
 def attribute_create(user_id:str) -> attribute_data:
     return attribute_data(user_id, {
         "hp": 100,

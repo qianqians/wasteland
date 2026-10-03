@@ -19,17 +19,17 @@ class player_data(save, player):
     def __init__(self, service_name:str, player_gate_name:str, player_conn_id:str, player_id:str, info:dict):
         save.__init__(self, player_id)
         player.__init__(self, service_name, "player_data", player_id, player_gate_name, player_conn_id, False)
-        
+
         self.user_id = player_id
 
         self.player_caller = player_ntf_client_caller(self)
         self.scene_caller = scene_ntf_client_caller(self)
         self.battle_caller = battle_ntf_client_caller(self)
-        
+
         self.player_module = player_module(self)
         self.player_module.on_into_scene.append(
             lambda rsp, scene_name, scene_line : app().run_coroutine_async(self.into_scene(rsp, scene_name, scene_line)))
-                
+
         self.scene_module = scene_module(self)
         self.scene_module.on_move.append(lambda _, vertical_dir, pos: self.begin_move(vertical_dir, pos))
 
@@ -37,7 +37,7 @@ class player_data(save, player):
         self.battle_module.on_start_battle.append(lambda _, enemy_id : self.start_battle(enemy_id))
         self.battle_module.on_auto_battle.append(lambda rsp, entity_id, skill_id: self.on_auto_battle(rsp, entity_id, skill_id))
         self.battle_module.on_use_skill.append(lambda rsp, entity_id, skill_id, target: self.on_use_skill(rsp, entity_id, skill_id, target))
-        
+
         app().trace("player_data __init__ player_module scene_module battle_module")
 
         app().trace(f"player_data __init__ info:{info}")
@@ -50,7 +50,7 @@ class player_data(save, player):
         self.attribute_data = attribute_data(self.user_id, info["attribute_data"])
         self.bag_data = bag_data(self.user_id, info["bag_data"])
         app().trace("player_data __init__ attribute_data bag_data!")
-        
+
         from .data.task_data import task_data
         self.task_data = task_data(self.user_id, info.get("task_data", {}))
         app().trace("player_data __init__ task_data!")
@@ -66,17 +66,17 @@ class player_data(save, player):
         from .data.partner_data import partner_data
         self.partner_data = partner_data(self.user_id, info.get("partner_data", {}))
         app().trace("player_data __init__ partner_data!")
-        
+
         self.equip_data = equip_data(self.user_id, info.get("equip_data", {}))
         app().trace("player_data __init__ equip_data!")
         self.scene_data = scene_data(self.user_id, info.get("scene_data", {}), self.scene_caller)
         app().trace("player_data __init__ scene_data!")
-        
+
         app().trace("player_data __init__ data")
 
     def full_info(self) -> dict:
         return self.store()
-    
+
     def hub_info(self) -> dict:
         return self.store()
 
@@ -112,7 +112,7 @@ class player_data(save, player):
         battle_team1.abonus = partner1.abonus
         battle_team1.skills = partner1.curr_gf.skills
         battle_team1.level = partner1.curr_gf.gongfa_level
-        
+
         info = battle_info()
         info.battle_team0 = battle_team0
         info.battle_team1 = battle_team1
@@ -122,7 +122,7 @@ class player_data(save, player):
         info.items = self.bag_data.bag.values()
         info.scene = self.scene.scene_name
         return info
-    
+
     def entry_scene(self, _scene:any):
         from .scene import scene
         self.scene:scene = cast(scene, _scene)
@@ -130,9 +130,9 @@ class player_data(save, player):
     def start_battle(self, enemy_id:int):
         from .battle import battle
         enemy = self.scene.players.get(enemy_id)
-        if enemy: 
+        if enemy:
             self.battle_handle = battle(self.scene, self, enemy, self.battle_info(), enemy.battle_info(), self.battle_module)
-        else: 
+        else:
             enemy = self.scene.mobs.get(enemy_id)
             if enemy:
                 self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)
@@ -144,12 +144,12 @@ class player_data(save, player):
     def on_use_skill(self, rsp:battle_use_skill_rsp, entity_id:str, skill_id: int, target:str):
         self.battle_handle.on_use_skill(entity_id, skill_id, target)
         rsp.rsp(self.battle_info())
-        
+
     def begin_move(self, vertical_dir:direction, pos:position_info):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir)
         if is_spawn:
             app().run_coroutine_async(self.__into_scene__(spawn_scene_name, self.scene_data.scene_line))
-        
+
     async def __into_scene__(self, scene_name:str, scene_line:int):
         self.scene.leave_scene(self)
         from .scene_service import scene_service
@@ -159,21 +159,21 @@ class player_data(save, player):
                 if _scene.scene_name == scene_name and _scene.scene_line == scene_line:
                     _scene.entry_scene(self)
                     self.scene = _scene
-                    return 
-        
+                    return
+
         migrate_hub = await app().ctx.entry_hub_service(f"{scene_name}_{scene_line}")
         await self.start_migrate_entity_initiative(migrate_hub)
-        
+
     async def into_scene(self, rsp:player_into_scene_rsp, scene_name:str, scene_line:int):
         scene_spawn_point = get_scene_spawn_point(self.scene_data.scene_name, self.scene_data.postion)
         if scene_spawn_point == None:
             rsp.err(error_code.not_in_spawn_point)
             return
-        
+
         self.scene_data.scene_name = scene_name
         self.scene_data.scene_line = scene_line
         self.scene_data.postion = scene_spawn_point["out_position"]
-        
+
         await self.__into_scene__(rsp, scene_name, scene_line)
         rsp.rsp()
 
@@ -181,15 +181,15 @@ class player_data(save, player):
         self.scene_caller.entity_refresh(dumps(self.client_info()))
 
     def store(self) -> dict:
-        return { 
-            "player_id": self.user_id, 
+        return {
+            "player_id": self.user_id,
             "account_id": self.account_id,
             "player_nick_name": self.player_nick_name,
             "gender": self.gender,
             "attribute_data": self.attribute_data.info(),
-            "equip_data": self.equip_data.info(), 
+            "equip_data": self.equip_data.info(),
             "scene_data": self.scene_data.info(),
-            "task_data": self.task_data.info(), 
+            "task_data": self.task_data.info(),
             "bag_data": self.bag_data.info(),
             "bb_data": self.bb_data.info(),
             "partner_data": self.partner_data.info(),
@@ -200,13 +200,21 @@ class player_data(save, player):
         _attribute_data = attribute_create(player_id)
         _bag_data = bag_create(player_id)
 
-        return { 
+        return {
             "account_id": account_id,
             "player_id": player_id,
             "level": 1,
-            "attribute_data": _attribute_data.info(), 
+            "attribute_data": _attribute_data.info(),
             "bag_data": _bag_data.info(),
+            "bb_data": {},
+            "equip_data": {},
+            "gf_data": {},
+            "partner_data": {},
+            "task_data": {}
         }
+
+    def set_online(self):
+        app().redis_proxy.set(const.PlayerIsOnlineKey.format(self.user_id), True, ex=3)
 
 def migrate_player(player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
     app().trace(f"migrate_player info:{info}")

@@ -30,4 +30,4 @@ class partner_data:
         return wait_partners
 
     def info(self) -> dict:
-        return { "wait_partners": self.wait_info(), "curr_partner": self.curr_info() }
+        return { "user_id": self.user_id, "wait_partners": self.wait_info(), "curr_partner": self.curr_info() }

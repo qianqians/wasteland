@@ -12,13 +12,13 @@ from ..scene_map_data import scene_map as scene_map_data
 class scene_data:
     def __init__(self, user_id:str, info:scene_postion, scene_caller:scene_ntf_client_caller):
         self.user_id = user_id
-        
+
         self.speed = 24
         self.climbing_speed = 16
         self.jump_speed = 32
         self.vertical_dir = direction.none
         self.up_time = 0
-        
+
         self.scene_name:str = info["scene_name"]
         self.scene_line:int = info["scene_line"]
         self.postion:position_info = position_info()
@@ -157,13 +157,14 @@ class scene_data:
             [is_spawn, spawn_scene_name] = self.__check_spawn_point__()
             if is_spawn:
                 return (True, spawn_scene_name)
-            
-        self.__clear_postion__()    
+
+        self.__clear_postion__()
         return (False, None)
 
     def info(self) -> dict:
-        return { 
-            "scene_name": self.scene_name, 
-            "scene_line": self.scene_line, 
-            "postion": position_info_to_protcol(self.postion) 
+        return {
+            "user_id": self.user_id,
+            "scene_name": self.scene_name,
+            "scene_line": self.scene_line,
+            "postion": position_info_to_protcol(self.postion)
         }
