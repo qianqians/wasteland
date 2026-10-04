@@ -90,7 +90,7 @@ class LoginCharacterCallback(player):
                 app().error(f"__on_create_character__ forward to {service_name} faild! account_id:{self.AccountID}")
                 self.__rsp_err__(rsp, error_code.undefined_player_id)
                 return
-
+            app().player_mgr.del_player(self.AccountID)
         except Exception as e:
             import traceback
             app().error(f"__on_create_character__ EXCEPTION: {e}-{traceback.format_exc()}")
@@ -136,6 +136,7 @@ class LoginCharacterCallback(player):
                     self.__rsp_err__(rsp, error_code.undefined_player_id)
                     return
                 app().trace(f"__select_character_callback__ {service_name} {self.GateName} {gate_host} {self.ConnID} {argv}")
+            app().player_mgr.del_player(self.AccountID)
         except Exception as e:
             app().error(f"__select_character_callback__ faild! {e}")
             self.__rsp_err__(rsp, error_code.undefined_player_id)

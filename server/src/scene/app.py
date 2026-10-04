@@ -13,6 +13,7 @@ class PlayerEventHandle(player_event_handle):
         self.__app__ = app()
 
     def player_offline(self, _player:player) -> dict:
+        self.__app__.trace(f"player_offline {_player.entity_id}")
         _scene_yunmeng_marsh_1 = self.__app__.service_mgr.get_service("yunmeng_marsh_1")
         _scene_yunmeng_marsh_1.leave_scene(_player)
         return _player.full_info()
