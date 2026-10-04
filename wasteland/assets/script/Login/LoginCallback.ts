@@ -10,6 +10,12 @@ export class LoginCallback extends engine.player {
     public CreateCharacter: CreateCharacter;
     public CreateCharacterNode: Node;
 
+    private _loading: Loading;
+    private _loadPage: Node;
+    private _select_retry: number = 0;
+    private static readonly max_select_retry = 5;
+    private static readonly select_retry_delay = 2000;
+
     public constructor(entity_id: string) {
         super("LoginCallback", entity_id)
         this._login_caller = new login_cli.login_caller(this);
@@ -28,20 +34,11 @@ export class LoginCallback extends engine.player {
     public static async Creator(entity_id: string, loading: Loading, loadPage: Node, description: object) {
         console.log(`LoginCallback:${entity_id}`);
         let impl = new LoginCallback(entity_id)
+        impl._loading = loading;
+        impl._loadPage = loadPage;
         let c = description["Characters"] as Array<object>;
         if (c.length > 0) {
-            impl._login_caller.select_character(c[0]["player_id"]).callBack(
-              async () => {
-                  try {
-                      console.log(`LoginCallback login success!`)
-                      await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
-                          [["role", true], ["map_skyland", true], ["map_stalactite_cave", true]]));
-                  } catch (e) {
-                      console.log(`LoginCallback login _err:${e}`)
-                  }
-            }).timeout(1000, () => {
-                console.log(`LoginCallback login timeout!`)
-            });
+            impl.select_character(c[0]["player_id"]);
         }
         else {
             await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
@@ -51,5 +48,46 @@ export class LoginCallback extends engine.player {
             await impl.create_character(createCharacterNode);
         }
         return impl
+    }
+
+    /**
+     * 选角请求。
+     *
+     * ⚠ 一定要传 err 回调：engine.player.handle_hub_response_error 里是
+     * `if (_call_handle && _call_handle._error)`，服务端回错误时如果这里没传，
+     * 既不回调也不删 callback，客户端就完全静默 —— 表现就是"失去响应"，
+     * 而服务端其实已经把错误码发过来了（比如 6 = undefined_player_id：
+     * 选角时场景服没在 consul 注册 / 查不到该角色的入场信息）。
+     */
+    public select_character(player_id: string) {
+        this._login_caller.select_character(player_id).callBack(
+            async () => {
+                try {
+                    this._select_retry = 0;
+                    console.log(`LoginCallback login success!`)
+                    await this._loading.StartLoading(this._loadPage, "Progress", new Map<string, boolean>(
+                        [["role", true], ["map_skyland", true], ["map_stalactite_cave", true]]));
+                } catch (e) {
+                    console.log(`LoginCallback login _err:${e}`)
+                }
+            },
+            (errCode: number) => {
+                console.log(`LoginCallback select_character err:${errCode}`)
+                this.__retry_select_character__(player_id, `err:${errCode}`)
+            }
+        ).timeout(1500, () => {
+            console.log(`LoginCallback login timeout!`)
+            this.__retry_select_character__(player_id, "timeout")
+        });
+    }
+
+    private __retry_select_character__(player_id: string, reason: string) {
+        if (this._select_retry >= LoginCallback.max_select_retry) {
+            console.log(`LoginCallback select_character 连续失败(${reason})，不再重试：多半是场景服没起来/没注册进 consul`)
+            return
+        }
+        this._select_retry++;
+        console.log(`LoginCallback select_character 第${this._select_retry}次重试(${reason})`)
+        setTimeout(() => this.select_character(player_id), LoginCallback.select_retry_delay);
     }
 }

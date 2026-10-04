@@ -14,6 +14,27 @@ from .scene import *
 async def load_or_create_player(_service:scene_service, gate_name:str, conn_id:str, client_info:dict):
     try:
         player_id = client_info.get("player_id", str(uuid.uuid4()))
+
+        # 换设备/重连正常走的是 gate 的 Transfer：旧 gate 把这条连接上的实体
+        # 用 TransferEntityControl 通知各个 hub，hub 再改绑 conn 并重下发实体。
+        # 但旧连接在 gate 上已经不存在时（客户端断开后短时间内重登很常见），
+        # gate 没有实体可转，只会回一个 TransferMsgEnd，场景服永远收不到通知，
+        # 新客户端就拿不到自己的实体（登录后一直没反应）。
+        # 所以这里按 player_id 兜一层：玩家还在场景里，就直接改绑到新连接并重下发实体。
+        _exist = app().player_mgr.get_player(player_id)
+        _scene = getattr(_exist, "scene", None) if _exist is not None else None
+        if _exist is not None and _scene is not None and _scene.players.get(_exist.user_id) is _exist:
+            if _exist.client_gate_name == gate_name and _exist.client_conn_id == conn_id:
+                app().trace(f"load_or_create_player already bind! player_id:{player_id} gate_name:{gate_name} conn_id:{conn_id}")
+                return
+            app().trace(f"load_or_create_player rebind! player_id:{player_id} old:{_exist.client_gate_name}/{_exist.client_conn_id} new:{gate_name}/{conn_id}")
+            # is_main=True / is_reconnect=False → 走 create_remote_entity，把实体重新下发给新连接；
+            # 同时会刷新心跳时间（player.on_transfer_conn），不会被"玩家心跳超时"立刻踢出场景。
+            app().player_mgr.update_player_conn(player_id, True, False, gate_name, conn_id)
+            app().redis_proxy.set(const.PlayerGateInfoKey.format(player_id), json.dumps({"gate_name":gate_name, "conn_id":conn_id}))
+            return
+
+        # 玩家不在场景里（或已经被心跳摘掉过）：走原来的读档/建号流程，会重新 entry_scene
         query = {"player_id":player_id}
         await player_data.load_or_create_entity(query, "wasteland", "player_data",
             lambda:player_data.create(client_info["account_id"], player_id),

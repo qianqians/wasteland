@@ -70,6 +70,41 @@ class LoginCharacterCallback(player):
         except Exception as e:
             app().error(f"__rsp_err__ faild! {e}")
 
+    def __schedule_forward_to_scene__(self, player_id:str, delay:float = 3.0):
+        """换设备/重连的兜底：延迟一小会儿把"重新进场景"的请求发给场景服。
+
+        正常路径是 gate 的 Transfer：旧 gate 把旧连接上的实体用 TransferEntityControl
+        通知各 hub。但如果旧连接在 gate 上已经没了（客户端刚断开就重登，很常见），
+        gate 的 transfers 为空 —— 它只回一个 TransferMsgEnd，场景服根本收不到通知，
+        新客户端就永远等不到自己的实体（表现就是"登录后没反应"）。
+        这里延迟 3 秒再 forward 一次；场景侧 load_or_create_player 是幂等的：
+        已经绑在这条连接上就直接返回，没绑上就改绑并重下发实体。
+        延迟取 3s 是为了让正常 Transfer 先落地，避免同一条连接收到两次 create。
+        """
+        try:
+            _t = Timer(delay, lambda : app().run_coroutine_async(self.__forward_to_scene__(player_id)))
+            _t.daemon = True
+            _t.start()
+        except Exception as e:
+            app().error(f"__schedule_forward_to_scene__ faild! {e}")
+
+    async def __forward_to_scene__(self, player_id:str):
+        try:
+            zone_info_str = app().redis_proxy.get(const.PlayerZoneLineInfoKey.format(player_id))
+            if zone_info_str is None or zone_info_str == "":
+                app().warn(f"__forward_to_scene__ no zone line info! player_id:{player_id}")
+                return
+            zone_info = json.loads(zone_info_str)
+            service_name = f"{zone_info['zone']}_{zone_info['line']}"
+            gate_host = app().ctx.gate_host(self.GateName)
+            argv = { "player_id":player_id }
+            if await forward_client_query_service(service_name, self.GateName, gate_host, self.ConnID, argv):
+                app().trace(f"__forward_to_scene__ ok! player_id:{player_id} service_name:{service_name} gate:{self.GateName} conn:{self.ConnID}")
+            else:
+                app().error(f"__forward_to_scene__ forward to {service_name} faild! player_id:{player_id}")
+        except Exception as e:
+            app().error(f"__forward_to_scene__ faild! {e}")
+
     def __on_create_character__(self, rsp:login_create_character_rsp, player_nick_name:str, gender:em_role_gender, appearance:str, novice_village:str):
         app().run_coroutine_async(self.__create_character_callback__(rsp, player_nick_name, gender, appearance, novice_village))
 
@@ -116,6 +151,10 @@ class LoginCharacterCallback(player):
                         {},           # argvs
                         self.is_replace,
                         "Login at other terminal device!")
+                    # 兜底：见 __schedule_forward_to_scene__ 的注释。
+                    # 旧连接在 gate 上已经消失时 Transfer 会变成空操作，
+                    # 场景服收不到任何通知，必须自己再推一次"重新进场景"。
+                    self.__schedule_forward_to_scene__(player_id)
                 else:
                     app().warn(f"__select_character_callback__ invalid gate_info: {gate_info}")
                 app().trace(f"__select_character_callback__ gate_info:{gate_info} {self.GateName} {self.ConnID}")

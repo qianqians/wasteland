@@ -275,7 +275,13 @@ class app(object):
         while self.__is_run__:
             start = time.time()
             try:
+                __conn_begin = time.time()
                 self.poll_conn_msg()
+                __conn_cost = time.time() - __conn_begin
+                if __conn_cost > 1.0:
+                    # 主循环里同步处理消息，任何一条消息处理超过 1s 都会把 tick 拖长，
+                    # 之前没有任何日志，排查"/health 变 503 被 consul 摘掉"时完全看不出是谁卡的。
+                    self.warn("poll_conn_msg slow cost:{0}", __conn_cost)
             except Exception as ex:
                 self.error("poll Exception:{0}", ex)
             if self.__physics_tick__ is not None:
@@ -315,7 +321,11 @@ class app(object):
                 # consul 随后就会摘掉这个 hub（表现为 entry_hub_service 'yunmeng_marsh_1'
                 # has no available instance!）。这里兜住，只打日志、不退出。
                 try:
+                    __update_begin = time.time()
                     update()
+                    __update_cost = time.time() - __update_begin
+                    if __update_cost > 1.0:
+                        self.warn("update slow cost:{0}", __update_cost)
                 except Exception as ex:
                     import traceback
                     self.error("poll update Exception:{0}\n{1}", ex, traceback.format_exc())
