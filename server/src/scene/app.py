@@ -23,8 +23,7 @@ def main(cfg_file:str):
     _app.build(cfg_file)
     _app.build_player_service(PlayerEventHandle())
 
-    _scene_yunmeng_marsh_1 = scene_service("yunmeng_marsh", 1)
-    _app.service_mgr.reg_service(_scene_yunmeng_marsh_1)
+    _app.service_mgr.reg_service(scene_service("yunmeng_marsh", 1))
 
     _app.register_migrate("player_data", lambda entity_id, main_gate_name, main_conn_id, gates, hubs, argvs :
         migrate_player(main_gate_name, main_conn_id, entity_id, gates, hubs, argvs))

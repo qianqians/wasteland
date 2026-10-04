@@ -23,6 +23,8 @@ class player_data(save, player):
         self.user_id = player_id
         self.__query__ = query
 
+        self.last_access_time = time.time()
+
         self.player_caller = player_ntf_client_caller(self)
         self.scene_caller = scene_ntf_client_caller(self)
         self.battle_caller = battle_ntf_client_caller(self)
@@ -137,19 +139,24 @@ class player_data(save, player):
             enemy = self.scene.mobs.get(enemy_id)
             if enemy:
                 self.battle_handle = battle(self.scene, self, None, self.battle_info(), enemy.battle_info(), self.battle_module)
+        self.last_access_time = time.time()
 
     def on_auto_battle(self, rsp:battle_auto_battle_rsp, entity_id:str, skill_id:int):
         self.battle_handle.on_auto_battle(entity_id, skill_id)
         rsp.rsp()
+        self.last_access_time = time.time()
 
     def on_use_skill(self, rsp:battle_use_skill_rsp, entity_id:str, skill_id: int, target:str):
         self.battle_handle.on_use_skill(entity_id, skill_id, target)
         rsp.rsp(self.battle_info())
+        self.last_access_time = time.time()
 
     def begin_move(self, vertical_dir:direction, pos:position_info):
         (is_spawn, spawn_scene_name) = self.scene_data.begin_move(vertical_dir)
         if is_spawn:
             app().run_coroutine_async(self.__into_scene__(spawn_scene_name, self.scene_data.scene_line))
+
+        self.last_access_time = time.time()
 
     async def __into_scene__(self, scene_name:str, scene_line:int):
         self.scene.leave_scene(self)
@@ -177,6 +184,8 @@ class player_data(save, player):
 
         await self.__into_scene__(rsp, scene_name, scene_line)
         rsp.rsp()
+
+        self.last_access_time = time.time()
 
     def refresh(self):
         self.scene_caller.entity_refresh(dumps(self.client_info()))

@@ -41,8 +41,15 @@ class scene:
         self.__try_set_online()
 
     def __try_set_online(self):
+        timeout_player = []
         for player in self.players.values():
-            player.set_online()
+            if time.time() - player.last_access_time > 10:
+                timeout_player.append(player)
+            else:
+                player.set_online()
+
+        for player in timeout_player:
+            self.leave_scene(player)
 
         __t__ = Timer(2.0, self.__try_set_online)
         __t__.daemon = True
