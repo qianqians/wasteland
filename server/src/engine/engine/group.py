@@ -108,6 +108,11 @@ class group(object):
         _p.create_main_remote_entity()
         
     def remove_player(self, _p:player):   
+        # 组里登记的如果已经不是这个实例（该 entity_id 已被新实例接管），不要再删，
+        # 否则会把新会话在 group 里的登记一起抹掉（新客户端从此收不到任何同步）。
+        if self.players.get(_p.entity_id) is not _p:
+            return
+
         gate_clients:list[str] = []
         for _, (gate_name, conn_id) in self.clients.items():
             if gate_name not in gate_clients:

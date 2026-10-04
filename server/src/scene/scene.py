@@ -71,6 +71,11 @@ class scene:
         self.players[player.user_id] = player
 
     def leave_scene(self, player:player_data):
+        # 该 player 实例可能已经被新实例取代（重新登录/掉线重连时 player_data 会重新构造），
+        # 老实例的离场不能把在册的新实例一起删掉，否则新客户端刚进来就被踢出场景。
+        if self.players.get(player.user_id) is not player:
+            return
+
         del self.players[player.user_id]
 
         self.group.remove_player(player)

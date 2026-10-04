@@ -5,10 +5,11 @@ from .pyhub import HubContext
 
 def transfer_timeout(new_gate_name:str, new_conn_id:str, sdk_uuid:str, argvs:dict):
     from .app import app
-    _t = app().ctx.transfer_timeout[new_conn_id]
-    if _t!= None:
-        app().ctx.transfer_timeout.pop(new_conn_id)
-        app().login_handle.reconnect(new_gate_name, new_conn_id, sdk_uuid, argvs)
+    _t = app().ctx.transfer_timeout.pop(new_conn_id, None)
+    if _t != None:
+        # reconnect 是协程：必须丢进事件循环执行。直接调用只会得到一个从未 await 的
+        # 协程对象（同时报 RuntimeWarning），超时兜底等于没做。
+        app().run_coroutine_async(app().login_handle.reconnect(new_gate_name, new_conn_id, sdk_uuid, argvs))
 
 class context(object):
     def __init__(self, cfg_file:str) -> None:

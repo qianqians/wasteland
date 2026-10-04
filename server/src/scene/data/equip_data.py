@@ -30,7 +30,10 @@ class equip_data:
         self.user_id = user_id
 
         self.equips:dict[em_equip_type, equip] = {}
-        for type, info in data.items():
+        # 存档里的结构是 info() 写出去的 {"user_id": ..., "equip": {type: equip_info}}，
+        # 这里必须遍历内层 "equip"，否则第一个 key "user_id" 会走到 int() 抛
+        # ValueError: invalid literal for int() with base 10: 'user_id'。
+        for type, info in data.get("equip", {}).items():
             type = em_equip_type(int(type))
             self.equips[type] = equip.create(info)
 

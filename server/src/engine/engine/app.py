@@ -310,7 +310,15 @@ class app(object):
             # 主循环一旦卡死，Rust 侧的 last_heartbeat 会超时，/health 即返回非 2xx。
             self.ctx.set_health_state(health_state)
             if update is not None:
-                update()
+                # 这一层以前没有 try/except：场景 tick（scene_service.update → scene.update →
+                # player_data.scene_data.update）里任何异常都会冒到 main，直接把整个场景进程打死，
+                # consul 随后就会摘掉这个 hub（表现为 entry_hub_service 'yunmeng_marsh_1'
+                # has no available instance!）。这里兜住，只打日志、不退出。
+                try:
+                    update()
+                except Exception as ex:
+                    import traceback
+                    self.error("poll update Exception:{0}\n{1}", ex, traceback.format_exc())
         self.save_mgr.for_each_entity(lambda entt: entt.save_entity())
             
     def run(self, update:Callable[[], None] = None):

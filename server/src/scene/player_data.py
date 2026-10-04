@@ -227,6 +227,12 @@ class player_data(save, player):
     def set_online(self):
         app().redis_proxy.set(const.PlayerIsOnlineKey.format(self.user_id), str(True), ex=3)
 
+    def on_transfer_conn(self, gate_name:str, conn_id:str):
+        # 换设备登录 / 掉线重连后刷新心跳时间：否则 __try_set_online 里的 10 秒超时
+        # 会在玩家刚被转移到新连接时把人踢出场景。
+        self.last_access_time = time.time()
+        app().trace(f"player_data on_transfer_conn player_id:{self.user_id} gate_name:{gate_name} conn_id:{conn_id}")
+
 def migrate_player(player_gate_name:str, player_conn_id:str, player_id:str, gates:list[str], hubs:list[str], info:dict) -> player_data:
     app().trace(f"migrate_player info:{info}")
     service_name = f"{info['scene_data']['scene_name']}_{info['scene_data']['scene_line']}"

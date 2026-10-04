@@ -21,43 +21,69 @@ class scene_data:
 
         self.scene_name:str = info["scene_name"]
         self.scene_line:int = info["scene_line"]
+        # 新角色走的是 get_novice_village() 的 {"pos": {...}}；老存档是 info() 里
+        # 笔误写成的 "postion"，两个 key 都兼容一下，否则读档 KeyError: 'pos'
+        pos = info.get("pos") or info.get("postion") or {}
         self.postion:position_info = position_info()
-        self.postion.x = info["pos"]["x"]
-        self.postion.y = info["pos"]["y"]
+        self.postion.x = pos.get("x", 0)
+        self.postion.y = pos.get("y", 0)
 
         self.scene_caller:scene_ntf_client_caller = scene_caller
         self.update_timestamp:float = time.time()
 
+    def __get_layer_element__(self, _scene_map_data:scene_map_data, layer:str, x_box, y_box):
+        """按格坐标取 layer 元素，越界当空格。
+
+        postion 是浮点数（speed * dt 累加），直接拿 postion.x/64 当下标会
+        TypeError: list indices must be integers or slices, not float；
+        而这个异常会从 update() 一路冒到 app.poll() 里没有 try 的 update() 调用，
+        直接把整个场景进程带崩 —— 表现就是 consul 里查不到 yunmeng_marsh_1。
+        """
+        x_box = int(x_box)
+        y_box = int(y_box)
+        if x_box < 0 or y_box < 0:
+            return em_map_element_property.em_map_empty
+        idx = y_box * _scene_map_data["map_width_box"] + x_box
+        _layer = _scene_map_data[layer]
+        if idx < 0 or idx >= len(_layer):
+            return em_map_element_property.em_map_empty
+        return _layer[idx]
+
+    def __get_postion_box__(self) -> tuple[int, int]:
+        return (int(self.postion.x // 64), int(self.postion.y // 64))
+
     def check_blocking_move(self, _scene_map_data:scene_map_data) -> bool:
-        y_box = self.postion.y/64
+        x_box, y_box = self.__get_postion_box__()
         if self.__check_direction__(direction.right):
-            blocking_element_forward = _scene_map_data["blockingLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64 + 1]
+            blocking_element_forward = self.__get_layer_element__(_scene_map_data, "blockingLayer", x_box + 1, y_box)
         elif self.__check_direction__(direction.left):
-            blocking_element_forward = _scene_map_data["blockingLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64 - 1]
+            blocking_element_forward = self.__get_layer_element__(_scene_map_data, "blockingLayer", x_box - 1, y_box)
+        else:
+            return False
         return blocking_element_forward == em_map_element_property.em_map_map
 
     def check_fall_off(self, _scene_map_data:scene_map_data) -> bool:
-        y_box = self.postion.y/64 - 1
-        element = _scene_map_data["moveLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64]
+        x_box, y_box = self.__get_postion_box__()
+        element = self.__get_layer_element__(_scene_map_data, "moveLayer", x_box, y_box - 1)
         return element == em_map_element_property.em_map_empty
 
     def check_stairs(self, _scene_map_data:scene_map_data) -> int:
-        y_box = self.postion.y/64
-        x_box = self.__check_direction__(direction.right) and 1 or self.__check_direction__(direction.left) and -1 or 0
-        element = _scene_map_data["stairsLayer"][(y_box+1)*_scene_map_data["map_width_box"] + self.postion.x/64 + x_box]
+        x_box, y_box = self.__get_postion_box__()
+        step = self.__check_direction__(direction.right) and 1 or self.__check_direction__(direction.left) and -1 or 0
+        element = self.__get_layer_element__(_scene_map_data, "stairsLayer", x_box + step, y_box + 1)
         if element == em_map_element_property.em_map_map:
-            return y_box+1
-        element = _scene_map_data["stairsLayer"][(y_box-1)*_scene_map_data["map_width_box"] + self.postion.x/64 + x_box]
+            return y_box + 1
+        element = self.__get_layer_element__(_scene_map_data, "stairsLayer", x_box + step, y_box - 1)
         if element == em_map_element_property.em_map_map:
-            return y_box-1
+            return y_box - 1
         return 0
 
     def check_move_climbing(self, _scene_map_data:scene_map_data, timeDetail:float):
         dir_y = self.__check_direction__(direction.up) and 1 or self.__check_direction__(direction.down) and -1 or 0
         if dir_y == 0:
             return
-        y_box = self.postion.y/64
-        element = _scene_map_data["climbingLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64]
+        x_box, y_box = self.__get_postion_box__()
+        element = self.__get_layer_element__(_scene_map_data, "climbingLayer", x_box, y_box)
         if element == em_map_element_property.em_map_map:
             self.postion.dir |= direction.up if dir_y > 0 else direction.down
             self.postion.y += self.climbing_speed * timeDetail * dir_y
@@ -72,18 +98,19 @@ class scene_data:
             self.postion.dir |= direction.up
 
     def check_move_down(self, _scene_map_data:scene_map_data, timeDetail:float):
-        y_box = self.postion.y/64 - 1
+        x_box, y_box = self.__get_postion_box__()
+        y_box -= 1
         if y_box < 0:
             self.postion.y = 0
             self.postion.dir &= ~direction.down
-        element = _scene_map_data["moveLayer"][y_box*_scene_map_data["map_width_box"] + self.postion.x/64]
+        element = self.__get_layer_element__(_scene_map_data, "moveLayer", x_box, y_box)
         if element == em_map_element_property.em_map_map:
             self.postion.y = y_box*64
             self.postion.dir &= ~direction.down
         else:
             can_down = False
-            for y in range(y_box):
-                element = _scene_map_data["moveLayer"][y*_scene_map_data["map_width_box"] + self.postion.x/64]
+            for y in range(max(y_box, 0)):
+                element = self.__get_layer_element__(_scene_map_data, "moveLayer", x_box, y)
                 can_down = element == em_map_element_property.em_map_map
                 if can_down: break
             if can_down:
@@ -107,7 +134,7 @@ class scene_data:
                 self.postion.dir |= direction.down
                 self.postion.y_speed = -self.jump_speed
             else:
-                stairs = self.check_stairs(_scene_map_data, dir_c)
+                stairs = self.check_stairs(_scene_map_data)
                 if stairs != 0:
                     self.postion.y += stairs*64
                 self.postion.x_speed = self.speed
@@ -118,7 +145,7 @@ class scene_data:
         self.check_move_climbing(_scene_map_data, timeDetail)
 
         if self.__check_direction__(direction.up):
-            self.check_move_up(_scene_map_data, timeDetail)
+            self.check_move_up(timeDetail)
         elif self.__check_direction__(direction.down):
             self.check_move_down(_scene_map_data, timeDetail)
 
@@ -166,5 +193,6 @@ class scene_data:
             "user_id": self.user_id,
             "scene_name": self.scene_name,
             "scene_line": self.scene_line,
-            "postion": position_info_to_protcol(self.postion)
+            # 原来这里写成 "postion"，跟 __init__ 里读的 "pos" 对不上（老存档靠上面的兼容读兜住）
+            "pos": position_info_to_protcol(self.postion)
         }
