@@ -49,8 +49,10 @@ class context(object):
     def check_connect_hub_server(self, hub_name:str) -> bool:
         return self.ctx.check_connect_hub_server(hub_name)
     
-    async def entry_gate_service(self, gate_name:str, gate_host:str):
-        return await self.ctx.entry_gate_service(gate_name, gate_host)
+    async def entry_gate_service(self, gate_name:str, gate_host:str = ""):
+        # 注意：Rust 侧签名是 entry_gate_service($self, gate_name)，gate_host 由引擎
+        # 自己从 redis host 缓存里取；多传一个参数会直接 TypeError。
+        return await self.ctx.entry_gate_service(gate_name)
     
     def gate_host(self, gate_name:str):
         return self.ctx.gate_host(gate_name)

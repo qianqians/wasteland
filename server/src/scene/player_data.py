@@ -187,6 +187,7 @@ class player_data(save, player):
             "account_id": self.account_id,
             "player_nick_name": self.player_nick_name,
             "gender": self.gender,
+            "appearance": self.appearance,
             "attribute_data": self.attribute_data.info(),
             "equip_data": self.equip_data.info(),
             "scene_data": self.scene_data.info(),
