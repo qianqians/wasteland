@@ -39,7 +39,7 @@ class dbproxy(object):
     def updata_object(self, db:str, collection:str, query:dict, update:dict, upsert:bool, callback:Callable[[bool],None]):
         callback_id = str(uuid.uuid4())
         self.__handle__.reg_updata_object_callback(callback_id, callback)
-        return self.__ctx__.update_object(self.__dbproxy_name__, db, collection, callback_id, encode(query), encode({"$set": update}), upsert)
+        return self.__ctx__.update_object(self.__dbproxy_name__, db, collection, callback_id, encode(query), encode(update), upsert)
 
     def find_and_modify(self, db:str, collection:str, query:dict, update:dict, new:bool, upsert:bool, callback:Callable[[dict],None]):
         callback_id = str(uuid.uuid4())

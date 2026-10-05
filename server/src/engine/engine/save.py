@@ -50,7 +50,7 @@ class save(ABC, base_dbproxy_handle):
         data = self.store()
         from .app import app
         app().trace(f"save_entity entity_id:{self.entity_id} data:{data}")
-        result = self.__get_dbproxy__().updata_object(self.__db__, self.__collection__, self.__query__, data, True,
+        result = self.__get_dbproxy__().updata_object(self.__db__, self.__collection__, self.__query__, {"$set": data}, True,
             lambda result : self.__updata_object_callback__(result))
         if not result:
             self.__updata_object_callback__(result)
