@@ -10,8 +10,6 @@ export class LoginCallback extends engine.player {
     public CreateCharacter: CreateCharacter;
     public CreateCharacterNode: Node;
 
-    private _loading: Loading;
-    private _loadPage: Node;
     private _select_retry: number = 0;
     private static readonly max_select_retry = 5;
     private static readonly select_retry_delay = 2000;
@@ -31,18 +29,14 @@ export class LoginCallback extends engine.player {
         await this.CreateCharacter.Init(node, this._login_caller);
     }
 
-    public static async Creator(entity_id: string, loading: Loading, loadPage: Node, description: object) {
+    public static async Creator(entity_id: string, description: object) {
         console.log(`LoginCallback:${entity_id}`);
-        let impl = new LoginCallback(entity_id)
-        impl._loading = loading;
-        impl._loadPage = loadPage;
+        let impl = new LoginCallback(entity_id);
         let c = description["Characters"] as Array<object>;
         if (c.length > 0) {
             impl.select_character(c[0]["player_id"]);
         }
         else {
-            await loading.StartLoading(loadPage, "Progress", new Map<string, boolean>(
-                [["role", true], ["map_skyland", true], ["map_stalactite_cave", true], ["create_character", true]]));
             let createCharacterPrefab = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("create_character", `LoginCharacter`, Prefab);
             let createCharacterNode = instantiate(createCharacterPrefab);
             await impl.create_character(createCharacterNode);
@@ -64,9 +58,6 @@ export class LoginCallback extends engine.player {
             async () => {
                 try {
                     this._select_retry = 0;
-                    console.log(`LoginCallback login success!`)
-                    await this._loading.StartLoading(this._loadPage, "Progress", new Map<string, boolean>(
-                        [["role", true], ["map_skyland", true], ["map_stalactite_cave", true]]));
                 } catch (e) {
                     console.log(`LoginCallback login _err:${e}`)
                 }

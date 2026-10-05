@@ -50,7 +50,7 @@ class scene_data:
         return _layer[idx]
 
     def __get_postion_box__(self) -> tuple[int, int]:
-        return (int(self.postion.x // 64), int(self.postion.y // 64))
+        return (int(self.postion.x / 64), int(self.postion.y / 64))
 
     def check_blocking_move(self, _scene_map_data:scene_map_data) -> bool:
         x_box, y_box = self.__get_postion_box__()

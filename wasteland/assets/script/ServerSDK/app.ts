@@ -5,8 +5,11 @@ import * as login from './engine/login_cli'
 import { LoginCallback } from '../Login/LoginCallback'
 import { SdkInterface, SetPlatform } from '../SDK/SdkInterface';
 import { Loading } from '../Loading/Loading';
+import { Player } from '../Scene/Player'
+import { PlayerScene } from '../Scene/PlayerScene'
 
 import buffer from 'buffer';
+import { BundleManager } from '../tools/BundleManager/BundleManager';
 const { Buffer } = buffer;
 if (typeof window !== 'undefined') {
     (window as any).Buffer = Buffer;
@@ -91,6 +94,7 @@ export class new_driver extends Component {
     private _curr_node: Node;
     private _loading: Loading;
     private _loadPage: Node;
+    private _wait_loading: Promise<void> = null;
 
     @property({ type: CCInteger, tooltip: "Platform Type" })
     platform: login.em_platform = login.em_platform.EPlatformWXMiniGame;
@@ -120,7 +124,7 @@ export class new_driver extends Component {
         this._app.on_conn = async () => {
             this._loadPage = this.node.getChildByPath("login");
             this._loading = new Loading();
-
+            
             console.log(`on_conn callback! platform:${this.platform} == EPlatformWXMiniGame:${login.em_platform.EPlatformWXMiniGame}`);
             if (sys.isNative && sys.os === sys.OS.ANDROID) {
                 native.reflection.callStaticMethod(
@@ -133,23 +137,40 @@ export class new_driver extends Component {
                 this._SDK.login((code:string) => {
                     console.log(`WxSdk login success! Code: ${code}`);
                     this.sendAuthCodeToGameServer(code);
+                    
+                    this._wait_loading = this._loading.StartLoading(this._loadPage, "Progress", new Map<string, boolean>(
+                        [["role", true], ["map_skyland", true], ["map_stalactite_cave", true], ["create_character", true]]));
                 });
             }
 
             this._loading.OnLoadingDone = () => {
-
             };
         }
 
         this._app.register("LoginCharacterCallback", async (entity_id: string, description: object) => {
             console.log(`new_driver register LoginCharacterCallback! entity_id:${entity_id} description:${JSON.stringify(description)}`);
-            let entity = await LoginCallback.Creator(entity_id, this._loading, this._loadPage, description);
+            await this._wait_loading;
+            let entity = await LoginCallback.Creator(entity_id, description);
             this.updateLastNode(entity.CreateCharacterNode);
             return entity;
         });
         this._app.register("player_data", async (entity_id: string, description: object) => {
             console.log(`into game`)
-            //this.updateLastNode();
+            
+            let p = new Player(entity_id, description);
+            let scenePrefab:Prefab = null;
+            if (p.scene.scene_name == "map_skyland") {
+                scenePrefab = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("map_skyland", `skyland`, Prefab);
+            }
+            let sceneNode = instantiate(scenePrefab);        
+            this.updateLastNode(sceneNode);
+
+            let playerPrefab = await BundleManager.Instance.LoadAssetFromBundle2<Prefab>("role", "protagonist_female", Prefab);
+            let playerNode = instantiate(playerPrefab);
+            playerNode.setParent(sceneNode);
+            playerNode.setPosition(p.scene.scene_data.x, p.scene.scene_data.y);
+
+            return p;
         });
 
         director.addPersistRootNode(this.node);
@@ -164,7 +185,7 @@ export class new_driver extends Component {
         }
         if (node != null) {
             this._curr_node = node;
-            this._curr_node.parent = this.node;
+            this._curr_node.setParent(this.node);
         }
     }
 
